@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Week 1:　オリエンテーション、R(Studio)のインストールと操作、R Markdown | 言語統計処理（春学期）</title>
+  <meta name="description" content="Chapter 2 Week 1:　オリエンテーション、R(Studio)のインストールと操作、R Markdown | 言語統計処理（春学期）" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Week 1:　オリエンテーション、R(Studio)のインストールと操作、R Markdown | 言語統計処理（春学期）" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Week 1:　オリエンテーション、R(Studio)のインストールと操作、R Markdown | 言語統計処理（春学期）" />
+  
+  
+  
+
+<meta name="author" content="寺井雅人（Masato Terai）" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="cross.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">言語統計処理_春学期</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> url: your book url like https://bookdown.org/yihui/bookdown</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#講義概要"><i class="fa fa-check"></i><b>1.1</b> 講義概要</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#講義スケジュール"><i class="fa fa-check"></i><b>1.2</b> 講義スケジュール</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#成績評価について"><i class="fa fa-check"></i><b>1.3</b> 成績評価について</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><i class="fa fa-check"></i><b>2</b> Week 1:　オリエンテーション、R(Studio)のインストールと操作、R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#とーけいしょりとは"><i class="fa fa-check"></i><b>2.1</b> 「とーけいしょり」とは</a></li>
+<li class="chapter" data-level="2.2" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rとは"><i class="fa fa-check"></i><b>2.2</b> Rとは</a></li>
+<li class="chapter" data-level="2.3" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioとは"><i class="fa fa-check"></i><b>2.3</b> RStudioとは</a></li>
+<li class="chapter" data-level="2.4" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#r-rstudioのインストール"><i class="fa fa-check"></i><b>2.4</b> R + RStudioのインストール</a></li>
+<li class="chapter" data-level="2.5" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioのカスタマイズ"><i class="fa fa-check"></i><b>2.5</b> RStudioのカスタマイズ</a></li>
+<li class="chapter" data-level="2.6" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#チュートリアル"><i class="fa fa-check"></i><b>2.6</b> チュートリアル</a></li>
+<li class="chapter" data-level="2.7" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#r-markdown入門"><i class="fa fa-check"></i><b>2.7</b> R Markdown入門</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#r-markdownとは"><i class="fa fa-check"></i><b>2.7.1</b> R Markdownとは</a></li>
+<li class="chapter" data-level="2.7.2" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#入力のルール"><i class="fa fa-check"></i><b>2.7.2</b> 入力のルール</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#r-markdownでhtmlファイルを作成してみよう"><i class="fa fa-check"></i><b>2.8</b> R MarkdownでHTMLファイルを作成してみよう</a></li>
+<li class="chapter" data-level="2.9" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#次週までの課題"><i class="fa fa-check"></i><b>2.9</b> 次週までの課題</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#課題内容"><i class="fa fa-check"></i><b>2.9.1</b> 課題内容</a></li>
+<li class="chapter" data-level="2.9.2" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#提出方法"><i class="fa fa-check"></i><b>2.9.2</b> 提出方法</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#参考文献"><i class="fa fa-check"></i><b>2.10</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="cross.html"><a href="cross.html"><i class="fa fa-check"></i><b>3</b> Cross-references</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="cross.html"><a href="cross.html#chapters-and-sub-chapters"><i class="fa fa-check"></i><b>3.1</b> Chapters and sub-chapters</a></li>
+<li class="chapter" data-level="3.2" data-path="cross.html"><a href="cross.html#captioned-figures-and-tables"><i class="fa fa-check"></i><b>3.2</b> Captioned figures and tables</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="parts.html"><a href="parts.html"><i class="fa fa-check"></i><b>4</b> Parts</a></li>
+<li class="chapter" data-level="5" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>5</b> Footnotes and citations</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#footnotes"><i class="fa fa-check"></i><b>5.1</b> Footnotes</a></li>
+<li class="chapter" data-level="5.2" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#citations"><i class="fa fa-check"></i><b>5.2</b> Citations</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="blocks.html"><a href="blocks.html"><i class="fa fa-check"></i><b>6</b> Blocks</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="blocks.html"><a href="blocks.html#equations"><i class="fa fa-check"></i><b>6.1</b> Equations</a></li>
+<li class="chapter" data-level="6.2" data-path="blocks.html"><a href="blocks.html#theorems-and-proofs"><i class="fa fa-check"></i><b>6.2</b> Theorems and proofs</a></li>
+<li class="chapter" data-level="6.3" data-path="blocks.html"><a href="blocks.html#callout-blocks"><i class="fa fa-check"></i><b>6.3</b> Callout blocks</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>7</b> Sharing your book</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="sharing-your-book.html"><a href="sharing-your-book.html#publishing"><i class="fa fa-check"></i><b>7.1</b> Publishing</a></li>
+<li class="chapter" data-level="7.2" data-path="sharing-your-book.html"><a href="sharing-your-book.html#pages"><i class="fa fa-check"></i><b>7.2</b> 404 pages</a></li>
+<li class="chapter" data-level="7.3" data-path="sharing-your-book.html"><a href="sharing-your-book.html#metadata-for-sharing"><i class="fa fa-check"></i><b>7.3</b> Metadata for sharing</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">言語統計処理（春学期）</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="week-1-オリエンテーションrstudioのインストールと操作r-markdown" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Week 1:　オリエンテーション、R(Studio)のインストールと操作、R Markdown<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#week-1-オリエンテーションrstudioのインストールと操作r-markdown" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="とーけいしょりとは" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> 「とーけいしょり」とは<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#とーけいしょりとは" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>本講義のタイトルにもある「統計処理」は、<u>研究の目的などに応じて得られたデータをまとめたり、可視化したり解析する行為<u/>を指します。言語に関する研究の手法は大きく分けて以下の2つがある。</p>
+<ol style="list-style-type: decimal">
+<li>量的研究（ quantitative research ）</li>
+</ol>
+<ul>
+<li>数量を用いて分析。一般化が目的。「仮説検証型」。</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>質的研究（ qualitative research ）</li>
+</ol>
+<ul>
+<li>数量化せずに分析。一般化は目的ではない。「仮説生成型」。</li>
+</ul></li>
+</ul>
+<p>　寺井は量的な研究しか行ってきていないため、本講義では量的な研究を行うことを念頭に統計処理の方法について講義を行う。しかし、それらが質的研究と全く関連がないわけではない（もし質的な研究に関心がある受講生の方がいたら、関連すると思う点を教えてください）。</p>
+</div>
+<div id="rとは" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Rとは<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rとは" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="rstudioとは" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> RStudioとは<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioとは" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="r-rstudioのインストール" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> R + RStudioのインストール<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#r-rstudioのインストール" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="rstudioのカスタマイズ" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> RStudioのカスタマイズ<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioのカスタマイズ" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p><a href="https://qiita.com/masato-terai/items/4200f3817972fede2dd2">RStudioの設定変更【見た目】</a></p>
+<ul>
+<li>文字のサイズを大きくしたり、背景の色を変更することが可能</li>
+<li>その他にも、()の色分けをしてくれたりなど分析の補助になる機能もある</li>
+</ul></li>
+</ul>
+</div>
+<div id="チュートリアル" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> チュートリアル<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#チュートリアル" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="r-markdown入門" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> R Markdown入門<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#r-markdown入門" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="r-markdownとは" class="section level3 hasAnchor" number="2.7.1">
+<h3><span class="header-section-number">2.7.1</span> R Markdownとは<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#r-markdownとは" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="入力のルール" class="section level3 hasAnchor" number="2.7.2">
+<h3><span class="header-section-number">2.7.2</span> 入力のルール<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#入力のルール" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="r-markdownでhtmlファイルを作成してみよう" class="section level2 hasAnchor" number="2.8">
+<h2><span class="header-section-number">2.8</span> R MarkdownでHTMLファイルを作成してみよう<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#r-markdownでhtmlファイルを作成してみよう" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="次週までの課題" class="section level2 hasAnchor" number="2.9">
+<h2><span class="header-section-number">2.9</span> 次週までの課題<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#次週までの課題" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="課題内容" class="section level3 hasAnchor" number="2.9.1">
+<h3><span class="header-section-number">2.9.1</span> 課題内容<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#課題内容" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>自己紹介の文を考える。以下の2項目を必ず入れてください。外部に公開してもいい情報だけを入れてください！</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><p>名前、出身、研究科、自分の研究したいことを二文くらいでまとめる。</p></li>
+<li><p>R chunk内で以下の計算をする</p></li>
+</ol>
+<ul>
+<li>(ここに計算の項目を載せる)</li>
+</ul>
+</div>
+<div id="提出方法" class="section level3 hasAnchor" number="2.9.2">
+<h3><span class="header-section-number">2.9.2</span> 提出方法<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#提出方法" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>メールにファイルを添付して送信。</li>
+<li>締め切りは今週の木曜日まで</li>
+</ul>
+</div>
+</div>
+<div id="参考文献" class="section level2 hasAnchor" number="2.10">
+<h2><span class="header-section-number">2.10</span> 参考文献<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#参考文献" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>📚外国語教育ハンドブック</li>
+<li>💻[RStudioの設定変更【見た目】]</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="cross.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/01-week1.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
