@@ -1,0 +1,62 @@
+--- 
+title: "言語統計処理（春学期）"
+author: "寺井雅人（Masato Terai）"
+date: "Published:2025-02-03, Last update(JST): `r format(Sys.time(), '%Y-%m-%d %X')`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+---
+
+# About
+
+　この資料は、名古屋大学大学院人文学研究科の学生を対象に開講されている言語統計処理（春学期）で使用する資料です。配布する際は、事前に作成者の寺井雅人までご連絡いただければ幸いです（[Researchmap](https://researchmap.jp/terai-research)）。<br>
+　この資料は、適宜修正、アップデート行う予定です。ファイルの最終更新日を確認するようにしてください。
+
+## 講義概要
+
+　この授業では，受講者が15回の授業終了時に，以下の知識・能力を身につけていることを目標とする。
+
+
+1. 統計処理の手続きに関する知識
+
+2. 分析結果を適切に解釈し、説明する能力
+
+3. プログラム言語(R)を用いた統計処理能力
+
+4. 統計理論の数学・概念的知識
+
+- 注
+  - <u> **毎回の講義で必ずRStudioがインストールされているパソコンを持参してください。** </u>
+  - <u> **講義内容、講義スケジュールは講義の進度等によって変更する可能性があります。** </u>
+
+## 講義スケジュール
+- Week 1：オリエンテーション、R(Studio)のインストールと操作、R Markdown
+- Week 2：要約統計量
+- Week 3：区間推定
+- Week 4：統計的検定の論理
+- Week 5：*t* 検定
+- Week 6：分散分析
+- Week 7：多元配置分散分析
+- Week 8：相関分析
+- Week 9：効果量
+- Week 10：単回帰分析
+- Week 11：重回帰分析
+- Week 12：一般化線形混合効果モデル
+- Week 13：ノンパラメトリック検定
+- Week 14：tidyverseパッケージによるデータの加工と描画
+- Week 15：言語研究とオープンサイエンス
+
+## 成績評価について
+- 小テスト（20%）、演習課題（40%）、レポート試験（40%）
+  - 上記の各評価100点満点に換算し、それらを合計した得点が60点以上を合格とする。A+（100-95）、A（94-80）、B（79-70）、C（69-65）、C-（64-60）、F（59-0）
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
