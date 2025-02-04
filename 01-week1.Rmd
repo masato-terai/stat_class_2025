@@ -5,7 +5,6 @@
 ## RStudioとは
 
 ## R + RStudioのインストール
-All chapters start with a first-level heading followed by your chapter title, like the line above. There should be only one first-level heading (`#`) per .Rmd file.
 
 ## チュートリアル
 
@@ -15,3 +14,6 @@ All chapters start with a first-level heading followed by your chapter title, li
 ## R MarkdownでHTMLファイルを作成してみよう
 
 ## 次週までの課題
+
+
+## 参考文献
