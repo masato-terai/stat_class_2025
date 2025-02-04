@@ -10,11 +10,13 @@ week-1
 rとは
 rstudioとは
 r-rstudioのインストール
+rstudioのカスタマイズ
 チュートリアル
 r-markdown入門
 r-markdownとは
 r-markdownでhtmlファイルを作成してみよう
 次週までの課題
+参考文献
 cross
 chapters-and-sub-chapters
 captioned-figures-and-tables
@@ -31,5 +33,8 @@ publishing
 pages
 metadata-for-sharing
 url-your-book-url-like-httpsbookdown.orgyihuibookdown
-rstudioのカスタマイズ
-参考文献
+入力のルール
+課題内容
+提出方法
+week-1-オリエンテーションrstudioのインストールと操作r-markdown
+とーけいしょりとは
