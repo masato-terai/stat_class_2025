@@ -6,6 +6,9 @@
 
 ## R + RStudioのインストール
 
+## RStudioのカスタマイズ
+- [RStudioの設定変更【見た目】](https://qiita.com/masato-terai/items/4200f3817972fede2dd2)
+
 ## チュートリアル
 
 ## R Markdown入門
