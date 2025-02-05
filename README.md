@@ -1,13 +1,12 @@
-Welcome! 
+# <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="28">Teaching Material for Statistics in Language Science
+Hello! I am Masato Terai from Aichi University of Technology.
 
-This is a minimal example of a book based on R Markdown and **bookdown** (https://github.com/rstudio/bookdown). 
+This repository contains materials for a lecture in the Humanities Department of the Graduate School at Nagoya University.
 
-This template provides a skeleton file structure that you can edit to create your book. 
+# Contact Information
+If you have any questions, please feel free to contact me:
 
-The contents inside the .Rmd files provide some pointers to help you get started, but feel free to also delete the content in each file and start fresh.
+Name: [Masato Terai]<br>
+email: [terai.research[at]gmail.com]<br>
+X: [https://x.com/uniquefreshman]<br>
 
-Additional resources:
-
-The **bookdown** book: https://bookdown.org/yihui/bookdown/
-
-The **bookdown** package reference site: https://pkgs.rstudio.com/bookdown
