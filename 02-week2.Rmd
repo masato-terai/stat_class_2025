@@ -60,11 +60,13 @@
 ## ハンズオンセッション
 
 ### Rの基本用語
-- 変数：どんなデータも格納できる箱。箱には必ず名前を付ける。**名前は英数字のみを入れること。**また、命名には規則がある。
+
+#### 変数
+- どんなデータも格納できる箱。箱には必ず名前を付ける。**名前は英数字のみを入れること。**また、命名には規則がある。
 
   - 名前の先頭に数字（e.g., 1hako）や記号（e.g., %hako）は使用できない
   - 大文字と小文字は区別される（Hakoとhakoは別の変数として認識される）
-
+  
 ::: infobox
 プログラミングの世界では、以下の二つの命名の流儀がある。
 
@@ -74,7 +76,29 @@
 自由に箱（変数）に名前を付けてよいが、できるだけ自分の中で一貫したルールを持ち、第三者が見ても何が格納されているか分かりやすい名前を付けることを意識する。
 :::
 
-- データの型：「いちたすに」と「1 + 2」はコンピュータにとっては別もの
+- 変数に入れたデータは、［Environment］タブに表示される。
+
+- 変数の中身が数値の場合、数値を足したりかけたりなど計算ができる。
+
+  - numという名前の変数に1から10の数字を入れ、それらを2倍した
+
+```{r}
+num <- 1:10
+
+num
+
+num * 2
+```
+
+- 変数の中身は上書きすることもできる
+
+```{r}
+num <- num * 2
+```
+
+
+#### データの型
+- 「いちたすに」と「1 + 2」はコンピュータにとっては別もの
 
   - 実数型（numeric）：数値全般（e.g., 10.4）
   - 整数型（integer）：整数のみ（e.g., 10）
@@ -92,10 +116,51 @@ dat <- factor(dat, levels = c(4:1))
 str(dat)
 
 ```
+
+#### 関数
+- パッケージに含まれている、命令を実行するのに必要なもの。```data.frame()```のような文字列とかっこの組み合わせ。かっこの中にデータを格納する。
+    
+    - 数学の関数とイメージしてもよい。例えば、Y\ =\ 2x という関数は、xを2倍する関数。入れたデータが2倍されて返ってくる。
+
+  - 使う際は呼び出す必要があり、Rのセッションが切れるまでは何回も呼び出す必要はない。Rに標準で備わっているものは呼び出す必要はない（base関数という）。
   
-- 関数
+    - 下の例では、```plot()```関数で変数の中身を描画している
+  
+```{r}
 
+dat.2 <- 1:10
 
+plot(dat.2)
+```
+  - ```help(関数名)```やウェブサイトで調べると、使い方を確認することができる。
+  
+  
+#### ベクトル
+- データのまとまり
+
+  - ```c()```関数で作成可能。連続する数値であれば、```:```でもOK
+
+```{r}
+numVector1 <- c(1, 35, 90, 0.9)
+numVector2 <- c(1, 35, 90, 9)
+chVector <- c("いちご", "strawberry", "イチゴ")
+numchVector <- c("イチゴ", 1000, "みかん", "500")
+```
+
+- 変数に何かを入れたら、必ず中身を確認する！
+```{r}
+numVector1
+numVector2
+chVector
+numchVector
+```
+- データの型がどうなっているかを確認。確認する関数は様々なものがある。[Environment]タブでも表示されている。
+```{r}
+class(numVector1)
+str(numVector2)
+typeof(chVector)
+mode(numchVector)
+```
 ### データを読み込む
 
 - 研究では、ファイルに格納されたデータに対して分析を行う。データ基本的にxlsx、csv、txtという拡張子のファイルに格納されていることが多い（最近ではオンラインでのデータ収集によってJSON形式もよく見るようになりました）。
@@ -126,9 +191,153 @@ str(dat)
 dat <- read.csv()
 ```
 
-- 行と列の区別がかなり重要
+
+### データフレーム
+
+- 行（横）と列（縦）からなる、ベクトルのかたまり
+
+  - 数値、文字、因子など様々なベクトルを格納するデータ。データ分析のデータは基本的にこの型を指す。
+
+- 読み込んだデータは基本的にデータフレームであるが、ベクトルから```data.frame()```関数で作成することもできる。  
+
+```{r}
+fruit_df <- data.frame(
+  name = c("イチゴ", "みかん"),
+  price = c(100, 150)
+)
+```
+
+- 数値は行の番号を指し、データには含まれない。
+```{r}
+fruit_df
+```
+
 
 ### 要約統計量の算出
+#### 各統計量ごと
+
+
+```{r}
+# 合計 (sum)
+sum(mtcars$mpg)
+
+# 平均 (mean)
+mean(mtcars$mpg)
+
+# 中央値 (median)
+median(mtcars$mpg)
+
+# 最頻値 (mode) ※最頻値は複数ある場合があるため table() を使用
+table_mpg <- table(mtcars$mpg)
+mode_mpg <- as.numeric(names(table_mpg)[table_mpg == max(table_mpg)])
+mode_mpg  # 最も頻度の高い値を表示
+
+# 最大値 (max)
+max(mtcars$mpg)
+
+# 最小値 (min)
+min(mtcars$mpg)
+
+# 標本分散 (var)
+var(mtcars$mpg)
+
+# 標本標準偏差 (sd)
+sd(mtcars$mpg)
+
+# （最大 - 最小）
+range_mpg <- range(mtcars$mpg)
+wide_mpg <- diff(range_mpg)
+wide_mpg  # 範囲を表示
+
+# 尖度 (kurtosis) ※"moments" パッケージを使用
+#install.packages("moments")  # 初回のみ
+library(moments)
+kurtosis(mtcars$mpg)
+
+# 四分位範囲 (IQR)
+IQR(mtcars$mpg)
+```
+
+
+
+#### 一度に出力
+- ```base```関数
+```{r}
+base::summary(mtcars$mpg)
+```
+
+- ```psych```パッケージの```describe```関数
+```{r}
+# install.packages("psych") 1つのパソコンにつき一回でよい
+library(psych) # 使用する際、セッションにつき一回
+describe(mtcars$mpg)
+```
+
+
+#### 最頻値
+
+- Rでは最頻値の求め方に少し一工夫必要
+
+### 作図
+
+- Rに最初から登録されているデータセットを使用
+
+  - [参考](https://www.geeksforgeeks.org/a-complete-guide-to-the-built-in-datasets-in-r/)
+
+- 描画のパラメータ。詳しくはウェブサイトを参考に（[例](https://eau.uijin.com/advgraphs/parameters.html) ）
+  - main: 図のタイトル
+  - xlab: x軸のタイトル
+  - ylab: y軸のタイトル
+  - border: ヒストグラムの棒の枠線
+  - type: 線や点のスタイル
+  - col: 色を指定（e.g.,  "blue", "red", "green"）
+  - pch: 点の形指定（e.g.,  pch = 16 は●、pch = 17 は▲）
+  - lwd: 線の太さを指定
+
+#### ヒストグラム
+```{r}
+hist(mtcars$mpg, 
+     main = "Histogram of Miles Per Gallon (mpg)", 
+     xlab = "Miles Per Gallon", 
+     col = "lightblue", 
+     border = "black")
+
+```
+#### 箱ひげ図
+
+```{r}
+boxplot(mtcars$hp, 
+        main = "Boxplot of Horsepower", 
+        ylab = "Horsepower", 
+        col = "lightcoral")
+
+```
+
+#### 折れ線グラフ
+```{r}
+plot(airquality$Temp, 
+     type = "l", 
+     main = "Daily Temperature in New York", 
+     xlab = "Day", 
+     ylab = "Temperature (°F)", 
+     col = "blue", 
+     lwd = 2)
+
+```
+#### 散布図
+
+```{r}
+plot(mtcars$wt, mtcars$mpg, 
+     main = "Scatter Plot of Car Weight vs. MPG", 
+     xlab = "Weight (1000 lbs)", 
+     ylab = "Miles Per Gallon", 
+     col = "darkgreen", 
+     pch = 16)
+
+```
+
+
+
 
 
 ## 次週までの課題
@@ -138,3 +347,8 @@ dat <- read.csv()
 - 締め切りは今週の木曜日まで
 
 ## 参考文献
+
+- 外国語教育ハンドブック
+- Rでらくらくデータ分析
+- https://www.geeksforgeeks.org/a-complete-guide-to-the-built-in-datasets-in-r/
+- https://eau.uijin.com/advgraphs/parameters.html
