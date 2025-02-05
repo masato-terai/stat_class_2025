@@ -1,4 +1,140 @@
 # Week 2：要約統計量
 
+```{=html}
+<style>
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+
+.beg {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
+
+.caution {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
+  
+</style>
+```
+
+## 今日の目標
+
+1. 記述統計、推測統計の違いおよびデータの尺度について理解できる。
+2. データの要約統計量やグラフの意味が理解でき、またそれらをRで算出・作成ができる。
+
+## 今日の格言
+
+::: infobox
+  プログラムは思った通りには動かない。書いた通りに動くのだ（unknown）
+:::
+
+- 前半は主に説明、後半はRを使用して手を動かしながらやってもらいます。
+
+## データの尺度
+- 名義尺度
+- 順序尺度
+- 間隔尺度
+- 比率尺度
+
+## 記述統計と推測統計
+
+- 誤差！
+
+## 要約統計量
+信頼区間まで説明
+
+## 様々なグラフ
+
+ヒストグラム
+箱ひげ図
+折れ線グラフ
+散布図
+可視化が基本ということを伝える
+
+- (point)
+- データを分析する際は、まず要約統計量や可視化を行い、データを注意深く観察する。→ とりあえず××分析などはだめ。それならAIと同じ。ブラックボックス化をできるだけ避ける。
 
 
+## ハンズオンセッション
+
+### Rの基本用語
+- 変数：どんなデータも格納できる箱。箱には必ず名前を付ける。**名前は英数字のみを入れること。**また、命名には規則がある。
+
+  - 名前の先頭に数字（e.g., 1hako）や記号（e.g., %hako）は使用できない
+  - 大文字と小文字は区別される（Hakoとhakoは別の変数として認識される）
+
+::: infobox
+プログラミングの世界では、以下の二つの命名の流儀がある。
+
+- スネークケース🐍：変数の区切りを"_"で示す（e.g., snake_case）
+- キャメルケース🐫：変数の区切りを大文字で示す（e.g., camelCase）
+
+自由に箱（変数）に名前を付けてよいが、できるだけ自分の中で一貫したルールを持ち、第三者が見ても何が格納されているか分かりやすい名前を付けることを意識する。
+:::
+
+- データの型：「いちたすに」と「1 + 2」はコンピュータにとっては別もの
+
+  - 実数型（numeric）：数値全般（e.g., 10.4）
+  - 整数型（integer）：整数のみ（e.g., 10）
+  - 文字列型（character）：文字（e.g., "十"）。入力する際は```""```や```''```で囲む
+  - 論理型（logical）：TRUEとFALSEからなる
+  - 因子型（factor）：データに順番（数字を割り振る）
+
+```{r}
+dat <- 1:4
+
+str(dat)
+
+dat <- factor(dat, levels = c(4:1))
+
+str(dat)
+
+```
+  
+- 関数
+
+
+### データを読み込む
+
+- 研究では、ファイルに格納されたデータに対して分析を行う。データ基本的にxlsx、csv、txtという拡張子のファイルに格納されていることが多い（最近ではオンラインでのデータ収集によってJSON形式もよく見るようになりました）。
+
+  - xlsx
+
+    - エクセルファイル。
+
+  - csv (Comma-Separated Values)
+
+    - カンマ（,）で項目を区切ったファイル
+
+  - txt
+
+    - 文字データだけが含まれるファイル（区切りは様々）
+
+- 拡張子を表示させる設定に変更する。
+
+- データを読み込む場合、ファイルの種類によって読み込む際の関数が異なる。リンク先から（[データ格納庫](リンクを挿入)）データをダウンロードし、本講義用のR project内に移動させる。
+
+- 移動させたら、以下のコードを走らせ、データをR(Studio)に読み込む
+
+  - 文字化けする場合、以下のコードを引数の中に加える（Windows: ```挿入```, MAC: ```挿入```）。
+
+- 以下の処理で、csvファイル内のデータを```dat```という変数の中に格納したことになる。
+
+```{markdown}
+dat <- read.csv()
+```
+
+- 行と列の区別がかなり重要
+
+### 要約統計量の算出
+
+
+## 次週までの課題
+
+### 提出方法
+- メールにファイルを添付して送信。
+- 締め切りは今週の木曜日まで
+
+## 参考文献
