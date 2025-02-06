@@ -6,6 +6,12 @@ library(dplyr)
 library(patchwork)
 ```
 
+## 事前の確認
+
+- この講義のRプロジェクトを開いていますか？
+- 英数字で名前を付けた本日の講義のファイルを作成しましたか？
+
+  - .Rでも.Rmdでもどちらでも大丈夫です。
 
 ## 今日の目標
 
@@ -256,15 +262,167 @@ p1 + p2
 
 ## データの可視化
 
-### 
+```{r, echo=FALSE}
+# 英語の得点（平均 70, 標準偏差 15）
+english_scores <- round(rnorm(100, mean = 60, sd = 15))
+english_scores <- pmin(pmax(english_scores, 0), 100)  # 0〜100の範囲に収める
 
-- それぞれがどんなデータを使っているかによって異なることを説明する
-ヒストグラム
-箱ひげ図
-折れ線グラフ
-散布図
+# 国語の得点（平均 75, 標準偏差 12）
+japanese_scores <- round(rnorm(100, mean = 80, sd = 12))
+japanese_scores <- pmin(pmax(japanese_scores, 0), 100)  # 0〜100の範囲に収める
 
-- (point)
+# データフレームを作成
+score_data <- data.frame(
+  ID = 1:100,  # 生徒ID
+  English = english_scores,
+  Japanese = japanese_scores
+)
+```
+
+
+### 量的データの可視化
+#### 1つのデータ
+
+##### ヒストグラム（histogram）
+- データを階級幅で区切り、その中に入るデータがいくつあるか（度数）を描画する
+  
+```{r}
+score_data %>%
+  ggplot(aes(x = score_data$English)) +
+  geom_histogram(binwidth = 5, fill = "skyblue", color = "black") +
+  labs(title = "英語の得点分布", x = "得点", y = "人数") 
+```
+
+#### 2つのデータ
+##### 散布図（scatter plot）
+
+- 量的データ同士の関係を描画する
+  
+  - 以下の図では100人がそれぞれ国語と英語のテストを受け、その得点を描画している。
+
+```{r}
+ggplot(score_data, aes(x = English, y = Japanese)) +
+  geom_point(color = "blue", alpha = 0.6) +
+  labs(title = "英語と国語の得点の関係", x = "英語の得点", y = "国語の得点") +
+  theme_minimal()
+```
+
+### 量的 + 質的データの可視化
+- 科目（名義尺度）ごとの得点（間隔尺度）のような場合。
+
+#### 棒グラフ（bar plot）
+
+- それぞれの科目の得点の平均値を描画
+
+```{r, echo=FALSE}
+
+score_data2 <- data.frame(
+  Subject = c("英語", "国語"),
+  Score = c(60, 90)  # 例えば、英語85点、国語90点
+)
+
+ggplot(score_data2, aes(x = Subject, y = Score, fill = Subject)) +
+  geom_bar(stat = "identity", show.legend = FALSE, width = 0.5) +
+  labs(title = "英語と国語の得点", x = "科目", y = "得点") +
+  ylim(0, 100) + 
+  scale_fill_manual(values = c("英語" = "skyblue", "国語" = "salmon")) 
+
+```
+
+
+#### 箱ひげ図（boxplot）
+
+- 棒グラフよりもより多くの情報を確認できる。
+- 外れ値が含まれる場合、描画されている最大値もしくは最小値はデータの中のもっとも大きい数をではない場合がある。
+
+  - 一般的に外れ値として判定される数
+  
+    - 第1四分位数 - 1.5 × IQR（Inter-Quartile Range：第3四分位数から第1四分位数の範囲）
+    - 第3四分位数 + 1.5 × IQR
+
+```{r}
+ggplot(score_data, aes(x = "英語", y = English, fill = "英語")) +
+  geom_boxplot(outlier.colour = "red", outlier.shape = 2) +
+  geom_boxplot(aes(x = "国語", y = Japanese, fill = "国語")) +
+  scale_fill_manual(values = c("英語" = "skyblue", "国語" = "salmon")) +
+  labs(title = "英語と国語の得点分布", x = "科目", y = "得点") +
+    stat_summary(fun.y = median, geom = "text", aes(label = paste("中央値")),
+               vjust = -0.2, hjust = -3, color = "black", size = 4) +
+  annotate("text", x = 1.55, y = quantile(score_data$English, prob = 0.75), label = "第3四分位数", color = "blue", size = 4) +
+  annotate("text", x = 1.55, y = quantile(score_data$English, prob = 0.25), label = "第1四分位数", color = "blue", size = 4) +
+  annotate("text", x = 1.1, y = quantile(score_data$English, prob = 0.75)*1.42, label = "外れ値", color = "red", size = 4) + stat_boxplot(geom='errorbar', width = 0.05) +
+  annotate("text", x = 1.15, y = min(score_data$English), label = "最小値", color = "blue", size = 4) +
+  annotate("text", x = 0.85, y = max(score_data$English)*0.97, label = "最大値", color = "blue", size = 4) 
+```
+
+#### ヴァイオリン・プロット（Violin plot）
+
+- ヒストグラムを滑らかな曲線（カーネル密度推定）に変え、背中合わせに張り付けたグラフ
+
+  - データが集まっている個所が膨らんで描画されるため、全体的な分布を把握しやすい
+
+```{r}
+ggplot(score_data, aes(x = "英語", y = English, fill = "英語")) +
+  geom_violin(trim = FALSE, alpha = 0.6) +
+  geom_violin(aes(x = "国語", y = Japanese, fill = "国語"), trim = FALSE, alpha = 0.6) +
+  scale_fill_manual(values = c("英語" = "skyblue", "国語" = "salmon")) +
+  labs(title = "英語と国語の得点分布（ヴァイオリン・プロット）", x = "科目", y = "得点") +
+  theme_minimal()
+
+```
+
+### 質的データの可視化
+- 四則演算ができないため、平均値などを算出できない。
+
+```{r, echo=FALSE}
+survey_data <- data.frame(
+  Pokemon = sample(c("ピカチュウ", "イーブイ"), 100, replace = TRUE),
+  Like = sample(c("Yes", "No"), 100, replace = TRUE, prob = c(0.7, 0.3))  # 7割が好き
+)
+```
+
+- 度数分布表（frequency distribution table）
+
+  - 1次元
+
+```{r, echo = FALSE}
+survey_data %>%
+  group_by(Like) %>%
+  count() %>%
+  arrange(desc(Like)) %>%
+  tidyr::pivot_wider(names_from = Like, values_from = n) %>%
+  kableExtra::kbl(align = "c", caption = "Do you like Pikachu and Eevee?") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped"),
+                full_width = T)
+```
+- クロス集計表（cross table）
+
+  - 2次元
+  
+```{r}
+survey_data %>%
+  group_by(Pokemon, Like) %>%
+  count() %>%
+  arrange(desc(Like)) %>%
+  tidyr::pivot_wider(names_from = Like, values_from = n) %>%
+  kableExtra::kbl(align = "c", caption = "Do you like Pikachu and Eevee?") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped"),
+                full_width = T) 
+```
+
+- バルーンプロット
+
+```{r}
+ggplot(vote_counts, aes(x = Pokemon, y = Frequency)) +
+  geom_point(aes(size = Frequency), shape = 21, fill = "skyblue", color = "black", alpha = 0.7) +
+  scale_size(range = c(3, 10)) +  # バルーンの大きさ調整
+  labs(title = "ポケモン人気投票 バルーンプロット", x = "ポケモン", y = "投票数") +
+  theme_minimal()
+
+```
+
 
 ## ハンズオンセッション
 
@@ -421,10 +579,8 @@ fruit_df <- data.frame(
 fruit_df
 ```
 
-
 ### 要約統計量の算出
 #### 各統計量ごと
-
 
 ```{r}
 # 合計 (sum)
@@ -461,6 +617,7 @@ kurtosis(mtcars$mpg)
 # 四分位範囲 (IQR)
 IQR(mtcars$mpg)
 ```
+
 #### 一度に出力
 - ```base```関数
 ```{r}
@@ -513,15 +670,6 @@ hist(mtcars$mpg,
      border = "black")
 
 ```
-#### 箱ひげ図
-
-```{r}
-boxplot(mtcars$hp, 
-        main = "Boxplot of Horsepower", 
-        ylab = "Horsepower", 
-        col = "lightcoral")
-
-```
 
 #### 折れ線グラフ
 ```{r}
@@ -534,6 +682,7 @@ plot(airquality$Temp,
      lwd = 2)
 
 ```
+
 #### 散布図
 
 ```{r}
@@ -547,10 +696,66 @@ plot(mtcars$wt, mtcars$mpg,
 ```
 
 
+#### 箱ひげ図
+
+```{r}
+boxplot(mtcars$mpg[mtcars$vs == 1], mtcars$mpg[mtcars$vs == 0], 
+        names = c("Engine: straight", "Engine: V-shaped"),
+        main = "Boxplots of Miles Per Gallon", 
+        ylab = "Values", 
+        col = c("lightcoral", "lightblue"))
+```
+
+#### バイオリンプロット
+```{r}
+#install.packages("vioplot")
+
+library(vioplot)
+
+vioplot(mtcars$mpg[mtcars$vs == 1], mtcars$mpg[mtcars$vs == 0], 
+        drawRect = F, # Tにすると、箱ひげ図が中に描かれる
+        names = c("Engine: V-shaped", "Engine: straight"), 
+        col = c("lightcoral", "lightblue"), 
+        main = "Violin Plot of Miles Per Gallon", 
+        ylab = "Miles Per Gallon")
+```
 
 
+# まとめ
+（平井 et al.の図を挿入する）
 
 ## 次週までの課題
+### 課題内容
+
+1. 小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。
+
+2. 下記のデータをもとに、どの指標でもよいので、以下の内容を含めること。R Markdownファイルで作成し、HTMLファイルに変換しそれを提出
+
+  - 要約統計量を算出
+  - 最低2つの図
+  - 気づいたことを2行以上でまとめる
+  
+- ポケモンのデータセット（[入手元](https://smart-hint.com/poke-data/introduction/#%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%83%87%E3%83%BC%E3%82%BF%E5%88%86%E6%9E%90%E3%82%92%E5%AD%A6%E3%81%B6)）
+
+  - 一部列を削除している。
+  
+- データの内訳
+  - id: 各ポケモンに振られた数値
+  - 名前：ポケモンの名前
+  - タイプ1：ポケモンに設定されている属性のようなもの。複数のタイプを持つポケモンがいるので、タイプ1となっている
+  - 高さ：身長
+  - 重さ：体重
+  - 世代：ポケモンには1~8まで世代が存在し、新しいゲームが出るたびに新種のポケモンが発表される
+  - ステータス：ポケモンが持つ6つ能力（HP、こうげき、ぼうぎょ、とくこう、とくぼう、すばやさ）の合算値
+    - HP: Hit Pointで体力のこと
+    - こうげき：物理技の攻撃力
+    - ぼうぎょ：物理技の防御力
+    - とくこう：特殊技の攻撃力
+    - とくぼう：特殊技の防御力
+    - すばやさ：どれくらい速くワザを出せるか
+  - 捕まえやすさ：数値が上がるほど捕まえやすくなり最大で255で、最小は3
+  - 進化：0 = 進化しないポケモン、1 = たねポケモン、2 = 1進化したポケモン、3 = 2進化したポケモン
+  - 画像URL：コピー&ペーストすればどんなポケモンか見れる
 
 ### 提出方法
 - メールにファイルを添付して送信。
@@ -563,6 +768,7 @@ plot(mtcars$wt, mtcars$mpg,
 - 心理学統計法　放送大学
 - https://www.geeksforgeeks.org/a-complete-guide-to-the-built-in-datasets-in-r/
 - https://eau.uijin.com/advgraphs/parameters.html
+- https://smart-hint.com/poke-data/introduction/#%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%83%87%E3%83%BC%E3%82%BF%E5%88%86%E6%9E%90%E3%82%92%E5%AD%A6%E3%81%B6
 
 ```{=html}
 <style>
