@@ -1,23 +1,11 @@
 # Week 2：要約統計量
 
-```{=html}
-<style>
-.infobox {
-  padding: 1em 1em 1em 4em;
-  margin-bottom: 10px;
-  border: 2px solid orange;
-  border-radius: 10px;
-  background: #f5f5f5 5px center/3em no-repeat;
-}
-
-.beg {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
-
-.caution {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
-  
-</style>
+```{r, include=FALSE}
+library(ggplot2)
+library(dplyr)
+library(patchwork)
 ```
+
 
 ## 今日の目標
 
@@ -98,9 +86,178 @@
   - 本講義ではテスト得点を間隔尺度として「みなす」
 
 ## 要約統計量
-信頼区間まで説明
+- データを取ったらとりあえず要約をする。
 
-## 様々なグラフ
+  - そのままのデータ（e.g., 100人分の素点）を人間はなかなか理解できない。
+
+  - 集まったデータを目的合わせて要約をし、分かりやすく提示する。
+
+- 大別して**代表値**と**散布度**があり、前者は大体の値、後者はばらつきを表すデータ
+
+### 各統計量
+
+#### 代表値
+
+```{r, include=FALSE}
+# データの作成 (通常データ + 外れ値)
+set.seed(123)
+data_normal <- rnorm(30, mean = 35, sd = 2)  # 正規分布のデータ
+outlier <- c(80,90)  # 外れ値
+data_with_outlier <- c(data_normal, outlier)  # 外れ値を追加
+
+df <- data.frame(
+  value = data_with_outlier
+)
+
+summary_stats <- df %>%
+  summarise(
+    mean_value = mean(value),
+    median_value = median(value)
+  )
+```
+
+
+- 平均値（mean）
+
+  - 平均値は沢山ある：算術平均、幾何平均、移動平均
+  - 本講義では平均は算術平均を指す
+  
+  - 算出方法：すべての数を足し合わせて、データの数で割る
+
+- 中央値（median）
+
+  - **小さい方から並べて**ちょうど真ん中にある値
+  
+    - 奇数の時：1, 2, 3 => 中央値は2
+    - 偶数の時：1, 2, 3, 4 => 中央値は \frac{\left(2+3\right)}{2}=\ 2.5
+
+::: infobox
+平均値は外れ値の影響を受けやすいが、逆に外れ値を考慮しやすい。この二つはことなる基準であるため、平均値と中央値の二つを算出して比較するとよい。
+```{r, echo=FALSE}
+ggplot(df, aes(y = value, x = 1)) +
+  geom_jitter(width = 0.1, alpha = 0.6, color = "blue", size = 3) +  # 個々のデータ点
+  geom_hline(aes(yintercept = summary_stats$mean_value, color = "Mean"), linewidth = 1) +  # 平均
+  geom_hline(aes(yintercept = summary_stats$median_value, color = "Median"), linewidth = 1) +  # 中央値
+  scale_color_manual(values = c("Mean" = "red", "Median" = "green")) + 
+  labs(title = "外れ値による平均値と中央値の違い",
+       y = "得点",
+       color = "統計指標") +
+  theme_minimal() +
+  coord_flip() +
+  theme(
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank()
+  ) +
+  annotate("text", x = 1, y = max(df$value) - 20, 
+           label = paste0("Mean: ", round(summary_stats$mean_value, 1), 
+                          "\nMedian: ", round(summary_stats$median_value, 1)), 
+           hjust = 0, size = 5, color = "black")  # 右上に平均値と中央値を表示
+```
+
+:::
+
+- 四分位（quantile）
+
+  - 小さい方から並べたデータを4分割する
+  
+    - 第1四分位：データの25%
+    - 第2四分位：データの50%の個所 = 中央値
+    - 第3四分位：データの75%
+
+- 最頻値（mode）
+
+  - 得られた数値をまとめ、同じ数字が何回出てくるか（度数: Frequency）を数える。その中で一番数が多い数字のこと。
+
+  - 名義尺度や順序尺度水準のデータはこの指標を使うとよい
+
+  - 例：以下は3人のアンケート結果です。それぞれ3つのポケモンを選んでいます。
+
+| 回答者 | 1位       | 2位        | 3位       |
+|--------|----------|-----------|----------|
+| Aさん  | ピカチュウ | イーブイ   | ゲンガー  |
+| Bさん  | ピカチュウ | リザードン | ミュウ   |
+| Cさん  | ピカチュウ | カビゴン   | フシギバナ |
+
+
+| ポケモン名   | 得票数 |
+|------------|------|
+| ピカチュウ  | 3    |
+| イーブイ    | 1    |
+| ゲンガー    | 1    |
+| リザードン  | 1    |
+| ミュウ      | 1    |
+| カビゴン    | 1    |
+| フシギバナ  | 1    |
+
+- 最頻値は3でピカチュウの得票数が多かった。
+
+#### 散布度
+
+- 分散（variance）：*σ<sup>2</sup>*
+ 
+  - データが平均値の付近に密集している程度
+  - 値が大きいほどばらつきが大きい
+
+\[\sigma^2=\frac{1}{N}\sum_{i=1}^N(x_i-\mu)^2\]
+
+  - *N* : データの数
+  - *x<sub>i</sub>* : データ一つ一つ
+  - *u* : 平均値
+
+1. 各データを平均値から引き、「平均値との差」という指標に変換（ = 平均からの**偏差**）
+2. 全部足したいが、プラスとマイナスが混じっており、全部足すと0になる。
+3. 2乗し全部プラスにする。
+4. 全部の偏差を足して、データの数で割る。
+
+- 標準偏差（standard deviation）：*σ*
+
+  - 分散のルートを取った値。分散は元のデータを2乗している。そのため単位が大きく解釈が困難なため。
+  - 値が大きいほどばらつきが大きい
+  
+\[\sqrt{σ^{2}}\]
+
+
+::: infobox
+平均、標準偏差などの要約だけではデータの全体像は見えにくい。下記の図のように、同じ平均、標準偏差（*M* = 50, *SD* = 10）でもデータの分布が異なることが分かる。このように、得られたデータの把握には、数値の要約だけでなく、可視化も重要となる。
+
+```{r, echo=FALSE, warning = F}
+# データ1（標準正規分布）
+data1 <- rnorm(1000, mean = 50, sd = 10)
+
+# データ2（右に裾が長い分布）
+data2_left <- rnorm(850, mean = 50, sd = 8)   # 中心部のデータ（分散調整）
+data2_right <- rnorm(150, mean = 70, sd = 20) # 右側の裾を伸ばすデータ
+
+# 2つのデータを結合
+data2 <- c(data2_left, data2_right)
+
+# 分散調整: 分散を100にするため、分散が違う場合はスケーリング
+scale_factor <- sqrt(100 / var(data2))
+data2 <- (data2 - mean(data2)) * scale_factor + 50  # 平均を50に調整
+
+# データフレーム作成
+df1 <- data.frame(value = data1, group = "データ1: 正規分布")
+df2 <- data.frame(value = data2, group = "データ2: 右に裾が長い分布")
+
+# プロット1（標準的な正規分布）
+p1 <- ggplot(df1, aes(x = value)) +
+  geom_histogram(binwidth = 5, fill = "skyblue", color = "black", alpha = 0.7) +
+  labs(title = "通常の正規分布", x = "値", y = "頻度") + xlim(20, 100)
+
+# プロット2（右に裾が長い分布）
+p2 <- ggplot(df2, aes(x = value)) +
+  geom_histogram(binwidth = 5, fill = "salmon", color = "black", alpha = 0.7) +
+  labs(title = "右に裾が長い分布", x = "値", y = "頻度") + xlim(20, 100)
+
+p1 + p2
+```
+
+:::
+
+## データの可視化
+
+### 
+
 - それぞれがどんなデータを使っているかによって異なることを説明する
 ヒストグラム
 箱ひげ図
@@ -108,8 +265,6 @@
 散布図
 
 - (point)
-- データを分析する際は、まず要約統計量や可視化を行い、データを注意深く観察する。→ とりあえず××分析などはだめ。それならAIと同じ。ブラックボックス化をできるだけ避ける。
-
 
 ## ハンズオンセッション
 
@@ -405,5 +560,25 @@ plot(mtcars$wt, mtcars$mpg,
 
 - 外国語教育ハンドブック
 - Rでらくらくデータ分析
+- 心理学統計法　放送大学
 - https://www.geeksforgeeks.org/a-complete-guide-to-the-built-in-datasets-in-r/
 - https://eau.uijin.com/advgraphs/parameters.html
+
+```{=html}
+<style>
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+
+.beg {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
+
+.caution {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
+  
+</style>
+```
