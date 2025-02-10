@@ -1,14 +1,582 @@
-# Parts
+# 【タイトルを挿入】
 
-- 推測統計学：放送大学CH 7 + 区間推定まで行く
+```{r, include=FALSE}
+library(tidyverse)
+library(patchwork)
 
-You can add parts to organize one or more book chapters together. Parts can be inserted at the top of an .Rmd file, before the first-level chapter heading in that same file. 
+```
 
-Add a numbered part: `# (PART) Act one {-}` (followed by `# A chapter`)
+- 不偏分散、不偏推定量あたりの話が抜けている。これを補う必要がある
 
-Add an unnumbered part: `# (PART\*) Act one {-}` (followed by `# A chapter`)
+## 事前の確認
 
-Add an appendix as a special kind of un-numbered part: `# (APPENDIX) Other stuff {-}` (followed by `# A chapter`). Chapters in an appendix are prepended with letters instead of numbers.
+- この講義のRプロジェクトを開いていますか？
+- 英数字で名前を付けた本日の講義のファイルを作成しましたか？
+
+  - .Rでも.Rmdでもどちらでも大丈夫です。
+
+## 今日の目標
+
+1. 
+2. 
+
+## 今日の格言
+
+::: infobox
+  
+:::
+
+## 母集団と標本
+- 推測統計学は、**母集団**から**標本**を得て、母集団の特徴を推測する手法
+
+```{r, echo=FALSE}
+# 母集団データ（正規分布を仮定）
+set.seed(123)
+population <- data.frame(value = rnorm(10000, mean = 50, sd = 10))
+
+# 標本を抽出
+sample_data <- as.data.frame(population[sample(1:10000, 100), ])
+colnames(sample_data) <- "value"
+
+# 可視化
+ggplot() +
+  geom_histogram(data = population, aes(x = value), bins = 30, fill = "grey", alpha = 0.5) +
+  geom_histogram(data = sample_data, aes(x = value), bins = 30, fill = "blue", alpha = 0.5) +
+  labs(title = "母集団と標本の概念図（100点満点のテストの例）", x = "値", y = "頻度",
+       subtitle = "灰色：母集団、青色：標本") +
+  theme_minimal() + 
+  theme(axis.text.y = element_blank())
+```
+
+### 母集団（population）
+
+- 調べたい対象の集団のこと
+  
+  - 例
+
+    - 研究課題：英語を第二言語として学ぶ人は母語の影響を必ず受ける。
+    
+    - 母集団：世界中の英語を第二言語として学ぶ人
+
+### 標本（Sample）
+- 実験や調査のために母集団の中から選ばれたもの
+
+  - 選ぶことを標本抽出（sampling）と呼ぶ
+
+## 確率と確率変数
+- 推測統計学では確率が非常に重要な概念。
+
+### 確率
+
+### 確率変数と確率分布
+
+#### 確率変数（random variable）
+- 確率的に生じる事象に数値を割り当てたもの
+
+  - 実際に得られた値のことを確率変数の**実現値**という
+  
+- 確率変数はスロットマシーンが回っている状態。実現値はスロットマシーンが止まって値が定まった状態をイメージするとよい
+
+```{r, include = F}
+# 必要なパッケージを読み込む
+library(ggplot2)
+library(gganimate)
+library(dplyr)
+
+# アニメーション用データを作成
+set.seed(123)
+df <- expand.grid(frame = 1:7, slot = factor(1:3)) %>%
+  mutate(value = sample(1:7, n(), replace = TRUE))  # 1-7のランダム値
+
+# スロットマシンの回転アニメーション
+p<- ggplot(df, aes(x = slot, y = 1, label = value)) +
+  geom_text(size = 15, fontface = "bold", color = "skyblue") +
+  ylim(0.5, 1.5) +
+  theme_minimal() +
+  theme(
+    axis.title = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  ) +
+  ggtitle("スロットマシン") +
+  transition_states(frame, transition_length = 1, state_length = 0.5) +
+  enter_fade() + exit_fade()
+
+p
+```
+
+#### 確率分布（probability distribution）
+- 確率変数の実現値それぞれの生じやすさを確率で表したもの。統計学では、確率変数の実現値を与えると確率を返す関数のことを確率分布という
+
+- 事象を確率変数として扱うことで、母集団を人の集団ではなく、確率変数の実現値の集合として考えることができる。
+
+  - 1万人の学生の集団という母集団が、数値が1万個ある集団と仮定でき、数学的な枠組みとして考えやすくなる（数学の世界に現実世界を映す）。
+
+- この場合、母集団の性質を標本に正確に反映させるために、**単純無作為抽出（simple random sampling）**を行う必要がある。
+
+  - 母集団のすべての対象が偏りなく選ばれること（= 無作為に選ぶ）
+
+#### 確率分布の種類
+- 離散型確率分布：確率質量関数
+  - とびとびの値をとる（e.g., 裏、表）
+  - ベルヌーイ分布、二項分布、ポアソン分布
+
+```{r, echo=FALSE}
+# データを作成
+# ベルヌーイ分布 (成功確率 p = 0.5)
+bernoulli <- data.frame(x = 0:1, y = dbinom(0:1, size = 1, prob = 0.7))
+
+# 二項分布 (n = 10, p = 0.5)
+binomial <- data.frame(x = 0:10, y = dbinom(0:10, size = 10, prob = 0.5))
+
+# ポアソン分布 (λ = 3)
+poisson <- data.frame(x = 0:10, y = dpois(0:10, lambda = 3))
+
+# ベルヌーイ分布、二項分布、ポアソン分布をそれぞれプロット
+p1 <- ggplot(bernoulli, aes(factor(x), y)) + 
+  geom_bar(stat = "identity") + 
+  ggtitle("Bernoulli Distribution") +
+  theme_minimal()
+
+p2 <- ggplot(binomial, aes(x, y)) + 
+  geom_bar(stat = "identity") + 
+  ggtitle("Binomial Distribution") +
+  theme_minimal()
+
+p3 <- ggplot(poisson, aes(x, y)) + 
+  geom_bar(stat = "identity") + 
+  ggtitle("Poisson Distribution") +
+  theme_minimal()
+
+# 3つのプロットを横に並べて表示
+library(gridExtra)
+grid.arrange(p1, p2, p3, ncol = 3)
+```
 
 
+- 連続確率分布：確率密度関数
+  - 連続した値をとる（e.g., 身長）
+  - 正規分布、*t* 分布、カイ二乗分布
 
+```{r, echo=FALSE}
+# 正規分布 (平均 0, 標準偏差 1)
+normal <- data.frame(x = seq(-4, 4, length.out = 100), 
+                     y = dnorm(seq(-4, 4, length.out = 100), mean = 0, sd = 1))
+
+# t分布 (自由度 10)
+t_dist <- data.frame(x = seq(-4, 4, length.out = 100), 
+                     y = dt(seq(-4, 4, length.out = 100), df = 10))
+
+# カイ二乗分布 (自由度 5)
+chisq_dist <- data.frame(x = seq(0, 15, length.out = 100), 
+                         y = dchisq(seq(0, 15, length.out = 100), df = 5))
+
+# 正規分布、t分布、カイ二乗分布をそれぞれプロット
+p1 <- ggplot(normal, aes(x, y)) + 
+  geom_line() + 
+  ggtitle("Normal Distribution") +
+  theme_minimal()
+
+p2 <- ggplot(t_dist, aes(x, y)) + 
+  geom_line() + 
+  ggtitle("t Distribution") +
+  theme_minimal()
+
+p3 <- ggplot(chisq_dist, aes(x, y)) + 
+  geom_line() + 
+  ggtitle("Chi-Square Distribution") +
+  theme_minimal()
+
+# 3つのプロットを横に並べて表示
+grid.arrange(p1, p2, p3, ncol = 3)
+```
+
+
+## 推測統計学の考え方
+
+### 標本統計量
+- 標本から計算される記述統計量のこと
+
+- **標本平均**：母集団から得た標本のデータの平均値
+  - **母平均**：母集団の平均値
+
+### 標本分布
+
+- 標本統計量が確率的に変動することを表した確率分布のこと
+
+  - 標本を沢山抽出した場合であって、1つのデータの分布ではない
+  
+- 標本サイズ（ *k* ）が大きくなるにつれ、標本分布の散らばりはどんどん小さくなる
+
+  - 以下の図では100ほどのデータがあれば母平均（0.7）の ± 0.1にほとんどのデータが集まることが分かる
+  
+  - しかし、これは母平均を事前に把握している場合を例であり、事前に母平均を知っていることは基本的にない。
+
+```{r, echo=FALSE}
+# セットアップ
+set.seed(123)
+n <- 10000 # 生成する二項分布に従う乱数の個数
+theta <- 0.7
+
+# ベルヌーイ試行の回数ごとに二項分布を生成し、ggplot2でヒストグラムを描く
+k_values <- c(1, 10, 50, 100)
+plots <- list()
+
+for (k in k_values) {
+  # 二項分布に従う乱数の生成
+  data <- rbinom(n = n, size = k, prob = 0.7)
+  
+  # ggplotでヒストグラムを作成
+  p <- ggplot(data.frame(x = data/k), aes(x)) + 
+    geom_histogram(bins = 30, fill = "skyblue", color = "black", alpha = 0.7) +
+    ggtitle(paste("Binomial Distribution (k =", k, ")")) +
+    theme_minimal() +
+    scale_x_continuous(labels = scales::label_comma()) 
+  
+  plots[[length(plots) + 1]] <- p
+}
+
+
+plots[[1]] + plots[[2]] + plots[[3]] + plots[[4]] 
+```
+
+## 区間推定の考え方
+### 母集団分布に確率分布を仮定する
+- 母集団分布が未知の場合、母集団からある値が標本として選ばれる事象の確率が。よく知られた確率分布に従うと仮定する。
+
+  - 統計モデル（statistical model）や確率モデル（probabilistic model）と呼ぶ
+  
+  - よく知られたモデルとして、**正規分布（normal distribution）**が挙げられる
+
+- 適切な確率モデルを設定しなければ、そこから算出したデータは正確ではない。
+
+  - ある程度大きいデータを取り、そのヒストグラムを描画して形状を確認する
+  
+  - データの発生メカニズムから選ぶ
+    
+    - 例. 反応速度は対数正規分布で近似する、発生確率の低い出来事はポワソン分布に近似する
+
+### 正規分布の性質
+- 確率分布は形状を決めるパラメータがある。
+
+- 正規分布のパラメータ：平均（確率分布の位置） + 分散（確率分布の広がり）
+
+  - 期待値（Expected value）：確率分布の平均値のこと
+
+```{r, echo=FALSE}
+# パラメータの設定
+mu_values <- c(0, 0, 0, -2)  # 平均 (0, 2, -2, 0)
+sigma_values <- c(0.2, 1, 5, 2)  # 標準偏差 (1, 1, 1, 2)
+
+# x軸の範囲を設定
+x <- seq(-10, 10, length.out = 1000)
+
+# データフレームを作成してggplotで描画
+data <- data.frame(
+  x = rep(x, 4), 
+  y = c(dnorm(x, mean = mu_values[1], sd = sigma_values[1]), 
+        dnorm(x, mean = mu_values[2], sd = sigma_values[2]), 
+        dnorm(x, mean = mu_values[3], sd = sigma_values[3]), 
+        dnorm(x, mean = mu_values[4], sd = sigma_values[4])),
+  distribution = rep(c("mu=0, sigma=0.2", "mu=0, sigma=1", "mu=0, sigma=5", "mu=-2, sigma=2"), each = length(x))
+)
+
+# ggplotで正規分布曲線を描画
+ggplot(data, aes(x = x, y = y, linetype = distribution)) + 
+  geom_line(size = 1) +
+  labs(title = "Different Normal Distributions", 
+       x = "x", 
+       y = "Density") +
+  theme_minimal() 
+```
+
+- 確率変数が離散的な値をとる場合、確率変数の実現値ろと確率は一対一対応している（例 1か0のデータ）。
+
+```{r, echo=FALSE}
+# パラメータ設定
+set.seed(123)
+n <- 10000  # 乱数の個数
+size <- 10   # 試行回数
+prob <- 0.7  # 成功確率
+
+# 2項分布に従う乱数の生成
+data <- rbinom(n, size, prob)
+
+# ggplotでヒストグラムを作成
+ggplot(data.frame(x = data), aes(x = x)) + 
+  geom_histogram(binwidth = 1, fill = "skyblue", color = "black", aes(y = ..density..)) + 
+  labs(title = "Binomial Distribution (Size = 10, p = 0.7)",
+       x = "Number of Successes",
+       y = "Density (Probability)") +
+  theme_minimal() +
+  scale_x_continuous(breaks = seq(0, size, by = 1)) 
+
+```
+
+- 確率変数が連続的な値をとる場合、実現値の値ではなく、その**範囲と確率**が対応する。つまり、確率分布の面積が確率と対応する（数値積分をして求めないといけない）。
+
+```{r, echo=FALSE}
+set.seed(123)
+n <- 100000  # 乱数の個数
+
+data <- data.frame(value = rnorm(n, mean = 0, sd = 1))
+
+# 密度推定
+density_data <- density(data$value)
+density_df <- data.frame(x = density_data$x, y = density_data$y)
+
+# ggplotで描画
+ggplot(density_df, aes(x = x, y = y)) +
+  geom_line(color = "black") +  # 密度曲線
+  geom_ribbon(data = subset(density_df, x >= 0 & x <= 1), 
+              aes(ymin = 0, ymax = y), 
+              fill = "skyblue", alpha = 0.7) +  # xが0から1の範囲を塗りつぶし
+  labs(title = "青で塗られているのは0から1の範囲",
+       x = "Value",
+       y = "Density") +
+  theme_minimal()
+```
+
+```{r}
+integrate(f = dnorm, lower = 0, upper = 1)
+```
+
+- 平均値 ± **1.96** × 標準偏差で、標本分布の95%の範囲になる。
+- 白い部分は二か所合わせてデータの5%
+```{r, echo=FALSE}
+set.seed(123)
+n <- 100000  # 乱数の個数
+
+data <- data.frame(value = rnorm(n, mean = 0, sd = 1))
+
+# 密度推定
+density_data <- density(data$value)
+density_df <- data.frame(x = density_data$x, y = density_data$y)
+
+mean(density_data$x) + 1.96
+
+# ggplotで描画
+ggplot(density_df, aes(x = x, y = y)) +
+  geom_line(color = "black") +  # 密度曲線
+  geom_ribbon(data = subset(density_df, x >= mean(density_data$x) - 1.96 & x <= mean(density_data$x) + 1.96), 
+              aes(ymin = 0, ymax = y), 
+              fill = "skyblue", alpha = 0.7) +  # xが0から1の範囲を塗りつぶし
+  labs(title = "青で塗られているのは分布の95%",
+       x = "Value",
+       y = "Density") +
+  theme_minimal()
+```
+- mean(density_data$x) ± 1.96となっているのは、標準偏差が1であるため。
+```{r}
+integrate(f = dnorm, lower = mean(density_data$x) - 1.96, upper = mean(density_data$x) + 1.96)
+```
+
+### 確率モデルを用いた推定
+- 適切な確率モデルが設定されているとき、母数を推定することは、確率モデルのパラメータがどのような値であるかを推測することと同じ。
+
+### 正規分布モデルにおける標本平均の標本分布
+
+- **標準誤差（Standard Error: *SE*）**
+
+  - 標本分布の標準偏差
+
+SE=\frac{\sigma}{\sqrt{n}}
+
+- *n* = 標本サイズ 
+
+  - 標本サイズが大きいほど標準誤差は小さくなり、標本平均は母平均に近づく（分母に標本サイズ）
+
+### 区間推定
+- **点推定（point estimation）**：平均値のように1つの値によって母数（母平均など）を推定すること
+
+  - 標本サイズがどれだけ大きくても、標本平均は確率的に変動するため、ずばり母数を当てることは難しい
+
+#### 信頼区間
+
+- **区間推定（interval estimation）**：区間による推定を行うこと
+
+  - 必ずこの区間に当てはまることは主張できない。そのため、区間推定では、**信頼度（degree of confidence）**を設定する。これを**信頼区間（confidence interval）**という。
+  
+    - 言語研究の分野では95%が一般的
+
+##### 母分散を事前に知っている場合
+
+- 標本サイズは25、標本平均99.46、母分散は4を例とする。よって標準誤差は0.4。
+
+  - 「得られた標本統計量が95%の信頼度で否定されない母数の範囲」を考える => 標本平均99.46が95%上限ぎりぎりになるような母数と、95%下限ぎりぎりになるような母数の範囲。上記で扱ったように、面積の95%を塗りつぶすには、平均値から ± 1.96 × 標準偏差すればよい。
+  
+  - 下限：99.46 - 1.96 × 0.4 = 98.68
+  - 上限：99.46 + 1.96 × 0.4 = 100.24
+
+    - 下記の図の赤い点線の内側の範囲が95%信頼区間
+```{r, echo=FALSE}
+set.seed(123)
+
+# パラメータ設定
+mean1 <- 98.68  # 第一の平均
+mean2 <- 100.24 # 第二の平均
+sd_val <- 0.4     # 標準偏差（仮定）
+
+# x 軸の範囲を設定
+x_vals <- seq(mean1 - 1.96*sd_val, mean2 + 1.96*sd_val, length.out = 200)
+
+# 正規分布の密度関数を計算
+data <- data.frame(
+  x = rep(x_vals, 2),
+  y = c(dnorm(x_vals, mean = mean1, sd = sd_val), 
+        dnorm(x_vals, mean = mean2, sd = sd_val)),
+  distribution = rep(c("Mean = 98.68", "Mean = 100.24"), each = length(x_vals))
+)
+
+x <- data %>%
+  dplyr::filter(distribution == "Mean = 98.68") %>%
+ggplot(aes(x = x, y = y)) +
+  geom_line(size = 1) +
+  labs(title = "Mean = 98.68",
+       x = "Value",
+       y = "Density") +
+  geom_vline(xintercept = mean1, linetype = "dashed", color = "red") +  # 下限
+  geom_vline(xintercept = (mean1 + mean2)/2, linetype = "solid", color = "black") + # 標本平均
+  #geom_ribbon(data = subset(data, x >= mean1 - 1.96*sd_val & x <= mean1 + 1.96*sd_val), 
+  #            aes(ymin = 0, ymax = y), fill = "skyblue", alpha = 0.7) +
+  theme_minimal()
+
+y <- data %>%
+  dplyr::filter(distribution == "Mean = 100.24") %>%
+ggplot(aes(x = x, y = y)) +
+  geom_line(size = 1) +
+  labs(title = "Mean = 100.24",
+       x = "Value",
+       y = "Density") +
+  geom_vline(xintercept = mean2, linetype = "dashed", color = "red") +  # 下限
+  geom_vline(xintercept = (mean1 + mean2)/2, linetype = "solid", color = "black") + # 標本平均
+  #geom_ribbon(data = subset(data, x >= mean2 - 1.96*sd_val & x <= mean2 + 1.96*sd_val), 
+  #            aes(ymin = 0, ymax = y), fill = "skyblue", alpha = 0.7) +
+  theme_minimal()
+
+# 描画
+z <- ggplot(data, aes(x = x, y = y, color = distribution, linetype = distribution)) +
+  geom_line(size = 1) +
+  labs(title = "Comparison of Two Normal Distributions",
+       x = "Value",
+       y = "Density") +
+  scale_color_manual(values = c("black", "black")) +
+  geom_vline(xintercept = mean1, linetype = "dashed", color = "red") +  # 下限
+  geom_vline(xintercept = mean2, linetype = "dashed", color = "red") +  # 上限
+  geom_vline(xintercept = (mean1 + mean2)/2, linetype = "solid", color = "black") + # 標本平均
+  theme_minimal() +
+  theme(legend.position = "none")  # ← 凡例を非表示  
+
+x + y - z + plot_layout(ncol = 1)
+```
+
+
+##### 母分散を知らない場合
+
+- 母分散が分からない場合の母平均の推定方法を扱う。現実的に、母分散が分かっていることはほとんどない。
+
+- 母分散が分からない場合、上記の算出法では母平均の区間推定はできない。従って、母分散に依存しない統計量の計算が必要となる
+
+###### *t* 値を用いた信頼区間の計算
+- ***t* 値**：下記の式から算出できる値。*t*分布に従う。
+
+\[
+t = \frac{\bar{x} - \mu}{\frac{u^2}{\sqrt{n}}}
+\]
+
+
+  - *t*分布には、**自由度（degree of freedom）**と呼ばれるパラメータがある。*t*分布の自由度は、標本サイズによって変わる。自由度は、 *n* - 1で計算できる。
+  - 自由度が100くらいになると、標準正規分布（平均0, 標準偏差1の正規分布）と同じような形になる。
+
+- 母平均が分からない場合、上記の*t*値を計算することはできない。しかし、母平均の信頼区間を求める場合、*t*分布の95%の面積にああるような範囲を考えればいい。自由度25の時、上側と下側それぞれ2.5%（5% ÷ 2）となるような*t*値を求める（表から値を探したりして値を見つける）。
+
+- Rの標準的な関数で求めることも可能
+```{r}
+qt(.975, df = 24)
+qt(.025, df = 24)
+```
+
+以下の式をもとに算出する
+  
+\[
+\left( \bar{x} - t_{\alpha/2, \, n-1} \cdot \frac{u^2}{\sqrt{n}}, \quad \bar{x} + t_{\alpha/2, \, n-1} \cdot \frac{u^2}{\sqrt{n}} \right)
+\]
+
+
+- *u^2*は不偏分散であり、以下の式で求められる。自由度25、標準偏差が2.24の場合、*n*に25、*S*に2.24を代入する。しかし、標本サイズが大きいときはほとんど同じ値になるため、実用上標本分散を用いることもある。
+
+\[
+s^2 = \frac{1}{n-1}S^2
+\]
+
+- 上限：99.46 + 2.06 * sqrt\left\{\frac{5.23}{25}\right\}
+- 下限：99.46 - 2.06 * sqrt\left\{\frac{5.23}{25}\right\}
+
+  - 98.52 - 100.40の間に母平均があると推定された
+
+## Rの関数で95%信頼区間を求める
+
+```{r}
+#install.packages("gmodels")
+library(gmodels)
+ci(mtcars$mpg)
+```
+
+- 上記の関数と一致した
+```{r}
+mean(mtcars$mpg) + qt(df = (nrow(mtcars)-1), .025) * sd(mtcars$mpg)/sqrt(nrow(mtcars))
+mean(mtcars$mpg) + qt(df = (nrow(mtcars)-1), .975) * sd(mtcars$mpg)/sqrt(nrow(mtcars))
+```
+
+::: infobox
+
+95%信頼区間は、得られた標本のデータの95%がこの区間に入るという意味ではない。
+
+:::
+
+## ハンズオンセッション
+
+- 母平均を得られたデータから推定しよう
+
+  - ポケモンのデータを読み込む。ci関数、qt関数で求めてみよう
+
+## まとめ
+
+
+## 次週までの課題
+### 課題内容
+
+1. 小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。
+
+2. 下記のデータをもとに、どの指標でもよいので、以下の内容を含めること。R Markdownファイルで作成し、HTMLファイルに変換しそれを提出
+
+
+### 提出方法
+- メールにファイルを添付して送信。
+- 締め切りは今週の木曜日まで
+
+## 参考文献
+
+- 心理学統計法　放送大学
+- 数値シミュレーションで読み解く統計の仕組み
+- 心理統計学の基礎
+- https://bellcurve.jp/statistics/course/8972.html?srsltid=AfmBOoo1xtRU_1cwHVoug_u0iB5Cc1yaY23jd7wvOFs_Ub9F26KWqc37
+
+```{=html}
+<style>
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+
+.beg {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
+
+.caution {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
+  
+</style>
+```
