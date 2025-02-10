@@ -745,7 +745,7 @@ vioplot(mtcars$mpg[mtcars$vs == 1], mtcars$mpg[mtcars$vs == 0],
         ylab = "Miles Per Gallon")
 ```
 
-# まとめ
+## まとめ
 
 （引用：平井 et al. (2021). 『教育・心理系研究のためのRによるデータ分析』 p. 3）
 
