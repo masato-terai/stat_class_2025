@@ -282,6 +282,7 @@ p1 + p2
 ## データの可視化
 
 ```{r, echo=FALSE}
+set.seed(123)
 # 英語の得点（平均 70, 標準偏差 15）
 english_scores <- round(rnorm(100, mean = 60, sd = 15))
 english_scores <- pmin(pmax(english_scores, 0), 100)  # 0〜100の範囲に収める
@@ -362,19 +363,19 @@ ggplot(score_data2, aes(x = Subject, y = Score, fill = Subject)) +
         -   第1四分位数 - 1.5 × IQR（Inter-Quartile Range：第3四分位数から第1四分位数の範囲）
         -   第3四分位数 + 1.5 × IQR
 
-```{r}
+```{r, echo=FALSE}
 ggplot(score_data, aes(x = "英語", y = English, fill = "英語")) +
   geom_boxplot(outlier.colour = "red", outlier.shape = 2) +
   geom_boxplot(aes(x = "国語", y = Japanese, fill = "国語")) +
   scale_fill_manual(values = c("英語" = "skyblue", "国語" = "salmon")) +
   labs(title = "英語と国語の得点分布", x = "科目", y = "得点") +
-    stat_summary(fun.y = median, geom = "text", aes(label = paste("中央値")),
-               vjust = -0.2, hjust = -3, color = "black", size = 4) +
   annotate("text", x = 1.55, y = quantile(score_data$English, prob = 0.75), label = "第3四分位数", color = "blue", size = 4) +
   annotate("text", x = 1.55, y = quantile(score_data$English, prob = 0.25), label = "第1四分位数", color = "blue", size = 4) +
-  annotate("text", x = 1.1, y = quantile(score_data$English, prob = 0.75)*1.42, label = "外れ値", color = "red", size = 4) + stat_boxplot(geom='errorbar', width = 0.05) +
+  annotate("text", x = 1.3, y = min(score_data$English), label = "外れ値", color = "red", size = 4) + 
+  stat_boxplot(geom='errorbar', width = 0.05) +
   annotate("text", x = 1.15, y = min(score_data$English), label = "最小値", color = "blue", size = 4) +
-  annotate("text", x = 0.85, y = max(score_data$English)*0.97, label = "最大値", color = "blue", size = 4) 
+  annotate("text", x = 1.15, y = max(score_data$English), label = "最大値", color = "blue", size = 4) +
+  annotate("text", x = 1.55, y = median(score_data$English), label = "中央値", color = "blue", size = 4) 
 ```
 
 #### ヴァイオリン・プロット（Violin plot）
