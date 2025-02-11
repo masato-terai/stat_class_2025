@@ -516,7 +516,7 @@ mean(mtcars$mpg) + qt(df = (nrow(mtcars)-1), .975) * sd(mtcars$mpg)/sqrt(nrow(mt
 ::: infobox
 
 **不偏分散の不偏とは**
-　推測統計学では**一致性**、**不偏性（unbiasedness）**、**有効性**という概念が重要となります。詳しい説明は別の機会に行いますが、不偏分散は不偏性をもつ推定量のことを表します。不偏性とは推定量の期待値が母数と一致する性質になります。標本平均は不偏推定量ですが、標本分散、標本標準偏差は不偏推定量ではありません。つまり、母分散と標本分散にはズレが存在します。このズレを調節するため、n - 1で偏差二乗和を割っています（割る数が-1だけ減るので、標本分散より少し大きくなる）。
+　推測統計学では**一致性（consistency）**、**不偏性（unbiasedness）**、**有効性（efficiency）**という概念が重要となります。詳しい説明は別の機会に行いますが、不偏分散は不偏性をもつ推定量のことを表します。不偏性とは推定量の期待値が母数と一致する性質になります。標本平均は不偏推定量ですが、標本分散、標本標準偏差は不偏推定量ではありません。つまり、母分散と標本分散にはズレが存在します。このズレを調節するため、n - 1で偏差二乗和を割っています（割る数が-1だけ減るので、標本分散より少し大きくなる）。
 :::
 
 ## ハンズオンセッション
@@ -599,48 +599,3 @@ lower2
 ```
 
 ## まとめ
-
-
-## 次週までの課題
-### 課題内容
-
-1. 小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。
-
-2. あなたには高校生の弟がいます（平均までは知っているが分散は知らない）。ポケモンが大好きな弟から以下の質問が来たとする。この答えを具体的な数値や図を基に回答してください。R Markdownファイルで作成し、HTMLファイルに変換しそれを提出してください。
-
-  - 「全ポケモンのHPの平均って大体どれくらい？」
-  - 「その平均ってどれくらい正確なの（どれくらいの幅があるの）？」
-  - 「ポケモンのステータスってどれくらいの値が一番多いの？」
-
-- **Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。**
-
-### 提出方法
-- メールにファイルを添付して送信。
-- 締め切りは今週の木曜日まで
-
-## 参考文献
-
-- 心理学統計法　放送大学
-- 数値シミュレーションで読み解く統計の仕組み
-- 心理統計学の基礎
-- https://bellcurve.jp/statistics/course/8972.html?srsltid=AfmBOoo1xtRU_1cwHVoug_u0iB5Cc1yaY23jd7wvOFs_Ub9F26KWqc37
-- https://stackoverflow.com/questions/64507040/calculating-confidence-interval-using-ci-function
-
-```{=html}
-<style>
-.infobox {
-  padding: 1em 1em 1em 4em;
-  margin-bottom: 10px;
-  border: 2px solid orange;
-  border-radius: 10px;
-  background: #f5f5f5 5px center/3em no-repeat;
-}
-
-.beg {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
-
-.caution {
-  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
-  
-</style>
-```
