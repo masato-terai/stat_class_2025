@@ -36,12 +36,12 @@ github-repo: rstudio/bookdown-demo
 ## 講義スケジュール
 - Week 1：オリエンテーション、R(Studio)のインストールと操作、R Markdown
 - Week 2：要約統計量
-- Week 3：区間推定
-- Week 4：統計的検定の論理
-- Week 5：*t* 検定
-- Week 6：分散分析
-- Week 7：多元配置分散分析
-- Week 8：相関分析
+- Week 3：推測統計学
+- Week 4：統計的検定の論理（頻度統計とベイズ）
+- Week 5：2変数の関係：相関分析
+- Week 6：*t* 検定
+- Week 7：分散分析
+- Week 8：多元配置分散分析
 - Week 9：効果量
 - Week 10：単回帰分析
 - Week 11：重回帰分析
