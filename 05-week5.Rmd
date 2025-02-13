@@ -1,0 +1,324 @@
+# Week5: 相関分析
+
+```{r, include=FALSE}
+library(tidyverse)
+library(patchwork)
+```
+
+
+## 事前の確認
+
+- この講義のRプロジェクトを開いていますか？
+- 英数字で名前を付けた本日の講義のファイルを作成しましたか？
+
+  - .Rでも.Rmdでもどちらでも大丈夫です。
+
+## 今日の目標
+
+1. 相関分析に関する統計理論を数学的・概念的に理解できる。
+2. 相関分析をRで行い、その結果を解釈し報告することができる。
+
+## 相関分析（Correlation analysis）とは
+
+- **相関**：2つのデータの間にある**線形**の関係の強さを示す。これを分析することを**相関分析**という
+
+  - 相関関係を確認する際、散布図で視覚的に確認、数値的に**相関係数**（Correlation coefficienct）が用いられる。
+  
+    - 通常、**ピアソンの（積率）相関係数（Pearson's correlation coefficient, *r*）**を指す。値は \(-1\leq r \leq1\) をとる。
+  
+  - 相関係数は2変数の関係が線形になっている場合のみ使用できる。
+
+- 相関係数の重要なパーツ
+
+  - **共分散（covariance）**：各変数の平均からの偏差の積を平均したもの
+
+\[
+s_{xy} = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})
+\]
+
+- **不偏共分散**は以下の通り。相関係数を算出するRパッケージの```cor```は計算する際に、不偏分散を使用している。
+
+
+\[
+s_{xy} = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})
+\]
+
+```
+The denominator *n* − 1 is used which gives an unbiased estimator of the (co)variance for i.i.d. observations. 
+```
+
+- 相関係数を求める式
+
+\[
+r_{xy} = \frac{S_{xy}}{S_xS_y}
+\]
+
+- 共分散（\(S_{xy}\)）を2変数それぞれの標準偏差の積で割ったもの（共分散を基準化している）
+  
+  - 基準化の理由として、定数倍などすると、値の大きさが変わってしまうため
+  
+### 相関関係の種類
+
+  - **正の相関**（positive correlation）：右上がり。1つの変数が増加すると、もう片方も増加する
+  
+    - 相関係数が正の値をとる
+  
+  - **負の相関**（negative correlation）：右下がり。1つの変数が増加すると、yが減少する。
+  
+    - 相関係数が負の値をとる
+    
+
+```{r, echo=FALSE}
+set.seed(123)
+
+# 相関係数のリスト（-1から1まで0.1刻み）
+cor_values <- seq(-1, 1, by = 0.1)
+
+# データを作成
+generate_data <- function(r, n = 100) {
+  x <- rnorm(n)
+  y <- r * x + sqrt(1 - r^2) * rnorm(n)  # 指定した相関係数に従うyを作成
+  data.frame(x = x, y = y, correlation = paste("r =", round(r, 1)))
+}
+
+# すべての相関係数に対してデータを作成
+data_list <- lapply(cor_values, generate_data)
+data <- bind_rows(data_list)
+
+data.2 <- data %>%
+  mutate(correlation = factor(correlation,
+                              levels = c("r = -1", "r = -0.9", "r = -0.8", "r = -0.7", "r = -0.6",
+                                     "r = -0.5", "r = -0.4", "r = -0.3", "r = -0.2", "r = -0.1",
+                                     "r = 0", "r = 0.1", "r = 0.2", "r = 0.3", "r = 0.4", "r = 0.5",
+                                     "r = 0.6", "r = 0.7", "r = 0.8", "r = 0.9", "r = 1"
+                                     )))
+
+# ggplotで可視化
+ggplot(data.2, aes(x = x, y = y)) +
+  geom_point(alpha = 0.6) +
+  facet_wrap(~correlation, ncol = 5) +  # 5列で表示
+  theme_minimal() +
+  labs(title = "相関係数ごとの散布図",
+       x = "X",
+       y = "Y")
+```
+
+- ピアソンの相関係数は**外れ値**に影響されやすい。あらかじめ散布図で外れ値がないかを確認する
+- 以下の図では、左側の図のデータの一部（*n* = 2）を外れ値に変更した
+```{r, echo=FALSE, message=FALSE}
+set.seed(123)
+
+n <- 100
+x <- rnorm(n, mean = 0, sd = 1)
+
+data2 <- data.frame(
+  x = rep(x, 2),
+  y = 0.6 * x + rnorm(n, mean = 0, sd = 0.5)
+  )
+
+data4 <- data2 %>%
+  mutate(y = case_when(y > 1.6 ~ y + 10, TRUE ~ y)) %>%
+  mutate(x = case_when(y > 10 ~ x + 10, TRUE ~ x))
+
+a <- ggplot(data2, aes(x = x, y = y)) +
+  geom_point(alpha = 0.7, color = "skyblue") +  # 散布図（透明度を少し下げる）
+  geom_smooth(method = "lm", color = "red", se = FALSE) +  # 回帰直線
+  #coord_fixed(ratio = 1) +  # **正方形のプロット**
+  theme_minimal(base_size = 15) +  # シンプルなテーマ
+  labs(x = "X", y = "Y")
+
+b <- ggplot(data4, aes(x = x, y = y)) +
+  geom_point(alpha = 0.7, color = "skyblue") +  # 散布図（透明度を少し下げる）
+  geom_smooth(method = "lm", color = "red", se = FALSE) +  # 回帰直線
+  #coord_fixed(ratio = 1) +  # **正方形のプロット**
+  theme_minimal(base_size = 15) +  # シンプルなテーマ
+  labs(x = "X", y = "Y")
+
+a + b
+```
+
+- 右側の図の相関係数がわずか2つの外れ値によって大きくなっていることが分かる
+```{r}
+cor(data2$x, data2$y, method = "pearson")
+
+cor(data4$x, data4$y, method = "pearson")
+```
+
+### 相関係数の検定
+- ほとんどの場合、母相関係数 *ρ* が0という帰無仮説を立てて行われる。
+
+\[
+H_0 : ρ = 0
+\]
+
+- 検定統計量は *t* 分布に従うことを利用して検定が行われる。
+
+\[
+t = \frac{r}{\sqrt{1-r^2}}\sqrt{n-2}
+\]
+
+- 統計的に有意である場合、「母相関係数は0である」という帰無仮説を棄却し、「母相関係数は0ではない」という対立仮説を採択する。**無相関検定**とも呼ぶ。
+
+  - 母相関が0以外である帰無仮説を立てることもできるが、この場合検定統計量 *t* は **非心 *t* 分布**に従い、 *t* 分布には従わない。
+  
+<div class="alert alert-info">
+  <strong>重要</strong> 無相関検定で有意差が得られても、母相関係数が0ではないということを示すだけであり、相関の強弱を示していないことに注意が必要。
+</div>
+
+## ハンズオンセッション
+
+### データの読み込み
+
+```{r}
+dat <- read.csv("../stat_class_2025/sample_data/cor.csv")
+```
+
+```{r}
+head(dat)
+```
+```{r}
+library(psych)
+describe(dat$English)
+describe(dat$Math)
+describe(dat$Japanese)
+```
+
+
+### 散布図の作成
+
+```{r}
+plot(dat$English, dat$Math)
+plot(dat$English, dat$Japanese)
+```
+
+```{r}
+psych::pairs.panels(dat[,2:4])
+```
+
+### 相関係数の算出
+
+- ```corr.test```関数は、上述の```cor```関数を使用している。
+
+```{r}
+psych::corr.test(dat[,2:4], method = "pearson")
+```
+
+- ```cor.test```を使用するとより詳細な結果が返ってくる
+
+```{r}
+library(stats)
+cor.test(dat$English, dat$Math, method = "pearson")
+```
+
+
+### 相関係数の解釈
+
+#### 相関係数の大きさ
+- Cohenの基準と呼ばれるベンチマークがある。しかし、これはもともとすべての分野に適応することを意図したものではなく、行動科学分野の研究に基づき作成されたものであった。
+
+  - 小（small）： .10、中（Medium）：.30、大（Large）：.50
+
+- 相関係数の値の大きさは文脈（e.g., 研究分野や研究対象）において解釈する必要がある。
+
+  - 例）リーディングのテスト得点とリスニングのテスト得点が *r* = .50の場合と、聞いた音を書きだすテストの得点と聴解のテスト得点が *r* = .50
+
+- 第二言語習得研究における相関係数の目安として提示された例
+  
+>"For correlation coefficients, we suggest that rs close to .25 be considered small, .40 medium, and .60 large. These values correspond roughly to the 25th, 50th, and 75th percentiles in our primary and meta-analytic samples." (Plonsky & Oswald, 2014)
+
+- 相関係数が小さい研究は査読の段階で削除されていたり、そもそも出版されずお蔵入りになっている場合もあるので注意。
+
+#### 因果関係の主張
+- 相関分析では関係の強さの程度しか分からない。相関があることは必ずしも因果関係があることを示しているわけではない。
+
+  - e.g., [チョコレートの消費量とノーベル賞受賞者の数に相関がみられた](https://www.biostat.jhsph.edu/courses/bio621/misc/Chocolate%20consumption%20cognitive%20function%20and%20nobel%20laurates%20(NEJM).pdf)
+  
+    - チョコレートを沢山食べると優秀な人材が育つんだね（✖ チョコレート→ ノーベル賞）
+
+- 第三の変数（共変量）による**疑似相関**の可能性もある
+
+  - チョコの例も、「豊かさ」による疑似相関かもしれない
+  
+    - 疑似相関の例：アイスクリームとビールの売り上げにおける「気温」、年収の高さと血圧における「年齢」
+
+  - 第三の変数を考慮した相関係数の計算は回帰分析の回で扱います
+  
+- 因果関係を調べるための条件
+  - ジョン・スチュアート・ミルは、以下の3つの条件を提示した
+  
+  1. 原因 *X* が結果 *Y* よりも時間的に先行している
+  
+  2. 原因 *X* と結果 *Y* に共変関係がある
+  
+  3. 他の因果的説明が排除されている
+
+### 論文への記載
+
+- 検証する変数が多い場合、表として提示すると分かりやすい。
+- 特に焦点を当てたい個所を本文で言及する。
+
+```{r, echo=FALSE, warning=FALSE, eval=FALSE}
+#library("apaTables")
+apa.cor.table(data = dat[,2:4], landscape = F,
+               table.number = 1, show.conf.interval = TRUE, show.sig.stars = T)
+
+sjPlot::tab_corr(data = dat, corr.method = "pearson")
+```
+
+**表 1 **
+ 
+英語、数学、日本語のテスト得点の記述統計と相関係数、95%信頼区間
+
+| Variable   | *M*     | *SD*    | 1      | 2        |
+|------------|------|------|--------|----------|
+| 1. English | 49.45 | 13.19 |        |          |
+| 2. Math    | 49.50 | 14.09 | .64** [.41, .80] |          |
+| 3. Japanese | 49.35 | 13.41 | .69** [.48, .82] | .43** [.14, .65] |
+
+**注.**  * *p* < .05. ** *p* < .01.
+
+- 3つのテスト得点の間には、統計的有意な相関関係がみられた（表1）。英語と日本語の相関係数が最も高く（*r* = .69 95% CI [.48-.82], *t*(38) = 5.90, *p* < .001）、数学と日本語の相関係数が最も低かった（*r* = .43,  95% CI [.14-.65], *t*(38) = 2.93, *p* = .006）。
+
+## 次週までの課題
+### 課題内容
+
+1. 小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。
+
+2. （宿題を考える）
+
+- **Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。**
+
+### 提出方法
+- メールにファイルを添付して送信。
+- 締め切りは今週の木曜日まで
+
+## 参考文献
+
+- 心理学統計法　放送大学
+- 心理学・教育学研究のための効果量入門
+- 平井 et al. 
+
+- 外国語教育ハンドブック
+- 心理統計
+- Plonsky, L., & Oswald, F. L. (2014). How big is “big”? Interpreting effect sizes in L2 research. Language learning, 64(4), 878-912.
+- Messerli, F. H. (2012). Chocolate consumption, cognitive function, and Nobel laureates. N Engl J Med, 367(16), 1562-1564.
+- https://www.pref.yamaguchi.lg.jp/soshiki/22/101008.html
+
+```{=html}
+<style>
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+
+.beg {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
+
+.caution {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
+  
+</style>
+```
