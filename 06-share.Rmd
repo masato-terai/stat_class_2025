@@ -1,31 +1,34 @@
 # Sharing your book
 
-## Publishing
+以下の説明はダメ
+標本サイズ30以上ならば大丈夫
+正規性検定で正規性の帰無仮説が棄却されなかったら、正規分布モデルを使って良い
 
-HTML books can be published online, see: https://bookdown.org/yihui/bookdown/publishing.html
+＊母集団分布の形状について何も情報がないならば、必要な標本サイズの上限は決まらなくなります。
+＊身長なら正規分布モデルに従うことが和kる
+＊母平均があなたの目的にとって適切な代表値なのかどうかをよく考えよ。
+＊検定達は、確かに正規分布モデルを使って導出される検定法ですが、中心極限定理のお陰で、正規分布モデル自体が誤りになるような未知の母集団分布の場合であっても許容できる誤差の範囲内で使用可能な場合が結構沢山あります。(もちろんダメな場合もある。)
+＊正規分布でないからノンパラ使おう（無条件では）はだめ
+＊Mann-WhitneyのU検定のP値は
 
-## 404 pages
+2つの母集団分布はぴったり等しい
 
-By default, users will be directed to a 404 page if they try to access a webpage that cannot be found. If you'd like to customize your 404 page instead of using the default, you may add either a `_404.Rmd` or `_404.md` file to your project root and use code and/or Markdown syntax.
+という仮定を使って計算されるので、2群の優劣のために使用するのは危険な場合があります。
 
-## Metadata for sharing
+無条件では使えない使い方が難しい検定法なので注意が必要。Mann-WhitneyのU検定を使っている報告は粗探しをする必要があります。
+T検定はウェルチをデフォルトで使う
+＊例えば、ある特定目的のための2つの集団の比較で母平均の差の推定値を使うことが適切であるか、という問題は、その目的と2つの集団とデータの取得法に関する専門知識がないと手も足も出ない問題になります。統計学の使用では
 
-Bookdown HTML books will provide HTML metadata for social sharing on platforms like Twitter, Facebook, and LinkedIn, using information you provide in the `index.Rmd` YAML. To setup, set the `url` for your book and the path to your `cover-image` file. Your book's `title` and `description` are also used.
+Science before Statistics! 
 
+という合言葉が必要。
 
+*Use of nomality tests before t test
+https://discourse.datamethods.org/t/reference-collection-to-push-back-against-common-statistical-myths/1787#use-of-normality-tests-before-t-tests-13
 
-This `gitbook` uses the same social sharing data across all chapters in your book- all links shared will look the same.
+フローチャートに従って決めるなどは推奨されない。
+→研究したいこと、見たいことは何かを考える
+→研究分野に対する知識が重要。〇→XならAIにもできるし、言語研究の専門家でなくても分析ができてしまう。→自分の研究したいことは自分が一番よく理解しようという心構えが自分の分野の将来も守る
+過去の研究や理論的背景から、母集団分布の形を考える
 
-Specify your book's source repository on GitHub using the `edit` key under the configuration options in the `_output.yml` file, which allows users to suggest an edit by linking to a chapter's source file. 
-
-Read more about the features of this output format here:
-
-https://pkgs.rstudio.com/bookdown/reference/gitbook.html
-
-Or use:
-
-```{r eval=FALSE}
-?bookdown::gitbook
-```
-
-
+引用：https://biostatistics.ucdavis.edu/sites/g/files/dgvnsk4966/files/media/documents/Greenland.Advancing%20statistics%20reform%2C%20part%204.Slides%201-110%2C%2001%20June%202022.pdf
