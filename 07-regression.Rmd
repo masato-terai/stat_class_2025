@@ -1,0 +1,375 @@
+# 単回帰分析
+
+```{r, include=FALSE}
+library(tidyverse)
+library(magick)
+options(scipen = 999)
+```
+
+## 事前の確認
+
+- この講義のRプロジェクトを開いていますか？
+- 英数字で名前を付けた本日の講義のファイルを作成しましたか？
+
+  - .Rでも.Rmdでもどちらでも大丈夫です。
+
+## 今日の目標
+
+1. 
+2. 
+
+## 回帰分析（regression analysis）とは
+
+- データに回帰直線をあてはめ、そこから得られた予測値や残差をもとにデータを解釈する方法
+
+### 変数の名前
+
+- 独立変数（independent variable）：説明変数や予測変数とも呼ばれる。予測に用いられる変数 *x*
+
+- 従属変数（dependent variable）：目的変数や基準変数とも呼ばれる。予測される方の変数 *y*
+
+### 最小二乗法
+
+- 青い線が回帰直線。以下の一次式で表される
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+dat <- read.csv("../stat_class_2025/sample_data/pokemon_data.csv")
+
+dat %>%
+  ggplot(aes(x = こうげき, y = HP)) +
+  geom_point() +
+  geom_smooth(method="lm", fomula='y~x', se = F)
+```
+
+\[
+\hat{y} = a + bx
+\]
+
+  - 傾き（ *b* ）：変数 *x* の<u>1単位の差異</u>に対応する *y* の予測値の差異の大きさ。**回帰係数（regression coefficient）** とも呼ばれる。
+  
+    - 変数 *x* の単位を把握しておくことが重要。標準化すると、1標準偏差あたりに変換できる
+  
+  - 切片（ *a* ）
+
+- 回帰直線が実際のデータに最もよく適合するように計算される。計算方法として**最小2乗法（least squares method）**が1例としてあげられる。
+
+\[
+b = r\frac{S_y}{S_x}
+\]
+
+\[
+a = \hat{y} - b\bar{x}
+\]
+
+- 回帰直線の式に上記の式を代入。*x* が平均 \(\bar{x}\) に等しいとき、 *y* の予測値 \(\hat{y}\) は *y* の平均 \(\bar{y}\) に等しくなる。= 回帰直線は、点（\(\bar{x}\), \(\bar{y}\)）を通る傾き *b* の直線
+
+\[
+\hat{y} = (\bar{y} - b\bar{x}) + bx\\
+\hspace{0em} = \bar{y} + b(x - \bar{x})
+\]
+
+
+::: infobox
+最小2乗法以外にも最尤推定法があり、前者は手元のデータに当てはめることを考え、後者はこのデータが出てくる確率が一番高くなるように、確率分布のパラメータを考える。どちらの基準を用いても推定値はほぼ同じ値になる。誤差が独立していて、正規分布していれば、最小二乗法と最尤推定は等価になる。最尤推定法は正規分布以外の確率分布にも適用できるため、最尤推定法の方がより用いられる（最小2乗法は2つの変数の直接的な関係を仮定するため、線形ではない回帰モデルでは最小2乗法が使えない場合がある）。
+
+- 最小二乗法：```lm```関数
+```{r}
+stats::lm(mtcars$mpg ~ mtcars$cyl, weights = NULL)
+```
+
+- 最尤推定法：```glm```関数
+
+  - iteratively reweighted least squaresを用いて最尤推定している
+  
+```{r}
+stats::glm(mtcars$mpg ~ mtcars$cyl)
+```
+
+:::
+
+### ベイズ推定
+- 最尤法の代わりに使う方法。
+
+  - 最小2乗法、最尤推定法：「点」を推定 => 1つの値を返す
+
+  - ベイズ推定：「幅」（分布）を推定。事後分布を返す。この分布の一番高い個所を「点」として報告することもできる
+
+- マルコフ連鎖モンテカルロ法（MCMC）によって得られた乱数のサンプルを使って推定する。
+
+```{r}
+res <- rstanarm::stan_glm(
+        mpg ~ cyl, 
+         seed = 123,
+         data = mtcars,
+         refresh = 0
+         ) #priors weakly informative by default
+
+summary(res)
+```
+```{r, echo=FALSE}
+posterior_samples <- as.matrix(res, pars = "cyl")# "am" の事後分布サンプルを取得
+hist(posterior_samples)
+```
+
+- ベイズ推定では、事前分布を指定する。つまり、最小2乗法や最尤推定法を使う場合と異なり、得られたデータだけでなく、事前の知識を反映して分析できる。
+
+  - 変数 *x*により狭い事前分布を設定平均が0、標準偏差が0.2
+
+```{r, echo=FALSE}
+set.seed(123)
+df <- data.frame(
+  value = c(rnorm(4000, mean = 0, sd = 8.4), rnorm(4000, mean = 0, sd = 0.2)),
+  type = rep(c("Weak", "Informative"), each = 4000)
+)
+
+ggplot(df, aes(x = value, fill = type)) +
+  geom_density(alpha = 0.5) +  # 透明度を設定
+  scale_fill_manual(values = c("skyblue", "salmon")) +  # 色を指定
+  labs(title = "Comparison of Priors", x = "Value", y = "Density") +
+  theme_minimal()
+
+```
+
+```{r}
+res_prior <- stan_glm(        
+         mpg ~ cyl, 
+         seed = 123,
+         data = mtcars,
+         refresh = 0,
+         prior = normal(0, 0.2) # 事前分布設定
+         ) 
+
+summary(res_prior)
+```
+
+- 異なる事前分布を持つ回帰モデルから得られた事後分布の描画
+
+  - より狭い事前分布をおくと、事前分布が推定に与える影響が、広い事前分布の場合より大きくなる。
+  
+    - 広い、狭い = 標準偏差の大きさ
+  
+```{r, echo=FALSE}
+posterior_sample <- as.matrix(res, pars = "cyl")
+df_posterior <- data.frame(value = posterior_sample, type = "Posterior (Weak)")
+posterior_sample2 <- as.matrix(res_prior, pars = "cyl")
+df_posterior2 <- data.frame(value = posterior_sample2, type = "Posterior (Informative)")
+
+df_combined <- rbind(df_posterior, df_posterior2)
+
+ggplot(df_combined, aes(x = cyl, fill = type)) +
+  geom_density(alpha = 0.5) +
+  theme_minimal() +
+  labs(title = "Posterior Distribution",
+       x = "Coefficient Value",
+       y = "Density") +
+  geom_vline(xintercept = 0, lwd  = 2) +
+    scale_fill_manual(values = c("skyblue", "salmon"))   # 色を指定
+
+```
+
+<div class="alert alert-info">
+  <strong>注</strong> 事前分布を特に設定しない場合、頻度統計の結果もベイズ統計の結果も近似する。
+</div>
+
+- ベイズ推定では、事前分布の設定を行ったり、サンプリングが適切に行われたかを確認する手順が必要である。今回は推定の紹介だけで、今後詳しい設定法などに言及する。
+
+
+
+### 回帰分析における予測値と残差
+- **残差（residual）**：予測の誤差ともいう。それぞれの観測値と直線の差のこと。つまり、\(e = y - \hat{y}\) 。
+
+  - 残差の平均は0
+  - 残差と変数 *x* の相関は0
+  - 予測値 \(\hat{y}\) と残差の相関は0
+  
+    - 予測値は変数 *x* を線形下もので、相関係数の絶対値は変わらないから
+  
+- 前のセクションで述べた **最小2乗法**は残差を2乗して足し合わせた残差平方和が最小になるように計算を行う
+
+#### デモ
+- HPを従属変数、こうげきを独立変数として単回帰分析を実行し、resという変数に格納する
+```{r}
+res <- lm(dat$HP ~ dat$こうげき)
+```
+
+```{r, echo=FALSE}
+summary(res)
+```
+
+
+- 残差の平均を計算
+```{r}
+mean(res$residuals)
+```
+
+- 残差と変数 *x* の相関を計算
+```{r}
+cor(res$residuals, dat$こうげき)
+```
+
+- 残差と予測値の相関を計算
+```{r}
+cor(res$residuals, res$fitted.values)
+```
+
+::: infobox
+R で計算すると、理論的には 0 になるはずの値が浮動小数点演算の誤差により完全に 0 にならないことがあります([参考](https://stackoverflow.com/questions/23992032/sum-of-residuals-using-lm-is-non-zero))。
+:::
+
+#### 変数の直行分解と残差の意義
+
+- 残差の式は以下のように書き換えられる。
+
+\[
+y = \hat{y} + e
+\]
+
+- 前のセクションで示したように、右辺の二つは無相関である。従って、従属変数を無相関の成分に分解する式であると言える。相関がない2変数は「互いに直交する」ともいえる。つまり、上記の式は、**直行分解**の式である。
+
+  - 独立変数と残差が無相関であるという性質により、「従属変数 *y*の成分のうち、独立変数 *x* とは相関の無い残差成分」を取り出すことが可能になる。
+  
+  - つまり、残差は単なるズレではなく、従属変数のうち独立変数とは関係しない部分を表している
+  
+::: infobox
+
+残差と誤差は異なる。「誤差」は求めようとする**真**の回帰式（母集団などのように神様しか知らない）から算出される値と実際のデータとの差を表す。真の回帰式は理論的なものであるため誤差を計算では求められない。「残差」は実際のデータを用いて推定された回帰式から算出される値と実際のデータとの差を指し、計算で求められる。
+
+:::
+  
+##### ポケモンのHPとこうげきの例
+- ポケモンのHPをこうげき変数で予測する（「こうげき」の値が大きいポケモンはHPも高そう）
+  - こうげき：```r (dat$こうげき[384])```
+  - HP：```r (dat$HP[384])```
+```{r, echo=FALSE}
+img0 <- image_read(dat$画像URL[384])
+print(img0, info = F)
+```
+
+  - 残差は「HPのうち、こうげきでは説明できない成分」
+  
+    - 残差が**正**の大きな値：「こうげきから予測されるレベルよりもHPがかなり高いポケモン」
+
+```{r, echo=FALSE}
+pok <- which.max(res$residuals)
+img <- image_read(dat$画像URL[pok])
+print(img, info = F)
+```
+
+- HPの平均と当該ポケモンのHP
+```{r, echo=FALSE}
+mean(dat$HP)
+dat$HP[pok]
+```
+
+- こうげきの平均と当該ポケモンのこうげき
+```{r, echo=FALSE}
+mean(dat$こうげき)
+
+dat$こうげき[pok]
+```
+
+  - 残差が**負**の大きな値：「こうげきから予測されるレベルよりもHPがかなり低いポケモン」
+
+```{r, echo=FALSE}
+pok2 <- which.min(res$residuals)
+img2 <- image_read(dat$画像URL[pok2])
+print(img2, info = F)
+```
+
+- HPの平均と当該ポケモンのHP
+```{r, echo=FALSE}
+mean(dat$HP)
+
+dat$HP[pok2]
+```
+
+- こうげきの平均と当該ポケモンのこうげき
+```{r, echo=FALSE}
+mean(dat$こうげき)
+
+dat$こうげき[pok2]
+```
+
+- 残差（変数）はHPそのものとは意味内容が異なる（「こうげきから予測されるHPよりも高いか低いか」を示している）。HPそのものが高いポケモンでも、こうげきが高ければ残差の値は大きくならない。また、HPそのものが低くても、こうげきのわりにはHPが高ければ残差は大きくなる。
+
+  - 残差に注目することで、もともとの変数間の関係を調べるだけでは知ることのできなかったより本質的な関係が明らかになる可能性がある
+  
+### 回帰直線の当てはまりの良さ
+
+- 相関係数の2乗のことを**分散説明率**とよぶことがある。また、独立変数がどれだけ従属変数の値を決定するかを表していることから、**決定係数（coefficient of determination: \(R^{2}\)）**とも呼ばれる。高いほどよい（高すぎても予測の点から問題はある）。
+
+\[
+R^{2} = 1 - \frac{SS_e}{SS_y}
+\]
+
+  - \(SS_e\)：残差の2乗和
+  - \(SS_y\)：目的変数の偏差2乗和
+
+  - 0-1（0-100%）の間の値をとる
+
+  - 調整済決定係数（Adjusted R-squared）：独立変数の数が多い場合、その影響の大きさに関わらず、決定係数が大きくなる。その欠点を補ったもの
+
+
+```{r}
+summary(res)
+```
+
+
+### 回帰分析を使う際の注意点
+
+- 因果関係まではわからない
+  - 決定係数の値が高く、よく適合していることと、そのモデル内の回帰係数が「因果効果の良い推定値」かどうかは、本質的には別の問題
+
+
+
+- 分散分析をやめよう（https://www.cambridge.org/core/journals/studies-in-second-language-acquisition/article/multiple-regression-as-a-flexible-alternative-to-anova-in-l2-research/61C0249F51E200C712D2DDF7D489C835）
+
+
+## ハンズオンセッション
+
+
+
+## 次週までの課題
+### 課題内容
+
+1. 小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。
+
+2. （宿題を考える）
+
+- **Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。**
+
+### 提出方法
+- メールにファイルを添付して送信。
+- 締め切りは今週の木曜日まで
+
+## 参考文献
+
+- 心理学統計法　放送大学
+- 平井 et al. 
+- 心理学統計の基礎
+- https://stackoverflow.com/questions/23992032/sum-of-residuals-using-lm-is-non-zero
+https://takehiko-i-hayashi.hatenablog.com/entry/2017/09/27/105559
+- https://bellcurve.jp/statistics/course/9704.html
+- 言葉と数式で理解する多変量解析入門
+- https://oroshi.me/2021/01/lsm
+- http://www.ner.takushoku-u.ac.jp/masano/class_material/waseda/keiryo/R34_MLE.html#1_%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%97%E6%B3%95%E3%81%A8%E6%9C%80%E5%B0%A4%E6%B3%95%E3%81%AE%E9%81%95%E3%81%84
+- Gelman et al., Regression and other stories
+- https://zenn.dev/tatamiya/articles/0d9a79260ebb42#lm-%E9%96%A2%E6%95%B0%E3%81%AE%E5%AE%9F%E8%A3%85%E3%82%92%E3%81%A9%E3%81%86%E3%82%84%E3%81%A3%E3%81%A6%E8%BE%BF%E3%82%8B%E3%81%8B%EF%BC%9F
+```{=html}
+<style>
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+
+.beg {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
+
+.caution {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
+  
+</style>
+```
