@@ -10,6 +10,10 @@ options(scipen = 999)
 ## 今後の修正案
 - 最小二乗法の話だけをするのであれば、lmを一貫して使った方がいい？でも正規分布なら一致するからglmを使ってもいい？？
 
+- 興味深い資料：
+https://qiita.com/s-nakagawa2/items/c01650b49fbda218a73d#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE
+https://note.com/kiyo_ai_note/n/n8112cc3a665b
+
 ## 事前の確認
 
 - この講義のRプロジェクトを開いていますか？
