@@ -1,0 +1,72 @@
+# 重回帰分析
+
+
+
+# 事前の確認
+
+- この講義のRプロジェクトを開いていますか？
+- 英数字で名前を付けた本日の講義のファイルを作成しましたか？
+
+  - .Rでも.Rmdでもどちらでも大丈夫です。
+
+## 今日の目標
+
+1. 
+2. 
+
+## 回帰分析とは
+
+- 分散分析をやめよう（https://www.cambridge.org/core/journals/studies-in-second-language-acquisition/article/multiple-regression-as-a-flexible-alternative-to-anova-in-l2-research/61C0249F51E200C712D2DDF7D489C835）
+
+## 重回帰分析を行う上での注意点
+
+- https://www.note.kanekoshobo.co.jp/n/n9624e14dda8e#733dd8a6-e3c2-4767-8e8b-7a50ae6eeaf4
+- https://www.jstage.jst.go.jp/article/jjpsy/92/3/92_92.19226/_pdf
+
+## ハンズオンセッション
+
+
+
+## 次週までの課題
+### 課題内容
+
+1. 小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。
+
+2. （宿題を考える）
+
+- **Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。**
+
+### 提出方法
+- メールにファイルを添付して送信。
+- 締め切りは今週の木曜日まで
+
+## 参考文献
+
+- 心理学統計法　放送大学
+- 心理学・教育学研究のための効果量入門
+- 平井 et al. 
+
+- 外国語教育ハンドブック
+- 心理統計
+- Plonsky, L., & Oswald, F. L. (2014). How big is “big”? Interpreting effect sizes in L2 research. Language learning, 64(4), 878-912.
+- Messerli, F. H. (2012). Chocolate consumption, cognitive function, and Nobel laureates. N Engl J Med, 367(16), 1562-1564.
+- https://www.pref.yamaguchi.lg.jp/soshiki/22/101008.html
+
+```{=html}
+<style>
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+
+.beg {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
+
+.caution {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
+  
+</style>
+```
