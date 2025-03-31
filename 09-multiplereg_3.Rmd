@@ -1,0 +1,281 @@
+# Week9: 重回帰分析 (3)：交互作用の解釈
+
+```{r, include=FALSE}
+library(rstan)
+library(brms)
+library(gt)
+
+rstan_options(auto_write = T)
+options(mc.cores = parallel::detectCores())
+```
+
+
+## 事前の確認
+
+- この講義のRプロジェクトを開いていますか？
+- 英数字で名前を付けた本日の講義のファイルを作成しましたか？
+
+  - .Rでも.Rmdでもどちらでも大丈夫です。
+
+## 今日の目標
+
+1. 
+2. 
+
+## 交互作用
+- 2つ以上の独立変数の組み合わせが従属変数にもたらす影響
+
+  - 質的変数は**トリートメント・コーディング**を行ったと仮定
+  
+  - 一般化線形モデルでは、「説明変数同士の積」を説明変数として加えることで、交互作用を表現する
+
+```{r, include=FALSE}
+dat <- read.csv("../stat_class_2025/sample_data/3-10-3-interaction-3.csv")
+```
+
+### 量的変数 × 量的変数
+```{r}
+model1 <- brm(sales ~ product * clerk, gaussian(link = "identity"),
+              data = dat, seed = 123, refresh = 0)
+```
+
+```{r, include=FALSE}
+eff <- conditional_effects(model1, effects = "product:clerk")
+```
+
+- 緑色（平均値）の線、赤色の線は右肩上がりになっている
+
+```{r}
+plot(eff, plot = F)[[1]]
+```
+
+```{r, echo=FALSE}
+sjPlot::tab_model(model1)
+```
+
+- 量的 × 量的変数の交互作用の予測値
+
+  - 切片 + Product × (-2.27) + Clerk × (6.43) + **（Product × Clerk） × 1.05**
+  
+  - 店員数（Clerk）によって、製品数（Product）の係数の値が変化する
+
+```{r, echo=FALSE}
+new_data <- data.frame(
+  product = c(0, 10, 0, 10),
+  clerk = c(0, 0, 10, 10)
+)
+
+res <- round(fitted(model1, new_data), 2)
+
+cbind(new_data, res) %>%
+  gt() %>%
+  tab_header(title = "量的 × 量的変数の交互作用") %>%
+  cols_align(align = "center") %>%
+  tab_options(table.width = pct(100))
+```
+
+tab: https://gedevan-aleksizde.github.io/rmarkdown-cookbook/html-tabs.html
+
+### 量的変数 × 質的変数
+- データの読み込み
+```{r}
+dat <- read.csv("../stat_class_2025/sample_data/3-10-2-interaction-2.csv")
+```
+
+- コーディング（トリートメント）
+
+  - 他のコーディングでも分析可能である
+  
+```{r}
+dat$publicity <- factor(dat$publicity)
+contrasts(dat$publicity) <- contr.treatment(2)
+contrasts(dat$publicity)
+```
+
+```{r}
+model2 <- brm(sales ~ publicity * temperature, gaussian(link = "identity"),
+              data = dat, seed = 123, refresh = 0)
+```
+
+```{r, include=FALSE}
+eff2 <- conditional_effects(model2, effects = "temperature:publicity")
+```
+
+- 宣伝アリの方が、切片（線の開始点）も傾きも大きいことが分かる
+```{r}
+plot(eff2, plot = F)[[1]]
+```
+```{r, echo=FALSE}
+sjPlot::tab_model(model2)
+```
+
+- 質的 × 量的変数の交互作用の予測値
+
+```{r}
+df <- data.frame(
+  宣伝 = c("なし", "あり"),
+  `売り上げの予測値` = c(
+                 "43.16 + temperature × 2.58",
+                 "43.16 + 16.99 + temperature × (2.58 + 4.20)")
+)
+
+df %>%
+  gt() %>%
+  tab_header(title = "質的 × 量的変数の交互作用") %>%
+  cols_align(align = "center") %>%
+  tab_options(table.width = pct(100))
+
+```
+
+- 気温の主効果は、宣伝がなかった時における気温の効果であることに注意。そのため、気温の主効果の数値だけではなく、交互作用を確認して結果を解釈する必要がある。
+
+```{r, echo=FALSE}
+new_data_2 <- data.frame(
+  publicity = rep(c("not", "to_implement"), each = 2),
+  temperature = c(0, 10, 0, 10)
+)
+
+res2 <- round(fitted(model2, new_data_2), 2)
+
+cbind(new_data_2, res2) %>%
+  gt() %>%
+  tab_header(title = "質的 × 量的変数の交互作用") %>%
+  cols_align(align = "center") %>%
+  tab_options(table.width = pct(100))
+```
+
+### 質的変数 × 質的変数
+
+```{r}
+dat <- read.csv("../stat_class_2025/sample_data/3-10-1-interaction-1.csv")
+```
+
+- コーディング（トリートメント）
+```{r}
+dat$publicity <- factor(dat$publicity)
+contrasts(dat$publicity) <- contr.treatment(2)
+contrasts(dat$publicity)
+```
+
+```{r}
+dat$bargen <- factor(dat$bargen)
+contrasts(dat$bargen) <- contr.treatment(2)
+contrasts(dat$bargen)
+```
+
+```{r}
+model3 <- brm(sales ~ publicity * bargen, gaussian(link = "identity"),
+              data = dat, seed = 123, refresh = 0)
+```
+
+
+```{r, include=FALSE}
+eff3 <- conditional_effects(model3, effects = "publicity:bargen")
+```
+
+- 宣伝も安売りもありの方が売り上げが最も大きいことが分かる
+```{r}
+plot(eff3, plot = F)[[1]]
+```
+
+```{r, echo=FALSE}
+sjPlot::tab_model(model3)
+```
+
+- 質的 × 質的変数の交互作用の予測値
+
+  - 宣伝も安売りもあった場合、二つの主効果に加え、交互作用の影響が加算される
+  
+```{r}
+df <- data.frame(
+  宣伝 = c("なし", "あり", "なし", "あり"),
+  安売り = c("なし", "なし", "あり", "あり"),
+  `売り上げの予測値` = c("103.22", "103.22 + 10.03", "103.22 + 27.35", "103.22 + 10.03 + 27.53 + 20.76")
+)
+
+df %>%
+  gt() %>%
+  tab_header(title = "質的 × 質的の交互作用") %>%
+  cols_align(align = "center") %>%
+  tab_options(table.width = pct(100))
+
+```
+
+- 得られた係数の結果と比較するとさらに分かりやすい
+```{r, echo=FALSE}
+new_data_3 <- data.frame(
+  publicity = rep(c("not", "to_implement"), 2),
+  bargen = rep(c("not", "to_implement"), each = 2)
+)
+
+res3 <- round(fitted(model3, new_data_3), 2)
+
+cbind(new_data_3, res3) %>%
+  gt() %>%
+  tab_header(title = "質的 × 質的変数の交互作用") %>%
+  cols_align(align = "center") %>%
+  tab_options(table.width = pct(100))
+```
+
+### 下位検定
+- 多重比較
+
+
+## 変数のコーディングと交互作用
+- 全部のコーディングタイプで交互作用を示す
+  
+    - 3 vs 3みたいな複雑なデザインは避けるように伝える
+    
+- 複数変数がある場合、それらのコーディングを統一する方がよい（交互作用を含める場合も踏まえ）
+
+- サムコントラストコーディングを実施
+
+
+- 清水先生の「心理学における重回帰分析の使い所を考える」に関してのコラムをいれる」
+
+
+## ハンズオンセッション
+- 他のコーディングで質的 * 質的の比較を行う
+
+  - 反復コントラスト（仮説行列の作り方を教える？）
+
+  - sum.contraste
+
+## 次週までの課題
+### 課題内容
+
+1. 小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。
+
+2. （宿題を考える）- 外れ値を考えてやる
+
+- **Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。**
+
+### 提出方法
+- メールにファイルを添付して送信。
+- 締め切りは今週の木曜日まで
+
+
+## 参考文献
+
+- 南風原
+- 馬場 RとStanではじめるベイズ統計モデリングによるデータ分析
+- 小島ますみ（2022）. 外国語教育研究における（一般化）線形混合モデル：仮説に適したコーディング・モデリングを中心に The 2021 Annual Conference on Vocabulary Acquisition
+
+```{=html}
+<style>
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+
+.beg {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
+
+.caution {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
+  
+</style>
+```
