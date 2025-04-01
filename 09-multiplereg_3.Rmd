@@ -4,6 +4,7 @@
 library(rstan)
 library(brms)
 library(gt)
+library(tidyverse)
 
 rstan_options(auto_write = T)
 options(mc.cores = parallel::detectCores())
@@ -36,7 +37,7 @@ dat <- read.csv("../stat_class_2025/sample_data/3-10-3-interaction-3.csv")
 ### 量的変数 × 量的変数
 ```{r}
 model1 <- brm(sales ~ product * clerk, gaussian(link = "identity"),
-              data = dat, seed = 123, refresh = 0)
+              data = dat, seed = 123, refresh = 0, iter = 5000, chains = 2)
 ```
 
 ```{r, include=FALSE}
@@ -55,7 +56,7 @@ sjPlot::tab_model(model1)
 
 - 量的 × 量的変数の交互作用の予測値
 
-  - 切片 + Product × (-2.27) + Clerk × (6.43) + **（Product × Clerk） × 1.05**
+  - 切片 + Product × (-2.26) + Clerk × (6.49) + **（Product × Clerk） × 1.05**
   
   - 店員数（Clerk）によって、製品数（Product）の係数の値が変化する
 
@@ -94,7 +95,7 @@ contrasts(dat$publicity)
 
 ```{r}
 model2 <- brm(sales ~ publicity * temperature, gaussian(link = "identity"),
-              data = dat, seed = 123, refresh = 0)
+              data = dat, seed = 123, refresh = 0, iter = 5000, chains = 2)
 ```
 
 ```{r, include=FALSE}
@@ -115,8 +116,8 @@ sjPlot::tab_model(model2)
 df <- data.frame(
   宣伝 = c("なし", "あり"),
   `売り上げの予測値` = c(
-                 "43.16 + temperature × 2.58",
-                 "43.16 + 16.99 + temperature × (2.58 + 4.20)")
+                 "42.80 + temperature × 2.59",
+                 "42.80 + 17.49 + temperature × (2.59 + 4.19)")
 )
 
 df %>%
@@ -165,7 +166,7 @@ contrasts(dat$bargen)
 
 ```{r}
 model3 <- brm(sales ~ publicity * bargen, gaussian(link = "identity"),
-              data = dat, seed = 123, refresh = 0)
+              data = dat, seed = 123, refresh = 0, iter = 5000, chains = 2)
 ```
 
 
@@ -190,7 +191,7 @@ sjPlot::tab_model(model3)
 df <- data.frame(
   宣伝 = c("なし", "あり", "なし", "あり"),
   安売り = c("なし", "なし", "あり", "あり"),
-  `売り上げの予測値` = c("103.22", "103.22 + 10.03", "103.22 + 27.35", "103.22 + 10.03 + 27.53 + 20.76")
+  `売り上げの予測値` = c("103.32", "103.32 + 10.05", "103.32 + 27.35", "103.32 + 10.05 + 27.35 + 20.72")
 )
 
 df %>%
@@ -217,29 +218,192 @@ cbind(new_data_3, res3) %>%
   tab_options(table.width = pct(100))
 ```
 
-### 下位検定
+#### 下位検定
+- 交互作用が有意だった場合に、単純主効果を調べるために行う
+
+  - 単純主効果
+  
+    - ある要因の各水準における、別の要因の効果のこと
+  
+    - e.g., Publicity条件における、Bargen実施の有無（to_impement/not）の平均値差
+
 - 多重比較
 
-
-## 変数のコーディングと交互作用
-- 全部のコーディングタイプで交互作用を示す
+  - 水準が3以上などの場合、検定を繰り返すため、多重比較の問題が発生する。影響を軽減するため、補正を行う
   
-    - 3 vs 3みたいな複雑なデザインは避けるように伝える
-    
-- 複数変数がある場合、それらのコーディングを統一する方がよい（交互作用を含める場合も踏まえ）
+- 交互作用が有意
+```{r, echo=FALSE}
+model4 <- lm(sales ~ publicity * bargen, data = dat)
+sjPlot::tab_model(model4)
+```
 
-- サムコントラストコーディングを実施
+```{r, echo=FALSE}
+ggplot(dat, aes(x = publicity, y = sales, group = bargen, color = bargen)) +
+  stat_summary(fun = mean, geom = "line", aes(group = bargen)) + 
+  stat_summary(fun = mean, geom = "point", size = 3) +  # 平均値の点
+  theme_minimal()
+```
+- ```emmeans()```関数を使って、下位検定を行う
 
+```{r}
+#install.packages("emmeans")
+library(emmeans)
+```
+
+-  bargenの単純主効果（publicityの各水準ごとにbargenの効果を調べる）
+
+  - bargen by publicity
+
+```{r}
+contrast(
+  emmeans(model4, pairwise ~ bargen | publicity), 
+  adjust = "bonferroni"
+  )
+```
+
+-  publicityの単純主効果（bargenの各水準ごとにpublicityの効果を調べる）
+
+  - publicity by bargen 
+
+```{r}
+contrast(
+  emmeans(model4, pairwise ~ publicity | bargen), 
+  adjust = "bonferroni"
+  )
+```
+
+## ハンズオンセッション
+
+### 質的 × 質的（サムコントラスト）
+
+```{r}
+dat <- read.csv("../stat_class_2025/sample_data/Example4.csv")
+```
+
+```{r}
+head(dat, 5)
+```
+
+```{r}
+table(dat$Grade)
+```
+
+```{r}
+table(dat$Learning)
+```
+
+```{r}
+dat$Grade <- factor(dat$Grade)
+dat$Learning <- factor(dat$Learning, levels = c("List", "Context", "KeyWord"))
+```
+
+- 各群ごとの平均
+```{r}
+aggregate(Post ~ Grade, data = dat, FUN = mean)
+```
+
+```{r}
+aggregate(Post ~ Learning, data = dat, FUN = mean)
+```
+
+```{r}
+res <- aggregate(Post ~ Grade*Learning , data = dat, FUN = mean)
+res
+```
+
+- Ground Mean
+```{r}
+mean(res$Post)
+```
+
+```{r}
+contrasts(dat$Grade) <- contr.sum(2)
+contrasts(dat$Grade)
+```
+
+```{r}
+contrasts(dat$Learning) <- contr.sum(3)
+contrasts(dat$Learning)
+```
+
+```{r}
+model_sum <- lm(Post ~ Grade * Learning, data = dat)
+```
+
+```{r}
+summary(model_sum)
+```
+
+- 以下のような作図を行う場合、コーディングによって図中のパターンが変わることはない
+```{r}
+#install.packages("sjPlot")
+library(sjPlot)
+plot_model(
+  model_sum, 
+  type = "pred",
+  terms = c("Grade", "Learning")
+           )
+```
+
+### 係数の解釈
+- 記述統計の値を参照した考えると分かりやすい
+  - Intercept: grand mean (47.5)
+  - GradeSecond: First - grand mean (39.93333 - 47.5)
+  - Learning1: List - grand mean (65.1 - 47.5)
+  - Learning2: Context - grand mean (32.5 - 47.5)
+  - GradeSecond:Learning1: {2 * (60 - 70.2) + (45.2 - 19.8) + (49.8 - 40)} ÷ 6
+  
+$$
+\frac{2(M_{\text{リスト1}} - M_{\text{リスト2}}) + (M_{\text{文脈2}} - M_{\text{文脈1}}) + (M_{\text{キー2}} - M_{\text{キー1}})}{6}
+$$
+
+  - GradeSecond:Learning2: {(70.2-60) + 2 * (19.8-45.2) + (49.8 - 40)} ÷ 6
+
+$$
+\frac{(M_{\text{リスト2}} - M_{\text{リスト1}}) + 2(M_{\text{文脈1}} - M_{\text{文脈2}}) + (M_{\text{キー2}} - M_{\text{キー1}})}{6}
+$$
+
+### 質的 × 質的（反復コントラスト）
+
+```{r}
+library(MASS)
+contrasts(dat$Grade) <- fractions(contr.sdif(2))
+contrasts(dat$Grade)
+```
+
+```{r}
+contrasts(dat$Learning) <- fractions(contr.sdif(3))
+contrasts(dat$Learning)
+```
+
+```{r}
+model_rep <- lm(Post ~ Grade * Learning, data = dat)
+```
+
+```{r}
+summary(model_rep)
+```
+
+### 係数の解釈
+- 記述統計の値を参照した考えると分かりやすい
+  - Intercept: grand mean
+  - Grade2-1: Second - First
+  - Learning2-1: Context - List
+  - Learning3-2: Keyword - Context
+  - Grade2-1:Learning2-1: (ContextにおけるSecond-First) -  (ListにおけるSecond-First) = (45.2 - 19.8) - (70.2 - 60)
+  - Grade2-1:Learning3-2: (KeywordにおけるSecond-First) -  (ContextにおけるSecond-First) = (49.8 - 40) - (45.2 - 19.8)
+
+
+::: .infobox
+- ここまで見てきたように、どのようなコーディングを適用したかで係数の値は異なります。また、何と何を比較しているのかによって係数の正負も変わります。必ず、どの変数にどのようなコーディングを適用したのか、どの水準とどの水準を比較したのかを第三者から見て分かるように記載しましょう。
+- 2水準 × 3水準の交互作用でも係数の解釈は結構複雑になります。デザインはシンプルな方が解釈する側も分析をしやすいです。
+:::
+
+# 最後に
+- 下位検定とコーディングの関係を入れる。少なくともemmeansに関して?
 
 - 清水先生の「心理学における重回帰分析の使い所を考える」に関してのコラムをいれる」
 
-
-## ハンズオンセッション
-- 他のコーディングで質的 * 質的の比較を行う
-
-  - 反復コントラスト（仮説行列の作り方を教える？）
-
-  - sum.contraste
 
 ## 次週までの課題
 ### 課題内容
@@ -260,6 +424,7 @@ cbind(new_data_3, res3) %>%
 - 南風原
 - 馬場 RとStanではじめるベイズ統計モデリングによるデータ分析
 - 小島ますみ（2022）. 外国語教育研究における（一般化）線形混合モデル：仮説に適したコーディング・モデリングを中心に The 2021 Annual Conference on Vocabulary Acquisition
+- https://debruine.github.io/faux/articles/contrasts.html#x3-design
 
 ```{=html}
 <style>
