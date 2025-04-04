@@ -53,6 +53,8 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 
 
 <style type="text/css">
@@ -413,16 +415,16 @@ r_{xy} = \frac{S_{xy}}{S_xS_y}
 <li>相関係数が負の値をとる</li>
 </ul></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-222-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
 <ul>
 <li><p>ピアソンの相関係数は<strong>外れ値</strong>に影響されやすい。あらかじめ散布図で外れ値がないかを確認する</p></li>
 <li><p>以下の図では、左側の図のデータの一部（<em>n</em> = 2）を外れ値に変更した
-<img src="_main_files/figure-html/unnamed-chunk-223-1.png" width="672" /></p></li>
+<img src="_main_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p></li>
 <li><p>右側の図の相関係数がわずか2つの外れ値によって大きくなっていることが分かる</p></li>
 </ul>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="week5-相関分析.html#cb174-1" tabindex="-1"></a><span class="fu">cor</span>(data2<span class="sc">$</span>x, data2<span class="sc">$</span>y, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="week5-相関分析.html#cb169-1" tabindex="-1"></a><span class="fu">cor</span>(data2<span class="sc">$</span>x, data2<span class="sc">$</span>y, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] 0.7351905</code></pre>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="week5-相関分析.html#cb176-1" tabindex="-1"></a><span class="fu">cor</span>(data4<span class="sc">$</span>x, data4<span class="sc">$</span>y, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="week5-相関分析.html#cb171-1" tabindex="-1"></a><span class="fu">cor</span>(data4<span class="sc">$</span>x, data4<span class="sc">$</span>y, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] 0.9108736</code></pre>
 </div>
 <div id="相関係数の検定" class="section level3 hasAnchor" number="6.3.2">
@@ -454,8 +456,8 @@ t = \frac{r}{\sqrt{1-r^2}}\sqrt{n-2}
 <h2><span class="header-section-number">6.4</span> ハンズオンセッション<a href="week5-相関分析.html#ハンズオンセッション-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="データの読み込み-1" class="section level3 hasAnchor" number="6.4.1">
 <h3><span class="header-section-number">6.4.1</span> データの読み込み<a href="week5-相関分析.html#データの読み込み-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="week5-相関分析.html#cb178-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/cor.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="week5-相関分析.html#cb179-1" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="week5-相関分析.html#cb173-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/cor.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="week5-相関分析.html#cb174-1" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
 <pre><code>##   ID English Math Japanese
 ## 1  1      56   63       53
 ## 2  2      55   54       50
@@ -463,42 +465,32 @@ t = \frac{r}{\sqrt{1-r^2}}\sqrt{n-2}
 ## 4  4      57   29       59
 ## 5  5      49   38       57
 ## 6  6      27   38       20</code></pre>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="week5-相関分析.html#cb181-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb181-2"><a href="week5-相関分析.html#cb181-2" tabindex="-1"></a><span class="fu">describe</span>(dat<span class="sc">$</span>English)</span></code></pre></div>
-<pre><code>##    vars  n  mean    sd median trimmed
-## X1    1 40 49.45 13.19     49   49.31
-##      mad min max range skew kurtosis   se
-## X1 11.86  24  87    63 0.31     0.27 2.09</code></pre>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="week5-相関分析.html#cb183-1" tabindex="-1"></a><span class="fu">describe</span>(dat<span class="sc">$</span>Math)</span></code></pre></div>
-<pre><code>##    vars  n mean    sd median trimmed
-## X1    1 40 49.5 14.09   51.5   50.34
-##      mad min max range  skew kurtosis
-## X1 14.83  15  72    57 -0.49    -0.31
-##      se
-## X1 2.23</code></pre>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="week5-相関分析.html#cb185-1" tabindex="-1"></a><span class="fu">describe</span>(dat<span class="sc">$</span>Japanese)</span></code></pre></div>
-<pre><code>##    vars  n  mean    sd median trimmed
-## X1    1 40 49.35 13.41   49.5   49.62
-##      mad min max range  skew kurtosis
-## X1 14.08  20  74    54 -0.19    -0.61
-##      se
-## X1 2.12</code></pre>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="week5-相関分析.html#cb176-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb176-2"><a href="week5-相関分析.html#cb176-2" tabindex="-1"></a><span class="fu">describe</span>(dat<span class="sc">$</span>English)</span></code></pre></div>
+<pre><code>##    vars  n  mean    sd median trimmed   mad min max range skew kurtosis   se
+## X1    1 40 49.45 13.19     49   49.31 11.86  24  87    63 0.31     0.27 2.09</code></pre>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="week5-相関分析.html#cb178-1" tabindex="-1"></a><span class="fu">describe</span>(dat<span class="sc">$</span>Math)</span></code></pre></div>
+<pre><code>##    vars  n mean    sd median trimmed   mad min max range  skew kurtosis   se
+## X1    1 40 49.5 14.09   51.5   50.34 14.83  15  72    57 -0.49    -0.31 2.23</code></pre>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="week5-相関分析.html#cb180-1" tabindex="-1"></a><span class="fu">describe</span>(dat<span class="sc">$</span>Japanese)</span></code></pre></div>
+<pre><code>##    vars  n  mean    sd median trimmed   mad min max range  skew kurtosis   se
+## X1    1 40 49.35 13.41   49.5   49.62 14.08  20  74    54 -0.19    -0.61 2.12</code></pre>
 </div>
 <div id="散布図の作成" class="section level3 hasAnchor" number="6.4.2">
 <h3><span class="header-section-number">6.4.2</span> 散布図の作成<a href="week5-相関分析.html#散布図の作成" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="week5-相関分析.html#cb187-1" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>English, dat<span class="sc">$</span>Math)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-228-1.png" width="672" /></p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="week5-相関分析.html#cb188-1" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>English, dat<span class="sc">$</span>Japanese)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-228-2.png" width="672" /></p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="week5-相関分析.html#cb189-1" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">pairs.panels</span>(dat[,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-229-1.png" width="672" /></p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="week5-相関分析.html#cb182-1" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>English, dat<span class="sc">$</span>Math)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="week5-相関分析.html#cb183-1" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>English, dat<span class="sc">$</span>Japanese)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-93-2.png" width="672" /></p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="week5-相関分析.html#cb184-1" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">pairs.panels</span>(dat[,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
 </div>
 <div id="相関係数の算出" class="section level3 hasAnchor" number="6.4.3">
 <h3><span class="header-section-number">6.4.3</span> 相関係数の算出<a href="week5-相関分析.html#相関係数の算出" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li><code>corr.test</code>関数は、上述の<code>cor</code>関数を使用している。</li>
 </ul>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="week5-相関分析.html#cb190-1" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">corr.test</span>(dat[,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="week5-相関分析.html#cb185-1" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">corr.test</span>(dat[,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span></code></pre></div>
 <pre><code>## Call:psych::corr.test(x = dat[, 2:4], method = &quot;pearson&quot;)
 ## Correlation matrix 
 ##          English Math Japanese
@@ -517,14 +509,13 @@ t = \frac{r}{\sqrt{1-r^2}}\sqrt{n-2}
 <ul>
 <li><code>cor.test</code>を使用するとより詳細な結果が返ってくる</li>
 </ul>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="week5-相関分析.html#cb192-1" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
-<span id="cb192-2"><a href="week5-相関分析.html#cb192-2" tabindex="-1"></a><span class="fu">cor.test</span>(dat<span class="sc">$</span>English, dat<span class="sc">$</span>Math, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="week5-相関分析.html#cb187-1" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb187-2"><a href="week5-相関分析.html#cb187-2" tabindex="-1"></a><span class="fu">cor.test</span>(dat<span class="sc">$</span>English, dat<span class="sc">$</span>Math, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
 ## data:  dat$English and dat$Math
-## t = 5.1734, df = 38, p-value =
-## 0.000007715
+## t = 5.1734, df = 38, p-value = 0.000007715
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
 ##  0.4143074 0.7951314

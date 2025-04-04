@@ -53,6 +53,8 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 
 
 <style type="text/css">
@@ -374,15 +376,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div id="量的変数-量的変数" class="section level3 hasAnchor" number="10.3.1">
 <h3><span class="header-section-number">10.3.1</span> 量的変数 × 量的変数<a href="week9-重回帰分析-3交互作用の解釈.html#量的変数-量的変数" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb373-1" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">brm</span>(sales <span class="sc">~</span> product <span class="sc">*</span> clerk, <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>),</span>
-<span id="cb373-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb373-2" tabindex="-1"></a>              <span class="at">data =</span> dat, <span class="at">seed =</span> <span class="dv">123</span>, <span class="at">refresh =</span> <span class="dv">0</span>, <span class="at">iter =</span> <span class="dv">5000</span>, <span class="at">chains =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb379-1" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">brm</span>(sales <span class="sc">~</span> product <span class="sc">*</span> clerk, <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>),</span>
+<span id="cb379-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb379-2" tabindex="-1"></a>              <span class="at">data =</span> dat, <span class="at">seed =</span> <span class="dv">123</span>, <span class="at">refresh =</span> <span class="dv">0</span>, <span class="at">iter =</span> <span class="dv">5000</span>, <span class="at">chains =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## Compiling Stan program...</code></pre>
 <pre><code>## Start sampling</code></pre>
 <ul>
 <li>緑色（平均値）の線、赤色の線は右肩上がりになっている</li>
 </ul>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb376-1" tabindex="-1"></a><span class="fu">plot</span>(eff, <span class="at">plot =</span> F)[[<span class="dv">1</span>]]</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-352-1.png" width="672" /></p>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb382-1" tabindex="-1"></a><span class="fu">plot</span>(eff, <span class="at">plot =</span> F)[[<span class="dv">1</span>]]</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-217-1.png" width="672" /></p>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
@@ -471,23 +473,23 @@ R<sup>2</sup> Bayes
 <li><p>店員数（Clerk）によって、製品数（Product）の係数の値が変化する</p></li>
 </ul></li>
 </ul>
-<div id="yyichzgjis" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#yyichzgjis table {
+<div id="gfrwsufewz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#gfrwsufewz table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#yyichzgjis thead, #yyichzgjis tbody, #yyichzgjis tfoot, #yyichzgjis tr, #yyichzgjis td, #yyichzgjis th {
+#gfrwsufewz thead, #gfrwsufewz tbody, #gfrwsufewz tfoot, #gfrwsufewz tr, #gfrwsufewz td, #gfrwsufewz th {
   border-style: none;
 }
 
-#yyichzgjis p {
+#gfrwsufewz p {
   margin: 0;
   padding: 0;
 }
 
-#yyichzgjis .gt_table {
+#gfrwsufewz .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -513,12 +515,12 @@ R<sup>2</sup> Bayes
   border-left-color: #D3D3D3;
 }
 
-#yyichzgjis .gt_caption {
+#gfrwsufewz .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#yyichzgjis .gt_title {
+#gfrwsufewz .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -530,7 +532,7 @@ R<sup>2</sup> Bayes
   border-bottom-width: 0;
 }
 
-#yyichzgjis .gt_subtitle {
+#gfrwsufewz .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -542,7 +544,7 @@ R<sup>2</sup> Bayes
   border-top-width: 0;
 }
 
-#yyichzgjis .gt_heading {
+#gfrwsufewz .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -554,13 +556,13 @@ R<sup>2</sup> Bayes
   border-right-color: #D3D3D3;
 }
 
-#yyichzgjis .gt_bottom_border {
+#gfrwsufewz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#yyichzgjis .gt_col_headings {
+#gfrwsufewz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -575,7 +577,7 @@ R<sup>2</sup> Bayes
   border-right-color: #D3D3D3;
 }
 
-#yyichzgjis .gt_col_heading {
+#gfrwsufewz .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -595,7 +597,7 @@ R<sup>2</sup> Bayes
   overflow-x: hidden;
 }
 
-#yyichzgjis .gt_column_spanner_outer {
+#gfrwsufewz .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -607,15 +609,15 @@ R<sup>2</sup> Bayes
   padding-right: 4px;
 }
 
-#yyichzgjis .gt_column_spanner_outer:first-child {
+#gfrwsufewz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#yyichzgjis .gt_column_spanner_outer:last-child {
+#gfrwsufewz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#yyichzgjis .gt_column_spanner {
+#gfrwsufewz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -627,11 +629,11 @@ R<sup>2</sup> Bayes
   width: 100%;
 }
 
-#yyichzgjis .gt_spanner_row {
+#gfrwsufewz .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#yyichzgjis .gt_group_heading {
+#gfrwsufewz .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -657,7 +659,7 @@ R<sup>2</sup> Bayes
   text-align: left;
 }
 
-#yyichzgjis .gt_empty_group_heading {
+#gfrwsufewz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -672,15 +674,15 @@ R<sup>2</sup> Bayes
   vertical-align: middle;
 }
 
-#yyichzgjis .gt_from_md > :first-child {
+#gfrwsufewz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#yyichzgjis .gt_from_md > :last-child {
+#gfrwsufewz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#yyichzgjis .gt_row {
+#gfrwsufewz .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -699,7 +701,7 @@ R<sup>2</sup> Bayes
   overflow-x: hidden;
 }
 
-#yyichzgjis .gt_stub {
+#gfrwsufewz .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -712,7 +714,7 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#yyichzgjis .gt_stub_row_group {
+#gfrwsufewz .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -726,15 +728,15 @@ R<sup>2</sup> Bayes
   vertical-align: top;
 }
 
-#yyichzgjis .gt_row_group_first td {
+#gfrwsufewz .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#yyichzgjis .gt_row_group_first th {
+#gfrwsufewz .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#yyichzgjis .gt_summary_row {
+#gfrwsufewz .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -744,16 +746,16 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#yyichzgjis .gt_first_summary_row {
+#gfrwsufewz .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#yyichzgjis .gt_first_summary_row.thick {
+#gfrwsufewz .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#yyichzgjis .gt_last_summary_row {
+#gfrwsufewz .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -763,7 +765,7 @@ R<sup>2</sup> Bayes
   border-bottom-color: #D3D3D3;
 }
 
-#yyichzgjis .gt_grand_summary_row {
+#gfrwsufewz .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -773,7 +775,7 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#yyichzgjis .gt_first_grand_summary_row {
+#gfrwsufewz .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -783,7 +785,7 @@ R<sup>2</sup> Bayes
   border-top-color: #D3D3D3;
 }
 
-#yyichzgjis .gt_last_grand_summary_row_top {
+#gfrwsufewz .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -793,11 +795,11 @@ R<sup>2</sup> Bayes
   border-bottom-color: #D3D3D3;
 }
 
-#yyichzgjis .gt_striped {
+#gfrwsufewz .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#yyichzgjis .gt_table_body {
+#gfrwsufewz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -806,7 +808,7 @@ R<sup>2</sup> Bayes
   border-bottom-color: #D3D3D3;
 }
 
-#yyichzgjis .gt_footnotes {
+#gfrwsufewz .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -820,7 +822,7 @@ R<sup>2</sup> Bayes
   border-right-color: #D3D3D3;
 }
 
-#yyichzgjis .gt_footnote {
+#gfrwsufewz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -829,7 +831,7 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#yyichzgjis .gt_sourcenotes {
+#gfrwsufewz .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -843,7 +845,7 @@ R<sup>2</sup> Bayes
   border-right-color: #D3D3D3;
 }
 
-#yyichzgjis .gt_sourcenote {
+#gfrwsufewz .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -851,63 +853,63 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#yyichzgjis .gt_left {
+#gfrwsufewz .gt_left {
   text-align: left;
 }
 
-#yyichzgjis .gt_center {
+#gfrwsufewz .gt_center {
   text-align: center;
 }
 
-#yyichzgjis .gt_right {
+#gfrwsufewz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#yyichzgjis .gt_font_normal {
+#gfrwsufewz .gt_font_normal {
   font-weight: normal;
 }
 
-#yyichzgjis .gt_font_bold {
+#gfrwsufewz .gt_font_bold {
   font-weight: bold;
 }
 
-#yyichzgjis .gt_font_italic {
+#gfrwsufewz .gt_font_italic {
   font-style: italic;
 }
 
-#yyichzgjis .gt_super {
+#gfrwsufewz .gt_super {
   font-size: 65%;
 }
 
-#yyichzgjis .gt_footnote_marks {
+#gfrwsufewz .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#yyichzgjis .gt_asterisk {
+#gfrwsufewz .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#yyichzgjis .gt_indent_1 {
+#gfrwsufewz .gt_indent_1 {
   text-indent: 5px;
 }
 
-#yyichzgjis .gt_indent_2 {
+#gfrwsufewz .gt_indent_2 {
   text-indent: 10px;
 }
 
-#yyichzgjis .gt_indent_3 {
+#gfrwsufewz .gt_indent_3 {
   text-indent: 15px;
 }
 
-#yyichzgjis .gt_indent_4 {
+#gfrwsufewz .gt_indent_4 {
   text-indent: 20px;
 }
 
-#yyichzgjis .gt_indent_5 {
+#gfrwsufewz .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -963,28 +965,28 @@ R<sup>2</sup> Bayes
 <ul>
 <li>データの読み込み</li>
 </ul>
-<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb377-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/3-10-2-interaction-2.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb383-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/3-10-2-interaction-2.csv&quot;</span>)</span></code></pre></div>
 <ul>
 <li><p>コーディング（トリートメント）</p>
 <ul>
 <li>他のコーディングでも分析可能である</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb378-1" tabindex="-1"></a>dat<span class="sc">$</span>publicity <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>publicity)</span>
-<span id="cb378-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb378-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>publicity) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">2</span>)</span>
-<span id="cb378-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb378-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>publicity)</span></code></pre></div>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-1" tabindex="-1"></a>dat<span class="sc">$</span>publicity <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>publicity)</span>
+<span id="cb384-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>publicity) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">2</span>)</span>
+<span id="cb384-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>publicity)</span></code></pre></div>
 <pre><code>##              2
 ## not          0
 ## to_implement 1</code></pre>
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb380-1" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">brm</span>(sales <span class="sc">~</span> publicity <span class="sc">*</span> temperature, <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>),</span>
-<span id="cb380-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb380-2" tabindex="-1"></a>              <span class="at">data =</span> dat, <span class="at">seed =</span> <span class="dv">123</span>, <span class="at">refresh =</span> <span class="dv">0</span>, <span class="at">iter =</span> <span class="dv">5000</span>, <span class="at">chains =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb386-1" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">brm</span>(sales <span class="sc">~</span> publicity <span class="sc">*</span> temperature, <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>),</span>
+<span id="cb386-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb386-2" tabindex="-1"></a>              <span class="at">data =</span> dat, <span class="at">seed =</span> <span class="dv">123</span>, <span class="at">refresh =</span> <span class="dv">0</span>, <span class="at">iter =</span> <span class="dv">5000</span>, <span class="at">chains =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## Compiling Stan program...</code></pre>
 <pre><code>## Start sampling</code></pre>
 <ul>
 <li>宣伝アリの方が、切片（線の開始点）も傾きも大きいことが分かる</li>
 </ul>
-<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb383-1" tabindex="-1"></a><span class="fu">plot</span>(eff2, <span class="at">plot =</span> F)[[<span class="dv">1</span>]]</span></code></pre></div>
-<img src="_main_files/figure-html/unnamed-chunk-359-1.png" width="672" />
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb389-1" tabindex="-1"></a><span class="fu">plot</span>(eff2, <span class="at">plot =</span> F)[[<span class="dv">1</span>]]</span></code></pre></div>
+<img src="_main_files/figure-html/unnamed-chunk-224-1.png" width="672" />
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
@@ -1069,35 +1071,35 @@ R<sup>2</sup> Bayes
 <ul>
 <li>質的 × 量的変数の交互作用の予測値</li>
 </ul>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb384-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-2" tabindex="-1"></a>  宣伝 <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;なし&quot;</span>, <span class="st">&quot;あり&quot;</span>),</span>
-<span id="cb384-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-3" tabindex="-1"></a>  <span class="st">`</span><span class="at">売り上げの予測値</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
-<span id="cb384-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-4" tabindex="-1"></a>                 <span class="st">&quot;42.80 + temperature × 2.59&quot;</span>,</span>
-<span id="cb384-5"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-5" tabindex="-1"></a>                 <span class="st">&quot;42.80 + 17.49 + temperature × (2.59 + 4.19)&quot;</span>)</span>
-<span id="cb384-6"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-6" tabindex="-1"></a>)</span>
-<span id="cb384-7"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-7" tabindex="-1"></a></span>
-<span id="cb384-8"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-8" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb384-9"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-9" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb384-10"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-10" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">&quot;質的 × 量的変数の交互作用&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb384-11"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-11" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align =</span> <span class="st">&quot;center&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb384-12"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-12" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">table.width =</span> <span class="fu">pct</span>(<span class="dv">100</span>))</span></code></pre></div>
-<div id="dnqkgulojm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#dnqkgulojm table {
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb390-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-2" tabindex="-1"></a>  宣伝 <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;なし&quot;</span>, <span class="st">&quot;あり&quot;</span>),</span>
+<span id="cb390-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-3" tabindex="-1"></a>  <span class="st">`</span><span class="at">売り上げの予測値</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb390-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-4" tabindex="-1"></a>                 <span class="st">&quot;42.80 + temperature × 2.59&quot;</span>,</span>
+<span id="cb390-5"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-5" tabindex="-1"></a>                 <span class="st">&quot;42.80 + 17.49 + temperature × (2.59 + 4.19)&quot;</span>)</span>
+<span id="cb390-6"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-6" tabindex="-1"></a>)</span>
+<span id="cb390-7"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-7" tabindex="-1"></a></span>
+<span id="cb390-8"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-8" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb390-9"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-9" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb390-10"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-10" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">&quot;質的 × 量的変数の交互作用&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb390-11"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-11" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align =</span> <span class="st">&quot;center&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb390-12"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-12" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">table.width =</span> <span class="fu">pct</span>(<span class="dv">100</span>))</span></code></pre></div>
+<div id="bwxikrsapf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bwxikrsapf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#dnqkgulojm thead, #dnqkgulojm tbody, #dnqkgulojm tfoot, #dnqkgulojm tr, #dnqkgulojm td, #dnqkgulojm th {
+#bwxikrsapf thead, #bwxikrsapf tbody, #bwxikrsapf tfoot, #bwxikrsapf tr, #bwxikrsapf td, #bwxikrsapf th {
   border-style: none;
 }
 
-#dnqkgulojm p {
+#bwxikrsapf p {
   margin: 0;
   padding: 0;
 }
 
-#dnqkgulojm .gt_table {
+#bwxikrsapf .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1123,12 +1125,12 @@ R<sup>2</sup> Bayes
   border-left-color: #D3D3D3;
 }
 
-#dnqkgulojm .gt_caption {
+#bwxikrsapf .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#dnqkgulojm .gt_title {
+#bwxikrsapf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1140,7 +1142,7 @@ R<sup>2</sup> Bayes
   border-bottom-width: 0;
 }
 
-#dnqkgulojm .gt_subtitle {
+#bwxikrsapf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1152,7 +1154,7 @@ R<sup>2</sup> Bayes
   border-top-width: 0;
 }
 
-#dnqkgulojm .gt_heading {
+#bwxikrsapf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1164,13 +1166,13 @@ R<sup>2</sup> Bayes
   border-right-color: #D3D3D3;
 }
 
-#dnqkgulojm .gt_bottom_border {
+#bwxikrsapf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dnqkgulojm .gt_col_headings {
+#bwxikrsapf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1185,7 +1187,7 @@ R<sup>2</sup> Bayes
   border-right-color: #D3D3D3;
 }
 
-#dnqkgulojm .gt_col_heading {
+#bwxikrsapf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1205,7 +1207,7 @@ R<sup>2</sup> Bayes
   overflow-x: hidden;
 }
 
-#dnqkgulojm .gt_column_spanner_outer {
+#bwxikrsapf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1217,15 +1219,15 @@ R<sup>2</sup> Bayes
   padding-right: 4px;
 }
 
-#dnqkgulojm .gt_column_spanner_outer:first-child {
+#bwxikrsapf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dnqkgulojm .gt_column_spanner_outer:last-child {
+#bwxikrsapf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dnqkgulojm .gt_column_spanner {
+#bwxikrsapf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1237,11 +1239,11 @@ R<sup>2</sup> Bayes
   width: 100%;
 }
 
-#dnqkgulojm .gt_spanner_row {
+#bwxikrsapf .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#dnqkgulojm .gt_group_heading {
+#bwxikrsapf .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1267,7 +1269,7 @@ R<sup>2</sup> Bayes
   text-align: left;
 }
 
-#dnqkgulojm .gt_empty_group_heading {
+#bwxikrsapf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1282,15 +1284,15 @@ R<sup>2</sup> Bayes
   vertical-align: middle;
 }
 
-#dnqkgulojm .gt_from_md > :first-child {
+#bwxikrsapf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dnqkgulojm .gt_from_md > :last-child {
+#bwxikrsapf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dnqkgulojm .gt_row {
+#bwxikrsapf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1309,7 +1311,7 @@ R<sup>2</sup> Bayes
   overflow-x: hidden;
 }
 
-#dnqkgulojm .gt_stub {
+#bwxikrsapf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1322,7 +1324,7 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#dnqkgulojm .gt_stub_row_group {
+#bwxikrsapf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1336,15 +1338,15 @@ R<sup>2</sup> Bayes
   vertical-align: top;
 }
 
-#dnqkgulojm .gt_row_group_first td {
+#bwxikrsapf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dnqkgulojm .gt_row_group_first th {
+#bwxikrsapf .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#dnqkgulojm .gt_summary_row {
+#bwxikrsapf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1354,16 +1356,16 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#dnqkgulojm .gt_first_summary_row {
+#bwxikrsapf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dnqkgulojm .gt_first_summary_row.thick {
+#bwxikrsapf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dnqkgulojm .gt_last_summary_row {
+#bwxikrsapf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1373,7 +1375,7 @@ R<sup>2</sup> Bayes
   border-bottom-color: #D3D3D3;
 }
 
-#dnqkgulojm .gt_grand_summary_row {
+#bwxikrsapf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1383,7 +1385,7 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#dnqkgulojm .gt_first_grand_summary_row {
+#bwxikrsapf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1393,7 +1395,7 @@ R<sup>2</sup> Bayes
   border-top-color: #D3D3D3;
 }
 
-#dnqkgulojm .gt_last_grand_summary_row_top {
+#bwxikrsapf .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1403,11 +1405,11 @@ R<sup>2</sup> Bayes
   border-bottom-color: #D3D3D3;
 }
 
-#dnqkgulojm .gt_striped {
+#bwxikrsapf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dnqkgulojm .gt_table_body {
+#bwxikrsapf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1416,7 +1418,7 @@ R<sup>2</sup> Bayes
   border-bottom-color: #D3D3D3;
 }
 
-#dnqkgulojm .gt_footnotes {
+#bwxikrsapf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1430,7 +1432,7 @@ R<sup>2</sup> Bayes
   border-right-color: #D3D3D3;
 }
 
-#dnqkgulojm .gt_footnote {
+#bwxikrsapf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1439,7 +1441,7 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#dnqkgulojm .gt_sourcenotes {
+#bwxikrsapf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1453,7 +1455,7 @@ R<sup>2</sup> Bayes
   border-right-color: #D3D3D3;
 }
 
-#dnqkgulojm .gt_sourcenote {
+#bwxikrsapf .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1461,63 +1463,63 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#dnqkgulojm .gt_left {
+#bwxikrsapf .gt_left {
   text-align: left;
 }
 
-#dnqkgulojm .gt_center {
+#bwxikrsapf .gt_center {
   text-align: center;
 }
 
-#dnqkgulojm .gt_right {
+#bwxikrsapf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dnqkgulojm .gt_font_normal {
+#bwxikrsapf .gt_font_normal {
   font-weight: normal;
 }
 
-#dnqkgulojm .gt_font_bold {
+#bwxikrsapf .gt_font_bold {
   font-weight: bold;
 }
 
-#dnqkgulojm .gt_font_italic {
+#bwxikrsapf .gt_font_italic {
   font-style: italic;
 }
 
-#dnqkgulojm .gt_super {
+#bwxikrsapf .gt_super {
   font-size: 65%;
 }
 
-#dnqkgulojm .gt_footnote_marks {
+#bwxikrsapf .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#dnqkgulojm .gt_asterisk {
+#bwxikrsapf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dnqkgulojm .gt_indent_1 {
+#bwxikrsapf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#dnqkgulojm .gt_indent_2 {
+#bwxikrsapf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#dnqkgulojm .gt_indent_3 {
+#bwxikrsapf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#dnqkgulojm .gt_indent_4 {
+#bwxikrsapf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#dnqkgulojm .gt_indent_5 {
+#bwxikrsapf .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1545,23 +1547,23 @@ R<sup>2</sup> Bayes
 <ul>
 <li>気温の主効果は、宣伝がなかった時における気温の効果であることに注意。そのため、気温の主効果の数値だけではなく、交互作用を確認して結果を解釈する必要がある。</li>
 </ul>
-<div id="giijwugufy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#giijwugufy table {
+<div id="iwvcukfvxe" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#iwvcukfvxe table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#giijwugufy thead, #giijwugufy tbody, #giijwugufy tfoot, #giijwugufy tr, #giijwugufy td, #giijwugufy th {
+#iwvcukfvxe thead, #iwvcukfvxe tbody, #iwvcukfvxe tfoot, #iwvcukfvxe tr, #iwvcukfvxe td, #iwvcukfvxe th {
   border-style: none;
 }
 
-#giijwugufy p {
+#iwvcukfvxe p {
   margin: 0;
   padding: 0;
 }
 
-#giijwugufy .gt_table {
+#iwvcukfvxe .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1587,12 +1589,12 @@ R<sup>2</sup> Bayes
   border-left-color: #D3D3D3;
 }
 
-#giijwugufy .gt_caption {
+#iwvcukfvxe .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#giijwugufy .gt_title {
+#iwvcukfvxe .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1604,7 +1606,7 @@ R<sup>2</sup> Bayes
   border-bottom-width: 0;
 }
 
-#giijwugufy .gt_subtitle {
+#iwvcukfvxe .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1616,7 +1618,7 @@ R<sup>2</sup> Bayes
   border-top-width: 0;
 }
 
-#giijwugufy .gt_heading {
+#iwvcukfvxe .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1628,13 +1630,13 @@ R<sup>2</sup> Bayes
   border-right-color: #D3D3D3;
 }
 
-#giijwugufy .gt_bottom_border {
+#iwvcukfvxe .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#giijwugufy .gt_col_headings {
+#iwvcukfvxe .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1649,7 +1651,7 @@ R<sup>2</sup> Bayes
   border-right-color: #D3D3D3;
 }
 
-#giijwugufy .gt_col_heading {
+#iwvcukfvxe .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1669,7 +1671,7 @@ R<sup>2</sup> Bayes
   overflow-x: hidden;
 }
 
-#giijwugufy .gt_column_spanner_outer {
+#iwvcukfvxe .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1681,15 +1683,15 @@ R<sup>2</sup> Bayes
   padding-right: 4px;
 }
 
-#giijwugufy .gt_column_spanner_outer:first-child {
+#iwvcukfvxe .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#giijwugufy .gt_column_spanner_outer:last-child {
+#iwvcukfvxe .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#giijwugufy .gt_column_spanner {
+#iwvcukfvxe .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1701,11 +1703,11 @@ R<sup>2</sup> Bayes
   width: 100%;
 }
 
-#giijwugufy .gt_spanner_row {
+#iwvcukfvxe .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#giijwugufy .gt_group_heading {
+#iwvcukfvxe .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1731,7 +1733,7 @@ R<sup>2</sup> Bayes
   text-align: left;
 }
 
-#giijwugufy .gt_empty_group_heading {
+#iwvcukfvxe .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1746,15 +1748,15 @@ R<sup>2</sup> Bayes
   vertical-align: middle;
 }
 
-#giijwugufy .gt_from_md > :first-child {
+#iwvcukfvxe .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#giijwugufy .gt_from_md > :last-child {
+#iwvcukfvxe .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#giijwugufy .gt_row {
+#iwvcukfvxe .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1773,7 +1775,7 @@ R<sup>2</sup> Bayes
   overflow-x: hidden;
 }
 
-#giijwugufy .gt_stub {
+#iwvcukfvxe .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1786,7 +1788,7 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#giijwugufy .gt_stub_row_group {
+#iwvcukfvxe .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1800,15 +1802,15 @@ R<sup>2</sup> Bayes
   vertical-align: top;
 }
 
-#giijwugufy .gt_row_group_first td {
+#iwvcukfvxe .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#giijwugufy .gt_row_group_first th {
+#iwvcukfvxe .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#giijwugufy .gt_summary_row {
+#iwvcukfvxe .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1818,16 +1820,16 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#giijwugufy .gt_first_summary_row {
+#iwvcukfvxe .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#giijwugufy .gt_first_summary_row.thick {
+#iwvcukfvxe .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#giijwugufy .gt_last_summary_row {
+#iwvcukfvxe .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1837,7 +1839,7 @@ R<sup>2</sup> Bayes
   border-bottom-color: #D3D3D3;
 }
 
-#giijwugufy .gt_grand_summary_row {
+#iwvcukfvxe .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1847,7 +1849,7 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#giijwugufy .gt_first_grand_summary_row {
+#iwvcukfvxe .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1857,7 +1859,7 @@ R<sup>2</sup> Bayes
   border-top-color: #D3D3D3;
 }
 
-#giijwugufy .gt_last_grand_summary_row_top {
+#iwvcukfvxe .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1867,11 +1869,11 @@ R<sup>2</sup> Bayes
   border-bottom-color: #D3D3D3;
 }
 
-#giijwugufy .gt_striped {
+#iwvcukfvxe .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#giijwugufy .gt_table_body {
+#iwvcukfvxe .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1880,7 +1882,7 @@ R<sup>2</sup> Bayes
   border-bottom-color: #D3D3D3;
 }
 
-#giijwugufy .gt_footnotes {
+#iwvcukfvxe .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1894,7 +1896,7 @@ R<sup>2</sup> Bayes
   border-right-color: #D3D3D3;
 }
 
-#giijwugufy .gt_footnote {
+#iwvcukfvxe .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1903,7 +1905,7 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#giijwugufy .gt_sourcenotes {
+#iwvcukfvxe .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1917,7 +1919,7 @@ R<sup>2</sup> Bayes
   border-right-color: #D3D3D3;
 }
 
-#giijwugufy .gt_sourcenote {
+#iwvcukfvxe .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1925,63 +1927,63 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#giijwugufy .gt_left {
+#iwvcukfvxe .gt_left {
   text-align: left;
 }
 
-#giijwugufy .gt_center {
+#iwvcukfvxe .gt_center {
   text-align: center;
 }
 
-#giijwugufy .gt_right {
+#iwvcukfvxe .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#giijwugufy .gt_font_normal {
+#iwvcukfvxe .gt_font_normal {
   font-weight: normal;
 }
 
-#giijwugufy .gt_font_bold {
+#iwvcukfvxe .gt_font_bold {
   font-weight: bold;
 }
 
-#giijwugufy .gt_font_italic {
+#iwvcukfvxe .gt_font_italic {
   font-style: italic;
 }
 
-#giijwugufy .gt_super {
+#iwvcukfvxe .gt_super {
   font-size: 65%;
 }
 
-#giijwugufy .gt_footnote_marks {
+#iwvcukfvxe .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#giijwugufy .gt_asterisk {
+#iwvcukfvxe .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#giijwugufy .gt_indent_1 {
+#iwvcukfvxe .gt_indent_1 {
   text-indent: 5px;
 }
 
-#giijwugufy .gt_indent_2 {
+#iwvcukfvxe .gt_indent_2 {
   text-indent: 10px;
 }
 
-#giijwugufy .gt_indent_3 {
+#iwvcukfvxe .gt_indent_3 {
   text-indent: 15px;
 }
 
-#giijwugufy .gt_indent_4 {
+#iwvcukfvxe .gt_indent_4 {
   text-indent: 20px;
 }
 
-#giijwugufy .gt_indent_5 {
+#iwvcukfvxe .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2033,31 +2035,31 @@ R<sup>2</sup> Bayes
 </div>
 <div id="質的変数-質的変数" class="section level3 hasAnchor" number="10.3.3">
 <h3><span class="header-section-number">10.3.3</span> 質的変数 × 質的変数<a href="week9-重回帰分析-3交互作用の解釈.html#質的変数-質的変数" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb385-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/3-10-1-interaction-1.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb391-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/3-10-1-interaction-1.csv&quot;</span>)</span></code></pre></div>
 <ul>
 <li>コーディング（トリートメント）</li>
 </ul>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb386-1" tabindex="-1"></a>dat<span class="sc">$</span>publicity <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>publicity)</span>
-<span id="cb386-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb386-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>publicity) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">2</span>)</span>
-<span id="cb386-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb386-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>publicity)</span></code></pre></div>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb392-1" tabindex="-1"></a>dat<span class="sc">$</span>publicity <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>publicity)</span>
+<span id="cb392-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb392-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>publicity) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">2</span>)</span>
+<span id="cb392-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb392-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>publicity)</span></code></pre></div>
 <pre><code>##              2
 ## not          0
 ## to_implement 1</code></pre>
-<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb388-1" tabindex="-1"></a>dat<span class="sc">$</span>bargen <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>bargen)</span>
-<span id="cb388-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb388-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>bargen) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">2</span>)</span>
-<span id="cb388-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb388-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>bargen)</span></code></pre></div>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb394-1" tabindex="-1"></a>dat<span class="sc">$</span>bargen <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>bargen)</span>
+<span id="cb394-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb394-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>bargen) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">2</span>)</span>
+<span id="cb394-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb394-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>bargen)</span></code></pre></div>
 <pre><code>##              2
 ## not          0
 ## to_implement 1</code></pre>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-1" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">brm</span>(sales <span class="sc">~</span> publicity <span class="sc">*</span> bargen, <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>),</span>
-<span id="cb390-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-2" tabindex="-1"></a>              <span class="at">data =</span> dat, <span class="at">seed =</span> <span class="dv">123</span>, <span class="at">refresh =</span> <span class="dv">0</span>, <span class="at">iter =</span> <span class="dv">5000</span>, <span class="at">chains =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb396-1" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">brm</span>(sales <span class="sc">~</span> publicity <span class="sc">*</span> bargen, <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>),</span>
+<span id="cb396-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb396-2" tabindex="-1"></a>              <span class="at">data =</span> dat, <span class="at">seed =</span> <span class="dv">123</span>, <span class="at">refresh =</span> <span class="dv">0</span>, <span class="at">iter =</span> <span class="dv">5000</span>, <span class="at">chains =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## Compiling Stan program...</code></pre>
 <pre><code>## Start sampling</code></pre>
 <ul>
 <li>宣伝も安売りもありの方が売り上げが最も大きいことが分かる</li>
 </ul>
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb393-1" tabindex="-1"></a><span class="fu">plot</span>(eff3, <span class="at">plot =</span> F)[[<span class="dv">1</span>]]</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-368-1.png" width="672" /></p>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb399-1" tabindex="-1"></a><span class="fu">plot</span>(eff3, <span class="at">plot =</span> F)[[<span class="dv">1</span>]]</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-233-1.png" width="672" /></p>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
@@ -2145,34 +2147,34 @@ R<sup>2</sup> Bayes
 <li>宣伝も安売りもあった場合、二つの主効果に加え、交互作用の影響が加算される</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb394-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb394-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb394-2" tabindex="-1"></a>  宣伝 <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;なし&quot;</span>, <span class="st">&quot;あり&quot;</span>, <span class="st">&quot;なし&quot;</span>, <span class="st">&quot;あり&quot;</span>),</span>
-<span id="cb394-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb394-3" tabindex="-1"></a>  安売り <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;なし&quot;</span>, <span class="st">&quot;なし&quot;</span>, <span class="st">&quot;あり&quot;</span>, <span class="st">&quot;あり&quot;</span>),</span>
-<span id="cb394-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb394-4" tabindex="-1"></a>  <span class="st">`</span><span class="at">売り上げの予測値</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;103.32&quot;</span>, <span class="st">&quot;103.32 + 10.05&quot;</span>, <span class="st">&quot;103.32 + 27.35&quot;</span>, <span class="st">&quot;103.32 + 10.05 + 27.35 + 20.72&quot;</span>)</span>
-<span id="cb394-5"><a href="week9-重回帰分析-3交互作用の解釈.html#cb394-5" tabindex="-1"></a>)</span>
-<span id="cb394-6"><a href="week9-重回帰分析-3交互作用の解釈.html#cb394-6" tabindex="-1"></a></span>
-<span id="cb394-7"><a href="week9-重回帰分析-3交互作用の解釈.html#cb394-7" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb394-8"><a href="week9-重回帰分析-3交互作用の解釈.html#cb394-8" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb394-9"><a href="week9-重回帰分析-3交互作用の解釈.html#cb394-9" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">&quot;質的 × 質的の交互作用&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb394-10"><a href="week9-重回帰分析-3交互作用の解釈.html#cb394-10" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align =</span> <span class="st">&quot;center&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb394-11"><a href="week9-重回帰分析-3交互作用の解釈.html#cb394-11" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">table.width =</span> <span class="fu">pct</span>(<span class="dv">100</span>))</span></code></pre></div>
-<div id="behlmrayyf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#behlmrayyf table {
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb400-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-2" tabindex="-1"></a>  宣伝 <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;なし&quot;</span>, <span class="st">&quot;あり&quot;</span>, <span class="st">&quot;なし&quot;</span>, <span class="st">&quot;あり&quot;</span>),</span>
+<span id="cb400-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-3" tabindex="-1"></a>  安売り <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;なし&quot;</span>, <span class="st">&quot;なし&quot;</span>, <span class="st">&quot;あり&quot;</span>, <span class="st">&quot;あり&quot;</span>),</span>
+<span id="cb400-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-4" tabindex="-1"></a>  <span class="st">`</span><span class="at">売り上げの予測値</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;103.32&quot;</span>, <span class="st">&quot;103.32 + 10.05&quot;</span>, <span class="st">&quot;103.32 + 27.35&quot;</span>, <span class="st">&quot;103.32 + 10.05 + 27.35 + 20.72&quot;</span>)</span>
+<span id="cb400-5"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-5" tabindex="-1"></a>)</span>
+<span id="cb400-6"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-6" tabindex="-1"></a></span>
+<span id="cb400-7"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-7" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb400-8"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-8" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb400-9"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-9" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">&quot;質的 × 質的の交互作用&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb400-10"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-10" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align =</span> <span class="st">&quot;center&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb400-11"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-11" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">table.width =</span> <span class="fu">pct</span>(<span class="dv">100</span>))</span></code></pre></div>
+<div id="axcnalqeqf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#axcnalqeqf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#behlmrayyf thead, #behlmrayyf tbody, #behlmrayyf tfoot, #behlmrayyf tr, #behlmrayyf td, #behlmrayyf th {
+#axcnalqeqf thead, #axcnalqeqf tbody, #axcnalqeqf tfoot, #axcnalqeqf tr, #axcnalqeqf td, #axcnalqeqf th {
   border-style: none;
 }
 
-#behlmrayyf p {
+#axcnalqeqf p {
   margin: 0;
   padding: 0;
 }
 
-#behlmrayyf .gt_table {
+#axcnalqeqf .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2198,12 +2200,12 @@ R<sup>2</sup> Bayes
   border-left-color: #D3D3D3;
 }
 
-#behlmrayyf .gt_caption {
+#axcnalqeqf .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#behlmrayyf .gt_title {
+#axcnalqeqf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2215,7 +2217,7 @@ R<sup>2</sup> Bayes
   border-bottom-width: 0;
 }
 
-#behlmrayyf .gt_subtitle {
+#axcnalqeqf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2227,7 +2229,7 @@ R<sup>2</sup> Bayes
   border-top-width: 0;
 }
 
-#behlmrayyf .gt_heading {
+#axcnalqeqf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2239,13 +2241,13 @@ R<sup>2</sup> Bayes
   border-right-color: #D3D3D3;
 }
 
-#behlmrayyf .gt_bottom_border {
+#axcnalqeqf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#behlmrayyf .gt_col_headings {
+#axcnalqeqf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2260,7 +2262,7 @@ R<sup>2</sup> Bayes
   border-right-color: #D3D3D3;
 }
 
-#behlmrayyf .gt_col_heading {
+#axcnalqeqf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2280,7 +2282,7 @@ R<sup>2</sup> Bayes
   overflow-x: hidden;
 }
 
-#behlmrayyf .gt_column_spanner_outer {
+#axcnalqeqf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2292,15 +2294,15 @@ R<sup>2</sup> Bayes
   padding-right: 4px;
 }
 
-#behlmrayyf .gt_column_spanner_outer:first-child {
+#axcnalqeqf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#behlmrayyf .gt_column_spanner_outer:last-child {
+#axcnalqeqf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#behlmrayyf .gt_column_spanner {
+#axcnalqeqf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2312,11 +2314,11 @@ R<sup>2</sup> Bayes
   width: 100%;
 }
 
-#behlmrayyf .gt_spanner_row {
+#axcnalqeqf .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#behlmrayyf .gt_group_heading {
+#axcnalqeqf .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2342,7 +2344,7 @@ R<sup>2</sup> Bayes
   text-align: left;
 }
 
-#behlmrayyf .gt_empty_group_heading {
+#axcnalqeqf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2357,15 +2359,15 @@ R<sup>2</sup> Bayes
   vertical-align: middle;
 }
 
-#behlmrayyf .gt_from_md > :first-child {
+#axcnalqeqf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#behlmrayyf .gt_from_md > :last-child {
+#axcnalqeqf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#behlmrayyf .gt_row {
+#axcnalqeqf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2384,7 +2386,7 @@ R<sup>2</sup> Bayes
   overflow-x: hidden;
 }
 
-#behlmrayyf .gt_stub {
+#axcnalqeqf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2397,7 +2399,7 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#behlmrayyf .gt_stub_row_group {
+#axcnalqeqf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2411,15 +2413,15 @@ R<sup>2</sup> Bayes
   vertical-align: top;
 }
 
-#behlmrayyf .gt_row_group_first td {
+#axcnalqeqf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#behlmrayyf .gt_row_group_first th {
+#axcnalqeqf .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#behlmrayyf .gt_summary_row {
+#axcnalqeqf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2429,16 +2431,16 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#behlmrayyf .gt_first_summary_row {
+#axcnalqeqf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#behlmrayyf .gt_first_summary_row.thick {
+#axcnalqeqf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#behlmrayyf .gt_last_summary_row {
+#axcnalqeqf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2448,7 +2450,7 @@ R<sup>2</sup> Bayes
   border-bottom-color: #D3D3D3;
 }
 
-#behlmrayyf .gt_grand_summary_row {
+#axcnalqeqf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2458,7 +2460,7 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#behlmrayyf .gt_first_grand_summary_row {
+#axcnalqeqf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2468,7 +2470,7 @@ R<sup>2</sup> Bayes
   border-top-color: #D3D3D3;
 }
 
-#behlmrayyf .gt_last_grand_summary_row_top {
+#axcnalqeqf .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2478,11 +2480,11 @@ R<sup>2</sup> Bayes
   border-bottom-color: #D3D3D3;
 }
 
-#behlmrayyf .gt_striped {
+#axcnalqeqf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#behlmrayyf .gt_table_body {
+#axcnalqeqf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2491,7 +2493,7 @@ R<sup>2</sup> Bayes
   border-bottom-color: #D3D3D3;
 }
 
-#behlmrayyf .gt_footnotes {
+#axcnalqeqf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2505,7 +2507,7 @@ R<sup>2</sup> Bayes
   border-right-color: #D3D3D3;
 }
 
-#behlmrayyf .gt_footnote {
+#axcnalqeqf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2514,7 +2516,7 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#behlmrayyf .gt_sourcenotes {
+#axcnalqeqf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2528,7 +2530,7 @@ R<sup>2</sup> Bayes
   border-right-color: #D3D3D3;
 }
 
-#behlmrayyf .gt_sourcenote {
+#axcnalqeqf .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2536,63 +2538,63 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#behlmrayyf .gt_left {
+#axcnalqeqf .gt_left {
   text-align: left;
 }
 
-#behlmrayyf .gt_center {
+#axcnalqeqf .gt_center {
   text-align: center;
 }
 
-#behlmrayyf .gt_right {
+#axcnalqeqf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#behlmrayyf .gt_font_normal {
+#axcnalqeqf .gt_font_normal {
   font-weight: normal;
 }
 
-#behlmrayyf .gt_font_bold {
+#axcnalqeqf .gt_font_bold {
   font-weight: bold;
 }
 
-#behlmrayyf .gt_font_italic {
+#axcnalqeqf .gt_font_italic {
   font-style: italic;
 }
 
-#behlmrayyf .gt_super {
+#axcnalqeqf .gt_super {
   font-size: 65%;
 }
 
-#behlmrayyf .gt_footnote_marks {
+#axcnalqeqf .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#behlmrayyf .gt_asterisk {
+#axcnalqeqf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#behlmrayyf .gt_indent_1 {
+#axcnalqeqf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#behlmrayyf .gt_indent_2 {
+#axcnalqeqf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#behlmrayyf .gt_indent_3 {
+#axcnalqeqf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#behlmrayyf .gt_indent_4 {
+#axcnalqeqf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#behlmrayyf .gt_indent_5 {
+#axcnalqeqf .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2629,23 +2631,23 @@ R<sup>2</sup> Bayes
 <ul>
 <li>得られた係数の結果と比較するとさらに分かりやすい</li>
 </ul>
-<div id="uoiozptfkh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#uoiozptfkh table {
+<div id="lziwypofzf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lziwypofzf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#uoiozptfkh thead, #uoiozptfkh tbody, #uoiozptfkh tfoot, #uoiozptfkh tr, #uoiozptfkh td, #uoiozptfkh th {
+#lziwypofzf thead, #lziwypofzf tbody, #lziwypofzf tfoot, #lziwypofzf tr, #lziwypofzf td, #lziwypofzf th {
   border-style: none;
 }
 
-#uoiozptfkh p {
+#lziwypofzf p {
   margin: 0;
   padding: 0;
 }
 
-#uoiozptfkh .gt_table {
+#lziwypofzf .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2671,12 +2673,12 @@ R<sup>2</sup> Bayes
   border-left-color: #D3D3D3;
 }
 
-#uoiozptfkh .gt_caption {
+#lziwypofzf .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#uoiozptfkh .gt_title {
+#lziwypofzf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2688,7 +2690,7 @@ R<sup>2</sup> Bayes
   border-bottom-width: 0;
 }
 
-#uoiozptfkh .gt_subtitle {
+#lziwypofzf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2700,7 +2702,7 @@ R<sup>2</sup> Bayes
   border-top-width: 0;
 }
 
-#uoiozptfkh .gt_heading {
+#lziwypofzf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2712,13 +2714,13 @@ R<sup>2</sup> Bayes
   border-right-color: #D3D3D3;
 }
 
-#uoiozptfkh .gt_bottom_border {
+#lziwypofzf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#uoiozptfkh .gt_col_headings {
+#lziwypofzf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2733,7 +2735,7 @@ R<sup>2</sup> Bayes
   border-right-color: #D3D3D3;
 }
 
-#uoiozptfkh .gt_col_heading {
+#lziwypofzf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2753,7 +2755,7 @@ R<sup>2</sup> Bayes
   overflow-x: hidden;
 }
 
-#uoiozptfkh .gt_column_spanner_outer {
+#lziwypofzf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2765,15 +2767,15 @@ R<sup>2</sup> Bayes
   padding-right: 4px;
 }
 
-#uoiozptfkh .gt_column_spanner_outer:first-child {
+#lziwypofzf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#uoiozptfkh .gt_column_spanner_outer:last-child {
+#lziwypofzf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#uoiozptfkh .gt_column_spanner {
+#lziwypofzf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2785,11 +2787,11 @@ R<sup>2</sup> Bayes
   width: 100%;
 }
 
-#uoiozptfkh .gt_spanner_row {
+#lziwypofzf .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#uoiozptfkh .gt_group_heading {
+#lziwypofzf .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2815,7 +2817,7 @@ R<sup>2</sup> Bayes
   text-align: left;
 }
 
-#uoiozptfkh .gt_empty_group_heading {
+#lziwypofzf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2830,15 +2832,15 @@ R<sup>2</sup> Bayes
   vertical-align: middle;
 }
 
-#uoiozptfkh .gt_from_md > :first-child {
+#lziwypofzf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#uoiozptfkh .gt_from_md > :last-child {
+#lziwypofzf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#uoiozptfkh .gt_row {
+#lziwypofzf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2857,7 +2859,7 @@ R<sup>2</sup> Bayes
   overflow-x: hidden;
 }
 
-#uoiozptfkh .gt_stub {
+#lziwypofzf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2870,7 +2872,7 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#uoiozptfkh .gt_stub_row_group {
+#lziwypofzf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2884,15 +2886,15 @@ R<sup>2</sup> Bayes
   vertical-align: top;
 }
 
-#uoiozptfkh .gt_row_group_first td {
+#lziwypofzf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#uoiozptfkh .gt_row_group_first th {
+#lziwypofzf .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#uoiozptfkh .gt_summary_row {
+#lziwypofzf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2902,16 +2904,16 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#uoiozptfkh .gt_first_summary_row {
+#lziwypofzf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#uoiozptfkh .gt_first_summary_row.thick {
+#lziwypofzf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#uoiozptfkh .gt_last_summary_row {
+#lziwypofzf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2921,7 +2923,7 @@ R<sup>2</sup> Bayes
   border-bottom-color: #D3D3D3;
 }
 
-#uoiozptfkh .gt_grand_summary_row {
+#lziwypofzf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2931,7 +2933,7 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#uoiozptfkh .gt_first_grand_summary_row {
+#lziwypofzf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2941,7 +2943,7 @@ R<sup>2</sup> Bayes
   border-top-color: #D3D3D3;
 }
 
-#uoiozptfkh .gt_last_grand_summary_row_top {
+#lziwypofzf .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2951,11 +2953,11 @@ R<sup>2</sup> Bayes
   border-bottom-color: #D3D3D3;
 }
 
-#uoiozptfkh .gt_striped {
+#lziwypofzf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#uoiozptfkh .gt_table_body {
+#lziwypofzf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2964,7 +2966,7 @@ R<sup>2</sup> Bayes
   border-bottom-color: #D3D3D3;
 }
 
-#uoiozptfkh .gt_footnotes {
+#lziwypofzf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2978,7 +2980,7 @@ R<sup>2</sup> Bayes
   border-right-color: #D3D3D3;
 }
 
-#uoiozptfkh .gt_footnote {
+#lziwypofzf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2987,7 +2989,7 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#uoiozptfkh .gt_sourcenotes {
+#lziwypofzf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3001,7 +3003,7 @@ R<sup>2</sup> Bayes
   border-right-color: #D3D3D3;
 }
 
-#uoiozptfkh .gt_sourcenote {
+#lziwypofzf .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3009,63 +3011,63 @@ R<sup>2</sup> Bayes
   padding-right: 5px;
 }
 
-#uoiozptfkh .gt_left {
+#lziwypofzf .gt_left {
   text-align: left;
 }
 
-#uoiozptfkh .gt_center {
+#lziwypofzf .gt_center {
   text-align: center;
 }
 
-#uoiozptfkh .gt_right {
+#lziwypofzf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#uoiozptfkh .gt_font_normal {
+#lziwypofzf .gt_font_normal {
   font-weight: normal;
 }
 
-#uoiozptfkh .gt_font_bold {
+#lziwypofzf .gt_font_bold {
   font-weight: bold;
 }
 
-#uoiozptfkh .gt_font_italic {
+#lziwypofzf .gt_font_italic {
   font-style: italic;
 }
 
-#uoiozptfkh .gt_super {
+#lziwypofzf .gt_super {
   font-size: 65%;
 }
 
-#uoiozptfkh .gt_footnote_marks {
+#lziwypofzf .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#uoiozptfkh .gt_asterisk {
+#lziwypofzf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#uoiozptfkh .gt_indent_1 {
+#lziwypofzf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#uoiozptfkh .gt_indent_2 {
+#lziwypofzf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#uoiozptfkh .gt_indent_3 {
+#lziwypofzf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#uoiozptfkh .gt_indent_4 {
+#lziwypofzf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#uoiozptfkh .gt_indent_5 {
+#lziwypofzf .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -3227,58 +3229,46 @@ R<sup>2</sup> Bayes
 </tr></li>
 </ul>
 </table>
-<p><img src="_main_files/figure-html/unnamed-chunk-373-1.png" width="672" />
+<p><img src="_main_files/figure-html/unnamed-chunk-238-1.png" width="672" />
 - <code>emmeans()</code>関数を使って、下位検定を行う</p>
-<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb395-1" tabindex="-1"></a><span class="co">#install.packages(&quot;emmeans&quot;)</span></span>
-<span id="cb395-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb395-2" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span></code></pre></div>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb401-1" tabindex="-1"></a><span class="co">#install.packages(&quot;emmeans&quot;)</span></span>
+<span id="cb401-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb401-2" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span></code></pre></div>
 <ul>
 <li><p>bargenの単純主効果（publicityの各水準ごとにbargenの効果を調べる）</p></li>
 <li><p>bargen by publicity</p></li>
 </ul>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb396-1" tabindex="-1"></a><span class="fu">contrast</span>(</span>
-<span id="cb396-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb396-2" tabindex="-1"></a>  <span class="fu">emmeans</span>(model4, pairwise <span class="sc">~</span> bargen <span class="sc">|</span> publicity), </span>
-<span id="cb396-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb396-3" tabindex="-1"></a>  <span class="at">adjust =</span> <span class="st">&quot;bonferroni&quot;</span></span>
-<span id="cb396-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb396-4" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb402-1" tabindex="-1"></a><span class="fu">contrast</span>(</span>
+<span id="cb402-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb402-2" tabindex="-1"></a>  <span class="fu">emmeans</span>(model4, pairwise <span class="sc">~</span> bargen <span class="sc">|</span> publicity), </span>
+<span id="cb402-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb402-3" tabindex="-1"></a>  <span class="at">adjust =</span> <span class="st">&quot;bonferroni&quot;</span></span>
+<span id="cb402-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb402-4" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## publicity = not:
-##  contrast            estimate   SE df
-##  not effect             -13.6 2.57 96
-##  to_implement effect     13.6 2.57 96
-##  t.ratio p.value
-##   -5.297  &lt;.0001
-##    5.297  &lt;.0001
+##  contrast            estimate   SE df t.ratio p.value
+##  not effect             -13.6 2.57 96  -5.297  &lt;.0001
+##  to_implement effect     13.6 2.57 96   5.297  &lt;.0001
 ## 
 ## publicity = to_implement:
-##  contrast            estimate   SE df
-##  not effect             -24.0 2.57 96
-##  to_implement effect     24.0 2.57 96
-##  t.ratio p.value
-##   -9.335  &lt;.0001
-##    9.335  &lt;.0001
+##  contrast            estimate   SE df t.ratio p.value
+##  not effect             -24.0 2.57 96  -9.335  &lt;.0001
+##  to_implement effect     24.0 2.57 96   9.335  &lt;.0001
 ## 
 ## P value adjustment: bonferroni method for 2 tests</code></pre>
 <ul>
 <li><p>publicityの単純主効果（bargenの各水準ごとにpublicityの効果を調べる）</p></li>
 <li><p>publicity by bargen</p></li>
 </ul>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb398-1" tabindex="-1"></a><span class="fu">contrast</span>(</span>
-<span id="cb398-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb398-2" tabindex="-1"></a>  <span class="fu">emmeans</span>(model4, pairwise <span class="sc">~</span> publicity <span class="sc">|</span> bargen), </span>
-<span id="cb398-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb398-3" tabindex="-1"></a>  <span class="at">adjust =</span> <span class="st">&quot;bonferroni&quot;</span></span>
-<span id="cb398-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb398-4" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb404-1" tabindex="-1"></a><span class="fu">contrast</span>(</span>
+<span id="cb404-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb404-2" tabindex="-1"></a>  <span class="fu">emmeans</span>(model4, pairwise <span class="sc">~</span> publicity <span class="sc">|</span> bargen), </span>
+<span id="cb404-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb404-3" tabindex="-1"></a>  <span class="at">adjust =</span> <span class="st">&quot;bonferroni&quot;</span></span>
+<span id="cb404-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb404-4" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## bargen = not:
-##  contrast            estimate   SE df
-##  not effect             -4.97 2.57 96
-##  to_implement effect     4.97 2.57 96
-##  t.ratio p.value
-##   -1.930  0.1132
-##    1.930  0.1132
+##  contrast            estimate   SE df t.ratio p.value
+##  not effect             -4.97 2.57 96  -1.930  0.1132
+##  to_implement effect     4.97 2.57 96   1.930  0.1132
 ## 
 ## bargen = to_implement:
-##  contrast            estimate   SE df
-##  not effect            -15.37 2.57 96
-##  to_implement effect    15.37 2.57 96
-##  t.ratio p.value
-##   -5.968  &lt;.0001
-##    5.968  &lt;.0001
+##  contrast            estimate   SE df t.ratio p.value
+##  not effect            -15.37 2.57 96  -5.968  &lt;.0001
+##  to_implement effect    15.37 2.57 96   5.968  &lt;.0001
 ## 
 ## P value adjustment: bonferroni method for 2 tests</code></pre>
 </div>
@@ -3288,38 +3278,38 @@ R<sup>2</sup> Bayes
 <h2><span class="header-section-number">10.4</span> ハンズオンセッション<a href="week9-重回帰分析-3交互作用の解釈.html#ハンズオンセッション-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="質的-質的サムコントラスト" class="section level3 hasAnchor" number="10.4.1">
 <h3><span class="header-section-number">10.4.1</span> 質的 × 質的（サムコントラスト）<a href="week9-重回帰分析-3交互作用の解釈.html#質的-質的サムコントラスト" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/Example4.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb401-1" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb406-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/Example4.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb407-1" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>##   Grade Learning id Post
 ## 1 First     List  1   73
 ## 2 First     List  2   59
 ## 3 First     List  3   63
 ## 4 First     List  4   59
 ## 5 First     List  5   46</code></pre>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb403-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>Grade)</span></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb409-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>Grade)</span></code></pre></div>
 <pre><code>## 
 ##  First Second 
 ##     15     15</code></pre>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb405-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>Learning)</span></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb411-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>Learning)</span></code></pre></div>
 <pre><code>## 
 ## Context KeyWord    List 
 ##      10      10      10</code></pre>
-<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb407-1" tabindex="-1"></a>dat<span class="sc">$</span>Grade <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Grade)</span>
-<span id="cb407-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb407-2" tabindex="-1"></a>dat<span class="sc">$</span>Learning <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Learning, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;List&quot;</span>, <span class="st">&quot;Context&quot;</span>, <span class="st">&quot;KeyWord&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb413-1" tabindex="-1"></a>dat<span class="sc">$</span>Grade <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Grade)</span>
+<span id="cb413-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb413-2" tabindex="-1"></a>dat<span class="sc">$</span>Learning <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Learning, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;List&quot;</span>, <span class="st">&quot;Context&quot;</span>, <span class="st">&quot;KeyWord&quot;</span>))</span></code></pre></div>
 <ul>
 <li>各群ごとの平均</li>
 </ul>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb408-1" tabindex="-1"></a><span class="fu">aggregate</span>(Post <span class="sc">~</span> Grade, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb414-1" tabindex="-1"></a><span class="fu">aggregate</span>(Post <span class="sc">~</span> Grade, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span></code></pre></div>
 <pre><code>##    Grade     Post
 ## 1  First 39.93333
 ## 2 Second 55.06667</code></pre>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb410-1" tabindex="-1"></a><span class="fu">aggregate</span>(Post <span class="sc">~</span> Learning, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb416-1" tabindex="-1"></a><span class="fu">aggregate</span>(Post <span class="sc">~</span> Learning, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span></code></pre></div>
 <pre><code>##   Learning Post
 ## 1     List 65.1
 ## 2  Context 32.5
 ## 3  KeyWord 44.9</code></pre>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb412-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Post <span class="sc">~</span> Grade<span class="sc">*</span>Learning , <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span>
-<span id="cb412-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb412-2" tabindex="-1"></a>res</span></code></pre></div>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb418-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Post <span class="sc">~</span> Grade<span class="sc">*</span>Learning , <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span>
+<span id="cb418-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb418-2" tabindex="-1"></a>res</span></code></pre></div>
 <pre><code>##    Grade Learning Post
 ## 1  First     List 60.0
 ## 2 Second     List 70.2
@@ -3330,21 +3320,21 @@ R<sup>2</sup> Bayes
 <ul>
 <li>Ground Mean</li>
 </ul>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb414-1" tabindex="-1"></a><span class="fu">mean</span>(res<span class="sc">$</span>Post)</span></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb420-1" tabindex="-1"></a><span class="fu">mean</span>(res<span class="sc">$</span>Post)</span></code></pre></div>
 <pre><code>## [1] 47.5</code></pre>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb416-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">2</span>)</span>
-<span id="cb416-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb416-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade)</span></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb422-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">2</span>)</span>
+<span id="cb422-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb422-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade)</span></code></pre></div>
 <pre><code>##        [,1]
 ## First     1
 ## Second   -1</code></pre>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb418-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">3</span>)</span>
-<span id="cb418-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb418-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning)</span></code></pre></div>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb424-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">3</span>)</span>
+<span id="cb424-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb424-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning)</span></code></pre></div>
 <pre><code>##         [,1] [,2]
 ## List       1    0
 ## Context    0    1
 ## KeyWord   -1   -1</code></pre>
-<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb420-1" tabindex="-1"></a>model_sum <span class="ot">&lt;-</span> <span class="fu">lm</span>(Post <span class="sc">~</span> Grade <span class="sc">*</span> Learning, <span class="at">data =</span> dat)</span></code></pre></div>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb421-1" tabindex="-1"></a><span class="fu">summary</span>(model_sum)</span></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb426-1" tabindex="-1"></a>model_sum <span class="ot">&lt;-</span> <span class="fu">lm</span>(Post <span class="sc">~</span> Grade <span class="sc">*</span> Learning, <span class="at">data =</span> dat)</span></code></pre></div>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb427-1" tabindex="-1"></a><span class="fu">summary</span>(model_sum)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Post ~ Grade * Learning, data = dat)
@@ -3354,31 +3344,15 @@ R<sup>2</sup> Bayes
 ##  -14.2   -6.7   -1.0    8.1   15.2 
 ## 
 ## Coefficients:
-##                  Estimate Std. Error
-## (Intercept)        47.500      1.807
-## Grade1             -7.567      1.807
-## Learning1          17.600      2.556
-## Learning2         -15.000      2.556
-## Grade1:Learning1    2.467      2.556
-## Grade1:Learning2   -5.133      2.556
-##                  t value
-## (Intercept)       26.285
-## Grade1            -4.187
-## Learning1          6.887
-## Learning2         -5.869
-## Grade1:Learning1   0.965
-## Grade1:Learning2  -2.009
-##                              Pr(&gt;|t|)    
-## (Intercept)      &lt; 0.0000000000000002 ***
-## Grade1                       0.000328 ***
-## Learning1                 0.000000402 ***
-## Learning2                 0.000004701 ***
-## Grade1:Learning1             0.344071    
-## Grade1:Learning2             0.055952 .  
+##                  Estimate Std. Error t value             Pr(&gt;|t|)    
+## (Intercept)        47.500      1.807  26.285 &lt; 0.0000000000000002 ***
+## Grade1             -7.567      1.807  -4.187             0.000328 ***
+## Learning1          17.600      2.556   6.887          0.000000402 ***
+## Learning2         -15.000      2.556  -5.869          0.000004701 ***
+## Grade1:Learning1    2.467      2.556   0.965             0.344071    
+## Grade1:Learning2   -5.133      2.556  -2.009             0.055952 .  
 ## ---
-## Signif. codes:  
-##   0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39;
-##   0.1 &#39; &#39; 1
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 9.898 on 24 degrees of freedom
 ## Multiple R-squared:  0.762,  Adjusted R-squared:  0.7124 
@@ -3386,15 +3360,14 @@ R<sup>2</sup> Bayes
 <ul>
 <li>以下のような作図を行う場合、コーディングによって図中のパターンが変わることはない</li>
 </ul>
-<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb423-1" tabindex="-1"></a><span class="co">#install.packages(&quot;sjPlot&quot;)</span></span>
-<span id="cb423-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb423-2" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span></code></pre></div>
-<pre><code>## #refugeeswelcome</code></pre>
-<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb425-1" tabindex="-1"></a><span class="fu">plot_model</span>(</span>
-<span id="cb425-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb425-2" tabindex="-1"></a>  model_sum, </span>
-<span id="cb425-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb425-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;pred&quot;</span>,</span>
-<span id="cb425-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb425-4" tabindex="-1"></a>  <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">&quot;Grade&quot;</span>, <span class="st">&quot;Learning&quot;</span>)</span>
-<span id="cb425-5"><a href="week9-重回帰分析-3交互作用の解釈.html#cb425-5" tabindex="-1"></a>           )</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-390-1.png" width="672" /></p>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb429-1" tabindex="-1"></a><span class="co">#install.packages(&quot;sjPlot&quot;)</span></span>
+<span id="cb429-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb429-2" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span>
+<span id="cb429-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb429-3" tabindex="-1"></a><span class="fu">plot_model</span>(</span>
+<span id="cb429-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb429-4" tabindex="-1"></a>  model_sum, </span>
+<span id="cb429-5"><a href="week9-重回帰分析-3交互作用の解釈.html#cb429-5" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;pred&quot;</span>,</span>
+<span id="cb429-6"><a href="week9-重回帰分析-3交互作用の解釈.html#cb429-6" tabindex="-1"></a>  <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">&quot;Grade&quot;</span>, <span class="st">&quot;Learning&quot;</span>)</span>
+<span id="cb429-7"><a href="week9-重回帰分析-3交互作用の解釈.html#cb429-7" tabindex="-1"></a>           )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-255-1.png" width="672" /></p>
 </div>
 <div id="係数の解釈" class="section level3 hasAnchor" number="10.4.2">
 <h3><span class="header-section-number">10.4.2</span> 係数の解釈<a href="week9-重回帰分析-3交互作用の解釈.html#係数の解釈" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -3420,20 +3393,20 @@ R<sup>2</sup> Bayes
 </div>
 <div id="質的-質的反復コントラスト" class="section level3 hasAnchor" number="10.4.3">
 <h3><span class="header-section-number">10.4.3</span> 質的 × 質的（反復コントラスト）<a href="week9-重回帰分析-3交互作用の解釈.html#質的-質的反復コントラスト" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb426-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb426-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb426-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">2</span>))</span>
-<span id="cb426-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb426-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade)</span></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb430-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb430-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb430-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">2</span>))</span>
+<span id="cb430-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb430-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade)</span></code></pre></div>
 <pre><code>##        2-1 
 ## First  -1/2
 ## Second  1/2</code></pre>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb428-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">3</span>))</span>
-<span id="cb428-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb428-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning)</span></code></pre></div>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb432-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">3</span>))</span>
+<span id="cb432-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb432-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning)</span></code></pre></div>
 <pre><code>##         2-1  3-2 
 ## List    -2/3 -1/3
 ## Context  1/3 -1/3
 ## KeyWord  1/3  2/3</code></pre>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb430-1" tabindex="-1"></a>model_rep <span class="ot">&lt;-</span> <span class="fu">lm</span>(Post <span class="sc">~</span> Grade <span class="sc">*</span> Learning, <span class="at">data =</span> dat)</span></code></pre></div>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb431-1" tabindex="-1"></a><span class="fu">summary</span>(model_rep)</span></code></pre></div>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb434-1" tabindex="-1"></a>model_rep <span class="ot">&lt;-</span> <span class="fu">lm</span>(Post <span class="sc">~</span> Grade <span class="sc">*</span> Learning, <span class="at">data =</span> dat)</span></code></pre></div>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb435-1" tabindex="-1"></a><span class="fu">summary</span>(model_rep)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Post ~ Grade * Learning, data = dat)
@@ -3443,38 +3416,15 @@ R<sup>2</sup> Bayes
 ##  -14.2   -6.7   -1.0    8.1   15.2 
 ## 
 ## Coefficients:
-##                      Estimate Std. Error
-## (Intercept)            47.500      1.807
-## Grade2-1               15.133      3.614
-## Learning2-1           -32.600      4.426
-## Learning3-2            12.400      4.426
-## Grade2-1:Learning2-1   15.200      8.853
-## Grade2-1:Learning3-2  -15.600      8.853
-##                      t value
-## (Intercept)           26.285
-## Grade2-1               4.187
-## Learning2-1           -7.365
-## Learning3-2            2.801
-## Grade2-1:Learning2-1   1.717
-## Grade2-1:Learning3-2  -1.762
-##                                  Pr(&gt;|t|)
-## (Intercept)          &lt; 0.0000000000000002
-## Grade2-1                         0.000328
-## Learning2-1                   0.000000132
-## Learning3-2                      0.009898
-## Grade2-1:Learning2-1             0.098867
-## Grade2-1:Learning3-2             0.090780
-##                         
-## (Intercept)          ***
-## Grade2-1             ***
-## Learning2-1          ***
-## Learning3-2          ** 
-## Grade2-1:Learning2-1 .  
-## Grade2-1:Learning3-2 .  
+##                      Estimate Std. Error t value             Pr(&gt;|t|)    
+## (Intercept)            47.500      1.807  26.285 &lt; 0.0000000000000002 ***
+## Grade2-1               15.133      3.614   4.187             0.000328 ***
+## Learning2-1           -32.600      4.426  -7.365          0.000000132 ***
+## Learning3-2            12.400      4.426   2.801             0.009898 ** 
+## Grade2-1:Learning2-1   15.200      8.853   1.717             0.098867 .  
+## Grade2-1:Learning3-2  -15.600      8.853  -1.762             0.090780 .  
 ## ---
-## Signif. codes:  
-##   0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39;
-##   0.1 &#39; &#39; 1
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 9.898 on 24 degrees of freedom
 ## Multiple R-squared:  0.762,  Adjusted R-squared:  0.7124 
