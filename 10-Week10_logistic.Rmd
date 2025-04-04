@@ -1,0 +1,626 @@
+# Week10: 一般化線形モデル：ロジスティック回帰分析
+
+```{r, include=FALSE}
+library(rstan)
+library(brms)
+library(gt)
+library(tidyverse)
+library(kableExtra)
+
+rstan_options(auto_write = T)
+options(mc.cores = parallel::detectCores())
+```
+
+
+## 事前の確認
+
+- この講義のRプロジェクトを開いていますか？
+- 英数字で名前を付けた本日の講義のファイルを作成しましたか？
+
+  - .Rでも.Rmdでもどちらでも大丈夫です。
+
+## 今日の目標
+
+1. 
+2. 
+
+## 一般化線形モデル
+- 確率分布に正規分布以外を仮定する（一般線形モデル = 正規分布を仮定）
+
+  - 世の中には、正規分布で表現するのが難しい事象がある
+  
+    - テストへの合格/不合格
+    
+    - 所得の分布
+    
+    - 信頼できる友達の数
+
+- ```glm()```関数で使用できる分布
+
+  - 外国語研究、言語研究では、正規分布、二項分布、対数正規分布などが用いられる
+
+```{markdown}
+binomial(link = "logit")
+gaussian(link = "identity")
+Gamma(link = "inverse")
+inverse.gaussian(link = "1/mu^2")
+poisson(link = "log")
+quasi(link = "identity", variance = "constant")
+quasibinomial(link = "logit")
+quasipoisson(link = "log")
+```
+
+::: infobox
+使用するRの関数によって、使用できる確率分布が異なります。```glm```関数には対数正規分布は含まれていません。
+:::
+
+## 二項分布
+- ある試行を *N* 回行った際の成功回数 *k* が発生する確率 *q*
+
+\[
+p(k \mid N, q) = \binom{N}{k} q^k (1 - q)^{N - k}
+\]
+
+\[
+\binom{N}{k} = \frac{N!}{k!(N-k)!}
+\]
+
+### 身近な例
+
+  - 寺井と雅人がじゃんけんを10回する。寺井が雅人に *K* 回勝つ確率を求める（勝つ可能性は50 %）
+
+  - 寺井が2回勝つ場合 (\( k = 2 \))
+
+\[
+P(X = 2) = \binom{10}{2} (0.5)^2 (0.5)^{10-2} = \binom{10}{2} (0.5)^{10}
+\]
+
+ここで、二項係数は次のように計算（8!をまとめて消している）：
+
+\[
+\binom{10}{2} = \frac{10 \times 9}{2 \times 1} = 45
+\]
+
+したがって、確率は：
+
+\[
+P(X = 2) = 45 \times (0.5)^{10} = 45 \times \frac{1}{1024} \approx 0.043945
+\]
+
+2回勝つ確率は約 **0.0439** 
+
+  - 寺井が4回勝つ場合 (\( k = 4 \))
+
+\[
+P(X = 4) = \binom{10}{4} (0.5)^4 (0.5)^{10-4} = \binom{10}{4} (0.5)^{10}
+\]
+
+
+\[
+\binom{10}{4} = \frac{10 \times 9 \times 8 \times 7}{4 \times 3 \times 2 \times 1} = 210
+\]
+
+したがって、確率は：
+
+\[
+P(X = 4) = 210 \times (0.5)^{10} = 210 \times \frac{1}{1024} \approx 0.205078
+\]
+
+  - 4回勝つ確率は約 **0.2051**
+
+```{r}
+# パラメータ
+N <- 10  # 試行回数
+k <- 4   # 成功回数
+p <- 0.5  # 成功確率（例えば、50%の確率）
+
+# 2項分布における確率を計算
+prob <- dbinom(k, size = N, prob = p)
+print(prob)
+```
+
+- 線形回帰を2値のデータに当てはめたモデルは、予測値（直線）が1以上であったり0以下であったりしている（本来は1 = 合格、0 = 不合格）
+
+  - 予測値を0から1に収まるようにする必要がある。これを行うための関数がロジスティック関数
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+set.seed(123)
+dat <- data.frame(
+  Years_of_Study = runif(100, 0, 10)  # 0〜10年のランダムな学習年数
+)
+dat$Pass <- rbinom(100, 1, prob = plogis(0.8 * dat$Years_of_Study - 4)) # 正解率の確率的データ
+
+# **1. そのまま線形回帰**
+p1 <- ggplot(dat, aes(x = Years_of_Study, y = Pass)) +
+  geom_point(alpha = 0.6) +  
+  geom_smooth(method = "lm", se = FALSE, color = "red") +  
+  labs(title = "1) 二値データに線形回帰",
+       x = "Years of Study", y = "Pass (0 or 1)") +
+  ylim(0,1)
+
+p1
+```
+
+- 切片の値はマイナスとなっており、0-1という確率の範囲を超えている。
+```{r}
+res <- lm(Pass ~ Years_of_Study, data = dat)
+sjPlot::tab_model(res)
+```
+
+
+
+### 2項分布からロジスティック回帰モデルへ
+- 二項分布は成功回数の確率分布を表す。この成功回数を予測するモデルが**ロジスティック回帰モデル**
+
+## ロジット関数
+- 0か1しかとらない従属変数が1になる確率（確率は0と1ではなく、0から1の間をとる）を *P* とすると、0になる確率は 1 - *P*。この二つの比を**オッズ比**という。
+
+
+\[
+\text{odds ratio} = \frac{P}{1 - P}
+\]
+
+- 確率（ *P* ）を対数オッズに変換（ロジット変換という）
+  
+  - 対数オッズのことをロジットという
+  
+  - 0から1しかとらない値を、-∞ ~ ∞を取る連続値のデータに変換する関数がロジット関数
+
+\[
+\text{logit}(P) = \log \left( \frac{P}{1 - P} \right)
+\]
+
+- ロジット関数により、
+
+  - この変換で、従属変数の値が0か1かという制約がなくなり、線形モデルとして偏回帰係数を推定できる
+    
+    - 線形モデルで当てはめる方が計算などの都合がいいから
+
+- **線**形モデルとは異なり、**曲線**であるため、1単位の変化量が異なる
+
+  - logit(0.5) = 0、logit(0.6) = 0.4 => ロジットスケールでの0.4の変換は変換前の単位での50%から60%の変更に対応
+  
+  - logit(0.9) = 2.2、logit(0.93) = 2.6 => ロジットスケールでの0.4の変換は変換前の単位での90%から93%の変更に対応
+
+```{r, echo=FALSE, warning=FALSE}
+# 0から1の値を等間隔で生成（ただし0と1は除く）
+p_values <- seq(0.001, 0.999, length.out = 100)
+
+# ロジット変換
+logit_values <- log(p_values / (1 - p_values))
+
+# データフレーム作成
+logit_data <- data.frame(
+  Before_Logit = p_values,  # 変換前の値 (0〜1)
+  After_Logit = logit_values # 変換後の値
+)
+
+# グラフ描画
+ggplot(logit_data, aes(x = Before_Logit, y = After_Logit)) +
+  geom_line(color = "blue", size = 1) +
+  labs(title = "ロジット変換の可視化",
+       x = "ロジット変換前 (0から1の値)",
+       y = "ロジット変換後")
+```
+
+## ロジスティック関数
+- この関数を使うことで、説明変数の集まり（線形予測子：線形結合した説明変数）がどの範囲に合っても、0 ~ 1の範囲に収まる（確率を表すのに最適！）。
+
+  - ロジスティック回帰ではリンク関数にロジット関数をおき、確率を線形予測子に変換
+
+  - ロジスティック関数は逆リンク関数として使われ、線形予測子から確率を復元する
+  
+    - リンク関数：従属変数を変換し、独立変数関数につなげる変換関数、独立変数を変換する場合は「逆」リンク関数
+
+
+\[
+\text{logistic}(x) = \frac{1}{1 + e^{-x}}
+\]
+
+
+```{r, echo=FALSE}
+# ロジスティック関数の定義
+logistic <- function(x) {
+  1 / (1 + exp(-x))
+}
+
+# x の範囲を設定し、対応する y を計算
+df <- data.frame(x = seq(-6, 6, length.out = 100))
+df$y <- logistic(df$x)
+
+# ggplot で描画
+ggplot(df, aes(x = x, y = y)) +
+  geom_line(color = "blue", size = 1) +
+  labs(title = "ロジスティック関数",
+       x = "x",
+       y = "σ(x) = 1 / (1 + exp(-x))")
+
+```
+
+
+### つまり
+1. データを分析しやすいようにロジット変換をして線形回帰を行う。
+
+2. 値をもとに戻さないと理解しずらいため、ロジスティック関数を使って0 ~ 1の範囲に戻している
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# **2. ロジット変換**
+dat <- dat %>% 
+  mutate(Logit_Pass = log((Pass + 0.01) / (1 - Pass + 0.01)))  # ロジット変換
+
+# **ロジット変換後の線形回帰**
+p2 <- ggplot(dat, aes(x = Years_of_Study, y = Logit_Pass)) +
+  geom_point(alpha = 0.6) +  
+  geom_smooth(method = "lm", se = FALSE, color = "green") +  
+  labs(title = "2) ロジット変換後に線形回帰",
+       x = "Years of Study", y = "Logit(Pass)")
+
+# **3. ロジスティック回帰（元の確率に戻す）**
+p3 <- ggplot(dat, aes(x = Years_of_Study, y = Pass)) +
+  geom_point(alpha = 0.6) +  
+  geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE, color = "blue") +  
+  labs(title = "3) ロジスティック回帰（曲線）",
+       x = "Years of Study", y = "Probability of Passing (0 to 1)")
+
+gridExtra::grid.arrange(p1, p2, ncol = 2)
+gridExtra::grid.arrange(p2, p3, ncol = 2)
+```
+
+
+::: infobox
+一般「化」線形モデルでは、どの確率分布を使うかだけでなく、どのような変換関数で変換をするかも把握する必要がある。そのため、何でもかんでも正規分布で分析したり、データを無理やり変換し正規分布に近づけるような方法ではなく、得られたデータをそのままに、モデルの工夫でフィッティングを調整するという考え方が身につく。
+:::
+
+### 一般化線形モデルの使用上の注意
+
+- 一般線形モデルのように、回帰係数をそのまま解釈できない
+
+  - 変換係数を経由して、説明変数の変化が影響を受けている
+  
+    - 回帰分析：ある独立変数Aが1単位変化すると、従属変数はBだけ変化
+    
+    - ロジスティック回帰：ある独立変数Aが1単位変化すると、従属変数はexp(B)だけ変化
+
+- ロジスティック関数はロジット関数の逆関数のこと
+
+  - 逆関数：戻してあげる関数のこと
+  
+    - e.g., log(3) -> exp(log(3)) = 3
+    
+  - リンク関数としてロジット関数を使っているため、ロジット関数の逆関数であるロジスティック関数で戻してあげている。
+  
+
+## ハンズオンセッション
+### 疑似データの用意
+- Pass： テストの合否。1なら合格、0なら不合格
+
+- Method：指導法A、指導法B
+
+- Starting_age：英語を勉強し始めた年齢
+
+```{r}
+set.seed(123)  # 再現性のため
+
+dat <- data.frame(
+  Pass = sample(0:1, 40, replace = TRUE),  # 1 または 0
+  Method = sample(c("A", "B"), 40, replace = TRUE),  # A または B
+  Starting_age = sample(0:10, 40, replace = TRUE)  # 0 ~ 10 の数値
+)
+```
+
+```{r}
+head(dat, head = 3)
+```
+
+```{r}
+summary(dat)
+```
+
+### モデルの推定
+- ```glm()```関数を使用する
+
+  - ```family```で確率分布を指定する
+
+```{r}
+library(stats)
+
+res <- glm(
+  Pass ~ Starting_age,
+  family = binomial(link = "logit"),
+  data = dat
+)
+```
+
+- Estimate: 偏回帰係数
+
+- Std. Error (Standard Error): 標準誤差
+
+  - かなり重要。どれくらい推定に誤差があるかを示す指標。「同じ調査法で同じ数のデータをとりなおしてみると、推定値も結構変わるので、そのバラツキ度合い」
+
+- *z* value：z値と呼ばれる統計量（Wald統計量とも言われる）。Estimate ÷ SE で算出。この値で、Wald信頼区間を算出し、その値がゼロから十分に離れているかの目安になる。
+
+- Pr(>|z|): 平均が z値の絶対値で、標準偏差が1の正規分布において、マイナス無限大からゼロまでの値をとる確率。この確率が大きいほどZ値がゼロに近くなり、Estimateがゼロに近い。
+
+- *p* 値（アスタリスク）：95%CIに0を含む場合有意とされる
+
+```{r}
+summary(res)
+```
+
+- 95%信頼区間の算出
+```{r, message=FALSE}
+stats::confint(res)
+```
+
+### 作図
+
+```{r}
+# 年齢（Years_of_Study）の範囲を設定
+years_range <- seq(0, 10, length.out = 100)
+
+# 各年数に対する予測確率を計算
+pred_probs <- predict(res, newdata = data.frame(Starting_age = years_range), type = "response")
+
+# 予測確率を描画
+plot(
+  years_range, pred_probs, 
+  type = "l",  # 線で描画
+  col = "blue", 
+  lwd = 2, 
+  xlab = "Starting Age", 
+  ylab = "Pr (Pass)", 
+  main = "Logistic Regression: Probability of Passing",
+  ylim = c(0, 1),
+  xaxt = "n", yaxs = "i"
+)
+
+# x軸のカスタムラベルを追加
+axis(1, at = seq(0, 10, by = 1), labels = seq(0, 10, by = 1))
+```
+
+### オッズ比の算出
+- オッズ比：オッズの変化量。ロジスティック回帰モデルの回帰係数に指数関数を適用すると算出できる。
+
+  - 指数関数をとると、その値は必ず正の値になる
+  
+```{r, echo=FALSE}
+# データ作成
+data <- data.frame(
+  `Estimate` = c("正（> 0）", "0", "負（< 0）"),
+  `オッズ比` = c("> 1", "= 1", "< 1"),
+  `解釈` = c("オッズが 増加",
+             "オッズは 変化なし",
+             "オッズが 減少")
+)
+
+kable(data, booktabs = TRUE, escape = FALSE) %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
+
+- 係数がマイナスだったので、 オッズ比 < 1となっている点に注意
+```{r}
+exp(res$coefficients)
+```
+
+```{r, message=FALSE}
+exp(stats::confint(res))
+```
+
+### 結果報告の例と解釈
+- 英語の学習年数の主効果の係数は有意ではなかった（*Estimate* = -0.21 [-0.47, 0.03], *SE* = 0.12, *z* = -1.67, *p* = .10, *OR* = 0.81 [0.63, 1.03]）。傾向として、英語学習開始歴が1年増えると、テストに合格する**オッズ**が0.81倍になる（ = 合格するオッズが [1 - 0.81 = 19] 19%低い）と予測される。
+
+- もし係数が0.21だった場合、オッズ比は```exp(0.21) = 1.23```。この場合、
+
+  - 英語学習歴が1年増えると、テストに合格する**オッズが1.23倍になる。つまり、テストに合格するオッズは（不合格となる場合に比べ）（1.23 - 1 = 0.23）23%増加すると予測される。
+
+- しかし、オッズやオッズ比で結果を言われても解釈が少し難しい。```predict```関数で具体的な合格する確率を算出する方が分かりやすい。
+
+```{r}
+# 年齢（Years_of_Study）の範囲を設定
+years_range <- seq(0, 10)
+
+# 各年数に対する予測確率を計算
+pred_probs <- predict(res, newdata = data.frame(Starting_age = years_range), type = "response")
+```
+
+- 100を書けて%単位に変換
+```{r}
+pred_probs * 100
+```
+
+- 作図
+```{r}
+plot(pred_probs * 100)
+```
+
+
+### 新たなデータで予測してみる
+- 25歳で初めて場合を調べてみる
+- ```type = "link"```にすると、係数が得られる
+```{r}
+new <- data.frame(Starting_age = 25)
+pred_probs <- predict(res, newdata = new, type = "link")
+```
+- オッズ比を計算
+```{r}
+exp(pred_probs)
+```
+
+- ```type = "response"```にすると、予測確率が返される
+```{r}
+pred_probs <- predict(res, newdata = new, type = "response")
+```
+
+- 25歳ではじめると、1.13 %の合格確率となる
+```{r}
+pred_probs * 100
+```
+
+
+## 質的変数の場合
+
+```{r}
+res <- aggregate(Pass ~ Method, data = dat, FUN = mean)
+res
+```
+
+
+```{r}
+table(dat$Method)
+```
+
+```{r}
+# Methodごとの正答率を計算
+table_data <- table(dat$Method, dat$Pass)
+
+# 棒グラフで可視化
+barplot(prop.table(table_data, margin = 1), beside = TRUE,
+        legend = rownames(table_data), xlab = "Pass (0 = Incorrect, 1 = Correct)",
+        ylab = "Proportion", main = "Proportion of Passing by Method")
+```
+
+### トリートメントコントラスト
+
+```{r}
+dat$Method <- factor(dat$Method)
+
+contrasts(dat$Method)
+```
+
+```{r}
+res.2 <- glm(
+  Pass ~ Method,
+  family = binomial,
+  data = dat
+)
+```
+
+- Method Bの係数：Method B - Method A
+```{r}
+summary(res.2)
+```
+
+- 95%信頼区間の算出
+```{r}
+stats::confint(res.2)
+```
+
+### オッズ比
+- Methodのオッズ比は0.54だった。よってMethod BはAに比べ、合格の成功オッズが(1 - 0.54 = 0.46) 46%低い
+
+```{r}
+exp(res.2$coefficients)
+```
+
+```{r}
+exp(stats::confint(res.2))
+```
+
+### 確率を計算
+
+```{r}
+# glmモデルの結果を使って予測確率を計算
+pred_probs_A <- predict(res.2, newdata = data.frame(Method = "A"), type = "response")
+pred_probs_B <- predict(res.2, newdata = data.frame(Method = "B"), type = "response")
+```
+
+```{r}
+pred_probs_A
+pred_probs_B
+```
+
+
+### 作図
+
+```{r, message=FALSE,warning=FALSE}
+#install.packages("arm")
+library(arm)
+
+# Method A と Method B の予測確率を描画
+plot(
+  c(1, 2), c(pred_probs_A, pred_probs_B), 
+  pch = 16, col = "black", cex = 2, 
+  xlim = c(0, 3), 
+  ylim = c(0, 1), 
+  xaxt = "n", xlab = "Method", ylab = "Pr (Pass)",
+  xaxs = "i", yaxs = "i"
+)
+
+# 信頼区間のエラーバーを追加
+arrows(1, pred_probs_A - 0.1, 1, pred_probs_A + 0.1, angle = 90, code = 3, length = 0.1, col = "black")
+arrows(2, pred_probs_B - 0.1, 2, pred_probs_B + 0.1, angle = 90, code = 3, length = 0.1, col = "black")
+
+# x軸のカスタムラベルを追加 (Method A と Method B)
+axis(1, at = c(1, 2), labels = c("Method A", "Method B"))
+
+```
+
+## 分類にも使えます
+
+- 機械学習などでは分類モデル（2つのカテゴリのデータ）として用いられたりします。
+
+  - 以下では、合格の予測確率が0.6未満の場合やばい（0）、0.6以上の場合安心（1）と分類しています
+
+```{r}
+pred_probs <- predict(res, type = "response", newdata = dat)
+
+# 予測クラスを作成
+pred_class <- ifelse(pred_probs > 0.6, 1, 0)
+
+# 元のデータに予測確率と予測クラスを追加
+new_data <- dat %>%
+  mutate(pred_probs = pred_probs,
+         pred_class = pred_class)
+
+# ggplotで視覚化
+ggplot(new_data, aes(x = Starting_age, y = 1, fill = factor(pred_class))) +
+  geom_tile(height = 1, width = 1) +  # 矩形のサイズ調整
+  scale_fill_manual(values = c("darkblue", "skyblue")) +  
+  labs(x = "Starting Age", y = "", fill = "Predicted Class") +
+  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
+```
+
+
+## 次週までの課題
+### 課題内容
+
+1. 小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。
+
+2. （宿題を考える）
+- ハンズオンセッションで使用したデータを基にサムコントラストで分析をしてみましょう
+
+- **Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。**
+
+### 提出方法
+- メールにファイルを添付して送信。
+- 締め切りは今週の木曜日まで
+
+
+## 参考文献
+- 草薙（2017）　確率分布から見る外国語教育研究データ
+- Gelman Regression and Other stories
+- 馬場 RとStanではじめるベイズ統計モデリングによるデータ分析
+- Rを用いた一般化線形混合モデル（GLMM）の分析手法を身につける:言語研究分野の事例をもとに
+- 小杉　「言葉と数式で理解する多変量解析入門」
+- https://bellcurve.jp/statistics/course/26934.html?srsltid=AfmBOorwQsuSpgEx3zQ8gVhrS2zSP50-PUvuzRlNqNP-rxWB2J_XBwyf
+- https://hkawabata.github.io/technical-note/note/ML/logistic-regression.html
+- Terai, M., Fukuta, J., & Tamura, Y. (2024). Learnability of L2 collocations and L1 influence on L2 collocational representations of Japanese learners of English. International Review of Applied Linguistics in Language Teaching, 62(4), 1959-1983.
+
+```{=html}
+<style>
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+
+.beg {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
+
+.caution {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
+  
+</style>
+```
