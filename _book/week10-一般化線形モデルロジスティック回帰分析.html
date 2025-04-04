@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 11 Week10: 一般化線形モデル：ロジスティック回帰分析 | 言語統計処理（春学期）</title>
+  <meta name="description" content="Chapter 11 Week10: 一般化線形モデル：ロジスティック回帰分析 | 言語統計処理（春学期）" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 11 Week10: 一般化線形モデル：ロジスティック回帰分析 | 言語統計処理（春学期）" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 11 Week10: 一般化線形モデル：ロジスティック回帰分析 | 言語統計処理（春学期）" />
+  
+  
+  
+
+<meta name="author" content="寺井雅人（Masato Terai）" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="week9-重回帰分析-3交互作用の解釈.html"/>
+<link rel="next" href="week11-階層モデル.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">言語統計処理_春学期</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#講義概要"><i class="fa fa-check"></i><b>1.1</b> 講義概要</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#講義スケジュール"><i class="fa fa-check"></i><b>1.2</b> 講義スケジュール</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#成績評価について"><i class="fa fa-check"></i><b>1.3</b> 成績評価について</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#留意事項"><i class="fa fa-check"></i><b>1.4</b> 留意事項</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><i class="fa fa-check"></i><b>2</b> Week 1: オリエンテーション、R(Studio)のインストールと操作、R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#統計処理とは"><i class="fa fa-check"></i><b>2.1</b> 「統計処理」とは</a></li>
+<li class="chapter" data-level="2.2" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rとは"><i class="fa fa-check"></i><b>2.2</b> Rとは</a></li>
+<li class="chapter" data-level="2.3" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rのインストール"><i class="fa fa-check"></i><b>2.3</b> Rのインストール</a></li>
+<li class="chapter" data-level="2.4" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioとは"><i class="fa fa-check"></i><b>2.4</b> RStudioとは</a></li>
+<li class="chapter" data-level="2.5" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioのインストール"><i class="fa fa-check"></i><b>2.5</b> RStudioのインストール</a></li>
+<li class="chapter" data-level="2.6" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioの機能"><i class="fa fa-check"></i><b>2.6</b> RStudioの機能</a></li>
+<li class="chapter" data-level="2.7" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#プロジェクト機能"><i class="fa fa-check"></i><b>2.7</b> プロジェクト機能</a></li>
+<li class="chapter" data-level="2.8" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioのカスタマイズ"><i class="fa fa-check"></i><b>2.8</b> RStudioのカスタマイズ</a></li>
+<li class="chapter" data-level="2.9" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#r-markdown入門"><i class="fa fa-check"></i><b>2.9</b> R Markdown入門</a></li>
+<li class="chapter" data-level="2.10" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#ドキュメントチャンクmarkdown記法"><i class="fa fa-check"></i><b>2.10</b> ドキュメントチャンク：Markdown記法</a></li>
+<li class="chapter" data-level="2.11" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#lets-実践"><i class="fa fa-check"></i><b>2.11</b> Let’s 実践</a></li>
+<li class="chapter" data-level="2.14" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#答え合わせ"><i class="fa fa-check"></i><b>2.14</b> 答え合わせ</a></li>
+<li class="chapter" data-level="2.15" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#コードチャンクの挿入"><i class="fa fa-check"></i><b>2.15</b> コードチャンクの挿入</a></li>
+<li class="chapter" data-level="2.16" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#lets-実践-1"><i class="fa fa-check"></i><b>2.16</b> Let’s 実践</a></li>
+<li class="chapter" data-level="2.17" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#食費の合計"><i class="fa fa-check"></i><b>2.17</b> 食費の合計</a></li>
+<li class="chapter" data-level="2.18" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#答え合わせ-1"><i class="fa fa-check"></i><b>2.18</b> 答え合わせ</a></li>
+<li class="chapter" data-level="2.19" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#次週までの課題"><i class="fa fa-check"></i><b>2.19</b> 次週までの課題</a></li>
+<li class="chapter" data-level="2.20" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#参考文献"><i class="fa fa-check"></i><b>2.20</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="3" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html"><i class="fa fa-check"></i><b>3</b> Week 2：要約統計量</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#事前の確認"><i class="fa fa-check"></i><b>3.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="3.2" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#今日の目標"><i class="fa fa-check"></i><b>3.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="3.3" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#今日の格言"><i class="fa fa-check"></i><b>3.3</b> 今日の格言</a></li>
+<li class="chapter" data-level="3.4" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#記述統計学と推測統計学"><i class="fa fa-check"></i><b>3.4</b> 記述統計学と推測統計学</a></li>
+<li class="chapter" data-level="3.5" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#データの尺度"><i class="fa fa-check"></i><b>3.5</b> データの尺度</a></li>
+<li class="chapter" data-level="3.6" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#とみなす"><i class="fa fa-check"></i><b>3.6</b> 「～とみなす」</a></li>
+<li class="chapter" data-level="3.7" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#要約統計量"><i class="fa fa-check"></i><b>3.7</b> 要約統計量</a></li>
+<li class="chapter" data-level="3.8" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#データの可視化"><i class="fa fa-check"></i><b>3.8</b> データの可視化</a></li>
+<li class="chapter" data-level="3.9" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#ハンズオンセッション"><i class="fa fa-check"></i><b>3.9</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="3.10" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#まとめ"><i class="fa fa-check"></i><b>3.10</b> まとめ</a></li>
+<li class="chapter" data-level="3.11" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#次週までの課題-1"><i class="fa fa-check"></i><b>3.11</b> 次週までの課題</a></li>
+<li class="chapter" data-level="3.12" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#参考文献-1"><i class="fa fa-check"></i><b>3.12</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="推測統計学.html"><a href="推測統計学.html"><i class="fa fa-check"></i><b>4</b> 推測統計学</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="推測統計学.html"><a href="推測統計学.html#事前の確認-1"><i class="fa fa-check"></i><b>4.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="4.2" data-path="推測統計学.html"><a href="推測統計学.html#今日の目標-1"><i class="fa fa-check"></i><b>4.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="4.3" data-path="推測統計学.html"><a href="推測統計学.html#母集団と標本"><i class="fa fa-check"></i><b>4.3</b> 母集団と標本</a></li>
+<li class="chapter" data-level="4.4" data-path="推測統計学.html"><a href="推測統計学.html#確率と確率変数"><i class="fa fa-check"></i><b>4.4</b> 確率と確率変数</a></li>
+<li class="chapter" data-level="4.5" data-path="推測統計学.html"><a href="推測統計学.html#推測統計学の考え方"><i class="fa fa-check"></i><b>4.5</b> 推測統計学の考え方</a></li>
+<li class="chapter" data-level="4.6" data-path="推測統計学.html"><a href="推測統計学.html#区間推定の考え方"><i class="fa fa-check"></i><b>4.6</b> 区間推定の考え方</a></li>
+<li class="chapter" data-level="4.7" data-path="推測統計学.html"><a href="推測統計学.html#rの関数で95信頼区間を求める"><i class="fa fa-check"></i><b>4.7</b> Rの関数で95%信頼区間を求める</a></li>
+<li class="chapter" data-level="4.8" data-path="推測統計学.html"><a href="推測統計学.html#ハンズオンセッション-1"><i class="fa fa-check"></i><b>4.8</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="4.9" data-path="推測統計学.html"><a href="推測統計学.html#まとめ-1"><i class="fa fa-check"></i><b>4.9</b> まとめ</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="統計的検定.html"><a href="統計的検定.html"><i class="fa fa-check"></i><b>5</b> 統計的検定</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="統計的検定.html"><a href="統計的検定.html#事前の確認-2"><i class="fa fa-check"></i><b>5.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="5.2" data-path="統計的検定.html"><a href="統計的検定.html#今日の目標-2"><i class="fa fa-check"></i><b>5.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="5.3" data-path="統計的検定.html"><a href="統計的検定.html#統計的検定statistical-test"><i class="fa fa-check"></i><b>5.3</b> 統計的検定（statistical test）</a></li>
+<li class="chapter" data-level="5.4" data-path="統計的検定.html"><a href="統計的検定.html#統計的検定の手順"><i class="fa fa-check"></i><b>5.4</b> 統計的検定の手順</a></li>
+<li class="chapter" data-level="5.5" data-path="統計的検定.html"><a href="統計的検定.html#統計的検定で必要な知識"><i class="fa fa-check"></i><b>5.5</b> 統計的検定で必要な知識</a></li>
+<li class="chapter" data-level="5.6" data-path="統計的検定.html"><a href="統計的検定.html#ハンズオンセッション-2"><i class="fa fa-check"></i><b>5.6</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="5.7" data-path="統計的検定.html"><a href="統計的検定.html#次週までの課題-2"><i class="fa fa-check"></i><b>5.7</b> 次週までの課題</a></li>
+<li class="chapter" data-level="5.8" data-path="統計的検定.html"><a href="統計的検定.html#参考文献-2"><i class="fa fa-check"></i><b>5.8</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="week5-相関分析.html"><a href="week5-相関分析.html"><i class="fa fa-check"></i><b>6</b> Week5: 相関分析</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="week5-相関分析.html"><a href="week5-相関分析.html#事前の確認-3"><i class="fa fa-check"></i><b>6.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="6.2" data-path="week5-相関分析.html"><a href="week5-相関分析.html#今日の目標-3"><i class="fa fa-check"></i><b>6.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="6.3" data-path="week5-相関分析.html"><a href="week5-相関分析.html#相関分析correlation-analysisとは"><i class="fa fa-check"></i><b>6.3</b> 相関分析（Correlation analysis）とは</a></li>
+<li class="chapter" data-level="6.4" data-path="week5-相関分析.html"><a href="week5-相関分析.html#ハンズオンセッション-3"><i class="fa fa-check"></i><b>6.4</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="6.5" data-path="week5-相関分析.html"><a href="week5-相関分析.html#次週までの課題-3"><i class="fa fa-check"></i><b>6.5</b> 次週までの課題</a></li>
+<li class="chapter" data-level="6.6" data-path="week5-相関分析.html"><a href="week5-相関分析.html#参考文献-3"><i class="fa fa-check"></i><b>6.6</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html"><i class="fa fa-check"></i><b>7</b> 単回帰分析（連続型の説明変数）</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#今後の修正案"><i class="fa fa-check"></i><b>7.1</b> 今後の修正案</a></li>
+<li class="chapter" data-level="7.2" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#事前の確認-4"><i class="fa fa-check"></i><b>7.2</b> 事前の確認</a></li>
+<li class="chapter" data-level="7.3" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#今日の目標-4"><i class="fa fa-check"></i><b>7.3</b> 今日の目標</a></li>
+<li class="chapter" data-level="7.4" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#回帰分析regression-analysisとは"><i class="fa fa-check"></i><b>7.4</b> 回帰分析（regression analysis）とは</a></li>
+<li class="chapter" data-level="7.5" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#ハンズオンセッション-4"><i class="fa fa-check"></i><b>7.5</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="7.6" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#次週までの課題-4"><i class="fa fa-check"></i><b>7.6</b> 次週までの課題</a></li>
+<li class="chapter" data-level="7.7" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#参考文献-4"><i class="fa fa-check"></i><b>7.7</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html"><i class="fa fa-check"></i><b>8</b> Week7: 重回帰分析</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#メモ"><i class="fa fa-check"></i><b>8.1</b> メモ</a></li>
+<li class="chapter" data-level="8.2" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#事前の確認-5"><i class="fa fa-check"></i><b>8.2</b> 事前の確認</a></li>
+<li class="chapter" data-level="8.3" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#今日の目標-5"><i class="fa fa-check"></i><b>8.3</b> 今日の目標</a></li>
+<li class="chapter" data-level="8.4" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#重回帰分析とは"><i class="fa fa-check"></i><b>8.4</b> 重回帰分析とは</a></li>
+<li class="chapter" data-level="8.5" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#重回帰分析を行う上での注意点"><i class="fa fa-check"></i><b>8.5</b> 重回帰分析を行う上での注意点</a></li>
+<li class="chapter" data-level="8.6" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#投入方"><i class="fa fa-check"></i><b>8.6</b> 投入方</a></li>
+<li class="chapter" data-level="8.7" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#ハンズオンセッション-5"><i class="fa fa-check"></i><b>8.7</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="8.8" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#次週までの課題-5"><i class="fa fa-check"></i><b>8.8</b> 次週までの課題</a></li>
+<li class="chapter" data-level="8.9" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#参考文献-5"><i class="fa fa-check"></i><b>8.9</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html"><i class="fa fa-check"></i><b>9</b> Week8: 重回帰分析 (2)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#事前の確認-6"><i class="fa fa-check"></i><b>9.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="9.2" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#今日の目標-6"><i class="fa fa-check"></i><b>9.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="9.3" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#分散分析"><i class="fa fa-check"></i><b>9.3</b> 分散分析</a></li>
+<li class="chapter" data-level="9.4" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#分散分析と回帰分析の関係"><i class="fa fa-check"></i><b>9.4</b> 分散分析と回帰分析の関係</a></li>
+<li class="chapter" data-level="9.5" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#分散分析は今回扱いません"><i class="fa fa-check"></i><b>9.5</b> 分散分析は今回扱いません</a></li>
+<li class="chapter" data-level="9.6" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#重回帰分析での質的変数の扱い方"><i class="fa fa-check"></i><b>9.6</b> 重回帰分析での質的変数の扱い方</a></li>
+<li class="chapter" data-level="9.7" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#ハンズオンセッション-6"><i class="fa fa-check"></i><b>9.7</b> ハンズオン・セッション</a></li>
+<li class="chapter" data-level="9.8" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#検定の繰り返し問題アゲイン"><i class="fa fa-check"></i><b>9.8</b> 検定の繰り返し問題アゲイン</a></li>
+<li class="chapter" data-level="9.9" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#解決策"><i class="fa fa-check"></i><b>9.9</b> 解決策</a></li>
+<li class="chapter" data-level="9.10" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#次週までの課題-6"><i class="fa fa-check"></i><b>9.10</b> 次週までの課題</a></li>
+<li class="chapter" data-level="9.11" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#参考文献-6"><i class="fa fa-check"></i><b>9.11</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html"><i class="fa fa-check"></i><b>10</b> Week9: 重回帰分析 (3)：交互作用の解釈</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#事前の確認-7"><i class="fa fa-check"></i><b>10.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="10.2" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#今日の目標-7"><i class="fa fa-check"></i><b>10.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="10.3" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#交互作用"><i class="fa fa-check"></i><b>10.3</b> 交互作用</a></li>
+<li class="chapter" data-level="10.4" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#ハンズオンセッション-7"><i class="fa fa-check"></i><b>10.4</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="10.5" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#最後に"><i class="fa fa-check"></i><b>10.5</b> 最後に</a></li>
+<li class="chapter" data-level="10.6" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#次週までの課題-7"><i class="fa fa-check"></i><b>10.6</b> 次週までの課題</a></li>
+<li class="chapter" data-level="10.7" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#参考文献-7"><i class="fa fa-check"></i><b>10.7</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html"><i class="fa fa-check"></i><b>11</b> Week10: 一般化線形モデル：ロジスティック回帰分析</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#事前の確認-8"><i class="fa fa-check"></i><b>11.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="11.2" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#今日の目標-8"><i class="fa fa-check"></i><b>11.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="11.3" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#一般化線形モデル"><i class="fa fa-check"></i><b>11.3</b> 一般化線形モデル</a></li>
+<li class="chapter" data-level="11.4" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#二項分布"><i class="fa fa-check"></i><b>11.4</b> 二項分布</a></li>
+<li class="chapter" data-level="11.5" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#ロジット関数"><i class="fa fa-check"></i><b>11.5</b> ロジット関数</a></li>
+<li class="chapter" data-level="11.6" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#ロジスティック関数"><i class="fa fa-check"></i><b>11.6</b> ロジスティック関数</a></li>
+<li class="chapter" data-level="11.7" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#ハンズオンセッション-8"><i class="fa fa-check"></i><b>11.7</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="11.8" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#質的変数の場合"><i class="fa fa-check"></i><b>11.8</b> 質的変数の場合</a></li>
+<li class="chapter" data-level="11.9" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#分類にも使えます"><i class="fa fa-check"></i><b>11.9</b> 分類にも使えます</a></li>
+<li class="chapter" data-level="11.10" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#次週までの課題-8"><i class="fa fa-check"></i><b>11.10</b> 次週までの課題</a></li>
+<li class="chapter" data-level="11.11" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#参考文献-8"><i class="fa fa-check"></i><b>11.11</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html"><i class="fa fa-check"></i><b>12</b> Week11: 階層モデル</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#事前の確認-9"><i class="fa fa-check"></i><b>12.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="12.2" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#今日の目標-9"><i class="fa fa-check"></i><b>12.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="12.3" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#次週までの課題-9"><i class="fa fa-check"></i><b>12.3</b> 次週までの課題</a></li>
+<li class="chapter" data-level="12.4" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#参考文献-9"><i class="fa fa-check"></i><b>12.4</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html"><i class="fa fa-check"></i><b>13</b> Week 15：言語研究とオープンサイエンス</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#事前の確認-10"><i class="fa fa-check"></i><b>13.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="13.2" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#今日の目標-10"><i class="fa fa-check"></i><b>13.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="13.3" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#はじめに"><i class="fa fa-check"></i><b>13.3</b> はじめに</a></li>
+<li class="chapter" data-level="13.4" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#r-markdownを使って分析結果をまとめることができる"><i class="fa fa-check"></i><b>13.4</b> 1. R Markdownを使って分析結果をまとめることができる</a></li>
+<li class="chapter" data-level="13.5" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#プロジェクト"><i class="fa fa-check"></i><b>13.5</b> プロジェクト</a></li>
+<li class="chapter" data-level="13.6" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#実際に作ってみましょう"><i class="fa fa-check"></i><b>13.6</b> 実際に作ってみましょう</a></li>
+<li class="chapter" data-level="13.7" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#ドキュメントチャンクmarkdown記法-1"><i class="fa fa-check"></i><b>13.7</b> ドキュメントチャンク：Markdown記法</a></li>
+<li class="chapter" data-level="13.8" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#lets-実践-2"><i class="fa fa-check"></i><b>13.8</b> Let’s 実践</a></li>
+<li class="chapter" data-level="13.9" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#答え合わせ-2"><i class="fa fa-check"></i><b>13.9</b> 答え合わせ</a></li>
+<li class="chapter" data-level="13.10" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#実はwordのように編集できます"><i class="fa fa-check"></i><b>13.10</b> 実は、Wordのように編集できます！</a></li>
+<li class="chapter" data-level="13.11" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#コードチャンクの挿入-1"><i class="fa fa-check"></i><b>13.11</b> コードチャンクの挿入</a></li>
+<li class="chapter" data-level="13.12" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#lets-実践-3"><i class="fa fa-check"></i><b>13.12</b> Let’s 実践</a></li>
+<li class="chapter" data-level="13.13" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#食費の合計-1"><i class="fa fa-check"></i><b>13.13</b> 食費の合計</a></li>
+<li class="chapter" data-level="13.14" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#答え合わせ-3"><i class="fa fa-check"></i><b>13.14</b> 答え合わせ</a></li>
+<li class="chapter" data-level="13.15" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#r-markdownでまとめた結果を共有することができる"><i class="fa fa-check"></i><b>13.15</b> 2. R Markdownでまとめた結果を共有することができる</a></li>
+<li class="chapter" data-level="13.16" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#html形式だと簡単にウェブサイトにできます"><i class="fa fa-check"></i><b>13.16</b> HTML形式だと、簡単にウェブサイトにできます</a></li>
+<li class="chapter" data-level="13.17" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#様々なパソコンで同じ分析環境を再現することができる"><i class="fa fa-check"></i><b>13.17</b> 3. 様々なパソコンで同じ分析環境を再現することができる</a></li>
+<li class="chapter" data-level="13.18" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#r自体のバージョン管理も可能です"><i class="fa fa-check"></i><b>13.18</b> R自体のバージョン管理も可能です</a></li>
+<li class="chapter" data-level="13.19" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#おまけ"><i class="fa fa-check"></i><b>13.19</b> おまけ</a></li>
+<li class="chapter" data-level="13.20" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#関数の呼び出し方"><i class="fa fa-check"></i><b>13.20</b> 関数の呼び出し方</a></li>
+<li class="chapter" data-level="13.21" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#まとめ-2"><i class="fa fa-check"></i><b>13.21</b> まとめ</a></li>
+<li class="chapter" data-level="13.22" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#参考文献-資料"><i class="fa fa-check"></i><b>13.22</b> 参考文献 &amp; 資料</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>14</b> Sharing your book</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">言語統計処理（春学期）</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="week10-一般化線形モデルロジスティック回帰分析" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">Chapter 11</span> Week10: 一般化線形モデル：ロジスティック回帰分析<a href="week10-一般化線形モデルロジスティック回帰分析.html#week10-一般化線形モデルロジスティック回帰分析" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="事前の確認-8" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> 事前の確認<a href="week10-一般化線形モデルロジスティック回帰分析.html#事前の確認-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>この講義のRプロジェクトを開いていますか？</p></li>
+<li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
+<ul>
+<li>.Rでも.Rmdでもどちらでも大丈夫です。</li>
+</ul></li>
+</ul>
+</div>
+<div id="今日の目標-8" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> 今日の目標<a href="week10-一般化線形モデルロジスティック回帰分析.html#今日の目標-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li></li>
+<li></li>
+</ol>
+</div>
+<div id="一般化線形モデル" class="section level2 hasAnchor" number="11.3">
+<h2><span class="header-section-number">11.3</span> 一般化線形モデル<a href="week10-一般化線形モデルロジスティック回帰分析.html#一般化線形モデル" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>確率分布に正規分布以外を仮定する（一般線形モデル = 正規分布を仮定）</p>
+<ul>
+<li><p>世の中には、正規分布で表現するのが難しい事象がある</p>
+<ul>
+<li><p>テストへの合格/不合格</p></li>
+<li><p>所得の分布</p></li>
+<li><p>信頼できる友達の数</p></li>
+</ul></li>
+</ul></li>
+<li><p><code>glm()</code>関数で使用できる分布</p>
+<ul>
+<li>外国語研究、言語研究では、正規分布、二項分布、対数正規分布などが用いられる</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb437"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb437-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb437-1" tabindex="-1"></a>binomial(link = &quot;logit&quot;)</span>
+<span id="cb437-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb437-2" tabindex="-1"></a>gaussian(link = &quot;identity&quot;)</span>
+<span id="cb437-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb437-3" tabindex="-1"></a>Gamma(link = &quot;inverse&quot;)</span>
+<span id="cb437-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb437-4" tabindex="-1"></a>inverse.gaussian(link = &quot;1/mu^2&quot;)</span>
+<span id="cb437-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb437-5" tabindex="-1"></a>poisson(link = &quot;log&quot;)</span>
+<span id="cb437-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb437-6" tabindex="-1"></a>quasi(link = &quot;identity&quot;, variance = &quot;constant&quot;)</span>
+<span id="cb437-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb437-7" tabindex="-1"></a>quasibinomial(link = &quot;logit&quot;)</span>
+<span id="cb437-8"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb437-8" tabindex="-1"></a>quasipoisson(link = &quot;log&quot;)</span></code></pre></div>
+<div class="infobox">
+<p>使用するRの関数によって、使用できる確率分布が異なります。<code>glm</code>関数には対数正規分布は含まれていません。</p>
+</div>
+</div>
+<div id="二項分布" class="section level2 hasAnchor" number="11.4">
+<h2><span class="header-section-number">11.4</span> 二項分布<a href="week10-一般化線形モデルロジスティック回帰分析.html#二項分布" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>ある試行を <em>N</em> 回行った際の成功回数 <em>k</em> が発生する確率 <em>q</em></li>
+</ul>
+<p><span class="math display">\[
+p(k \mid N, q) = \binom{N}{k} q^k (1 - q)^{N - k}
+\]</span></p>
+<p><span class="math display">\[
+\binom{N}{k} = \frac{N!}{k!(N-k)!}
+\]</span></p>
+<div id="身近な例" class="section level3 hasAnchor" number="11.4.1">
+<h3><span class="header-section-number">11.4.1</span> 身近な例<a href="week10-一般化線形モデルロジスティック回帰分析.html#身近な例" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>寺井と雅人がじゃんけんを10回する。寺井が雅人に <em>K</em> 回勝つ確率を求める（勝つ可能性は50 %）</p></li>
+<li><p>寺井が2回勝つ場合 (<span class="math inline">\(k = 2\)</span>)</p></li>
+</ul>
+<p><span class="math display">\[
+P(X = 2) = \binom{10}{2} (0.5)^2 (0.5)^{10-2} = \binom{10}{2} (0.5)^{10}
+\]</span></p>
+<p>ここで、二項係数は次のように計算（8!をまとめて消している）：</p>
+<p><span class="math display">\[
+\binom{10}{2} = \frac{10 \times 9}{2 \times 1} = 45
+\]</span></p>
+<p>したがって、確率は：</p>
+<p><span class="math display">\[
+P(X = 2) = 45 \times (0.5)^{10} = 45 \times \frac{1}{1024} \approx 0.043945
+\]</span></p>
+<p>2回勝つ確率は約 <strong>0.0439</strong></p>
+<ul>
+<li>寺井が4回勝つ場合 (<span class="math inline">\(k = 4\)</span>)</li>
+</ul>
+<p><span class="math display">\[
+P(X = 4) = \binom{10}{4} (0.5)^4 (0.5)^{10-4} = \binom{10}{4} (0.5)^{10}
+\]</span></p>
+<p><span class="math display">\[
+\binom{10}{4} = \frac{10 \times 9 \times 8 \times 7}{4 \times 3 \times 2 \times 1} = 210
+\]</span></p>
+<p>したがって、確率は：</p>
+<p><span class="math display">\[
+P(X = 4) = 210 \times (0.5)^{10} = 210 \times \frac{1}{1024} \approx 0.205078
+\]</span></p>
+<ul>
+<li>4回勝つ確率は約 <strong>0.2051</strong></li>
+</ul>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb438-1" tabindex="-1"></a><span class="co"># パラメータ</span></span>
+<span id="cb438-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb438-2" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">10</span>  <span class="co"># 試行回数</span></span>
+<span id="cb438-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb438-3" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">4</span>   <span class="co"># 成功回数</span></span>
+<span id="cb438-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb438-4" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.5</span>  <span class="co"># 成功確率（例えば、50%の確率）</span></span>
+<span id="cb438-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb438-5" tabindex="-1"></a></span>
+<span id="cb438-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb438-6" tabindex="-1"></a><span class="co"># 2項分布における確率を計算</span></span>
+<span id="cb438-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb438-7" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(k, <span class="at">size =</span> N, <span class="at">prob =</span> p)</span>
+<span id="cb438-8"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb438-8" tabindex="-1"></a><span class="fu">print</span>(prob)</span></code></pre></div>
+<pre><code>## [1] 0.2050781</code></pre>
+<ul>
+<li><p>線形回帰を2値のデータに当てはめたモデルは、予測値（直線）が1以上であったり0以下であったりしている（本来は1 = 合格、0 = 不合格）</p>
+<ul>
+<li>予測値を0から1に収まるようにする必要がある。これを行うための関数がロジスティック関数</li>
+</ul></li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-264-1.png" width="672" /></p>
+<ul>
+<li>切片の値はマイナスとなっており、0-1という確率の範囲を超えている。</li>
+</ul>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb440-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">lm</span>(Pass <span class="sc">~</span> Years_of_Study, <span class="at">data =</span> dat)</span>
+<span id="cb440-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb440-2" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(res)</span></code></pre></div>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+Pass
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+(Intercept)
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.19
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.32 – -0.07
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.003</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Years of Study
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.14
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.11 – 0.16
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+100
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+R<sup>2</sup> / R<sup>2</sup> adjusted
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.604 / 0.599
+</td>
+</tr>
+</table>
+</div>
+<div id="項分布からロジスティック回帰モデルへ" class="section level3 hasAnchor" number="11.4.2">
+<h3><span class="header-section-number">11.4.2</span> 2項分布からロジスティック回帰モデルへ<a href="week10-一般化線形モデルロジスティック回帰分析.html#項分布からロジスティック回帰モデルへ" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>二項分布は成功回数の確率分布を表す。この成功回数を予測するモデルが<strong>ロジスティック回帰モデル</strong></li>
+</ul>
+</div>
+</div>
+<div id="ロジット関数" class="section level2 hasAnchor" number="11.5">
+<h2><span class="header-section-number">11.5</span> ロジット関数<a href="week10-一般化線形モデルロジスティック回帰分析.html#ロジット関数" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>0か1しかとらない従属変数が1になる確率（確率は0と1ではなく、0から1の間をとる）を <em>P</em> とすると、0になる確率は 1 - <em>P</em>。この二つの比を<strong>オッズ比</strong>という。</li>
+</ul>
+<p><span class="math display">\[
+\text{odds ratio} = \frac{P}{1 - P}
+\]</span></p>
+<ul>
+<li><p>確率（ <em>P</em> ）を対数オッズに変換（ロジット変換という）</p>
+<ul>
+<li><p>対数オッズのことをロジットという</p></li>
+<li><p>0から1しかとらない値を、-∞ ~ ∞を取る連続値のデータに変換する関数がロジット関数</p></li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+\text{logit}(P) = \log \left( \frac{P}{1 - P} \right)
+\]</span></p>
+<ul>
+<li><p>ロジット関数により、</p>
+<ul>
+<li><p>この変換で、従属変数の値が0か1かという制約がなくなり、線形モデルとして偏回帰係数を推定できる</p>
+<ul>
+<li>線形モデルで当てはめる方が計算などの都合がいいから</li>
+</ul></li>
+</ul></li>
+<li><p><strong>線</strong>形モデルとは異なり、<strong>曲線</strong>であるため、1単位の変化量が異なる</p>
+<ul>
+<li><p>logit(0.5) = 0、logit(0.6) = 0.4 =&gt; ロジットスケールでの0.4の変換は変換前の単位での50%から60%の変更に対応</p></li>
+<li><p>logit(0.9) = 2.2、logit(0.93) = 2.6 =&gt; ロジットスケールでの0.4の変換は変換前の単位での90%から93%の変更に対応</p></li>
+</ul></li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-266-1.png" width="672" /></p>
+</div>
+<div id="ロジスティック関数" class="section level2 hasAnchor" number="11.6">
+<h2><span class="header-section-number">11.6</span> ロジスティック関数<a href="week10-一般化線形モデルロジスティック回帰分析.html#ロジスティック関数" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>この関数を使うことで、説明変数の集まり（線形予測子：線形結合した説明変数）がどの範囲に合っても、0 ~ 1の範囲に収まる（確率を表すのに最適！）。</p>
+<ul>
+<li><p>ロジスティック回帰ではリンク関数にロジット関数をおき、確率を線形予測子に変換</p></li>
+<li><p>ロジスティック関数は逆リンク関数として使われ、線形予測子から確率を復元する</p>
+<ul>
+<li>リンク関数：従属変数を変換し、独立変数関数につなげる変換関数、独立変数を変換する場合は「逆」リンク関数</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+\text{logistic}(x) = \frac{1}{1 + e^{-x}}
+\]</span></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-267-1.png" width="672" /></p>
+<div id="つまり" class="section level3 hasAnchor" number="11.6.1">
+<h3><span class="header-section-number">11.6.1</span> つまり<a href="week10-一般化線形モデルロジスティック回帰分析.html#つまり" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>データを分析しやすいようにロジット変換をして線形回帰を行う。</p></li>
+<li><p>値をもとに戻さないと理解しずらいため、ロジスティック関数を使って0 ~ 1の範囲に戻している</p></li>
+</ol>
+<p><img src="_main_files/figure-html/unnamed-chunk-268-1.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-268-2.png" width="672" /></p>
+<div class="infobox">
+<p>一般「化」線形モデルでは、どの確率分布を使うかだけでなく、どのような変換関数で変換をするかも把握する必要がある。そのため、何でもかんでも正規分布で分析したり、データを無理やり変換し正規分布に近づけるような方法ではなく、得られたデータをそのままに、モデルの工夫でフィッティングを調整するという考え方が身につく。</p>
+</div>
+</div>
+<div id="一般化線形モデルの使用上の注意" class="section level3 hasAnchor" number="11.6.2">
+<h3><span class="header-section-number">11.6.2</span> 一般化線形モデルの使用上の注意<a href="week10-一般化線形モデルロジスティック回帰分析.html#一般化線形モデルの使用上の注意" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>一般線形モデルのように、回帰係数をそのまま解釈できない</p>
+<ul>
+<li><p>変換係数を経由して、説明変数の変化が影響を受けている</p>
+<ul>
+<li><p>回帰分析：ある独立変数Aが1単位変化すると、従属変数はBだけ変化</p></li>
+<li><p>ロジスティック回帰：ある独立変数Aが1単位変化すると、従属変数はexp(B)だけ変化</p></li>
+</ul></li>
+</ul></li>
+<li><p>ロジスティック関数はロジット関数の逆関数のこと</p>
+<ul>
+<li><p>逆関数：戻してあげる関数のこと</p>
+<ul>
+<li>e.g., log(3) -&gt; exp(log(3)) = 3</li>
+</ul></li>
+<li><p>リンク関数としてロジット関数を使っているため、ロジット関数の逆関数であるロジスティック関数で戻してあげている。</p></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="ハンズオンセッション-8" class="section level2 hasAnchor" number="11.7">
+<h2><span class="header-section-number">11.7</span> ハンズオンセッション<a href="week10-一般化線形モデルロジスティック回帰分析.html#ハンズオンセッション-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="疑似データの用意" class="section level3 hasAnchor" number="11.7.1">
+<h3><span class="header-section-number">11.7.1</span> 疑似データの用意<a href="week10-一般化線形モデルロジスティック回帰分析.html#疑似データの用意" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>Pass： テストの合否。1なら合格、0なら不合格</p></li>
+<li><p>Method：指導法A、指導法B</p></li>
+<li><p>Starting_age：英語を勉強し始めた年齢</p></li>
+</ul>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># 再現性のため</span></span>
+<span id="cb441-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-2" tabindex="-1"></a></span>
+<span id="cb441-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-3" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb441-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-4" tabindex="-1"></a>  <span class="at">Pass =</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="dv">40</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),  <span class="co"># 1 または 0</span></span>
+<span id="cb441-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-5" tabindex="-1"></a>  <span class="at">Method =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="dv">40</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),  <span class="co"># A または B</span></span>
+<span id="cb441-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-6" tabindex="-1"></a>  <span class="at">Starting_age =</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">40</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)  <span class="co"># 0 ~ 10 の数値</span></span>
+<span id="cb441-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-7" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb442-1" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="at">head =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##   Pass Method Starting_age
+## 1    0      A            5
+## 2    0      B           10
+## 3    0      B            7
+## 4    1      A            5
+## 5    0      A            5
+## 6    1      A            6</code></pre>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb444-1" tabindex="-1"></a><span class="fu">summary</span>(dat)</span></code></pre></div>
+<pre><code>##       Pass          Method           Starting_age   
+##  Min.   :0.000   Length:40          Min.   : 0.000  
+##  1st Qu.:0.000   Class :character   1st Qu.: 2.000  
+##  Median :0.000   Mode  :character   Median : 5.000  
+##  Mean   :0.425                      Mean   : 4.875  
+##  3rd Qu.:1.000                      3rd Qu.: 7.000  
+##  Max.   :1.000                      Max.   :10.000</code></pre>
+</div>
+<div id="モデルの推定" class="section level3 hasAnchor" number="11.7.2">
+<h3><span class="header-section-number">11.7.2</span> モデルの推定<a href="week10-一般化線形モデルロジスティック回帰分析.html#モデルの推定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p><code>glm()</code>関数を使用する</p>
+<ul>
+<li><code>family</code>で確率分布を指定する</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-1" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb446-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-2" tabindex="-1"></a></span>
+<span id="cb446-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-3" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb446-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-4" tabindex="-1"></a>  Pass <span class="sc">~</span> Starting_age,</span>
+<span id="cb446-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-5" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
+<span id="cb446-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-6" tabindex="-1"></a>  <span class="at">data =</span> dat</span>
+<span id="cb446-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-7" tabindex="-1"></a>)</span></code></pre></div>
+<ul>
+<li><p>Estimate: 偏回帰係数</p></li>
+<li><p>Std. Error (Standard Error): 標準誤差</p>
+<ul>
+<li>かなり重要。どれくらい推定に誤差があるかを示す指標。「同じ調査法で同じ数のデータをとりなおしてみると、推定値も結構変わるので、そのバラツキ度合い」</li>
+</ul></li>
+<li><p><em>z</em> value：z値と呼ばれる統計量（Wald統計量とも言われる）。Estimate ÷ SE で算出。この値で、Wald信頼区間を算出し、その値がゼロから十分に離れているかの目安になる。</p></li>
+<li><p>Pr(&gt;|z|): 平均が z値の絶対値で、標準偏差が1の正規分布において、マイナス無限大からゼロまでの値をとる確率。この確率が大きいほどZ値がゼロに近くなり、Estimateがゼロに近い。</p></li>
+<li><p><em>p</em> 値（アスタリスク）：95%CIに0を含む場合有意とされる</p></li>
+</ul>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb447-1" tabindex="-1"></a><span class="fu">summary</span>(res)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Pass ~ Starting_age, family = binomial(link = &quot;logit&quot;), 
+##     data = dat)
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept)    0.6788     0.6650   1.021   0.3073  
+## Starting_age  -0.2061     0.1238  -1.665   0.0959 .
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 54.548  on 39  degrees of freedom
+## Residual deviance: 51.559  on 38  degrees of freedom
+## AIC: 55.559
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<ul>
+<li>95%信頼区間の算出</li>
+</ul>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb449-1" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">confint</span>(res)</span></code></pre></div>
+<pre><code>##                   2.5 %     97.5 %
+## (Intercept)  -0.6010333 2.05617252
+## Starting_age -0.4667027 0.02681936</code></pre>
+</div>
+<div id="作図-1" class="section level3 hasAnchor" number="11.7.3">
+<h3><span class="header-section-number">11.7.3</span> 作図<a href="week10-一般化線形モデルロジスティック回帰分析.html#作図-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-1" tabindex="-1"></a><span class="co"># 年齢（Years_of_Study）の範囲を設定</span></span>
+<span id="cb451-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-2" tabindex="-1"></a>years_range <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">length.out =</span> <span class="dv">100</span>)</span>
+<span id="cb451-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-3" tabindex="-1"></a></span>
+<span id="cb451-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-4" tabindex="-1"></a><span class="co"># 各年数に対する予測確率を計算</span></span>
+<span id="cb451-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-5" tabindex="-1"></a>pred_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(res, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Starting_age =</span> years_range), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb451-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-6" tabindex="-1"></a></span>
+<span id="cb451-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-7" tabindex="-1"></a><span class="co"># 予測確率を描画</span></span>
+<span id="cb451-8"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-8" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb451-9"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-9" tabindex="-1"></a>  years_range, pred_probs, </span>
+<span id="cb451-10"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-10" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,  <span class="co"># 線で描画</span></span>
+<span id="cb451-11"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-11" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, </span>
+<span id="cb451-12"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-12" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb451-13"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-13" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;Starting Age&quot;</span>, </span>
+<span id="cb451-14"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-14" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Pr (Pass)&quot;</span>, </span>
+<span id="cb451-15"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-15" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">&quot;Logistic Regression: Probability of Passing&quot;</span>,</span>
+<span id="cb451-16"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-16" tabindex="-1"></a>  <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb451-17"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-17" tabindex="-1"></a>  <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="at">yaxs =</span> <span class="st">&quot;i&quot;</span></span>
+<span id="cb451-18"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-18" tabindex="-1"></a>)</span>
+<span id="cb451-19"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-19" tabindex="-1"></a></span>
+<span id="cb451-20"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-20" tabindex="-1"></a><span class="co"># x軸のカスタムラベルを追加</span></span>
+<span id="cb451-21"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-21" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-275-1.png" width="672" /></p>
+</div>
+<div id="オッズ比の算出" class="section level3 hasAnchor" number="11.7.4">
+<h3><span class="header-section-number">11.7.4</span> オッズ比の算出<a href="week10-一般化線形モデルロジスティック回帰分析.html#オッズ比の算出" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>オッズ比：オッズの変化量。ロジスティック回帰モデルの回帰係数に指数関数を適用すると算出できる。</p>
+<ul>
+<li>指数関数をとると、その値は必ず正の値になる</li>
+</ul></li>
+</ul>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Estimate
+</th>
+<th style="text-align:left;">
+オッズ比
+</th>
+<th style="text-align:left;">
+解釈
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+正（&gt; 0）
+</td>
+<td style="text-align:left;">
+&gt; 1
+</td>
+<td style="text-align:left;">
+オッズが 増加
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+= 1
+</td>
+<td style="text-align:left;">
+オッズは 変化なし
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+負（&lt; 0）
+</td>
+<td style="text-align:left;">
+&lt; 1
+</td>
+<td style="text-align:left;">
+オッズが 減少
+</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>係数がマイナスだったので、 オッズ比 &lt; 1となっている点に注意</li>
+</ul>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb452-1" tabindex="-1"></a><span class="fu">exp</span>(res<span class="sc">$</span>coefficients)</span></code></pre></div>
+<pre><code>##  (Intercept) Starting_age 
+##    1.9715609    0.8137445</code></pre>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb454-1" tabindex="-1"></a><span class="fu">exp</span>(stats<span class="sc">::</span><span class="fu">confint</span>(res))</span></code></pre></div>
+<pre><code>##                  2.5 %   97.5 %
+## (Intercept)  0.5482448 7.815997
+## Starting_age 0.6270665 1.027182</code></pre>
+</div>
+<div id="結果報告の例と解釈" class="section level3 hasAnchor" number="11.7.5">
+<h3><span class="header-section-number">11.7.5</span> 結果報告の例と解釈<a href="week10-一般化線形モデルロジスティック回帰分析.html#結果報告の例と解釈" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>英語の学習年数の主効果の係数は有意ではなかった（<em>Estimate</em> = -0.21 [-0.47, 0.03], <em>SE</em> = 0.12, <em>z</em> = -1.67, <em>p</em> = .10, <em>OR</em> = 0.81 [0.63, 1.03]）。傾向として、英語学習開始歴が1年増えると、テストに合格する<strong>オッズ</strong>が0.81倍になる（ = 合格するオッズが [1 - 0.81 = 19] 19%低い）と予測される。</p></li>
+<li><p>もし係数が0.21だった場合、オッズ比は<code>exp(0.21) = 1.23</code>。この場合、</p>
+<ul>
+<li>英語学習歴が1年増えると、テストに合格する**オッズが1.23倍になる。つまり、テストに合格するオッズは（不合格となる場合に比べ）（1.23 - 1 = 0.23）23%増加すると予測される。</li>
+</ul></li>
+<li><p>しかし、オッズやオッズ比で結果を言われても解釈が少し難しい。<code>predict</code>関数で具体的な合格する確率を算出する方が分かりやすい。</p></li>
+</ul>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb456-1" tabindex="-1"></a><span class="co"># 年齢（Years_of_Study）の範囲を設定</span></span>
+<span id="cb456-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb456-2" tabindex="-1"></a>years_range <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb456-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb456-3" tabindex="-1"></a></span>
+<span id="cb456-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb456-4" tabindex="-1"></a><span class="co"># 各年数に対する予測確率を計算</span></span>
+<span id="cb456-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb456-5" tabindex="-1"></a>pred_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(res, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Starting_age =</span> years_range), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<ul>
+<li>100を書けて%単位に変換</li>
+</ul>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb457-1" tabindex="-1"></a>pred_probs <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
+<pre><code>##        1        2        3        4        5        6        7        8 
+## 66.34765 61.60266 56.62600 51.51202 46.36618 41.29658 36.40504 31.77923 
+##        9       10       11 
+## 27.48716 23.57445 20.06459</code></pre>
+<ul>
+<li>作図</li>
+</ul>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb459-1" tabindex="-1"></a><span class="fu">plot</span>(pred_probs <span class="sc">*</span> <span class="dv">100</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-281-1.png" width="672" /></p>
+</div>
+<div id="新たなデータで予測してみる" class="section level3 hasAnchor" number="11.7.6">
+<h3><span class="header-section-number">11.7.6</span> 新たなデータで予測してみる<a href="week10-一般化線形モデルロジスティック回帰分析.html#新たなデータで予測してみる" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>25歳で初めて場合を調べてみる</li>
+<li><code>type = "link"</code>にすると、係数が得られる</li>
+</ul>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb460-1" tabindex="-1"></a>new <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Starting_age =</span> <span class="dv">25</span>)</span>
+<span id="cb460-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb460-2" tabindex="-1"></a>pred_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(res, <span class="at">newdata =</span> new, <span class="at">type =</span> <span class="st">&quot;link&quot;</span>)</span></code></pre></div>
+<ul>
+<li>オッズ比を計算</li>
+</ul>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb461-1" tabindex="-1"></a><span class="fu">exp</span>(pred_probs)</span></code></pre></div>
+<pre><code>##          1 
+## 0.01140283</code></pre>
+<ul>
+<li><code>type = "response"</code>にすると、予測確率が返される</li>
+</ul>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb463-1" tabindex="-1"></a>pred_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(res, <span class="at">newdata =</span> new, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<ul>
+<li>25歳ではじめると、1.13 %の合格確率となる</li>
+</ul>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb464-1" tabindex="-1"></a>pred_probs <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
+<pre><code>##        1 
+## 1.127427</code></pre>
+</div>
+</div>
+<div id="質的変数の場合" class="section level2 hasAnchor" number="11.8">
+<h2><span class="header-section-number">11.8</span> 質的変数の場合<a href="week10-一般化線形モデルロジスティック回帰分析.html#質的変数の場合" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb466-1" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Pass <span class="sc">~</span> Method, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span>
+<span id="cb466-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb466-2" tabindex="-1"></a>means</span></code></pre></div>
+<pre><code>##   Method      Pass
+## 1      A 0.4800000
+## 2      B 0.3333333</code></pre>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb468-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>Method)</span></code></pre></div>
+<pre><code>## 
+##  A  B 
+## 25 15</code></pre>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb470-1" tabindex="-1"></a><span class="co"># Methodごとの正答率を計算</span></span>
+<span id="cb470-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb470-2" tabindex="-1"></a>table_data <span class="ot">&lt;-</span> <span class="fu">table</span>(dat<span class="sc">$</span>Method, dat<span class="sc">$</span>Pass)</span>
+<span id="cb470-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb470-3" tabindex="-1"></a></span>
+<span id="cb470-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb470-4" tabindex="-1"></a><span class="co"># 棒グラフで可視化</span></span>
+<span id="cb470-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb470-5" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">prop.table</span>(table_data, <span class="at">margin =</span> <span class="dv">1</span>), <span class="at">beside =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb470-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb470-6" tabindex="-1"></a>        <span class="at">legend =</span> <span class="fu">rownames</span>(table_data), <span class="at">xlab =</span> <span class="st">&quot;Pass (0 = Incorrect, 1 = Correct)&quot;</span>,</span>
+<span id="cb470-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb470-7" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Proportion&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Proportion of Passing by Method&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-288-1.png" width="672" /></p>
+<div id="トリートメントコントラスト" class="section level3 hasAnchor" number="11.8.1">
+<h3><span class="header-section-number">11.8.1</span> トリートメントコントラスト<a href="week10-一般化線形モデルロジスティック回帰分析.html#トリートメントコントラスト" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb471-1" tabindex="-1"></a>dat<span class="sc">$</span>Method <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Method)</span>
+<span id="cb471-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb471-2" tabindex="-1"></a></span>
+<span id="cb471-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb471-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Method)</span></code></pre></div>
+<pre><code>##   B
+## A 0
+## B 1</code></pre>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb473-1" tabindex="-1"></a>res<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb473-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb473-2" tabindex="-1"></a>  Pass <span class="sc">~</span> Method,</span>
+<span id="cb473-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb473-3" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
+<span id="cb473-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb473-4" tabindex="-1"></a>  <span class="at">data =</span> dat</span>
+<span id="cb473-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb473-5" tabindex="-1"></a>)</span></code></pre></div>
+<ul>
+<li>Method Bの係数：Method B - Method A</li>
+</ul>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb474-1" tabindex="-1"></a><span class="fu">summary</span>(res<span class="fl">.2</span>)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Pass ~ Method, family = binomial(link = &quot;logit&quot;), 
+##     data = dat)
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept) -0.08004    0.40032  -0.200    0.842
+## MethodB     -0.61310    0.67842  -0.904    0.366
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 54.548  on 39  degrees of freedom
+## Residual deviance: 53.713  on 38  degrees of freedom
+## AIC: 57.713
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<ul>
+<li>95%信頼区間の算出</li>
+</ul>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb476-1" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">confint</span>(res<span class="fl">.2</span>)</span></code></pre></div>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##                  2.5 %   97.5 %
+## (Intercept) -0.8789758 0.710550
+## MethodB     -2.0030397 0.692511</code></pre>
+</div>
+<div id="オッズ比" class="section level3 hasAnchor" number="11.8.2">
+<h3><span class="header-section-number">11.8.2</span> オッズ比<a href="week10-一般化線形モデルロジスティック回帰分析.html#オッズ比" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Methodのオッズ比は0.54だった。よってMethod BはAに比べ、合格の成功オッズが(1 - 0.54 = 0.46) 46%低い</li>
+</ul>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb479-1" tabindex="-1"></a><span class="fu">exp</span>(res<span class="fl">.2</span><span class="sc">$</span>coefficients)</span></code></pre></div>
+<pre><code>## (Intercept)     MethodB 
+##   0.9230769   0.5416667</code></pre>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb481-1" tabindex="-1"></a><span class="fu">exp</span>(stats<span class="sc">::</span><span class="fu">confint</span>(res<span class="fl">.2</span>))</span></code></pre></div>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##                 2.5 %   97.5 %
+## (Intercept) 0.4152080 2.035110
+## MethodB     0.1349245 1.998728</code></pre>
+</div>
+<div id="確率を計算" class="section level3 hasAnchor" number="11.8.3">
+<h3><span class="header-section-number">11.8.3</span> 確率を計算<a href="week10-一般化線形モデルロジスティック回帰分析.html#確率を計算" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-1" tabindex="-1"></a><span class="co"># glmモデルの結果を使って予測確率を計算</span></span>
+<span id="cb484-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-2" tabindex="-1"></a>pred_probs_A <span class="ot">&lt;-</span> <span class="fu">predict</span>(res<span class="fl">.2</span>, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Method =</span> <span class="st">&quot;A&quot;</span>), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb484-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-3" tabindex="-1"></a>pred_probs_B <span class="ot">&lt;-</span> <span class="fu">predict</span>(res<span class="fl">.2</span>, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Method =</span> <span class="st">&quot;B&quot;</span>), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb485-1" tabindex="-1"></a>pred_probs_A</span></code></pre></div>
+<pre><code>##    1 
+## 0.48</code></pre>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb487-1" tabindex="-1"></a>pred_probs_B</span></code></pre></div>
+<pre><code>##         1 
+## 0.3333333</code></pre>
+</div>
+<div id="作図-2" class="section level3 hasAnchor" number="11.8.4">
+<h3><span class="header-section-number">11.8.4</span> 作図<a href="week10-一般化線形モデルロジスティック回帰分析.html#作図-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-1" tabindex="-1"></a><span class="co">#install.packages(&quot;arm&quot;)</span></span>
+<span id="cb489-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-2" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
+<span id="cb489-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-3" tabindex="-1"></a></span>
+<span id="cb489-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-4" tabindex="-1"></a><span class="co"># Method A と Method B の予測確率を描画</span></span>
+<span id="cb489-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-5" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb489-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-6" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="fu">c</span>(pred_probs_A, pred_probs_B), </span>
+<span id="cb489-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-7" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>, </span>
+<span id="cb489-8"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-8" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3</span>), </span>
+<span id="cb489-9"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-9" tabindex="-1"></a>  <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb489-10"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-10" tabindex="-1"></a>  <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Method&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Pr (Pass)&quot;</span>,</span>
+<span id="cb489-11"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-11" tabindex="-1"></a>  <span class="at">xaxs =</span> <span class="st">&quot;i&quot;</span>, <span class="at">yaxs =</span> <span class="st">&quot;i&quot;</span></span>
+<span id="cb489-12"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-12" tabindex="-1"></a>)</span>
+<span id="cb489-13"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-13" tabindex="-1"></a></span>
+<span id="cb489-14"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-14" tabindex="-1"></a><span class="co"># 信頼区間のエラーバーを追加</span></span>
+<span id="cb489-15"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-15" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">1</span>, pred_probs_A <span class="sc">-</span> <span class="fl">0.1</span>, <span class="dv">1</span>, pred_probs_A <span class="sc">+</span> <span class="fl">0.1</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">code =</span> <span class="dv">3</span>, <span class="at">length =</span> <span class="fl">0.1</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb489-16"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-16" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">2</span>, pred_probs_B <span class="sc">-</span> <span class="fl">0.1</span>, <span class="dv">2</span>, pred_probs_B <span class="sc">+</span> <span class="fl">0.1</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">code =</span> <span class="dv">3</span>, <span class="at">length =</span> <span class="fl">0.1</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb489-17"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-17" tabindex="-1"></a></span>
+<span id="cb489-18"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-18" tabindex="-1"></a><span class="co"># x軸のカスタムラベルを追加 (Method A と Method B)</span></span>
+<span id="cb489-19"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-19" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Method A&quot;</span>, <span class="st">&quot;Method B&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-297-1.png" width="672" /></p>
+</div>
+</div>
+<div id="分類にも使えます" class="section level2 hasAnchor" number="11.9">
+<h2><span class="header-section-number">11.9</span> 分類にも使えます<a href="week10-一般化線形モデルロジスティック回帰分析.html#分類にも使えます" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>機械学習などでは分類モデル（2つのカテゴリのデータ）として用いられたりします。</p>
+<ul>
+<li>以下では、合格の予測確率が0.6未満の場合やばい（0）、0.6以上の場合安心（1）と分類しています</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-1" tabindex="-1"></a>pred_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(res, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Starting_age =</span> dat<span class="sc">$</span>Starting_age))</span>
+<span id="cb490-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-2" tabindex="-1"></a></span>
+<span id="cb490-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-3" tabindex="-1"></a><span class="co"># 予測クラスを作成</span></span>
+<span id="cb490-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-4" tabindex="-1"></a>pred_class <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(pred_probs <span class="sc">&gt;</span> <span class="fl">0.6</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb490-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-5" tabindex="-1"></a></span>
+<span id="cb490-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-6" tabindex="-1"></a><span class="co"># 元のデータに予測確率と予測クラスを追加</span></span>
+<span id="cb490-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-7" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb490-8"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pred_probs =</span> pred_probs,</span>
+<span id="cb490-9"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-9" tabindex="-1"></a>         <span class="at">pred_class =</span> pred_class)</span>
+<span id="cb490-10"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-10" tabindex="-1"></a></span>
+<span id="cb490-11"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-11" tabindex="-1"></a><span class="co"># ggplotで視覚化</span></span>
+<span id="cb490-12"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-12" tabindex="-1"></a><span class="fu">ggplot</span>(new_data, <span class="fu">aes</span>(<span class="at">x =</span> Starting_age, <span class="at">y =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="fu">factor</span>(pred_class))) <span class="sc">+</span></span>
+<span id="cb490-13"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-13" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">height =</span> <span class="dv">1</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span>  <span class="co"># 矩形のサイズ調整</span></span>
+<span id="cb490-14"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-14" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkblue&quot;</span>, <span class="st">&quot;skyblue&quot;</span>)) <span class="sc">+</span>  </span>
+<span id="cb490-15"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Starting Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Predicted Class&quot;</span>) <span class="sc">+</span></span>
+<span id="cb490-16"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-16" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-298-1.png" width="672" /></p>
+</div>
+<div id="次週までの課題-8" class="section level2 hasAnchor" number="11.10">
+<h2><span class="header-section-number">11.10</span> 次週までの課題<a href="week10-一般化線形モデルロジスティック回帰分析.html#次週までの課題-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="課題内容-8" class="section level3 hasAnchor" number="11.10.1">
+<h3><span class="header-section-number">11.10.1</span> 課題内容<a href="week10-一般化線形モデルロジスティック回帰分析.html#課題内容-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。</p></li>
+<li><p>（宿題を考える）</p></li>
+</ol>
+<ul>
+<li><p>ハンズオンセッションで使用したデータを基にサムコントラストで分析をしてみましょう</p></li>
+<li><p><strong>Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。</strong></p></li>
+</ul>
+</div>
+<div id="提出方法-8" class="section level3 hasAnchor" number="11.10.2">
+<h3><span class="header-section-number">11.10.2</span> 提出方法<a href="week10-一般化線形モデルロジスティック回帰分析.html#提出方法-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>メールにファイルを添付して送信。</li>
+<li>締め切りは今週の木曜日まで</li>
+</ul>
+</div>
+</div>
+<div id="参考文献-8" class="section level2 hasAnchor" number="11.11">
+<h2><span class="header-section-number">11.11</span> 参考文献<a href="week10-一般化線形モデルロジスティック回帰分析.html#参考文献-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>草薙（2017）　確率分布から見る外国語教育研究データ</li>
+<li>Gelman Regression and Other stories</li>
+<li>馬場 RとStanではじめるベイズ統計モデリングによるデータ分析</li>
+<li>Rを用いた一般化線形混合モデル（GLMM）の分析手法を身につける:言語研究分野の事例をもとに</li>
+<li>小杉　「言葉と数式で理解する多変量解析入門」</li>
+<li><a href="https://bellcurve.jp/statistics/course/26934.html?srsltid=AfmBOorwQsuSpgEx3zQ8gVhrS2zSP50-PUvuzRlNqNP-rxWB2J_XBwyf" class="uri">https://bellcurve.jp/statistics/course/26934.html?srsltid=AfmBOorwQsuSpgEx3zQ8gVhrS2zSP50-PUvuzRlNqNP-rxWB2J_XBwyf</a></li>
+<li><a href="https://hkawabata.github.io/technical-note/note/ML/logistic-regression.html" class="uri">https://hkawabata.github.io/technical-note/note/ML/logistic-regression.html</a></li>
+<li>Terai, M., Fukuta, J., &amp; Tamura, Y. (2024). Learnability of L2 collocations and L1 influence on L2 collocational representations of Japanese learners of English. International Review of Applied Linguistics in Language Teaching, 62(4), 1959-1983.</li>
+</ul>
+<style>
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+
+.beg {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
+
+.caution {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
+  
+</style>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="week9-重回帰分析-3交互作用の解釈.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="week11-階層モデル.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/10-Week10_logistic.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 【タイトルを挿入】 | 言語統計処理（春学期）</title>
+  <meta name="description" content="Chapter 4 【タイトルを挿入】 | 言語統計処理（春学期）" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 【タイトルを挿入】 | 言語統計処理（春学期）" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 【タイトルを挿入】 | 言語統計処理（春学期）" />
+  
+  
+  
+
+<meta name="author" content="寺井雅人（Masato Terai）" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="week-2要約統計量.html"/>
+<link rel="next" href="footnotes-and-citations.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">言語統計処理_春学期</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> url: your book url like https://bookdown.org/yihui/bookdown</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#講義概要"><i class="fa fa-check"></i><b>1.1</b> 講義概要</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#講義スケジュール"><i class="fa fa-check"></i><b>1.2</b> 講義スケジュール</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#成績評価について"><i class="fa fa-check"></i><b>1.3</b> 成績評価について</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><i class="fa fa-check"></i><b>2</b> Week 1: オリエンテーション、R(Studio)のインストールと操作、R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#とーけいしょりとは"><i class="fa fa-check"></i><b>2.1</b> 「とーけいしょり」とは</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#量的研究質的研究"><i class="fa fa-check"></i><b>2.1.1</b> 量的研究、質的研究</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rとは"><i class="fa fa-check"></i><b>2.2</b> Rとは</a></li>
+<li class="chapter" data-level="2.3" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rのインストール"><i class="fa fa-check"></i><b>2.3</b> Rのインストール</a></li>
+<li class="chapter" data-level="2.4" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioとは"><i class="fa fa-check"></i><b>2.4</b> RStudioとは</a></li>
+<li class="chapter" data-level="2.5" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioのインストール"><i class="fa fa-check"></i><b>2.5</b> RStudioのインストール</a></li>
+<li class="chapter" data-level="2.6" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioの機能"><i class="fa fa-check"></i><b>2.6</b> RStudioの機能</a></li>
+<li class="chapter" data-level="2.7" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#プロジェクト機能"><i class="fa fa-check"></i><b>2.7</b> プロジェクト機能</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#プロジェクトの作成"><i class="fa fa-check"></i><b>2.7.1</b> プロジェクトの作成</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioのカスタマイズ"><i class="fa fa-check"></i><b>2.8</b> RStudioのカスタマイズ</a></li>
+<li class="chapter" data-level="2.9" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#r-markdown入門"><i class="fa fa-check"></i><b>2.9</b> R Markdown入門</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#knitを押して出力"><i class="fa fa-check"></i><b>2.9.1</b> Knit🧶を押して出力！</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#ドキュメントチャンクmarkdown記法"><i class="fa fa-check"></i><b>2.10</b> ドキュメントチャンク：Markdown記法</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#覚えるのはマストではないその都度調べてよく使うものを覚えていく"><i class="fa fa-check"></i><b>2.10.1</b> 覚えるのはマストではない。その都度調べてよく使うものを覚えていく</a></li>
+</ul></li>
+<li class="chapter" data-level="2.11" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#lets-実践"><i class="fa fa-check"></i><b>2.11</b> Let’s 実践</a></li>
+<li class="chapter" data-level="2.12" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#名古屋飯といえば"><i class="fa fa-check"></i><b>2.12</b> 名古屋飯といえば</a></li>
+<li class="chapter" data-level="2.13" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#ひつまぶしhitsumabushi"><i class="fa fa-check"></i><b>2.13</b> ひつまぶし：<em>Hitsumabushi</em></a></li>
+<li class="chapter" data-level="2.14" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#答え合わせ"><i class="fa fa-check"></i><b>2.14</b> 答え合わせ</a></li>
+<li class="chapter" data-level="2.15" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#コードチャンクの挿入"><i class="fa fa-check"></i><b>2.15</b> コードチャンクの挿入</a>
+<ul>
+<li class="chapter" data-level="2.15.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#ショートカットキーが便利ctrl-alt-iwindowscommand-option-imac"><i class="fa fa-check"></i><b>2.15.1</b> ショートカットキーが便利：[Ctrl] + [Alt] + [I]（Windows）、[Command] + [Option] + [I]（Mac）</a></li>
+</ul></li>
+<li class="chapter" data-level="2.16" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#lets-実践-1"><i class="fa fa-check"></i><b>2.16</b> Let’s 実践</a></li>
+<li class="chapter" data-level="2.17" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#食費の合計"><i class="fa fa-check"></i><b>2.17</b> 食費の合計</a></li>
+<li class="chapter" data-level="2.18" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#答え合わせ-1"><i class="fa fa-check"></i><b>2.18</b> 答え合わせ</a></li>
+<li class="chapter" data-level="2.19" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#次週までの課題"><i class="fa fa-check"></i><b>2.19</b> 次週までの課題</a>
+<ul>
+<li class="chapter" data-level="2.19.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#課題内容"><i class="fa fa-check"></i><b>2.19.1</b> 課題内容</a></li>
+<li class="chapter" data-level="2.19.2" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#提出方法"><i class="fa fa-check"></i><b>2.19.2</b> 提出方法</a></li>
+</ul></li>
+<li class="chapter" data-level="2.20" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#参考文献"><i class="fa fa-check"></i><b>2.20</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html"><i class="fa fa-check"></i><b>3</b> Week 2：要約統計量</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#事前の確認"><i class="fa fa-check"></i><b>3.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="3.2" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#今日の目標"><i class="fa fa-check"></i><b>3.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="3.3" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#今日の格言"><i class="fa fa-check"></i><b>3.3</b> 今日の格言</a></li>
+<li class="chapter" data-level="3.4" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#記述統計学と推測統計学"><i class="fa fa-check"></i><b>3.4</b> 記述統計学と推測統計学</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#記述統計学descriptive-statistics"><i class="fa fa-check"></i><b>3.4.1</b> 記述統計学（descriptive statistics）</a></li>
+<li class="chapter" data-level="3.4.2" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#推測統計学inferential-statistics"><i class="fa fa-check"></i><b>3.4.2</b> 推測統計学（inferential statistics）</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#データの尺度"><i class="fa fa-check"></i><b>3.5</b> データの尺度</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#比率尺度ratio-scale"><i class="fa fa-check"></i><b>3.5.1</b> 比率尺度（ratio scale）</a></li>
+<li class="chapter" data-level="3.5.2" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#間隔尺度interval-scale"><i class="fa fa-check"></i><b>3.5.2</b> 間隔尺度（interval scale）</a></li>
+<li class="chapter" data-level="3.5.3" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#順序尺度ordinal-scale"><i class="fa fa-check"></i><b>3.5.3</b> 順序尺度（ordinal scale）</a></li>
+<li class="chapter" data-level="3.5.4" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#名義尺度nominal-scale"><i class="fa fa-check"></i><b>3.5.4</b> 名義尺度（nominal scale）</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#とみなす"><i class="fa fa-check"></i><b>3.6</b> 「～とみなす」</a></li>
+<li class="chapter" data-level="3.7" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#要約統計量"><i class="fa fa-check"></i><b>3.7</b> 要約統計量</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#各統計量"><i class="fa fa-check"></i><b>3.7.1</b> 各統計量</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#データの可視化"><i class="fa fa-check"></i><b>3.8</b> データの可視化</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#量的データの可視化"><i class="fa fa-check"></i><b>3.8.1</b> 量的データの可視化</a></li>
+<li class="chapter" data-level="3.8.2" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#量的-質的データの可視化"><i class="fa fa-check"></i><b>3.8.2</b> 量的 + 質的データの可視化</a></li>
+<li class="chapter" data-level="3.8.3" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#質的データの可視化"><i class="fa fa-check"></i><b>3.8.3</b> 質的データの可視化</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#ハンズオンセッション"><i class="fa fa-check"></i><b>3.9</b> ハンズオンセッション</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#rの基本用語"><i class="fa fa-check"></i><b>3.9.1</b> Rの基本用語</a></li>
+<li class="chapter" data-level="3.9.2" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#データを読み込む"><i class="fa fa-check"></i><b>3.9.2</b> データを読み込む</a></li>
+<li class="chapter" data-level="3.9.3" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#データフレーム"><i class="fa fa-check"></i><b>3.9.3</b> データフレーム</a></li>
+<li class="chapter" data-level="3.9.4" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#要約統計量の算出"><i class="fa fa-check"></i><b>3.9.4</b> 要約統計量の算出</a></li>
+<li class="chapter" data-level="3.9.5" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#作図"><i class="fa fa-check"></i><b>3.9.5</b> 作図</a></li>
+</ul></li>
+<li class="chapter" data-level="3.10" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#まとめ"><i class="fa fa-check"></i><b>3.10</b> まとめ</a></li>
+<li class="chapter" data-level="3.11" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#次週までの課題-1"><i class="fa fa-check"></i><b>3.11</b> 次週までの課題</a>
+<ul>
+<li class="chapter" data-level="3.11.1" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#課題内容-1"><i class="fa fa-check"></i><b>3.11.1</b> 課題内容</a></li>
+<li class="chapter" data-level="3.11.2" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#提出方法-1"><i class="fa fa-check"></i><b>3.11.2</b> 提出方法</a></li>
+</ul></li>
+<li class="chapter" data-level="3.12" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#参考文献-1"><i class="fa fa-check"></i><b>3.12</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html"><i class="fa fa-check"></i><b>4</b> 【タイトルを挿入】</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#事前の確認-1"><i class="fa fa-check"></i><b>4.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="4.2" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#今日の目標-1"><i class="fa fa-check"></i><b>4.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="4.3" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#今日の格言-1"><i class="fa fa-check"></i><b>4.3</b> 今日の格言</a></li>
+<li class="chapter" data-level="4.4" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#母集団と標本"><i class="fa fa-check"></i><b>4.4</b> 母集団と標本</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#母集団population"><i class="fa fa-check"></i><b>4.4.1</b> 母集団（population）</a></li>
+<li class="chapter" data-level="4.4.2" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#標本sample"><i class="fa fa-check"></i><b>4.4.2</b> 標本（Sample）</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#確率と確率変数"><i class="fa fa-check"></i><b>4.5</b> 確率と確率変数</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#確率"><i class="fa fa-check"></i><b>4.5.1</b> 確率</a></li>
+<li class="chapter" data-level="4.5.2" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#確率変数と確率分布"><i class="fa fa-check"></i><b>4.5.2</b> 確率変数と確率分布</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#推測統計学の考え方"><i class="fa fa-check"></i><b>4.6</b> 推測統計学の考え方</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#標本統計量"><i class="fa fa-check"></i><b>4.6.1</b> 標本統計量</a></li>
+<li class="chapter" data-level="4.6.2" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#標本分布"><i class="fa fa-check"></i><b>4.6.2</b> 標本分布</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#区間推定の考え方"><i class="fa fa-check"></i><b>4.7</b> 区間推定の考え方</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#母集団分布に確率分布を仮定する"><i class="fa fa-check"></i><b>4.7.1</b> 母集団分布に確率分布を仮定する</a></li>
+<li class="chapter" data-level="4.7.2" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#正規分布の性質"><i class="fa fa-check"></i><b>4.7.2</b> 正規分布の性質</a></li>
+<li class="chapter" data-level="4.7.3" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#確率モデルを用いた推定"><i class="fa fa-check"></i><b>4.7.3</b> 確率モデルを用いた推定</a></li>
+<li class="chapter" data-level="4.7.4" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#正規分布モデルにおける標本平均の標本分布"><i class="fa fa-check"></i><b>4.7.4</b> 正規分布モデルにおける標本平均の標本分布</a></li>
+<li class="chapter" data-level="4.7.5" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#区間推定"><i class="fa fa-check"></i><b>4.7.5</b> 区間推定</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#rの関数で95信頼区間を求める"><i class="fa fa-check"></i><b>4.8</b> Rの関数で95%信頼区間を求める</a></li>
+<li class="chapter" data-level="4.9" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#ハンズオンセッション-1"><i class="fa fa-check"></i><b>4.9</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="4.10" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#まとめ-1"><i class="fa fa-check"></i><b>4.10</b> まとめ</a></li>
+<li class="chapter" data-level="4.11" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#次週までの課題-2"><i class="fa fa-check"></i><b>4.11</b> 次週までの課題</a>
+<ul>
+<li class="chapter" data-level="4.11.1" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#課題内容-2"><i class="fa fa-check"></i><b>4.11.1</b> 課題内容</a></li>
+<li class="chapter" data-level="4.11.2" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#提出方法-2"><i class="fa fa-check"></i><b>4.11.2</b> 提出方法</a></li>
+</ul></li>
+<li class="chapter" data-level="4.12" data-path="タイトルを挿入.html"><a href="タイトルを挿入.html#参考文献-2"><i class="fa fa-check"></i><b>4.12</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>5</b> Footnotes and citations</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#footnotes"><i class="fa fa-check"></i><b>5.1</b> Footnotes</a></li>
+<li class="chapter" data-level="5.2" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#citations"><i class="fa fa-check"></i><b>5.2</b> Citations</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="blocks.html"><a href="blocks.html"><i class="fa fa-check"></i><b>6</b> Blocks</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="blocks.html"><a href="blocks.html#equations"><i class="fa fa-check"></i><b>6.1</b> Equations</a></li>
+<li class="chapter" data-level="6.2" data-path="blocks.html"><a href="blocks.html#theorems-and-proofs"><i class="fa fa-check"></i><b>6.2</b> Theorems and proofs</a></li>
+<li class="chapter" data-level="6.3" data-path="blocks.html"><a href="blocks.html#callout-blocks"><i class="fa fa-check"></i><b>6.3</b> Callout blocks</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>7</b> Sharing your book</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="sharing-your-book.html"><a href="sharing-your-book.html#publishing"><i class="fa fa-check"></i><b>7.1</b> Publishing</a></li>
+<li class="chapter" data-level="7.2" data-path="sharing-your-book.html"><a href="sharing-your-book.html#pages"><i class="fa fa-check"></i><b>7.2</b> 404 pages</a></li>
+<li class="chapter" data-level="7.3" data-path="sharing-your-book.html"><a href="sharing-your-book.html#metadata-for-sharing"><i class="fa fa-check"></i><b>7.3</b> Metadata for sharing</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">言語統計処理（春学期）</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="タイトルを挿入" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> 【タイトルを挿入】<a href="タイトルを挿入.html#タイトルを挿入" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<ul>
+<li>不偏分散、不偏推定量あたりの話が抜けている。これを補う必要がある</li>
+</ul>
+<div id="事前の確認-1" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> 事前の確認<a href="タイトルを挿入.html#事前の確認-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>この講義のRプロジェクトを開いていますか？</p></li>
+<li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
+<ul>
+<li>.Rでも.Rmdでもどちらでも大丈夫です。</li>
+</ul></li>
+</ul>
+</div>
+<div id="今日の目標-1" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> 今日の目標<a href="タイトルを挿入.html#今日の目標-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li></li>
+<li></li>
+</ol>
+</div>
+<div id="今日の格言-1" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> 今日の格言<a href="タイトルを挿入.html#今日の格言-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="infobox">
+
+</div>
+</div>
+<div id="母集団と標本" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> 母集団と標本<a href="タイトルを挿入.html#母集団と標本" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>推測統計学は、<strong>母集団</strong>から<strong>標本</strong>を得て、母集団の特徴を推測する手法</li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<div id="母集団population" class="section level3 hasAnchor" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> 母集団（population）<a href="タイトルを挿入.html#母集団population" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>調べたい対象の集団のこと</p>
+<ul>
+<li><p>例</p>
+<ul>
+<li><p>研究課題：英語を第二言語として学ぶ人は母語の影響を必ず受ける。</p></li>
+<li><p>母集団：世界中の英語を第二言語として学ぶ人</p></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="標本sample" class="section level3 hasAnchor" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> 標本（Sample）<a href="タイトルを挿入.html#標本sample" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>実験や調査のために母集団の中から選ばれたもの</p>
+<ul>
+<li>選ぶことを標本抽出（sampling）と呼ぶ</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="確率と確率変数" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> 確率と確率変数<a href="タイトルを挿入.html#確率と確率変数" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>推測統計学では確率が非常に重要な概念。</li>
+</ul>
+<div id="確率" class="section level3 hasAnchor" number="4.5.1">
+<h3><span class="header-section-number">4.5.1</span> 確率<a href="タイトルを挿入.html#確率" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="確率変数と確率分布" class="section level3 hasAnchor" number="4.5.2">
+<h3><span class="header-section-number">4.5.2</span> 確率変数と確率分布<a href="タイトルを挿入.html#確率変数と確率分布" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="確率変数random-variable" class="section level4 hasAnchor" number="4.5.2.1">
+<h4><span class="header-section-number">4.5.2.1</span> 確率変数（random variable）<a href="タイトルを挿入.html#確率変数random-variable" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p>確率的に生じる事象に数値を割り当てたもの</p>
+<ul>
+<li>実際に得られた値のことを確率変数の<strong>実現値</strong>という</li>
+</ul></li>
+<li><p>確率変数はスロットマシーンが回っている状態。実現値はスロットマシーンが止まって値が定まった状態をイメージするとよい</p></li>
+</ul>
+</div>
+<div id="確率分布probability-distribution" class="section level4 hasAnchor" number="4.5.2.2">
+<h4><span class="header-section-number">4.5.2.2</span> 確率分布（probability distribution）<a href="タイトルを挿入.html#確率分布probability-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p>確率変数の実現値それぞれの生じやすさを確率で表したもの。統計学では、確率変数の実現値を与えると確率を返す関数のことを確率分布という</p></li>
+<li><p>事象を確率変数として扱うことで、母集団を人の集団ではなく、確率変数の実現値の集合として考えることができる。</p>
+<ul>
+<li>1万人の学生の集団という母集団が、数値が1万個ある集団と仮定でき、数学的な枠組みとして考えやすくなる（数学の世界に現実世界を映す）。</li>
+</ul></li>
+<li><p>この場合、母集団の性質を標本に正確に反映させるために、<strong>単純無作為抽出（simple random sampling）</strong>を行う必要がある。</p>
+<ul>
+<li>母集団のすべての対象が偏りなく選ばれること（= 無作為に選ぶ）</li>
+</ul></li>
+</ul>
+</div>
+<div id="確率分布の種類" class="section level4 hasAnchor" number="4.5.2.3">
+<h4><span class="header-section-number">4.5.2.3</span> 確率分布の種類<a href="タイトルを挿入.html#確率分布の種類" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>離散型確率分布：確率質量関数
+<ul>
+<li>とびとびの値をとる（e.g., 裏、表）</li>
+<li>ベルヌーイ分布、二項分布、ポアソン分布</li>
+</ul></li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<ul>
+<li>連続確率分布：確率密度関数
+<ul>
+<li>連続した値をとる（e.g., 身長）</li>
+<li>正規分布、<em>t</em> 分布、カイ二乗分布</li>
+</ul></li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="推測統計学の考え方" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> 推測統計学の考え方<a href="タイトルを挿入.html#推測統計学の考え方" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="標本統計量" class="section level3 hasAnchor" number="4.6.1">
+<h3><span class="header-section-number">4.6.1</span> 標本統計量<a href="タイトルを挿入.html#標本統計量" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>標本から計算される記述統計量のこと</p></li>
+<li><p><strong>標本平均</strong>：母集団から得た標本のデータの平均値</p>
+<ul>
+<li><strong>母平均</strong>：母集団の平均値</li>
+</ul></li>
+</ul>
+</div>
+<div id="標本分布" class="section level3 hasAnchor" number="4.6.2">
+<h3><span class="header-section-number">4.6.2</span> 標本分布<a href="タイトルを挿入.html#標本分布" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>標本統計量が確率的に変動することを表した確率分布のこと</p>
+<ul>
+<li>標本を沢山抽出した場合であって、1つのデータの分布ではない</li>
+</ul></li>
+<li><p>標本サイズ（ <em>k</em> ）が大きくなるにつれ、標本分布の散らばりはどんどん小さくなる</p>
+<ul>
+<li><p>以下の図では100ほどのデータがあれば母平均（0.7）の ± 0.1にほとんどのデータが集まることが分かる</p></li>
+<li><p>しかし、これは母平均を事前に把握している場合を例であり、事前に母平均を知っていることは基本的にない。</p></li>
+</ul></li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+</div>
+<div id="区間推定の考え方" class="section level2 hasAnchor" number="4.7">
+<h2><span class="header-section-number">4.7</span> 区間推定の考え方<a href="タイトルを挿入.html#区間推定の考え方" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="母集団分布に確率分布を仮定する" class="section level3 hasAnchor" number="4.7.1">
+<h3><span class="header-section-number">4.7.1</span> 母集団分布に確率分布を仮定する<a href="タイトルを挿入.html#母集団分布に確率分布を仮定する" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>母集団分布が未知の場合、母集団からある値が標本として選ばれる事象の確率が。よく知られた確率分布に従うと仮定する。</p>
+<ul>
+<li><p>統計モデル（statistical model）や確率モデル（probabilistic model）と呼ぶ</p></li>
+<li><p>よく知られたモデルとして、<strong>正規分布（normal distribution）</strong>が挙げられる</p></li>
+</ul></li>
+<li><p>適切な確率モデルを設定しなければ、そこから算出したデータは正確ではない。</p>
+<ul>
+<li><p>ある程度大きいデータを取り、そのヒストグラムを描画して形状を確認する</p></li>
+<li><p>データの発生メカニズムから選ぶ</p>
+<ul>
+<li>例. 反応速度は対数正規分布で近似する、発生確率の低い出来事はポワソン分布に近似する</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="正規分布の性質" class="section level3 hasAnchor" number="4.7.2">
+<h3><span class="header-section-number">4.7.2</span> 正規分布の性質<a href="タイトルを挿入.html#正規分布の性質" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>確率分布は形状を決めるパラメータがある。</p></li>
+<li><p>正規分布のパラメータ：平均（確率分布の位置） + 分散（確率分布の広がり）</p>
+<ul>
+<li>期待値（Expected value）：確率分布の平均値のこと</li>
+</ul></li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<ul>
+<li>確率変数が離散的な値をとる場合、確率変数の実現値ろと確率は一対一対応している（例 1か0のデータ）。</li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<ul>
+<li>確率変数が連続的な値をとる場合、実現値の値ではなく、その<strong>範囲と確率</strong>が対応する。つまり、確率分布の面積が確率と対応する（数値積分をして求めないといけない）。</li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="タイトルを挿入.html#cb1-1" tabindex="-1"></a><span class="fu">integrate</span>(<span class="at">f =</span> dnorm, <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## 0.3413447 with absolute error &lt; 3.8e-15</code></pre>
+<ul>
+<li>平均値 ± <strong>1.96</strong> × 標準偏差で、標本分布の95%の範囲になる。</li>
+<li>白い部分は二か所合わせてデータの5%</li>
+</ul>
+<pre><code>## [1] 2.055362</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+- mean(density_data$x) ± 1.96となっているのは、標準偏差が1であるため。</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="タイトルを挿入.html#cb4-1" tabindex="-1"></a><span class="fu">integrate</span>(<span class="at">f =</span> dnorm, <span class="at">lower =</span> <span class="fu">mean</span>(density_data<span class="sc">$</span>x) <span class="sc">-</span> <span class="fl">1.96</span>, <span class="at">upper =</span> <span class="fu">mean</span>(density_data<span class="sc">$</span>x) <span class="sc">+</span> <span class="fl">1.96</span>)</span></code></pre></div>
+<pre><code>## 0.9489619 with absolute error &lt; 9.2e-12</code></pre>
+</div>
+<div id="確率モデルを用いた推定" class="section level3 hasAnchor" number="4.7.3">
+<h3><span class="header-section-number">4.7.3</span> 確率モデルを用いた推定<a href="タイトルを挿入.html#確率モデルを用いた推定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>適切な確率モデルが設定されているとき、母数を推定することは、確率モデルのパラメータがどのような値であるかを推測することと同じ。</li>
+</ul>
+</div>
+<div id="正規分布モデルにおける標本平均の標本分布" class="section level3 hasAnchor" number="4.7.4">
+<h3><span class="header-section-number">4.7.4</span> 正規分布モデルにおける標本平均の標本分布<a href="タイトルを挿入.html#正規分布モデルにおける標本平均の標本分布" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p><strong>標準誤差（Standard Error: <em>SE</em>）</strong></p>
+<ul>
+<li>標本分布の標準偏差</li>
+</ul></li>
+</ul>
+<p>SE=</p>
+<ul>
+<li><p><em>n</em> = 標本サイズ</p>
+<ul>
+<li>標本サイズが大きいほど標準誤差は小さくなり、標本平均は母平均に近づく（分母に標本サイズ）</li>
+</ul></li>
+</ul>
+</div>
+<div id="区間推定" class="section level3 hasAnchor" number="4.7.5">
+<h3><span class="header-section-number">4.7.5</span> 区間推定<a href="タイトルを挿入.html#区間推定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p><strong>点推定（point estimation）</strong>：平均値のように1つの値によって母数（母平均など）を推定すること</p>
+<ul>
+<li>標本サイズがどれだけ大きくても、標本平均は確率的に変動するため、ずばり母数を当てることは難しい</li>
+</ul></li>
+</ul>
+<div id="信頼区間" class="section level4 hasAnchor" number="4.7.5.1">
+<h4><span class="header-section-number">4.7.5.1</span> 信頼区間<a href="タイトルを挿入.html#信頼区間" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p><strong>区間推定（interval estimation）</strong>：区間による推定を行うこと</p>
+<ul>
+<li><p>必ずこの区間に当てはまることは主張できない。そのため、区間推定では、<strong>信頼度（degree of confidence）</strong>を設定する。これを<strong>信頼区間（confidence interval）</strong>という。</p>
+<ul>
+<li>言語研究の分野では95%が一般的</li>
+</ul></li>
+</ul></li>
+</ul>
+<div id="母分散を事前に知っている場合" class="section level5 hasAnchor" number="4.7.5.1.1">
+<h5><span class="header-section-number">4.7.5.1.1</span> 母分散を事前に知っている場合<a href="タイトルを挿入.html#母分散を事前に知っている場合" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<ul>
+<li><p>標本サイズは25、標本平均99.46、母分散は4を例とする。よって標準誤差は0.4。</p>
+<ul>
+<li><p>「得られた標本統計量が95%の信頼度で否定されない母数の範囲」を考える =&gt; 標本平均99.46が95%上限ぎりぎりになるような母数と、95%下限ぎりぎりになるような母数の範囲。上記で扱ったように、面積の95%を塗りつぶすには、平均値から ± 1.96 × 標準偏差すればよい。</p></li>
+<li><p>下限：99.46 - 1.96 × 0.4 = 98.68</p></li>
+<li><p>上限：99.46 + 1.96 × 0.4 = 100.24</p>
+<ul>
+<li>下記の図の赤い点線の内側の範囲が95%信頼区間
+<img src="_main_files/figure-html/unnamed-chunk-13-1.png" width="672" /></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="母分散を知らない場合" class="section level5 hasAnchor" number="4.7.5.1.2">
+<h5><span class="header-section-number">4.7.5.1.2</span> 母分散を知らない場合<a href="タイトルを挿入.html#母分散を知らない場合" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<ul>
+<li><p>母分散が分からない場合の母平均の推定方法を扱う。現実的に、母分散が分かっていることはほとんどない。</p></li>
+<li><p>母分散が分からない場合、上記の算出法では母平均の区間推定はできない。従って、母分散に依存しない統計量の計算が必要となる</p></li>
+</ul>
+<div id="t-値を用いた信頼区間の計算" class="section level6 hasAnchor" number="4.7.5.1.2.1">
+<h6><span class="header-section-number">4.7.5.1.2.1</span> <em>t</em> 値を用いた信頼区間の計算<a href="タイトルを挿入.html#t-値を用いた信頼区間の計算" class="anchor-section" aria-label="Anchor link to header"></a></h6>
+<ul>
+<li><strong><em>t</em> 値</strong>：下記の式から算出できる値。<em>t</em>分布に従う。</li>
+</ul>
+<p><span class="math display">\[
+t = \frac{\bar{x} - \mu}{\frac{u^2}{\sqrt{n}}}
+\]</span></p>
+<ul>
+<li><p><em>t</em>分布には、<strong>自由度（degree of freedom）</strong>と呼ばれるパラメータがある。<em>t</em>分布の自由度は、標本サイズによって変わる。自由度は、 <em>n</em> - 1で計算できる。</p></li>
+<li><p>自由度が100くらいになると、標準正規分布（平均0, 標準偏差1の正規分布）と同じような形になる。</p></li>
+<li><p>母平均が分からない場合、上記の<em>t</em>値を計算することはできない。しかし、母平均の信頼区間を求める場合、<em>t</em>分布の95%の面積にああるような範囲を考えればいい。自由度25の時、上側と下側それぞれ2.5%（5% ÷ 2）となるような<em>t</em>値を求める（表から値を探したりして値を見つける）。</p></li>
+<li><p>Rの標準的な関数で求めることも可能</p></li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="タイトルを挿入.html#cb6-1" tabindex="-1"></a><span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> <span class="dv">24</span>)</span></code></pre></div>
+<pre><code>## [1] 2.063899</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="タイトルを挿入.html#cb8-1" tabindex="-1"></a><span class="fu">qt</span>(.<span class="dv">025</span>, <span class="at">df =</span> <span class="dv">24</span>)</span></code></pre></div>
+<pre><code>## [1] -2.063899</code></pre>
+<p>以下の式をもとに算出する</p>
+<p><span class="math display">\[
+\left( \bar{x} - t_{\alpha/2, \, n-1} \cdot \frac{u^2}{\sqrt{n}}, \quad \bar{x} + t_{\alpha/2, \, n-1} \cdot \frac{u^2}{\sqrt{n}} \right)
+\]</span></p>
+<ul>
+<li><em>u^2</em>は不偏分散であり、以下の式で求められる。自由度25、標準偏差が2.24の場合、<em>n</em>に25、<em>S</em>に2.24を代入する。しかし、標本サイズが大きいときはほとんど同じ値になるため、実用上標本分散を用いることもある。</li>
+</ul>
+<p><span class="math display">\[
+s^2 = \frac{1}{n-1}S^2
+\]</span></p>
+<ul>
+<li><p>上限：99.46 + 2.06 * sqrt{}</p></li>
+<li><p>下限：99.46 - 2.06 * sqrt{}</p>
+<ul>
+<li>98.52 - 100.40の間に母平均があると推定された</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="rの関数で95信頼区間を求める" class="section level2 hasAnchor" number="4.8">
+<h2><span class="header-section-number">4.8</span> Rの関数で95%信頼区間を求める<a href="タイトルを挿入.html#rの関数で95信頼区間を求める" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="タイトルを挿入.html#cb10-1" tabindex="-1"></a><span class="co">#install.packages(&quot;gmodels&quot;)</span></span>
+<span id="cb10-2"><a href="タイトルを挿入.html#cb10-2" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span>
+<span id="cb10-3"><a href="タイトルを挿入.html#cb10-3" tabindex="-1"></a><span class="fu">ci</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<pre><code>## Warning in ci.numeric(mtcars$mpg): No class or unkown class.
+## Using default calcuation.</code></pre>
+<pre><code>##   Estimate   CI lower   CI upper Std. Error 
+##  20.090625  17.917679  22.263571   1.065424</code></pre>
+<ul>
+<li>上記の関数と一致した</li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="タイトルを挿入.html#cb13-1" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg) <span class="sc">+</span> <span class="fu">qt</span>(<span class="at">df =</span> (<span class="fu">nrow</span>(mtcars)<span class="sc">-</span><span class="dv">1</span>), .<span class="dv">025</span>) <span class="sc">*</span> <span class="fu">sd</span>(mtcars<span class="sc">$</span>mpg)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(mtcars))</span></code></pre></div>
+<pre><code>## [1] 17.91768</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="タイトルを挿入.html#cb15-1" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg) <span class="sc">+</span> <span class="fu">qt</span>(<span class="at">df =</span> (<span class="fu">nrow</span>(mtcars)<span class="sc">-</span><span class="dv">1</span>), .<span class="dv">975</span>) <span class="sc">*</span> <span class="fu">sd</span>(mtcars<span class="sc">$</span>mpg)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(mtcars))</span></code></pre></div>
+<pre><code>## [1] 22.26357</code></pre>
+<div class="infobox">
+<p>95%信頼区間は、得られた標本のデータの95%がこの区間に入るという意味ではない。</p>
+</div>
+</div>
+<div id="ハンズオンセッション-1" class="section level2 hasAnchor" number="4.9">
+<h2><span class="header-section-number">4.9</span> ハンズオンセッション<a href="タイトルを挿入.html#ハンズオンセッション-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>母平均を得られたデータから推定しよう</p>
+<ul>
+<li>ポケモンのデータを読み込む。ci関数、qt関数で求めてみよう</li>
+</ul></li>
+</ul>
+</div>
+<div id="まとめ-1" class="section level2 hasAnchor" number="4.10">
+<h2><span class="header-section-number">4.10</span> まとめ<a href="タイトルを挿入.html#まとめ-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="次週までの課題-2" class="section level2 hasAnchor" number="4.11">
+<h2><span class="header-section-number">4.11</span> 次週までの課題<a href="タイトルを挿入.html#次週までの課題-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="課題内容-2" class="section level3 hasAnchor" number="4.11.1">
+<h3><span class="header-section-number">4.11.1</span> 課題内容<a href="タイトルを挿入.html#課題内容-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。</p></li>
+<li><p>下記のデータをもとに、どの指標でもよいので、以下の内容を含めること。R Markdownファイルで作成し、HTMLファイルに変換しそれを提出</p></li>
+</ol>
+</div>
+<div id="提出方法-2" class="section level3 hasAnchor" number="4.11.2">
+<h3><span class="header-section-number">4.11.2</span> 提出方法<a href="タイトルを挿入.html#提出方法-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>メールにファイルを添付して送信。</li>
+<li>締め切りは今週の木曜日まで</li>
+</ul>
+</div>
+</div>
+<div id="参考文献-2" class="section level2 hasAnchor" number="4.12">
+<h2><span class="header-section-number">4.12</span> 参考文献<a href="タイトルを挿入.html#参考文献-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>心理学統計法　放送大学</li>
+<li>数値シミュレーションで読み解く統計の仕組み</li>
+<li>心理統計学の基礎</li>
+<li><a href="https://bellcurve.jp/statistics/course/8972.html?srsltid=AfmBOoo1xtRU_1cwHVoug_u0iB5Cc1yaY23jd7wvOFs_Ub9F26KWqc37" class="uri">https://bellcurve.jp/statistics/course/8972.html?srsltid=AfmBOoo1xtRU_1cwHVoug_u0iB5Cc1yaY23jd7wvOFs_Ub9F26KWqc37</a></li>
+</ul>
+<style>
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+
+.beg {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
+
+.caution {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
+  
+</style>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="week-2要約統計量.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="footnotes-and-citations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-parts.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

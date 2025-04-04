@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 リンク関数付き分布の説明 | リンク関数付き分布の解説</title>
+  <meta name="description" content="Chapter 4 リンク関数付き分布の説明 | リンク関数付き分布の解説" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 リンク関数付き分布の説明 | リンク関数付き分布の解説" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 リンク関数付き分布の説明 | リンク関数付き分布の解説" />
+  
+  
+  
+
+<meta name="author" content="寺井雅人（Masato Terai）" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="week10-一般化線形モデルロジスティック回帰分析.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">言語統計処理_春学期</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> url: your book url like https://bookdown.org/yihui/bookdown</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#講義概要"><i class="fa fa-check"></i><b>1.1</b> 講義概要</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#講義スケジュール"><i class="fa fa-check"></i><b>1.2</b> 講義スケジュール</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#成績評価について"><i class="fa fa-check"></i><b>1.3</b> 成績評価について</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#留意事項"><i class="fa fa-check"></i><b>1.4</b> 留意事項</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><i class="fa fa-check"></i><b>2</b> Week 1: オリエンテーション、R(Studio)のインストールと操作、R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#統計処理とは"><i class="fa fa-check"></i><b>2.1</b> 「統計処理」とは</a></li>
+<li class="chapter" data-level="2.2" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rとは"><i class="fa fa-check"></i><b>2.2</b> Rとは</a></li>
+<li class="chapter" data-level="2.3" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rのインストール"><i class="fa fa-check"></i><b>2.3</b> Rのインストール</a></li>
+<li class="chapter" data-level="2.4" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioとは"><i class="fa fa-check"></i><b>2.4</b> RStudioとは</a></li>
+<li class="chapter" data-level="2.5" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioのインストール"><i class="fa fa-check"></i><b>2.5</b> RStudioのインストール</a></li>
+<li class="chapter" data-level="2.6" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioの機能"><i class="fa fa-check"></i><b>2.6</b> RStudioの機能</a></li>
+<li class="chapter" data-level="2.7" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#プロジェクト機能"><i class="fa fa-check"></i><b>2.7</b> プロジェクト機能</a></li>
+<li class="chapter" data-level="2.8" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioのカスタマイズ"><i class="fa fa-check"></i><b>2.8</b> RStudioのカスタマイズ</a></li>
+<li class="chapter" data-level="2.9" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#r-markdown入門"><i class="fa fa-check"></i><b>2.9</b> R Markdown入門</a></li>
+<li class="chapter" data-level="2.10" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#ドキュメントチャンクmarkdown記法"><i class="fa fa-check"></i><b>2.10</b> ドキュメントチャンク：Markdown記法</a></li>
+<li class="chapter" data-level="2.11" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#lets-実践"><i class="fa fa-check"></i><b>2.11</b> Let’s 実践</a></li>
+<li class="chapter" data-level="2.12" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#名古屋飯といえば"><i class="fa fa-check"></i><b>2.12</b> 名古屋飯といえば</a></li>
+<li class="chapter" data-level="2.13" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#ひつまぶしhitsumabushi"><i class="fa fa-check"></i><b>2.13</b> ひつまぶし：<em>Hitsumabushi</em></a></li>
+<li class="chapter" data-level="2.14" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#答え合わせ"><i class="fa fa-check"></i><b>2.14</b> 答え合わせ</a></li>
+<li class="chapter" data-level="2.15" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#コードチャンクの挿入"><i class="fa fa-check"></i><b>2.15</b> コードチャンクの挿入</a></li>
+<li class="chapter" data-level="2.16" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#lets-実践-1"><i class="fa fa-check"></i><b>2.16</b> Let’s 実践</a></li>
+<li class="chapter" data-level="2.17" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#食費の合計"><i class="fa fa-check"></i><b>2.17</b> 食費の合計</a></li>
+<li class="chapter" data-level="2.18" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#答え合わせ-1"><i class="fa fa-check"></i><b>2.18</b> 答え合わせ</a></li>
+<li class="chapter" data-level="2.19" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#次週までの課題"><i class="fa fa-check"></i><b>2.19</b> 次週までの課題</a></li>
+<li class="chapter" data-level="2.20" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#参考文献"><i class="fa fa-check"></i><b>2.20</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html"><i class="fa fa-check"></i><b>3</b> Week10: 一般化線形モデル：ロジスティック回帰分析</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#事前の確認"><i class="fa fa-check"></i><b>3.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="3.2" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#今日の目標"><i class="fa fa-check"></i><b>3.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="3.3" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#一般化線形モデル"><i class="fa fa-check"></i><b>3.3</b> 一般化線形モデル</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="リンク関数付き分布の説明.html"><a href="リンク関数付き分布の説明.html"><i class="fa fa-check"></i><b>4</b> リンク関数付き分布の説明</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="リンク関数付き分布の説明.html"><a href="リンク関数付き分布の説明.html#数式表現"><i class="fa fa-check"></i><b>4.1</b> 数式表現</a></li>
+<li class="chapter" data-level="4.2" data-path="リンク関数付き分布の説明.html"><a href="リンク関数付き分布の説明.html#二項分布"><i class="fa fa-check"></i><b>4.2</b> 二項分布</a></li>
+<li class="chapter" data-level="4.3" data-path="リンク関数付き分布の説明.html"><a href="リンク関数付き分布の説明.html#ロジット関数"><i class="fa fa-check"></i><b>4.3</b> ロジット関数</a></li>
+<li class="chapter" data-level="4.4" data-path="リンク関数付き分布の説明.html"><a href="リンク関数付き分布の説明.html#ロジスティック関数"><i class="fa fa-check"></i><b>4.4</b> ロジスティック関数</a></li>
+<li class="chapter" data-level="4.5" data-path="リンク関数付き分布の説明.html"><a href="リンク関数付き分布の説明.html#ロジスティック回帰モデル"><i class="fa fa-check"></i><b>4.5</b> ロジスティック回帰モデル</a></li>
+<li class="chapter" data-level="4.6" data-path="リンク関数付き分布の説明.html"><a href="リンク関数付き分布の説明.html#ハンズオンセッション"><i class="fa fa-check"></i><b>4.6</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="4.7" data-path="リンク関数付き分布の説明.html"><a href="リンク関数付き分布の説明.html#オッズ比の算出"><i class="fa fa-check"></i><b>4.7</b> オッズ比の算出</a></li>
+<li class="chapter" data-level="4.8" data-path="リンク関数付き分布の説明.html"><a href="リンク関数付き分布の説明.html#結果の報告"><i class="fa fa-check"></i><b>4.8</b> 結果の報告</a></li>
+<li class="chapter" data-level="4.9" data-path="リンク関数付き分布の説明.html"><a href="リンク関数付き分布の説明.html#質的変数の場合"><i class="fa fa-check"></i><b>4.9</b> 質的変数の場合</a></li>
+<li class="chapter" data-level="4.10" data-path="リンク関数付き分布の説明.html"><a href="リンク関数付き分布の説明.html#次週までの課題-1"><i class="fa fa-check"></i><b>4.10</b> 次週までの課題</a></li>
+<li class="chapter" data-level="4.11" data-path="リンク関数付き分布の説明.html"><a href="リンク関数付き分布の説明.html#参考文献-1"><i class="fa fa-check"></i><b>4.11</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="5" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html"><i class="fa fa-check"></i><b>5</b> Week 2：要約統計量</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#事前の確認-1"><i class="fa fa-check"></i><b>5.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="5.2" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#今日の目標-1"><i class="fa fa-check"></i><b>5.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="5.3" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#今日の格言"><i class="fa fa-check"></i><b>5.3</b> 今日の格言</a></li>
+<li class="chapter" data-level="5.4" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#記述統計学と推測統計学"><i class="fa fa-check"></i><b>5.4</b> 記述統計学と推測統計学</a></li>
+<li class="chapter" data-level="5.5" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#データの尺度"><i class="fa fa-check"></i><b>5.5</b> データの尺度</a></li>
+<li class="chapter" data-level="5.6" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#とみなす"><i class="fa fa-check"></i><b>5.6</b> 「～とみなす」</a></li>
+<li class="chapter" data-level="5.7" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#要約統計量"><i class="fa fa-check"></i><b>5.7</b> 要約統計量</a></li>
+<li class="chapter" data-level="5.8" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#データの可視化"><i class="fa fa-check"></i><b>5.8</b> データの可視化</a></li>
+<li class="chapter" data-level="5.9" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#ハンズオンセッション-1"><i class="fa fa-check"></i><b>5.9</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="5.10" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#まとめ"><i class="fa fa-check"></i><b>5.10</b> まとめ</a></li>
+<li class="chapter" data-level="5.11" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#次週までの課題-2"><i class="fa fa-check"></i><b>5.11</b> 次週までの課題</a></li>
+<li class="chapter" data-level="5.12" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#参考文献-2"><i class="fa fa-check"></i><b>5.12</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="推測統計学.html"><a href="推測統計学.html"><i class="fa fa-check"></i><b>6</b> 推測統計学</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="推測統計学.html"><a href="推測統計学.html#事前の確認-2"><i class="fa fa-check"></i><b>6.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="6.2" data-path="推測統計学.html"><a href="推測統計学.html#今日の目標-2"><i class="fa fa-check"></i><b>6.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="6.3" data-path="推測統計学.html"><a href="推測統計学.html#母集団と標本"><i class="fa fa-check"></i><b>6.3</b> 母集団と標本</a></li>
+<li class="chapter" data-level="6.4" data-path="推測統計学.html"><a href="推測統計学.html#確率と確率変数"><i class="fa fa-check"></i><b>6.4</b> 確率と確率変数</a></li>
+<li class="chapter" data-level="6.5" data-path="推測統計学.html"><a href="推測統計学.html#推測統計学の考え方"><i class="fa fa-check"></i><b>6.5</b> 推測統計学の考え方</a></li>
+<li class="chapter" data-level="6.6" data-path="推測統計学.html"><a href="推測統計学.html#区間推定の考え方"><i class="fa fa-check"></i><b>6.6</b> 区間推定の考え方</a></li>
+<li class="chapter" data-level="6.7" data-path="推測統計学.html"><a href="推測統計学.html#rの関数で95信頼区間を求める"><i class="fa fa-check"></i><b>6.7</b> Rの関数で95%信頼区間を求める</a></li>
+<li class="chapter" data-level="6.8" data-path="推測統計学.html"><a href="推測統計学.html#ハンズオンセッション-2"><i class="fa fa-check"></i><b>6.8</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="6.9" data-path="推測統計学.html"><a href="推測統計学.html#まとめ-1"><i class="fa fa-check"></i><b>6.9</b> まとめ</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="統計的検定.html"><a href="統計的検定.html"><i class="fa fa-check"></i><b>7</b> 統計的検定</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="統計的検定.html"><a href="統計的検定.html#事前の確認-3"><i class="fa fa-check"></i><b>7.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="7.2" data-path="統計的検定.html"><a href="統計的検定.html#今日の目標-3"><i class="fa fa-check"></i><b>7.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="7.3" data-path="統計的検定.html"><a href="統計的検定.html#統計的検定statistical-test"><i class="fa fa-check"></i><b>7.3</b> 統計的検定（statistical test）</a></li>
+<li class="chapter" data-level="7.4" data-path="統計的検定.html"><a href="統計的検定.html#統計的検定の手順"><i class="fa fa-check"></i><b>7.4</b> 統計的検定の手順</a></li>
+<li class="chapter" data-level="7.5" data-path="統計的検定.html"><a href="統計的検定.html#統計的検定で必要な知識"><i class="fa fa-check"></i><b>7.5</b> 統計的検定で必要な知識</a></li>
+<li class="chapter" data-level="7.6" data-path="統計的検定.html"><a href="統計的検定.html#ハンズオンセッション-3"><i class="fa fa-check"></i><b>7.6</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="7.7" data-path="統計的検定.html"><a href="統計的検定.html#次週までの課題-3"><i class="fa fa-check"></i><b>7.7</b> 次週までの課題</a></li>
+<li class="chapter" data-level="7.8" data-path="統計的検定.html"><a href="統計的検定.html#参考文献-3"><i class="fa fa-check"></i><b>7.8</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="week5-相関分析.html"><a href="week5-相関分析.html"><i class="fa fa-check"></i><b>8</b> Week5: 相関分析</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="week5-相関分析.html"><a href="week5-相関分析.html#事前の確認-4"><i class="fa fa-check"></i><b>8.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="8.2" data-path="week5-相関分析.html"><a href="week5-相関分析.html#今日の目標-4"><i class="fa fa-check"></i><b>8.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="8.3" data-path="week5-相関分析.html"><a href="week5-相関分析.html#相関分析correlation-analysisとは"><i class="fa fa-check"></i><b>8.3</b> 相関分析（Correlation analysis）とは</a></li>
+<li class="chapter" data-level="8.4" data-path="week5-相関分析.html"><a href="week5-相関分析.html#ハンズオンセッション-4"><i class="fa fa-check"></i><b>8.4</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="8.5" data-path="week5-相関分析.html"><a href="week5-相関分析.html#次週までの課題-4"><i class="fa fa-check"></i><b>8.5</b> 次週までの課題</a></li>
+<li class="chapter" data-level="8.6" data-path="week5-相関分析.html"><a href="week5-相関分析.html#参考文献-4"><i class="fa fa-check"></i><b>8.6</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html"><i class="fa fa-check"></i><b>9</b> 単回帰分析（連続型の説明変数）</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#今後の修正案"><i class="fa fa-check"></i><b>9.1</b> 今後の修正案</a></li>
+<li class="chapter" data-level="9.2" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#事前の確認-5"><i class="fa fa-check"></i><b>9.2</b> 事前の確認</a></li>
+<li class="chapter" data-level="9.3" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#今日の目標-5"><i class="fa fa-check"></i><b>9.3</b> 今日の目標</a></li>
+<li class="chapter" data-level="9.4" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#回帰分析regression-analysisとは"><i class="fa fa-check"></i><b>9.4</b> 回帰分析（regression analysis）とは</a></li>
+<li class="chapter" data-level="9.5" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#ハンズオンセッション-5"><i class="fa fa-check"></i><b>9.5</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="9.6" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#次週までの課題-5"><i class="fa fa-check"></i><b>9.6</b> 次週までの課題</a></li>
+<li class="chapter" data-level="9.7" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#参考文献-5"><i class="fa fa-check"></i><b>9.7</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html"><i class="fa fa-check"></i><b>10</b> Week7: 重回帰分析</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#メモ"><i class="fa fa-check"></i><b>10.1</b> メモ</a></li>
+<li class="chapter" data-level="10.2" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#事前の確認-6"><i class="fa fa-check"></i><b>10.2</b> 事前の確認</a></li>
+<li class="chapter" data-level="10.3" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#今日の目標-6"><i class="fa fa-check"></i><b>10.3</b> 今日の目標</a></li>
+<li class="chapter" data-level="10.4" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#重回帰分析とは"><i class="fa fa-check"></i><b>10.4</b> 重回帰分析とは</a></li>
+<li class="chapter" data-level="10.5" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#重回帰分析を行う上での注意点"><i class="fa fa-check"></i><b>10.5</b> 重回帰分析を行う上での注意点</a></li>
+<li class="chapter" data-level="10.6" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#投入方"><i class="fa fa-check"></i><b>10.6</b> 投入方</a></li>
+<li class="chapter" data-level="10.7" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#ハンズオンセッション-6"><i class="fa fa-check"></i><b>10.7</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="10.8" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#次週までの課題-6"><i class="fa fa-check"></i><b>10.8</b> 次週までの課題</a></li>
+<li class="chapter" data-level="10.9" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#参考文献-6"><i class="fa fa-check"></i><b>10.9</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html"><i class="fa fa-check"></i><b>11</b> Week8: 重回帰分析 (2)</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#事前の確認-7"><i class="fa fa-check"></i><b>11.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="11.2" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#今日の目標-7"><i class="fa fa-check"></i><b>11.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="11.3" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#分散分析"><i class="fa fa-check"></i><b>11.3</b> 分散分析</a></li>
+<li class="chapter" data-level="11.4" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#分散分析と回帰分析の関係"><i class="fa fa-check"></i><b>11.4</b> 分散分析と回帰分析の関係</a></li>
+<li class="chapter" data-level="11.5" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#分散分析は今回扱いません"><i class="fa fa-check"></i><b>11.5</b> 分散分析は今回扱いません</a></li>
+<li class="chapter" data-level="11.6" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#重回帰分析での質的変数の扱い方"><i class="fa fa-check"></i><b>11.6</b> 重回帰分析での質的変数の扱い方</a></li>
+<li class="chapter" data-level="11.7" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#ハンズオンセッション-7"><i class="fa fa-check"></i><b>11.7</b> ハンズオン・セッション</a></li>
+<li class="chapter" data-level="11.8" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#検定の繰り返し問題アゲイン"><i class="fa fa-check"></i><b>11.8</b> 検定の繰り返し問題アゲイン</a></li>
+<li class="chapter" data-level="11.9" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#解決策"><i class="fa fa-check"></i><b>11.9</b> 解決策</a></li>
+<li class="chapter" data-level="11.10" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#次週までの課題-7"><i class="fa fa-check"></i><b>11.10</b> 次週までの課題</a></li>
+<li class="chapter" data-level="11.11" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#参考文献-7"><i class="fa fa-check"></i><b>11.11</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html"><i class="fa fa-check"></i><b>12</b> Week9: 重回帰分析 (3)：交互作用の解釈</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#事前の確認-8"><i class="fa fa-check"></i><b>12.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="12.2" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#今日の目標-8"><i class="fa fa-check"></i><b>12.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="12.3" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#交互作用"><i class="fa fa-check"></i><b>12.3</b> 交互作用</a></li>
+<li class="chapter" data-level="12.4" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#ハンズオンセッション-8"><i class="fa fa-check"></i><b>12.4</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="12.5" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#最後に"><i class="fa fa-check"></i><b>12.5</b> 最後に</a></li>
+<li class="chapter" data-level="12.6" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#次週までの課題-8"><i class="fa fa-check"></i><b>12.6</b> 次週までの課題</a></li>
+<li class="chapter" data-level="12.7" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#参考文献-8"><i class="fa fa-check"></i><b>12.7</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>13</b> Sharing your book</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">リンク関数付き分布の解説</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="リンク関数付き分布の説明" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> リンク関数付き分布の説明<a href="リンク関数付き分布の説明.html#リンク関数付き分布の説明" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<table>
+<colgroup>
+<col width="26%" />
+<col width="47%" />
+<col width="26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>分布</th>
+<th>リンク関数</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>binomial(link = "logit")</code></td>
+<td>ロジット</td>
+<td>二項データ（成功/失敗）を扱う。ロジスティック回帰。</td>
+</tr>
+<tr class="even">
+<td><code>gaussian(link = "identity")</code></td>
+<td>恒等</td>
+<td>通常の線形回帰。連続データを予測。</td>
+</tr>
+<tr class="odd">
+<td><code>Gamma(link = "inverse")</code></td>
+<td>逆</td>
+<td>ガンマ分布を使用し、非負の連続データを扱う（時間・コストなど）。</td>
+</tr>
+<tr class="even">
+<td><code>inverse.gaussian(link = "1/mu^2")</code></td>
+<td>逆二乗</td>
+<td>逆ガウス分布を使用し、非負の連続データ（右裾の長いデータ）を扱う。</td>
+</tr>
+<tr class="odd">
+<td><code>poisson(link = "log")</code></td>
+<td>対数</td>
+<td>カウントデータ（事故数・来店数など）に適用。ポアソン回帰。</td>
+</tr>
+<tr class="even">
+<td><code>quasi(link = "identity", variance = "constant")</code></td>
+<td>恒等</td>
+<td>分布を仮定せず、準尤度推定を用いるモデル。</td>
+</tr>
+<tr class="odd">
+<td><code>quasibinomial(link = "logit")</code></td>
+<td>ロジット</td>
+<td>二項データで過分散がある場合に使用。</td>
+</tr>
+<tr class="even">
+<td><code>quasipoisson(link = "log")</code></td>
+<td>対数</td>
+<td>カウントデータで過分散がある場合に使用。</td>
+</tr>
+</tbody>
+</table>
+<div id="数式表現" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> 数式表現<a href="リンク関数付き分布の説明.html#数式表現" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>ロジスティック回帰（<code>binomial(link = "logit")</code>）のリンク関数:</p>
+<p><span class="math display">\[
+\log \left(\frac{p}{1 - p}\right) = X\beta
+\]</span></p>
+<p>ポアソン回帰（<code>poisson(link = "log")</code>）のリンク関数:</p>
+<p><span class="math display">\[
+\log (\mu) = X\beta
+\]</span></p>
+<p>ガンマ回帰（<code>Gamma(link = "inverse")</code>）のリンク関数:</p>
+<p><span class="math display">\[
+\frac{1}{\mu} = X\beta
+\]</span></p>
+<p>逆ガウス回帰（<code>inverse.gaussian(link = "1/mu^2")</code>）のリンク関数:</p>
+<p><span class="math display">\[
+\frac{1}{\mu^2} = X\beta
+\]</span></p>
+</div>
+<div id="二項分布" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> 二項分布<a href="リンク関数付き分布の説明.html#二項分布" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>ある試行を <em>n</em> 回行った際の成功回数 <em>k</em> が発生する確率 <em>q</em></li>
+</ul>
+<p><span class="math display">\[
+p(k \mid N, q) = \binom{N}{k} q^k (1 - q)^{N - k}
+\]</span></p>
+<p><span class="math display">\[
+\binom{N}{k} = \frac{N!}{k!(N-k)!}
+\]</span></p>
+</div>
+<div id="ロジット関数" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> ロジット関数<a href="リンク関数付き分布の説明.html#ロジット関数" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[
+\text{logit}(p) = \log \left( \frac{p}{1 - p} \right)
+\]</span></p>
+<ul>
+<li>リンク関数：従属変数と、説明変数の集まり（線形予測子：線形結合した説明変数）</li>
+</ul>
+</div>
+<div id="ロジスティック関数" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> ロジスティック関数<a href="リンク関数付き分布の説明.html#ロジスティック関数" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[
+\text{logistic}(x) = \frac{1}{1 + e^{-x}}
+\]</span></p>
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<ul>
+<li><p>ロジット関数の逆関数のこと</p>
+<ul>
+<li><p>逆関数：戻してあげる関数のこと</p>
+<ul>
+<li>e.g., log(3) -&gt; exp(log(3)) = 3</li>
+</ul></li>
+<li><p>リンク関数としてロジット関数を使っているため、ロジット関数の逆関数であるロジスティック関数で戻してあげている。</p></li>
+<li><p>ロジスティック関数は0から1の範囲を取る。よって、確率の変化を表現するのに便利</p></li>
+</ul></li>
+<li><p>0から1の範囲しかとらない</p></li>
+</ul>
+</div>
+<div id="ロジスティック回帰モデル" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> ロジスティック回帰モデル<a href="リンク関数付き分布の説明.html#ロジスティック回帰モデル" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>正答率は確率分布に二項分布、リンク関数にロジット関数を用いて表現できる</p>
+<ul>
+<li>リンク関数とは：</li>
+</ul></li>
+<li><p>正解していれば1, 不正解なら0というダミー変数</p></li>
+</ul>
+</div>
+<div id="ハンズオンセッション" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> ハンズオンセッション<a href="リンク関数付き分布の説明.html#ハンズオンセッション" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="疑似データの用意" class="section level3 hasAnchor" number="4.6.1">
+<h3><span class="header-section-number">4.6.1</span> 疑似データの用意<a href="リンク関数付き分布の説明.html#疑似データの用意" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>Correct： 語彙テストの得点。1なら正解、0なら不正解</p></li>
+<li><p>Method：指導法A、指導法B</p></li>
+<li><p>Years_of_study：英語学習歴</p></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="リンク関数付き分布の説明.html#cb3-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># 再現性のため</span></span>
+<span id="cb3-2"><a href="リンク関数付き分布の説明.html#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="リンク関数付き分布の説明.html#cb3-3" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb3-4"><a href="リンク関数付き分布の説明.html#cb3-4" tabindex="-1"></a>  <span class="at">Correct =</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="dv">40</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),  <span class="co"># 1 または 0</span></span>
+<span id="cb3-5"><a href="リンク関数付き分布の説明.html#cb3-5" tabindex="-1"></a>  <span class="at">Method =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="dv">40</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),  <span class="co"># A または B</span></span>
+<span id="cb3-6"><a href="リンク関数付き分布の説明.html#cb3-6" tabindex="-1"></a>  <span class="at">Years_of_Study =</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">40</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)  <span class="co"># 0 ~ 10 の数値</span></span>
+<span id="cb3-7"><a href="リンク関数付き分布の説明.html#cb3-7" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="リンク関数付き分布の説明.html#cb4-1" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="at">head =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##   Correct Method Years_of_Study
+## 1       0      A              5
+## 2       0      B             10
+## 3       0      B              7
+## 4       1      A              5
+## 5       0      A              5
+## 6       1      A              6</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="リンク関数付き分布の説明.html#cb6-1" tabindex="-1"></a><span class="fu">summary</span>(dat)</span></code></pre></div>
+<pre><code>##     Correct         Method          Years_of_Study  
+##  Min.   :0.000   Length:40          Min.   : 0.000  
+##  1st Qu.:0.000   Class :character   1st Qu.: 2.000  
+##  Median :0.000   Mode  :character   Median : 5.000  
+##  Mean   :0.425                      Mean   : 4.875  
+##  3rd Qu.:1.000                      3rd Qu.: 7.000  
+##  Max.   :1.000                      Max.   :10.000</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="リンク関数付き分布の説明.html#cb8-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>Method)</span></code></pre></div>
+<pre><code>## 
+##  A  B 
+## 25 15</code></pre>
+</div>
+<div id="作図" class="section level3 hasAnchor" number="4.6.2">
+<h3><span class="header-section-number">4.6.2</span> 作図<a href="リンク関数付き分布の説明.html#作図" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="リンク関数付き分布の説明.html#cb10-1" tabindex="-1"></a><span class="co"># Methodごとの正答率を計算</span></span>
+<span id="cb10-2"><a href="リンク関数付き分布の説明.html#cb10-2" tabindex="-1"></a>table_data <span class="ot">&lt;-</span> <span class="fu">table</span>(dat<span class="sc">$</span>Method, dat<span class="sc">$</span>Correct)</span>
+<span id="cb10-3"><a href="リンク関数付き分布の説明.html#cb10-3" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="リンク関数付き分布の説明.html#cb10-4" tabindex="-1"></a><span class="co"># 棒グラフで可視化</span></span>
+<span id="cb10-5"><a href="リンク関数付き分布の説明.html#cb10-5" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">prop.table</span>(table_data, <span class="at">margin =</span> <span class="dv">1</span>), <span class="at">beside =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-6"><a href="リンク関数付き分布の説明.html#cb10-6" tabindex="-1"></a>        <span class="at">legend =</span> <span class="fu">rownames</span>(table_data), <span class="at">xlab =</span> <span class="st">&quot;Correct (0 = Incorrect, 1 = Correct)&quot;</span>,</span>
+<span id="cb10-7"><a href="リンク関数付き分布の説明.html#cb10-7" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Proportion&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Proportion of Correct Answers by Method&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div id="モデルの推定" class="section level3 hasAnchor" number="4.6.3">
+<h3><span class="header-section-number">4.6.3</span> モデルの推定<a href="リンク関数付き分布の説明.html#モデルの推定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p><code>glm()</code>関数を使用する</p>
+<ul>
+<li><code>family</code>で確率分布を指定する</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="リンク関数付き分布の説明.html#cb11-1" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb11-2"><a href="リンク関数付き分布の説明.html#cb11-2" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="リンク関数付き分布の説明.html#cb11-3" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb11-4"><a href="リンク関数付き分布の説明.html#cb11-4" tabindex="-1"></a>  Correct <span class="sc">~</span> Years_of_Study,</span>
+<span id="cb11-5"><a href="リンク関数付き分布の説明.html#cb11-5" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(),</span>
+<span id="cb11-6"><a href="リンク関数付き分布の説明.html#cb11-6" tabindex="-1"></a>  <span class="at">data =</span> dat</span>
+<span id="cb11-7"><a href="リンク関数付き分布の説明.html#cb11-7" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="リンク関数付き分布の説明.html#cb12-1" tabindex="-1"></a><span class="fu">summary</span>(res)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Correct ~ Years_of_Study, family = binomial(), 
+##     data = dat)
+## 
+## Coefficients:
+##                Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept)      0.6788     0.6650   1.021   0.3073  
+## Years_of_Study  -0.2061     0.1238  -1.665   0.0959 .
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 54.548  on 39  degrees of freedom
+## Residual deviance: 51.559  on 38  degrees of freedom
+## AIC: 55.559
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<ul>
+<li>95%信頼区間の算出</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="リンク関数付き分布の説明.html#cb14-1" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">confint</span>(res)</span></code></pre></div>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##                     2.5 %     97.5 %
+## (Intercept)    -0.6010333 2.05617252
+## Years_of_Study -0.4667027 0.02681936</code></pre>
+</div>
+<div id="作図-1" class="section level3 hasAnchor" number="4.6.4">
+<h3><span class="header-section-number">4.6.4</span> 作図<a href="リンク関数付き分布の説明.html#作図-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="リンク関数付き分布の説明.html#cb17-1" tabindex="-1"></a><span class="co"># 年齢（Years_of_Study）の範囲を設定</span></span>
+<span id="cb17-2"><a href="リンク関数付き分布の説明.html#cb17-2" tabindex="-1"></a>years_range <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">length.out =</span> <span class="dv">100</span>)</span>
+<span id="cb17-3"><a href="リンク関数付き分布の説明.html#cb17-3" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="リンク関数付き分布の説明.html#cb17-4" tabindex="-1"></a><span class="co"># 各年数に対する予測確率を計算</span></span>
+<span id="cb17-5"><a href="リンク関数付き分布の説明.html#cb17-5" tabindex="-1"></a>pred_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(res, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Years_of_Study =</span> years_range), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb17-6"><a href="リンク関数付き分布の説明.html#cb17-6" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="リンク関数付き分布の説明.html#cb17-7" tabindex="-1"></a><span class="co"># 予測確率を描画</span></span>
+<span id="cb17-8"><a href="リンク関数付き分布の説明.html#cb17-8" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb17-9"><a href="リンク関数付き分布の説明.html#cb17-9" tabindex="-1"></a>  years_range, pred_probs, </span>
+<span id="cb17-10"><a href="リンク関数付き分布の説明.html#cb17-10" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,  <span class="co"># 線で描画</span></span>
+<span id="cb17-11"><a href="リンク関数付き分布の説明.html#cb17-11" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, </span>
+<span id="cb17-12"><a href="リンク関数付き分布の説明.html#cb17-12" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb17-13"><a href="リンク関数付き分布の説明.html#cb17-13" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;Years of Study&quot;</span>, </span>
+<span id="cb17-14"><a href="リンク関数付き分布の説明.html#cb17-14" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Pr (Correct)&quot;</span>, </span>
+<span id="cb17-15"><a href="リンク関数付き分布の説明.html#cb17-15" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">&quot;Logistic Regression: Probability of Correct Answer&quot;</span>,</span>
+<span id="cb17-16"><a href="リンク関数付き分布の説明.html#cb17-16" tabindex="-1"></a>  <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb17-17"><a href="リンク関数付き分布の説明.html#cb17-17" tabindex="-1"></a>  <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="at">yaxs =</span> <span class="st">&quot;i&quot;</span></span>
+<span id="cb17-18"><a href="リンク関数付き分布の説明.html#cb17-18" tabindex="-1"></a>)</span>
+<span id="cb17-19"><a href="リンク関数付き分布の説明.html#cb17-19" tabindex="-1"></a></span>
+<span id="cb17-20"><a href="リンク関数付き分布の説明.html#cb17-20" tabindex="-1"></a><span class="co"># x軸のカスタムラベルを追加</span></span>
+<span id="cb17-21"><a href="リンク関数付き分布の説明.html#cb17-21" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+</div>
+<div id="オッズ比の算出" class="section level2 hasAnchor" number="4.7">
+<h2><span class="header-section-number">4.7</span> オッズ比の算出<a href="リンク関数付き分布の説明.html#オッズ比の算出" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>オッズ：「失敗するよりも何倍成功しやすいか」を表す指標</li>
+</ul>
+<p><span class="math display">\[
+\textオッズ = \frac{p}{(1-p)}
+\]</span></p>
+<ul>
+<li><p>オッズ比：オッズの変化量。ロジスティック回帰モデルの回帰係数に指数関数を適用すると算出できる。</p>
+<ul>
+<li>英語学習年数が1年増えると、テスト得点が0.81倍上がる</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="リンク関数付き分布の説明.html#cb18-1" tabindex="-1"></a><span class="fu">exp</span>(res<span class="sc">$</span>coefficients)</span></code></pre></div>
+<pre><code>##    (Intercept) Years_of_Study 
+##      1.9715609      0.8137445</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="リンク関数付き分布の説明.html#cb20-1" tabindex="-1"></a><span class="fu">exp</span>(stats<span class="sc">::</span><span class="fu">confint</span>(res))</span></code></pre></div>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##                    2.5 %   97.5 %
+## (Intercept)    0.5482448 7.815997
+## Years_of_Study 0.6270665 1.027182</code></pre>
+</div>
+<div id="結果の報告" class="section level2 hasAnchor" number="4.8">
+<h2><span class="header-section-number">4.8</span> 結果の報告<a href="リンク関数付き分布の説明.html#結果の報告" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="質的変数の場合" class="section level2 hasAnchor" number="4.9">
+<h2><span class="header-section-number">4.9</span> 質的変数の場合<a href="リンク関数付き分布の説明.html#質的変数の場合" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="トリートメントコントラスト" class="section level3 hasAnchor" number="4.9.1">
+<h3><span class="header-section-number">4.9.1</span> トリートメントコントラスト<a href="リンク関数付き分布の説明.html#トリートメントコントラスト" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="リンク関数付き分布の説明.html#cb23-1" tabindex="-1"></a>dat<span class="sc">$</span>Method <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Method)</span>
+<span id="cb23-2"><a href="リンク関数付き分布の説明.html#cb23-2" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="リンク関数付き分布の説明.html#cb23-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Method)</span></code></pre></div>
+<pre><code>##   B
+## A 0
+## B 1</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="リンク関数付き分布の説明.html#cb25-1" tabindex="-1"></a>res<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb25-2"><a href="リンク関数付き分布の説明.html#cb25-2" tabindex="-1"></a>  Correct <span class="sc">~</span> Method,</span>
+<span id="cb25-3"><a href="リンク関数付き分布の説明.html#cb25-3" tabindex="-1"></a>  <span class="at">family =</span> binomial,</span>
+<span id="cb25-4"><a href="リンク関数付き分布の説明.html#cb25-4" tabindex="-1"></a>  <span class="at">data =</span> dat</span>
+<span id="cb25-5"><a href="リンク関数付き分布の説明.html#cb25-5" tabindex="-1"></a>)</span></code></pre></div>
+<ul>
+<li>Method Bの係数：Method B - Method A</li>
+</ul>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="リンク関数付き分布の説明.html#cb26-1" tabindex="-1"></a><span class="fu">summary</span>(res<span class="fl">.2</span>)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Correct ~ Method, family = binomial, data = dat)
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept) -0.08004    0.40032  -0.200    0.842
+## MethodB     -0.61310    0.67842  -0.904    0.366
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 54.548  on 39  degrees of freedom
+## Residual deviance: 53.713  on 38  degrees of freedom
+## AIC: 57.713
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<ul>
+<li>95%信頼区間の算出</li>
+</ul>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="リンク関数付き分布の説明.html#cb28-1" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">confint</span>(res<span class="fl">.2</span>)</span></code></pre></div>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##                  2.5 %   97.5 %
+## (Intercept) -0.8789758 0.710550
+## MethodB     -2.0030397 0.692511</code></pre>
+</div>
+<div id="作図-2" class="section level3 hasAnchor" number="4.9.2">
+<h3><span class="header-section-number">4.9.2</span> 作図<a href="リンク関数付き分布の説明.html#作図-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="リンク関数付き分布の説明.html#cb31-1" tabindex="-1"></a><span class="co">#install.packages(&quot;arm&quot;)</span></span>
+<span id="cb31-2"><a href="リンク関数付き分布の説明.html#cb31-2" tabindex="-1"></a><span class="fu">library</span>(arm)</span></code></pre></div>
+<pre><code>## Warning: パッケージ &#39;arm&#39; はバージョン 4.3.3 の R の下で造られました</code></pre>
+<pre><code>##  要求されたパッケージ MASS をロード中です</code></pre>
+<pre><code>## 
+##  次のパッケージを付け加えます: &#39;MASS&#39;</code></pre>
+<pre><code>##  以下のオブジェクトは &#39;package:dplyr&#39; からマスクされています:
+## 
+##     select</code></pre>
+<pre><code>##  要求されたパッケージ Matrix をロード中です</code></pre>
+<pre><code>## Warning: パッケージ &#39;Matrix&#39; はバージョン 4.3.3 の R の下で造られました</code></pre>
+<pre><code>## 
+##  次のパッケージを付け加えます: &#39;Matrix&#39;</code></pre>
+<pre><code>##  以下のオブジェクトは &#39;package:tidyr&#39; からマスクされています:
+## 
+##     expand, pack, unpack</code></pre>
+<pre><code>##  要求されたパッケージ lme4 をロード中です</code></pre>
+<pre><code>## 
+##  次のパッケージを付け加えます: &#39;lme4&#39;</code></pre>
+<pre><code>##  以下のオブジェクトは &#39;package:brms&#39; からマスクされています:
+## 
+##     ngrps</code></pre>
+<pre><code>## 
+## arm (Version 1.14-4, built: 2024-4-1)</code></pre>
+<pre><code>## Working directory is C:/Users/terai-masato/Documents/stat_class_2025</code></pre>
+<pre><code>## 
+##  次のパッケージを付け加えます: &#39;arm&#39;</code></pre>
+<pre><code>##  以下のオブジェクトは &#39;package:rstan&#39; からマスクされています:
+## 
+##     traceplot</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="リンク関数付き分布の説明.html#cb47-1" tabindex="-1"></a><span class="co"># glmモデルの結果を使って予測確率を計算</span></span>
+<span id="cb47-2"><a href="リンク関数付き分布の説明.html#cb47-2" tabindex="-1"></a>pred_probs_A <span class="ot">&lt;-</span> <span class="fu">predict</span>(res<span class="fl">.2</span>, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Method =</span> <span class="st">&quot;A&quot;</span>), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb47-3"><a href="リンク関数付き分布の説明.html#cb47-3" tabindex="-1"></a>pred_probs_B <span class="ot">&lt;-</span> <span class="fu">predict</span>(res<span class="fl">.2</span>, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Method =</span> <span class="st">&quot;B&quot;</span>), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb47-4"><a href="リンク関数付き分布の説明.html#cb47-4" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="リンク関数付き分布の説明.html#cb47-5" tabindex="-1"></a><span class="co"># Method A と Method B の予測確率を描画</span></span>
+<span id="cb47-6"><a href="リンク関数付き分布の説明.html#cb47-6" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb47-7"><a href="リンク関数付き分布の説明.html#cb47-7" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="fu">c</span>(pred_probs_A, pred_probs_B), </span>
+<span id="cb47-8"><a href="リンク関数付き分布の説明.html#cb47-8" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>, </span>
+<span id="cb47-9"><a href="リンク関数付き分布の説明.html#cb47-9" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb47-10"><a href="リンク関数付き分布の説明.html#cb47-10" tabindex="-1"></a>  <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Method&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Pr (Correct)&quot;</span>,</span>
+<span id="cb47-11"><a href="リンク関数付き分布の説明.html#cb47-11" tabindex="-1"></a>  <span class="at">xaxs =</span> <span class="st">&quot;i&quot;</span>, <span class="at">yaxs =</span> <span class="st">&quot;i&quot;</span></span>
+<span id="cb47-12"><a href="リンク関数付き分布の説明.html#cb47-12" tabindex="-1"></a>)</span>
+<span id="cb47-13"><a href="リンク関数付き分布の説明.html#cb47-13" tabindex="-1"></a></span>
+<span id="cb47-14"><a href="リンク関数付き分布の説明.html#cb47-14" tabindex="-1"></a><span class="co"># 信頼区間のエラーバーを追加</span></span>
+<span id="cb47-15"><a href="リンク関数付き分布の説明.html#cb47-15" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">1</span>, pred_probs_A <span class="sc">-</span> <span class="fl">0.1</span>, <span class="dv">1</span>, pred_probs_A <span class="sc">+</span> <span class="fl">0.1</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">code =</span> <span class="dv">3</span>, <span class="at">length =</span> <span class="fl">0.1</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb47-16"><a href="リンク関数付き分布の説明.html#cb47-16" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">2</span>, pred_probs_B <span class="sc">-</span> <span class="fl">0.1</span>, <span class="dv">2</span>, pred_probs_B <span class="sc">+</span> <span class="fl">0.1</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">code =</span> <span class="dv">3</span>, <span class="at">length =</span> <span class="fl">0.1</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb47-17"><a href="リンク関数付き分布の説明.html#cb47-17" tabindex="-1"></a></span>
+<span id="cb47-18"><a href="リンク関数付き分布の説明.html#cb47-18" tabindex="-1"></a><span class="co"># x軸のカスタムラベルを追加 (Method A と Method B)</span></span>
+<span id="cb47-19"><a href="リンク関数付き分布の説明.html#cb47-19" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Method A&quot;</span>, <span class="st">&quot;Method B&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+</div>
+<div id="オッズ比" class="section level3 hasAnchor" number="4.9.3">
+<h3><span class="header-section-number">4.9.3</span> オッズ比<a href="リンク関数付き分布の説明.html#オッズ比" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Method Bは、Aに比べ、54%得点が低い</li>
+</ul>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="リンク関数付き分布の説明.html#cb48-1" tabindex="-1"></a><span class="fu">exp</span>(res<span class="fl">.2</span><span class="sc">$</span>coefficients)</span></code></pre></div>
+<pre><code>## (Intercept)     MethodB 
+##   0.9230769   0.5416667</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="リンク関数付き分布の説明.html#cb50-1" tabindex="-1"></a><span class="fu">exp</span>(stats<span class="sc">::</span><span class="fu">confint</span>(res<span class="fl">.2</span>))</span></code></pre></div>
+<pre><code>## Waiting for profiling to be done...</code></pre>
+<pre><code>##                 2.5 %   97.5 %
+## (Intercept) 0.4152080 2.035110
+## MethodB     0.1349245 1.998728</code></pre>
+</div>
+</div>
+<div id="次週までの課題-1" class="section level2 hasAnchor" number="4.10">
+<h2><span class="header-section-number">4.10</span> 次週までの課題<a href="リンク関数付き分布の説明.html#次週までの課題-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="課題内容-1" class="section level3 hasAnchor" number="4.10.1">
+<h3><span class="header-section-number">4.10.1</span> 課題内容<a href="リンク関数付き分布の説明.html#課題内容-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。</p></li>
+<li><p>（宿題を考える）</p></li>
+</ol>
+<ul>
+<li><p>サムコントラストでやる</p></li>
+<li><p><strong>Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。</strong></p></li>
+</ul>
+</div>
+<div id="提出方法-1" class="section level3 hasAnchor" number="4.10.2">
+<h3><span class="header-section-number">4.10.2</span> 提出方法<a href="リンク関数付き分布の説明.html#提出方法-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>メールにファイルを添付して送信。</li>
+<li>締め切りは今週の木曜日まで</li>
+</ul>
+</div>
+</div>
+<div id="参考文献-1" class="section level2 hasAnchor" number="4.11">
+<h2><span class="header-section-number">4.11</span> 参考文献<a href="リンク関数付き分布の説明.html#参考文献-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>草薙（2017）　確率分布から見る外国語教育研究データ</p></li>
+<li><p>馬場 RとStanではじめるベイズ統計モデリングによるデータ分析</p></li>
+<li><p><a href="https://debruine.github.io/faux/articles/contrasts.html#x3-design" class="uri">https://debruine.github.io/faux/articles/contrasts.html#x3-design</a></p></li>
+<li><p>Rを用いた一般化線形混合モデル（GLMM）の分析手法を身につける:言語研究分野の事例をもとに</p></li>
+</ul>
+<style>
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+
+.beg {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
+
+.caution {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
+  
+</style>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="week10-一般化線形モデルロジスティック回帰分析.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/010-Week10_logistic.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

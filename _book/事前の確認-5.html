@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 事前の確認 | 言語統計処理（春学期）</title>
+  <meta name="description" content="Chapter 9 事前の確認 | 言語統計処理（春学期）" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 事前の確認 | 言語統計処理（春学期）" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 事前の確認 | 言語統計処理（春学期）" />
+  
+  
+  
+
+<meta name="author" content="寺井雅人（Masato Terai）" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="week7-重回帰分析.html"/>
+<link rel="next" href="sharing-your-book.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">言語統計処理_春学期</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> url: your book url like https://bookdown.org/yihui/bookdown</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#講義概要"><i class="fa fa-check"></i><b>1.1</b> 講義概要</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#講義スケジュール"><i class="fa fa-check"></i><b>1.2</b> 講義スケジュール</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#成績評価について"><i class="fa fa-check"></i><b>1.3</b> 成績評価について</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#留意事項"><i class="fa fa-check"></i><b>1.4</b> 留意事項</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><i class="fa fa-check"></i><b>2</b> Week 1: オリエンテーション、R(Studio)のインストールと操作、R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#統計処理とは"><i class="fa fa-check"></i><b>2.1</b> 「統計処理」とは</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#量的研究質的研究"><i class="fa fa-check"></i><b>2.1.1</b> 量的研究、質的研究</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rとは"><i class="fa fa-check"></i><b>2.2</b> Rとは</a></li>
+<li class="chapter" data-level="2.3" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rのインストール"><i class="fa fa-check"></i><b>2.3</b> Rのインストール</a></li>
+<li class="chapter" data-level="2.4" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioとは"><i class="fa fa-check"></i><b>2.4</b> RStudioとは</a></li>
+<li class="chapter" data-level="2.5" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioのインストール"><i class="fa fa-check"></i><b>2.5</b> RStudioのインストール</a></li>
+<li class="chapter" data-level="2.6" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioの機能"><i class="fa fa-check"></i><b>2.6</b> RStudioの機能</a></li>
+<li class="chapter" data-level="2.7" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#プロジェクト機能"><i class="fa fa-check"></i><b>2.7</b> プロジェクト機能</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#プロジェクトの作成"><i class="fa fa-check"></i><b>2.7.1</b> プロジェクトの作成</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioのカスタマイズ"><i class="fa fa-check"></i><b>2.8</b> RStudioのカスタマイズ</a></li>
+<li class="chapter" data-level="2.9" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#r-markdown入門"><i class="fa fa-check"></i><b>2.9</b> R Markdown入門</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#knitを押して出力"><i class="fa fa-check"></i><b>2.9.1</b> Knit🧶を押して出力！</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#ドキュメントチャンクmarkdown記法"><i class="fa fa-check"></i><b>2.10</b> ドキュメントチャンク：Markdown記法</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#覚えるのはマストではないその都度調べてよく使うものを覚えていく"><i class="fa fa-check"></i><b>2.10.1</b> 覚えるのはマストではない。その都度調べてよく使うものを覚えていく</a></li>
+</ul></li>
+<li class="chapter" data-level="2.11" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#lets-実践"><i class="fa fa-check"></i><b>2.11</b> Let’s 実践</a></li>
+<li class="chapter" data-level="2.12" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#名古屋飯といえば"><i class="fa fa-check"></i><b>2.12</b> 名古屋飯といえば</a></li>
+<li class="chapter" data-level="2.13" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#ひつまぶしhitsumabushi"><i class="fa fa-check"></i><b>2.13</b> ひつまぶし：<em>Hitsumabushi</em></a></li>
+<li class="chapter" data-level="2.14" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#答え合わせ"><i class="fa fa-check"></i><b>2.14</b> 答え合わせ</a></li>
+<li class="chapter" data-level="2.15" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#コードチャンクの挿入"><i class="fa fa-check"></i><b>2.15</b> コードチャンクの挿入</a>
+<ul>
+<li class="chapter" data-level="2.15.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#ショートカットキーが便利ctrl-alt-iwindowscommand-option-imac"><i class="fa fa-check"></i><b>2.15.1</b> ショートカットキーが便利：[Ctrl] + [Alt] + [I]（Windows）、[Command] + [Option] + [I]（Mac）</a></li>
+</ul></li>
+<li class="chapter" data-level="2.16" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#lets-実践-1"><i class="fa fa-check"></i><b>2.16</b> Let’s 実践</a></li>
+<li class="chapter" data-level="2.17" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#食費の合計"><i class="fa fa-check"></i><b>2.17</b> 食費の合計</a></li>
+<li class="chapter" data-level="2.18" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#答え合わせ-1"><i class="fa fa-check"></i><b>2.18</b> 答え合わせ</a></li>
+<li class="chapter" data-level="2.19" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#次週までの課題"><i class="fa fa-check"></i><b>2.19</b> 次週までの課題</a>
+<ul>
+<li class="chapter" data-level="2.19.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#課題内容"><i class="fa fa-check"></i><b>2.19.1</b> 課題内容</a></li>
+<li class="chapter" data-level="2.19.2" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#提出方法"><i class="fa fa-check"></i><b>2.19.2</b> 提出方法</a></li>
+</ul></li>
+<li class="chapter" data-level="2.20" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#参考文献"><i class="fa fa-check"></i><b>2.20</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="3" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html"><i class="fa fa-check"></i><b>3</b> Week 2：要約統計量</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#事前の確認"><i class="fa fa-check"></i><b>3.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="3.2" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#今日の目標"><i class="fa fa-check"></i><b>3.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="3.3" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#今日の格言"><i class="fa fa-check"></i><b>3.3</b> 今日の格言</a></li>
+<li class="chapter" data-level="3.4" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#記述統計学と推測統計学"><i class="fa fa-check"></i><b>3.4</b> 記述統計学と推測統計学</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#記述統計学descriptive-statistics"><i class="fa fa-check"></i><b>3.4.1</b> 記述統計学（descriptive statistics）</a></li>
+<li class="chapter" data-level="3.4.2" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#推測統計学inferential-statistics"><i class="fa fa-check"></i><b>3.4.2</b> 推測統計学（inferential statistics）</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#データの尺度"><i class="fa fa-check"></i><b>3.5</b> データの尺度</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#比率尺度ratio-scale"><i class="fa fa-check"></i><b>3.5.1</b> 比率尺度（ratio scale）</a></li>
+<li class="chapter" data-level="3.5.2" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#間隔尺度interval-scale"><i class="fa fa-check"></i><b>3.5.2</b> 間隔尺度（interval scale）</a></li>
+<li class="chapter" data-level="3.5.3" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#順序尺度ordinal-scale"><i class="fa fa-check"></i><b>3.5.3</b> 順序尺度（ordinal scale）</a></li>
+<li class="chapter" data-level="3.5.4" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#名義尺度nominal-scale"><i class="fa fa-check"></i><b>3.5.4</b> 名義尺度（nominal scale）</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#とみなす"><i class="fa fa-check"></i><b>3.6</b> 「～とみなす」</a></li>
+<li class="chapter" data-level="3.7" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#要約統計量"><i class="fa fa-check"></i><b>3.7</b> 要約統計量</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#各統計量"><i class="fa fa-check"></i><b>3.7.1</b> 各統計量</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#データの可視化"><i class="fa fa-check"></i><b>3.8</b> データの可視化</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#量的データの可視化"><i class="fa fa-check"></i><b>3.8.1</b> 量的データの可視化</a></li>
+<li class="chapter" data-level="3.8.2" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#量的-質的データの可視化"><i class="fa fa-check"></i><b>3.8.2</b> 量的 + 質的データの可視化</a></li>
+<li class="chapter" data-level="3.8.3" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#質的データの可視化"><i class="fa fa-check"></i><b>3.8.3</b> 質的データの可視化</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#ハンズオンセッション"><i class="fa fa-check"></i><b>3.9</b> ハンズオンセッション</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#rの基本用語"><i class="fa fa-check"></i><b>3.9.1</b> Rの基本用語</a></li>
+<li class="chapter" data-level="3.9.2" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#データを読み込む"><i class="fa fa-check"></i><b>3.9.2</b> データを読み込む</a></li>
+<li class="chapter" data-level="3.9.3" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#データフレーム"><i class="fa fa-check"></i><b>3.9.3</b> データフレーム</a></li>
+<li class="chapter" data-level="3.9.4" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#要約統計量の算出"><i class="fa fa-check"></i><b>3.9.4</b> 要約統計量の算出</a></li>
+<li class="chapter" data-level="3.9.5" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#作図"><i class="fa fa-check"></i><b>3.9.5</b> 作図</a></li>
+</ul></li>
+<li class="chapter" data-level="3.10" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#まとめ"><i class="fa fa-check"></i><b>3.10</b> まとめ</a></li>
+<li class="chapter" data-level="3.11" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#次週までの課題-1"><i class="fa fa-check"></i><b>3.11</b> 次週までの課題</a>
+<ul>
+<li class="chapter" data-level="3.11.1" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#課題内容-1"><i class="fa fa-check"></i><b>3.11.1</b> 課題内容</a></li>
+<li class="chapter" data-level="3.11.2" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#提出方法-1"><i class="fa fa-check"></i><b>3.11.2</b> 提出方法</a></li>
+</ul></li>
+<li class="chapter" data-level="3.12" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#参考文献-1"><i class="fa fa-check"></i><b>3.12</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="推測統計学.html"><a href="推測統計学.html"><i class="fa fa-check"></i><b>4</b> 推測統計学</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="推測統計学.html"><a href="推測統計学.html#事前の確認-1"><i class="fa fa-check"></i><b>4.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="4.2" data-path="推測統計学.html"><a href="推測統計学.html#今日の目標-1"><i class="fa fa-check"></i><b>4.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="4.3" data-path="推測統計学.html"><a href="推測統計学.html#母集団と標本"><i class="fa fa-check"></i><b>4.3</b> 母集団と標本</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="推測統計学.html"><a href="推測統計学.html#母集団population"><i class="fa fa-check"></i><b>4.3.1</b> 母集団（population）</a></li>
+<li class="chapter" data-level="4.3.2" data-path="推測統計学.html"><a href="推測統計学.html#標本sample"><i class="fa fa-check"></i><b>4.3.2</b> 標本（Sample）</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="推測統計学.html"><a href="推測統計学.html#確率と確率変数"><i class="fa fa-check"></i><b>4.4</b> 確率と確率変数</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="推測統計学.html"><a href="推測統計学.html#確率"><i class="fa fa-check"></i><b>4.4.1</b> 確率</a></li>
+<li class="chapter" data-level="4.4.2" data-path="推測統計学.html"><a href="推測統計学.html#確率変数と確率分布"><i class="fa fa-check"></i><b>4.4.2</b> 確率変数と確率分布</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="推測統計学.html"><a href="推測統計学.html#推測統計学の考え方"><i class="fa fa-check"></i><b>4.5</b> 推測統計学の考え方</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="推測統計学.html"><a href="推測統計学.html#標本統計量"><i class="fa fa-check"></i><b>4.5.1</b> 標本統計量</a></li>
+<li class="chapter" data-level="4.5.2" data-path="推測統計学.html"><a href="推測統計学.html#標本分布"><i class="fa fa-check"></i><b>4.5.2</b> 標本分布</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="推測統計学.html"><a href="推測統計学.html#区間推定の考え方"><i class="fa fa-check"></i><b>4.6</b> 区間推定の考え方</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="推測統計学.html"><a href="推測統計学.html#母集団分布に確率分布を仮定する"><i class="fa fa-check"></i><b>4.6.1</b> 母集団分布に確率分布を仮定する</a></li>
+<li class="chapter" data-level="4.6.2" data-path="推測統計学.html"><a href="推測統計学.html#正規分布の性質"><i class="fa fa-check"></i><b>4.6.2</b> 正規分布の性質</a></li>
+<li class="chapter" data-level="4.6.3" data-path="推測統計学.html"><a href="推測統計学.html#確率モデルを用いた推定"><i class="fa fa-check"></i><b>4.6.3</b> 確率モデルを用いた推定</a></li>
+<li class="chapter" data-level="4.6.4" data-path="推測統計学.html"><a href="推測統計学.html#正規分布モデルにおける標本平均の標本分布"><i class="fa fa-check"></i><b>4.6.4</b> 正規分布モデルにおける標本平均の標本分布</a></li>
+<li class="chapter" data-level="4.6.5" data-path="推測統計学.html"><a href="推測統計学.html#区間推定"><i class="fa fa-check"></i><b>4.6.5</b> 区間推定</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="推測統計学.html"><a href="推測統計学.html#rの関数で95信頼区間を求める"><i class="fa fa-check"></i><b>4.7</b> Rの関数で95%信頼区間を求める</a></li>
+<li class="chapter" data-level="4.8" data-path="推測統計学.html"><a href="推測統計学.html#ハンズオンセッション-1"><i class="fa fa-check"></i><b>4.8</b> ハンズオンセッション</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="推測統計学.html"><a href="推測統計学.html#データの読み込み"><i class="fa fa-check"></i><b>4.8.1</b> データの読み込み</a></li>
+<li class="chapter" data-level="4.8.2" data-path="推測統計学.html"><a href="推測統計学.html#確率分布を選ぶ"><i class="fa fa-check"></i><b>4.8.2</b> 確率分布を選ぶ</a></li>
+<li class="chapter" data-level="4.8.3" data-path="推測統計学.html"><a href="推測統計学.html#母分散未知の母平均の95信頼区間を求める"><i class="fa fa-check"></i><b>4.8.3</b> 母分散未知の母平均の95%信頼区間を求める</a></li>
+<li class="chapter" data-level="4.8.4" data-path="推測統計学.html"><a href="推測統計学.html#ci関数"><i class="fa fa-check"></i><b>4.8.4</b> ci関数</a></li>
+<li class="chapter" data-level="4.8.5" data-path="推測統計学.html"><a href="推測統計学.html#qt関数"><i class="fa fa-check"></i><b>4.8.5</b> qt関数</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="推測統計学.html"><a href="推測統計学.html#まとめ-1"><i class="fa fa-check"></i><b>4.9</b> まとめ</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="統計的検定.html"><a href="統計的検定.html"><i class="fa fa-check"></i><b>5</b> 統計的検定</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="統計的検定.html"><a href="統計的検定.html#事前の確認-2"><i class="fa fa-check"></i><b>5.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="5.2" data-path="統計的検定.html"><a href="統計的検定.html#今日の目標-2"><i class="fa fa-check"></i><b>5.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="5.3" data-path="統計的検定.html"><a href="統計的検定.html#統計的検定statistical-test"><i class="fa fa-check"></i><b>5.3</b> 統計的検定（statistical test）</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="統計的検定.html"><a href="統計的検定.html#統計的検定の論理"><i class="fa fa-check"></i><b>5.3.1</b> 統計的検定の論理</a></li>
+<li class="chapter" data-level="5.3.2" data-path="統計的検定.html"><a href="統計的検定.html#統計検定の具体的な考え方"><i class="fa fa-check"></i><b>5.3.2</b> 統計検定の具体的な考え方</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="統計的検定.html"><a href="統計的検定.html#統計的検定の手順"><i class="fa fa-check"></i><b>5.4</b> 統計的検定の手順</a></li>
+<li class="chapter" data-level="5.5" data-path="統計的検定.html"><a href="統計的検定.html#統計的検定で必要な知識"><i class="fa fa-check"></i><b>5.5</b> 統計的検定で必要な知識</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="統計的検定.html"><a href="統計的検定.html#p-値"><i class="fa fa-check"></i><b>5.5.1</b> <em>p</em> 値</a></li>
+<li class="chapter" data-level="5.5.2" data-path="統計的検定.html"><a href="統計的検定.html#統計的検定の誤りと検出力"><i class="fa fa-check"></i><b>5.5.2</b> 統計的検定の誤りと検出力</a></li>
+<li class="chapter" data-level="5.5.3" data-path="統計的検定.html"><a href="統計的検定.html#有意性検定-統計的検定の問題点"><i class="fa fa-check"></i><b>5.5.3</b> 有意性検定（≒ 統計的検定）の問題点</a></li>
+<li class="chapter" data-level="5.5.4" data-path="統計的検定.html"><a href="統計的検定.html#頻度論的統計学とベイズ統計学"><i class="fa fa-check"></i><b>5.5.4</b> 頻度論的統計学とベイズ統計学</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="統計的検定.html"><a href="統計的検定.html#ハンズオンセッション-2"><i class="fa fa-check"></i><b>5.6</b> ハンズオンセッション</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="統計的検定.html"><a href="統計的検定.html#t-検定"><i class="fa fa-check"></i><b>5.6.1</b> <em>t</em> 検定</a></li>
+<li class="chapter" data-level="5.6.2" data-path="統計的検定.html"><a href="統計的検定.html#基本用語"><i class="fa fa-check"></i><b>5.6.2</b> 基本用語</a></li>
+<li class="chapter" data-level="5.6.3" data-path="統計的検定.html"><a href="統計的検定.html#t検定を使用する前提"><i class="fa fa-check"></i><b>5.6.3</b> <em>t</em>検定を使用する前提</a></li>
+<li class="chapter" data-level="5.6.4" data-path="統計的検定.html"><a href="統計的検定.html#t-値の算出"><i class="fa fa-check"></i><b>5.6.4</b> <em>t</em> 値の算出</a></li>
+<li class="chapter" data-level="5.6.5" data-path="統計的検定.html"><a href="統計的検定.html#rでの実装"><i class="fa fa-check"></i><b>5.6.5</b> Rでの実装</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="統計的検定.html"><a href="統計的検定.html#次週までの課題-2"><i class="fa fa-check"></i><b>5.7</b> 次週までの課題</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="統計的検定.html"><a href="統計的検定.html#課題内容-2"><i class="fa fa-check"></i><b>5.7.1</b> 課題内容</a></li>
+<li class="chapter" data-level="5.7.2" data-path="統計的検定.html"><a href="統計的検定.html#提出方法-2"><i class="fa fa-check"></i><b>5.7.2</b> 提出方法</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="統計的検定.html"><a href="統計的検定.html#参考文献-2"><i class="fa fa-check"></i><b>5.8</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="week5-相関分析.html"><a href="week5-相関分析.html"><i class="fa fa-check"></i><b>6</b> Week5: 相関分析</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="week5-相関分析.html"><a href="week5-相関分析.html#事前の確認-3"><i class="fa fa-check"></i><b>6.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="6.2" data-path="week5-相関分析.html"><a href="week5-相関分析.html#今日の目標-3"><i class="fa fa-check"></i><b>6.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="6.3" data-path="week5-相関分析.html"><a href="week5-相関分析.html#相関分析correlation-analysisとは"><i class="fa fa-check"></i><b>6.3</b> 相関分析（Correlation analysis）とは</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="week5-相関分析.html"><a href="week5-相関分析.html#相関関係の種類"><i class="fa fa-check"></i><b>6.3.1</b> 相関関係の種類</a></li>
+<li class="chapter" data-level="6.3.2" data-path="week5-相関分析.html"><a href="week5-相関分析.html#相関係数の検定"><i class="fa fa-check"></i><b>6.3.2</b> 相関係数の検定</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="week5-相関分析.html"><a href="week5-相関分析.html#ハンズオンセッション-3"><i class="fa fa-check"></i><b>6.4</b> ハンズオンセッション</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="week5-相関分析.html"><a href="week5-相関分析.html#データの読み込み-1"><i class="fa fa-check"></i><b>6.4.1</b> データの読み込み</a></li>
+<li class="chapter" data-level="6.4.2" data-path="week5-相関分析.html"><a href="week5-相関分析.html#散布図の作成"><i class="fa fa-check"></i><b>6.4.2</b> 散布図の作成</a></li>
+<li class="chapter" data-level="6.4.3" data-path="week5-相関分析.html"><a href="week5-相関分析.html#相関係数の算出"><i class="fa fa-check"></i><b>6.4.3</b> 相関係数の算出</a></li>
+<li class="chapter" data-level="6.4.4" data-path="week5-相関分析.html"><a href="week5-相関分析.html#相関係数の解釈"><i class="fa fa-check"></i><b>6.4.4</b> 相関係数の解釈</a></li>
+<li class="chapter" data-level="6.4.5" data-path="week5-相関分析.html"><a href="week5-相関分析.html#論文への記載"><i class="fa fa-check"></i><b>6.4.5</b> 論文への記載</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="week5-相関分析.html"><a href="week5-相関分析.html#次週までの課題-3"><i class="fa fa-check"></i><b>6.5</b> 次週までの課題</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="week5-相関分析.html"><a href="week5-相関分析.html#課題内容-3"><i class="fa fa-check"></i><b>6.5.1</b> 課題内容</a></li>
+<li class="chapter" data-level="6.5.2" data-path="week5-相関分析.html"><a href="week5-相関分析.html#提出方法-3"><i class="fa fa-check"></i><b>6.5.2</b> 提出方法</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="week5-相関分析.html"><a href="week5-相関分析.html#参考文献-3"><i class="fa fa-check"></i><b>6.6</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html"><i class="fa fa-check"></i><b>7</b> 単回帰分析（連続型の説明変数）</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#今後の修正案"><i class="fa fa-check"></i><b>7.1</b> 今後の修正案</a></li>
+<li class="chapter" data-level="7.2" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#事前の確認-4"><i class="fa fa-check"></i><b>7.2</b> 事前の確認</a></li>
+<li class="chapter" data-level="7.3" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#今日の目標-4"><i class="fa fa-check"></i><b>7.3</b> 今日の目標</a></li>
+<li class="chapter" data-level="7.4" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#回帰分析regression-analysisとは"><i class="fa fa-check"></i><b>7.4</b> 回帰分析（regression analysis）とは</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#回帰分析の種類"><i class="fa fa-check"></i><b>7.4.1</b> 回帰分析の種類</a></li>
+<li class="chapter" data-level="7.4.2" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#変数の名前"><i class="fa fa-check"></i><b>7.4.2</b> 変数の名前</a></li>
+<li class="chapter" data-level="7.4.3" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#最小二乗法"><i class="fa fa-check"></i><b>7.4.3</b> 最小二乗法</a></li>
+<li class="chapter" data-level="7.4.4" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#ベイズ推定"><i class="fa fa-check"></i><b>7.4.4</b> ベイズ推定</a></li>
+<li class="chapter" data-level="7.4.5" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#回帰分析における予測値と残差"><i class="fa fa-check"></i><b>7.4.5</b> 回帰分析における予測値と残差</a></li>
+<li class="chapter" data-level="7.4.6" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#回帰直線の当てはまりの良さ"><i class="fa fa-check"></i><b>7.4.6</b> 回帰直線の当てはまりの良さ</a></li>
+<li class="chapter" data-level="7.4.7" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#回帰分析を使う際の注意点"><i class="fa fa-check"></i><b>7.4.7</b> 回帰分析を使う際の注意点</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#ハンズオンセッション-4"><i class="fa fa-check"></i><b>7.5</b> ハンズオンセッション</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#データの読み込み-2"><i class="fa fa-check"></i><b>7.5.1</b> データの読み込み</a></li>
+<li class="chapter" data-level="7.5.2" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#読み込んだデータの確認"><i class="fa fa-check"></i><b>7.5.2</b> 読み込んだデータの確認</a></li>
+<li class="chapter" data-level="7.5.3" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#変数間の相関の確認"><i class="fa fa-check"></i><b>7.5.3</b> 変数間の相関の確認</a></li>
+<li class="chapter" data-level="7.5.4" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#回帰分析の実施"><i class="fa fa-check"></i><b>7.5.4</b> 回帰分析の実施</a></li>
+<li class="chapter" data-level="7.5.5" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#結果の解釈"><i class="fa fa-check"></i><b>7.5.5</b> 結果の解釈</a></li>
+<li class="chapter" data-level="7.5.6" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#モデルの診断"><i class="fa fa-check"></i><b>7.5.6</b> モデルの診断</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#次週までの課題-4"><i class="fa fa-check"></i><b>7.6</b> 次週までの課題</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#課題内容-4"><i class="fa fa-check"></i><b>7.6.1</b> 課題内容</a></li>
+<li class="chapter" data-level="7.6.2" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#提出方法-4"><i class="fa fa-check"></i><b>7.6.2</b> 提出方法</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#参考文献-4"><i class="fa fa-check"></i><b>7.7</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html"><i class="fa fa-check"></i><b>8</b> Week7: 重回帰分析</a></li>
+<li class="chapter" data-level="9" data-path="事前の確認-5.html"><a href="事前の確認-5.html"><i class="fa fa-check"></i><b>9</b> 事前の確認</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="事前の確認-5.html"><a href="事前の確認-5.html#今日の目標-5"><i class="fa fa-check"></i><b>9.1</b> 今日の目標</a></li>
+<li class="chapter" data-level="9.2" data-path="事前の確認-5.html"><a href="事前の確認-5.html#重回帰分析とは"><i class="fa fa-check"></i><b>9.2</b> 重回帰分析とは</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="事前の確認-5.html"><a href="事前の確認-5.html#偏回帰係数"><i class="fa fa-check"></i><b>9.2.1</b> 偏回帰係数</a></li>
+<li class="chapter" data-level="9.2.2" data-path="事前の確認-5.html"><a href="事前の確認-5.html#重相関係数と決定係数"><i class="fa fa-check"></i><b>9.2.2</b> 重相関係数と決定係数</a></li>
+<li class="chapter" data-level="9.2.3" data-path="事前の確認-5.html"><a href="事前の確認-5.html#回帰式の有意性-f-検定"><i class="fa fa-check"></i><b>9.2.3</b> 回帰式の有意性（ <em>F</em> 検定）</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="事前の確認-5.html"><a href="事前の確認-5.html#重回帰分析を行う上での注意点"><i class="fa fa-check"></i><b>9.3</b> 重回帰分析を行う上での注意点</a></li>
+<li class="chapter" data-level="9.4" data-path="事前の確認-5.html"><a href="事前の確認-5.html#ハンズオンセッション-5"><i class="fa fa-check"></i><b>9.4</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="9.5" data-path="事前の確認-5.html"><a href="事前の確認-5.html#コラム"><i class="fa fa-check"></i><b>9.5</b> コラム</a></li>
+<li class="chapter" data-level="9.6" data-path="事前の確認-5.html"><a href="事前の確認-5.html#次週までの課題-5"><i class="fa fa-check"></i><b>9.6</b> 次週までの課題</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="事前の確認-5.html"><a href="事前の確認-5.html#課題内容-5"><i class="fa fa-check"></i><b>9.6.1</b> 課題内容</a></li>
+<li class="chapter" data-level="9.6.2" data-path="事前の確認-5.html"><a href="事前の確認-5.html#提出方法-5"><i class="fa fa-check"></i><b>9.6.2</b> 提出方法</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="事前の確認-5.html"><a href="事前の確認-5.html#参考文献-5"><i class="fa fa-check"></i><b>9.7</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>10</b> Sharing your book</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">言語統計処理（春学期）</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="事前の確認-5" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> 事前の確認<a href="事前の確認-5.html#事前の確認-5" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<ul>
+<li><p>この講義のRプロジェクトを開いていますか？</p></li>
+<li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
+<ul>
+<li>.Rでも.Rmdでもどちらでも大丈夫です。</li>
+</ul></li>
+</ul>
+<div id="今日の目標-5" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> 今日の目標<a href="事前の確認-5.html#今日の目標-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li></li>
+<li></li>
+</ol>
+</div>
+<div id="重回帰分析とは" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> 重回帰分析とは<a href="事前の確認-5.html#重回帰分析とは" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>単回帰分析：変数が1つ</li>
+</ul>
+<p><span class="math display">\[
+\hat{y} = a + bx
+\]</span></p>
+<ul>
+<li>重回帰分析：変数が2つ以上</li>
+</ul>
+<p><span class="math display">\[
+\hat{y} = a + {b_1}{x_1} + {b_2}{x_2}
+\]</span></p>
+<div id="偏回帰係数" class="section level3 hasAnchor" number="9.2.1">
+<h3><span class="header-section-number">9.2.1</span> 偏回帰係数<a href="事前の確認-5.html#偏回帰係数" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>重回帰式における回帰係数：偏回帰係数（partial regression coefficient）</p>
+<ul>
+<li><strong>他の独立変数の影響を取り除いた（一定にした）</strong>、ある独立変数の従属変数への影響力</li>
+</ul></li>
+<li><p>変数間で単位が異なる場合、従属変数、独立変数をすべて標準化することで、<strong>標準化偏回帰係数（standardized partial regression coefficient）</strong>を算出し、変数間の影響力を比較する</p></li>
+<li><p>（標準化）偏回帰係数は、従属変数と独立変数の<strong>因果関係</strong>を示すわけではないことに注意</p></li>
+</ul>
+</div>
+<div id="重相関係数と決定係数" class="section level3 hasAnchor" number="9.2.2">
+<h3><span class="header-section-number">9.2.2</span> 重相関係数と決定係数<a href="事前の確認-5.html#重相関係数と決定係数" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>重相関係数（multiple correlation coefficient）</p>
+<ul>
+<li><p>全ての独立変数から得られた、従属変数との相関を表す指標</p>
+<ul>
+<li><u>単回帰の場合は、相関係数の2倍が決定係数</u></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="回帰式の有意性-f-検定" class="section level3 hasAnchor" number="9.2.3">
+<h3><span class="header-section-number">9.2.3</span> 回帰式の有意性（ <em>F</em> 検定）<a href="事前の確認-5.html#回帰式の有意性-f-検定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="重回帰分析を行う上での注意点" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> 重回帰分析を行う上での注意点<a href="事前の確認-5.html#重回帰分析を行う上での注意点" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><a href="https://www.note.kanekoshobo.co.jp/n/n9624e14dda8e#733dd8a6-e3c2-4767-8e8b-7a50ae6eeaf4" class="uri">https://www.note.kanekoshobo.co.jp/n/n9624e14dda8e#733dd8a6-e3c2-4767-8e8b-7a50ae6eeaf4</a></li>
+<li><a href="https://www.jstage.jst.go.jp/article/jjpsy/92/3/92_92.19226/_pdf" class="uri">https://www.jstage.jst.go.jp/article/jjpsy/92/3/92_92.19226/_pdf</a></li>
+</ul>
+</div>
+<div id="ハンズオンセッション-5" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> ハンズオンセッション<a href="事前の確認-5.html#ハンズオンセッション-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="コラム" class="section level2 hasAnchor" number="9.5">
+<h2><span class="header-section-number">9.5</span> コラム<a href="事前の確認-5.html#コラム" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>分散分析をやめよう（<a href="https://www.cambridge.org/core/journals/studies-in-second-language-acquisition/article/multiple-regression-as-a-flexible-alternative-to-anova-in-l2-research/61C0249F51E200C712D2DDF7D489C835" class="uri">https://www.cambridge.org/core/journals/studies-in-second-language-acquisition/article/multiple-regression-as-a-flexible-alternative-to-anova-in-l2-research/61C0249F51E200C712D2DDF7D489C835</a>）</li>
+</ul>
+</div>
+<div id="次週までの課題-5" class="section level2 hasAnchor" number="9.6">
+<h2><span class="header-section-number">9.6</span> 次週までの課題<a href="事前の確認-5.html#次週までの課題-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="課題内容-5" class="section level3 hasAnchor" number="9.6.1">
+<h3><span class="header-section-number">9.6.1</span> 課題内容<a href="事前の確認-5.html#課題内容-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。</p></li>
+<li><p>（宿題を考える）</p></li>
+</ol>
+<ul>
+<li><strong>Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。</strong></li>
+</ul>
+</div>
+<div id="提出方法-5" class="section level3 hasAnchor" number="9.6.2">
+<h3><span class="header-section-number">9.6.2</span> 提出方法<a href="事前の確認-5.html#提出方法-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>メールにファイルを添付して送信。</li>
+<li>締め切りは今週の木曜日まで</li>
+</ul>
+</div>
+</div>
+<div id="参考文献-5" class="section level2 hasAnchor" number="9.7">
+<h2><span class="header-section-number">9.7</span> 参考文献<a href="事前の確認-5.html#参考文献-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>心理学統計法　放送大学</p></li>
+<li><p>心理学・教育学研究のための効果量入門</p></li>
+<li><p>平井 et al. </p></li>
+<li><p>外国語教育ハンドブック</p></li>
+<li><p>心理統計</p></li>
+<li><p>Plonsky, L., &amp; Oswald, F. L. (2014). How big is “big”? Interpreting effect sizes in L2 research. Language learning, 64(4), 878-912.</p></li>
+<li><p>Messerli, F. H. (2012). Chocolate consumption, cognitive function, and Nobel laureates. N Engl J Med, 367(16), 1562-1564.</p></li>
+<li><p><a href="https://www.pref.yamaguchi.lg.jp/soshiki/22/101008.html" class="uri">https://www.pref.yamaguchi.lg.jp/soshiki/22/101008.html</a></p></li>
+</ul>
+<style>
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+
+.beg {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
+
+.caution {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
+  
+</style>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="week7-重回帰分析.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="sharing-your-book.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/07-multipleregression.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
