@@ -1,4 +1,4 @@
-# Week11: 階層モデル
+# Week 12: 効果量と検定力分析
 
 ```{r, include=FALSE}
 library(rstan)
