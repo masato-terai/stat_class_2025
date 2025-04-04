@@ -1,4 +1,4 @@
-# Week 12: 効果量と検定力分析
+# Week 13: ノンパラメトリック検定
 
 ```{r, include=FALSE}
 library(rstan)
