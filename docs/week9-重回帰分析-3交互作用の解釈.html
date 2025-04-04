@@ -1,0 +1,3570 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 10 Week9: 重回帰分析 (3)：交互作用の解釈 | 言語統計処理（春学期）</title>
+  <meta name="description" content="Chapter 10 Week9: 重回帰分析 (3)：交互作用の解釈 | 言語統計処理（春学期）" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 10 Week9: 重回帰分析 (3)：交互作用の解釈 | 言語統計処理（春学期）" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 10 Week9: 重回帰分析 (3)：交互作用の解釈 | 言語統計処理（春学期）" />
+  
+  
+  
+
+<meta name="author" content="寺井雅人（Masato Terai）" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="week8-重回帰分析-2.html"/>
+<link rel="next" href="week10-一般化線形モデルロジスティック回帰分析.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">言語統計処理_春学期</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#講義概要"><i class="fa fa-check"></i><b>1.1</b> 講義概要</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#講義スケジュール"><i class="fa fa-check"></i><b>1.2</b> 講義スケジュール</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#成績評価について"><i class="fa fa-check"></i><b>1.3</b> 成績評価について</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#留意事項"><i class="fa fa-check"></i><b>1.4</b> 留意事項</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><i class="fa fa-check"></i><b>2</b> Week 1: オリエンテーション、R(Studio)のインストールと操作、R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#統計処理とは"><i class="fa fa-check"></i><b>2.1</b> 「統計処理」とは</a></li>
+<li class="chapter" data-level="2.2" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rとは"><i class="fa fa-check"></i><b>2.2</b> Rとは</a></li>
+<li class="chapter" data-level="2.3" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rのインストール"><i class="fa fa-check"></i><b>2.3</b> Rのインストール</a></li>
+<li class="chapter" data-level="2.4" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioとは"><i class="fa fa-check"></i><b>2.4</b> RStudioとは</a></li>
+<li class="chapter" data-level="2.5" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioのインストール"><i class="fa fa-check"></i><b>2.5</b> RStudioのインストール</a></li>
+<li class="chapter" data-level="2.6" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioの機能"><i class="fa fa-check"></i><b>2.6</b> RStudioの機能</a></li>
+<li class="chapter" data-level="2.7" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#プロジェクト機能"><i class="fa fa-check"></i><b>2.7</b> プロジェクト機能</a></li>
+<li class="chapter" data-level="2.8" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioのカスタマイズ"><i class="fa fa-check"></i><b>2.8</b> RStudioのカスタマイズ</a></li>
+<li class="chapter" data-level="2.9" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#r-markdown入門"><i class="fa fa-check"></i><b>2.9</b> R Markdown入門</a></li>
+<li class="chapter" data-level="2.10" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#ドキュメントチャンクmarkdown記法"><i class="fa fa-check"></i><b>2.10</b> ドキュメントチャンク：Markdown記法</a></li>
+<li class="chapter" data-level="2.11" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#lets-実践"><i class="fa fa-check"></i><b>2.11</b> Let’s 実践</a></li>
+<li class="chapter" data-level="2.14" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#答え合わせ"><i class="fa fa-check"></i><b>2.14</b> 答え合わせ</a></li>
+<li class="chapter" data-level="2.15" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#コードチャンクの挿入"><i class="fa fa-check"></i><b>2.15</b> コードチャンクの挿入</a></li>
+<li class="chapter" data-level="2.16" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#lets-実践-1"><i class="fa fa-check"></i><b>2.16</b> Let’s 実践</a></li>
+<li class="chapter" data-level="2.17" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#食費の合計"><i class="fa fa-check"></i><b>2.17</b> 食費の合計</a></li>
+<li class="chapter" data-level="2.18" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#答え合わせ-1"><i class="fa fa-check"></i><b>2.18</b> 答え合わせ</a></li>
+<li class="chapter" data-level="2.19" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#次週までの課題"><i class="fa fa-check"></i><b>2.19</b> 次週までの課題</a></li>
+<li class="chapter" data-level="2.20" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#参考文献"><i class="fa fa-check"></i><b>2.20</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="3" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html"><i class="fa fa-check"></i><b>3</b> Week 2：要約統計量</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#事前の確認"><i class="fa fa-check"></i><b>3.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="3.2" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#今日の目標"><i class="fa fa-check"></i><b>3.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="3.3" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#今日の格言"><i class="fa fa-check"></i><b>3.3</b> 今日の格言</a></li>
+<li class="chapter" data-level="3.4" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#記述統計学と推測統計学"><i class="fa fa-check"></i><b>3.4</b> 記述統計学と推測統計学</a></li>
+<li class="chapter" data-level="3.5" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#データの尺度"><i class="fa fa-check"></i><b>3.5</b> データの尺度</a></li>
+<li class="chapter" data-level="3.6" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#とみなす"><i class="fa fa-check"></i><b>3.6</b> 「～とみなす」</a></li>
+<li class="chapter" data-level="3.7" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#要約統計量"><i class="fa fa-check"></i><b>3.7</b> 要約統計量</a></li>
+<li class="chapter" data-level="3.8" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#データの可視化"><i class="fa fa-check"></i><b>3.8</b> データの可視化</a></li>
+<li class="chapter" data-level="3.9" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#ハンズオンセッション"><i class="fa fa-check"></i><b>3.9</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="3.10" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#まとめ"><i class="fa fa-check"></i><b>3.10</b> まとめ</a></li>
+<li class="chapter" data-level="3.11" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#次週までの課題-1"><i class="fa fa-check"></i><b>3.11</b> 次週までの課題</a></li>
+<li class="chapter" data-level="3.12" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#参考文献-1"><i class="fa fa-check"></i><b>3.12</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="推測統計学.html"><a href="推測統計学.html"><i class="fa fa-check"></i><b>4</b> 推測統計学</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="推測統計学.html"><a href="推測統計学.html#事前の確認-1"><i class="fa fa-check"></i><b>4.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="4.2" data-path="推測統計学.html"><a href="推測統計学.html#今日の目標-1"><i class="fa fa-check"></i><b>4.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="4.3" data-path="推測統計学.html"><a href="推測統計学.html#母集団と標本"><i class="fa fa-check"></i><b>4.3</b> 母集団と標本</a></li>
+<li class="chapter" data-level="4.4" data-path="推測統計学.html"><a href="推測統計学.html#確率と確率変数"><i class="fa fa-check"></i><b>4.4</b> 確率と確率変数</a></li>
+<li class="chapter" data-level="4.5" data-path="推測統計学.html"><a href="推測統計学.html#推測統計学の考え方"><i class="fa fa-check"></i><b>4.5</b> 推測統計学の考え方</a></li>
+<li class="chapter" data-level="4.6" data-path="推測統計学.html"><a href="推測統計学.html#区間推定の考え方"><i class="fa fa-check"></i><b>4.6</b> 区間推定の考え方</a></li>
+<li class="chapter" data-level="4.7" data-path="推測統計学.html"><a href="推測統計学.html#rの関数で95信頼区間を求める"><i class="fa fa-check"></i><b>4.7</b> Rの関数で95%信頼区間を求める</a></li>
+<li class="chapter" data-level="4.8" data-path="推測統計学.html"><a href="推測統計学.html#ハンズオンセッション-1"><i class="fa fa-check"></i><b>4.8</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="4.9" data-path="推測統計学.html"><a href="推測統計学.html#まとめ-1"><i class="fa fa-check"></i><b>4.9</b> まとめ</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="統計的検定.html"><a href="統計的検定.html"><i class="fa fa-check"></i><b>5</b> 統計的検定</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="統計的検定.html"><a href="統計的検定.html#事前の確認-2"><i class="fa fa-check"></i><b>5.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="5.2" data-path="統計的検定.html"><a href="統計的検定.html#今日の目標-2"><i class="fa fa-check"></i><b>5.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="5.3" data-path="統計的検定.html"><a href="統計的検定.html#統計的検定statistical-test"><i class="fa fa-check"></i><b>5.3</b> 統計的検定（statistical test）</a></li>
+<li class="chapter" data-level="5.4" data-path="統計的検定.html"><a href="統計的検定.html#統計的検定の手順"><i class="fa fa-check"></i><b>5.4</b> 統計的検定の手順</a></li>
+<li class="chapter" data-level="5.5" data-path="統計的検定.html"><a href="統計的検定.html#統計的検定で必要な知識"><i class="fa fa-check"></i><b>5.5</b> 統計的検定で必要な知識</a></li>
+<li class="chapter" data-level="5.6" data-path="統計的検定.html"><a href="統計的検定.html#ハンズオンセッション-2"><i class="fa fa-check"></i><b>5.6</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="5.7" data-path="統計的検定.html"><a href="統計的検定.html#次週までの課題-2"><i class="fa fa-check"></i><b>5.7</b> 次週までの課題</a></li>
+<li class="chapter" data-level="5.8" data-path="統計的検定.html"><a href="統計的検定.html#参考文献-2"><i class="fa fa-check"></i><b>5.8</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="week5-相関分析.html"><a href="week5-相関分析.html"><i class="fa fa-check"></i><b>6</b> Week5: 相関分析</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="week5-相関分析.html"><a href="week5-相関分析.html#事前の確認-3"><i class="fa fa-check"></i><b>6.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="6.2" data-path="week5-相関分析.html"><a href="week5-相関分析.html#今日の目標-3"><i class="fa fa-check"></i><b>6.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="6.3" data-path="week5-相関分析.html"><a href="week5-相関分析.html#相関分析correlation-analysisとは"><i class="fa fa-check"></i><b>6.3</b> 相関分析（Correlation analysis）とは</a></li>
+<li class="chapter" data-level="6.4" data-path="week5-相関分析.html"><a href="week5-相関分析.html#ハンズオンセッション-3"><i class="fa fa-check"></i><b>6.4</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="6.5" data-path="week5-相関分析.html"><a href="week5-相関分析.html#次週までの課題-3"><i class="fa fa-check"></i><b>6.5</b> 次週までの課題</a></li>
+<li class="chapter" data-level="6.6" data-path="week5-相関分析.html"><a href="week5-相関分析.html#参考文献-3"><i class="fa fa-check"></i><b>6.6</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html"><i class="fa fa-check"></i><b>7</b> 単回帰分析（連続型の説明変数）</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#今後の修正案"><i class="fa fa-check"></i><b>7.1</b> 今後の修正案</a></li>
+<li class="chapter" data-level="7.2" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#事前の確認-4"><i class="fa fa-check"></i><b>7.2</b> 事前の確認</a></li>
+<li class="chapter" data-level="7.3" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#今日の目標-4"><i class="fa fa-check"></i><b>7.3</b> 今日の目標</a></li>
+<li class="chapter" data-level="7.4" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#回帰分析regression-analysisとは"><i class="fa fa-check"></i><b>7.4</b> 回帰分析（regression analysis）とは</a></li>
+<li class="chapter" data-level="7.5" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#ハンズオンセッション-4"><i class="fa fa-check"></i><b>7.5</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="7.6" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#次週までの課題-4"><i class="fa fa-check"></i><b>7.6</b> 次週までの課題</a></li>
+<li class="chapter" data-level="7.7" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#参考文献-4"><i class="fa fa-check"></i><b>7.7</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html"><i class="fa fa-check"></i><b>8</b> Week7: 重回帰分析</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#メモ"><i class="fa fa-check"></i><b>8.1</b> メモ</a></li>
+<li class="chapter" data-level="8.2" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#事前の確認-5"><i class="fa fa-check"></i><b>8.2</b> 事前の確認</a></li>
+<li class="chapter" data-level="8.3" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#今日の目標-5"><i class="fa fa-check"></i><b>8.3</b> 今日の目標</a></li>
+<li class="chapter" data-level="8.4" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#重回帰分析とは"><i class="fa fa-check"></i><b>8.4</b> 重回帰分析とは</a></li>
+<li class="chapter" data-level="8.5" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#重回帰分析を行う上での注意点"><i class="fa fa-check"></i><b>8.5</b> 重回帰分析を行う上での注意点</a></li>
+<li class="chapter" data-level="8.6" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#投入方"><i class="fa fa-check"></i><b>8.6</b> 投入方</a></li>
+<li class="chapter" data-level="8.7" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#ハンズオンセッション-5"><i class="fa fa-check"></i><b>8.7</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="8.8" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#次週までの課題-5"><i class="fa fa-check"></i><b>8.8</b> 次週までの課題</a></li>
+<li class="chapter" data-level="8.9" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#参考文献-5"><i class="fa fa-check"></i><b>8.9</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html"><i class="fa fa-check"></i><b>9</b> Week8: 重回帰分析 (2)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#事前の確認-6"><i class="fa fa-check"></i><b>9.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="9.2" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#今日の目標-6"><i class="fa fa-check"></i><b>9.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="9.3" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#分散分析"><i class="fa fa-check"></i><b>9.3</b> 分散分析</a></li>
+<li class="chapter" data-level="9.4" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#分散分析と回帰分析の関係"><i class="fa fa-check"></i><b>9.4</b> 分散分析と回帰分析の関係</a></li>
+<li class="chapter" data-level="9.5" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#分散分析は今回扱いません"><i class="fa fa-check"></i><b>9.5</b> 分散分析は今回扱いません</a></li>
+<li class="chapter" data-level="9.6" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#重回帰分析での質的変数の扱い方"><i class="fa fa-check"></i><b>9.6</b> 重回帰分析での質的変数の扱い方</a></li>
+<li class="chapter" data-level="9.7" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#ハンズオンセッション-6"><i class="fa fa-check"></i><b>9.7</b> ハンズオン・セッション</a></li>
+<li class="chapter" data-level="9.8" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#検定の繰り返し問題アゲイン"><i class="fa fa-check"></i><b>9.8</b> 検定の繰り返し問題アゲイン</a></li>
+<li class="chapter" data-level="9.9" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#解決策"><i class="fa fa-check"></i><b>9.9</b> 解決策</a></li>
+<li class="chapter" data-level="9.10" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#次週までの課題-6"><i class="fa fa-check"></i><b>9.10</b> 次週までの課題</a></li>
+<li class="chapter" data-level="9.11" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#参考文献-6"><i class="fa fa-check"></i><b>9.11</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html"><i class="fa fa-check"></i><b>10</b> Week9: 重回帰分析 (3)：交互作用の解釈</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#事前の確認-7"><i class="fa fa-check"></i><b>10.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="10.2" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#今日の目標-7"><i class="fa fa-check"></i><b>10.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="10.3" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#交互作用"><i class="fa fa-check"></i><b>10.3</b> 交互作用</a></li>
+<li class="chapter" data-level="10.4" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#ハンズオンセッション-7"><i class="fa fa-check"></i><b>10.4</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="10.5" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#最後に"><i class="fa fa-check"></i><b>10.5</b> 最後に</a></li>
+<li class="chapter" data-level="10.6" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#次週までの課題-7"><i class="fa fa-check"></i><b>10.6</b> 次週までの課題</a></li>
+<li class="chapter" data-level="10.7" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#参考文献-7"><i class="fa fa-check"></i><b>10.7</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html"><i class="fa fa-check"></i><b>11</b> Week10: 一般化線形モデル：ロジスティック回帰分析</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#事前の確認-8"><i class="fa fa-check"></i><b>11.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="11.2" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#今日の目標-8"><i class="fa fa-check"></i><b>11.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="11.3" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#一般化線形モデル"><i class="fa fa-check"></i><b>11.3</b> 一般化線形モデル</a></li>
+<li class="chapter" data-level="11.4" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#二項分布"><i class="fa fa-check"></i><b>11.4</b> 二項分布</a></li>
+<li class="chapter" data-level="11.5" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#ロジット関数"><i class="fa fa-check"></i><b>11.5</b> ロジット関数</a></li>
+<li class="chapter" data-level="11.6" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#ロジスティック関数"><i class="fa fa-check"></i><b>11.6</b> ロジスティック関数</a></li>
+<li class="chapter" data-level="11.7" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#ハンズオンセッション-8"><i class="fa fa-check"></i><b>11.7</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="11.8" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#質的変数の場合"><i class="fa fa-check"></i><b>11.8</b> 質的変数の場合</a></li>
+<li class="chapter" data-level="11.9" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#分類にも使えます"><i class="fa fa-check"></i><b>11.9</b> 分類にも使えます</a></li>
+<li class="chapter" data-level="11.10" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#次週までの課題-8"><i class="fa fa-check"></i><b>11.10</b> 次週までの課題</a></li>
+<li class="chapter" data-level="11.11" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#参考文献-8"><i class="fa fa-check"></i><b>11.11</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html"><i class="fa fa-check"></i><b>12</b> Week11: 階層モデル</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#事前の確認-9"><i class="fa fa-check"></i><b>12.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="12.2" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#今日の目標-9"><i class="fa fa-check"></i><b>12.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="12.3" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#次週までの課題-9"><i class="fa fa-check"></i><b>12.3</b> 次週までの課題</a></li>
+<li class="chapter" data-level="12.4" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#参考文献-9"><i class="fa fa-check"></i><b>12.4</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html"><i class="fa fa-check"></i><b>13</b> Week 15：言語研究とオープンサイエンス</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#事前の確認-10"><i class="fa fa-check"></i><b>13.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="13.2" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#今日の目標-10"><i class="fa fa-check"></i><b>13.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="13.3" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#はじめに"><i class="fa fa-check"></i><b>13.3</b> はじめに</a></li>
+<li class="chapter" data-level="13.4" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#r-markdownを使って分析結果をまとめることができる"><i class="fa fa-check"></i><b>13.4</b> 1. R Markdownを使って分析結果をまとめることができる</a></li>
+<li class="chapter" data-level="13.5" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#プロジェクト"><i class="fa fa-check"></i><b>13.5</b> プロジェクト</a></li>
+<li class="chapter" data-level="13.6" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#実際に作ってみましょう"><i class="fa fa-check"></i><b>13.6</b> 実際に作ってみましょう</a></li>
+<li class="chapter" data-level="13.7" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#ドキュメントチャンクmarkdown記法-1"><i class="fa fa-check"></i><b>13.7</b> ドキュメントチャンク：Markdown記法</a></li>
+<li class="chapter" data-level="13.8" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#lets-実践-2"><i class="fa fa-check"></i><b>13.8</b> Let’s 実践</a></li>
+<li class="chapter" data-level="13.9" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#答え合わせ-2"><i class="fa fa-check"></i><b>13.9</b> 答え合わせ</a></li>
+<li class="chapter" data-level="13.10" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#実はwordのように編集できます"><i class="fa fa-check"></i><b>13.10</b> 実は、Wordのように編集できます！</a></li>
+<li class="chapter" data-level="13.11" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#コードチャンクの挿入-1"><i class="fa fa-check"></i><b>13.11</b> コードチャンクの挿入</a></li>
+<li class="chapter" data-level="13.12" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#lets-実践-3"><i class="fa fa-check"></i><b>13.12</b> Let’s 実践</a></li>
+<li class="chapter" data-level="13.13" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#食費の合計-1"><i class="fa fa-check"></i><b>13.13</b> 食費の合計</a></li>
+<li class="chapter" data-level="13.14" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#答え合わせ-3"><i class="fa fa-check"></i><b>13.14</b> 答え合わせ</a></li>
+<li class="chapter" data-level="13.15" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#r-markdownでまとめた結果を共有することができる"><i class="fa fa-check"></i><b>13.15</b> 2. R Markdownでまとめた結果を共有することができる</a></li>
+<li class="chapter" data-level="13.16" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#html形式だと簡単にウェブサイトにできます"><i class="fa fa-check"></i><b>13.16</b> HTML形式だと、簡単にウェブサイトにできます</a></li>
+<li class="chapter" data-level="13.17" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#様々なパソコンで同じ分析環境を再現することができる"><i class="fa fa-check"></i><b>13.17</b> 3. 様々なパソコンで同じ分析環境を再現することができる</a></li>
+<li class="chapter" data-level="13.18" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#r自体のバージョン管理も可能です"><i class="fa fa-check"></i><b>13.18</b> R自体のバージョン管理も可能です</a></li>
+<li class="chapter" data-level="13.19" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#おまけ"><i class="fa fa-check"></i><b>13.19</b> おまけ</a></li>
+<li class="chapter" data-level="13.20" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#関数の呼び出し方"><i class="fa fa-check"></i><b>13.20</b> 関数の呼び出し方</a></li>
+<li class="chapter" data-level="13.21" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#まとめ-2"><i class="fa fa-check"></i><b>13.21</b> まとめ</a></li>
+<li class="chapter" data-level="13.22" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#参考文献-資料"><i class="fa fa-check"></i><b>13.22</b> 参考文献 &amp; 資料</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>14</b> Sharing your book</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">言語統計処理（春学期）</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="week9-重回帰分析-3交互作用の解釈" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Chapter 10</span> Week9: 重回帰分析 (3)：交互作用の解釈<a href="week9-重回帰分析-3交互作用の解釈.html#week9-重回帰分析-3交互作用の解釈" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="事前の確認-7" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> 事前の確認<a href="week9-重回帰分析-3交互作用の解釈.html#事前の確認-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>この講義のRプロジェクトを開いていますか？</p></li>
+<li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
+<ul>
+<li>.Rでも.Rmdでもどちらでも大丈夫です。</li>
+</ul></li>
+</ul>
+</div>
+<div id="今日の目標-7" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> 今日の目標<a href="week9-重回帰分析-3交互作用の解釈.html#今日の目標-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li></li>
+<li></li>
+</ol>
+</div>
+<div id="交互作用" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> 交互作用<a href="week9-重回帰分析-3交互作用の解釈.html#交互作用" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>2つ以上の独立変数の組み合わせが従属変数にもたらす影響</p>
+<ul>
+<li><p>質的変数は<strong>トリートメント・コーディング</strong>を行ったと仮定</p></li>
+<li><p>一般化線形モデルでは、「説明変数同士の積」を説明変数として加えることで、交互作用を表現する</p></li>
+</ul></li>
+</ul>
+<div id="量的変数-量的変数" class="section level3 hasAnchor" number="10.3.1">
+<h3><span class="header-section-number">10.3.1</span> 量的変数 × 量的変数<a href="week9-重回帰分析-3交互作用の解釈.html#量的変数-量的変数" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb379-1" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">brm</span>(sales <span class="sc">~</span> product <span class="sc">*</span> clerk, <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>),</span>
+<span id="cb379-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb379-2" tabindex="-1"></a>              <span class="at">data =</span> dat, <span class="at">seed =</span> <span class="dv">123</span>, <span class="at">refresh =</span> <span class="dv">0</span>, <span class="at">iter =</span> <span class="dv">5000</span>, <span class="at">chains =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## Compiling Stan program...</code></pre>
+<pre><code>## Start sampling</code></pre>
+<ul>
+<li>緑色（平均値）の線、赤色の線は右肩上がりになっている</li>
+</ul>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb382-1" tabindex="-1"></a><span class="fu">plot</span>(eff, <span class="at">plot =</span> F)[[<span class="dv">1</span>]]</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-217-1.png" width="672" /></p>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="2" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+sales
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI (95%)
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Intercept
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+88.19
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+63.23 – 112.05
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+product
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-2.26
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-3.01 – -1.51
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+clerk
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+6.49
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+2.01 – 11.02
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+product:clerk
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+1.05
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.91 – 1.19
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="2">
+100
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+R<sup>2</sup> Bayes
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="2">
+0.967
+</td>
+</tr>
+</table>
+<ul>
+<li><p>量的 × 量的変数の交互作用の予測値</p>
+<ul>
+<li><p>切片 + Product × (-2.26) + Clerk × (6.49) + <strong>（Product × Clerk） × 1.05</strong></p></li>
+<li><p>店員数（Clerk）によって、製品数（Product）の係数の値が変化する</p></li>
+</ul></li>
+</ul>
+<div id="gfrwsufewz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#gfrwsufewz table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#gfrwsufewz thead, #gfrwsufewz tbody, #gfrwsufewz tfoot, #gfrwsufewz tr, #gfrwsufewz td, #gfrwsufewz th {
+  border-style: none;
+}
+
+#gfrwsufewz p {
+  margin: 0;
+  padding: 0;
+}
+
+#gfrwsufewz .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: 100%;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#gfrwsufewz .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#gfrwsufewz .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#gfrwsufewz .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#gfrwsufewz .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gfrwsufewz .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gfrwsufewz .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gfrwsufewz .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#gfrwsufewz .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#gfrwsufewz .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#gfrwsufewz .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#gfrwsufewz .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#gfrwsufewz .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#gfrwsufewz .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#gfrwsufewz .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gfrwsufewz .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#gfrwsufewz .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#gfrwsufewz .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#gfrwsufewz .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gfrwsufewz .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#gfrwsufewz .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#gfrwsufewz .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#gfrwsufewz .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gfrwsufewz .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#gfrwsufewz .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#gfrwsufewz .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gfrwsufewz .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gfrwsufewz .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#gfrwsufewz .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gfrwsufewz .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#gfrwsufewz .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gfrwsufewz .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gfrwsufewz .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gfrwsufewz .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gfrwsufewz .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gfrwsufewz .gt_left {
+  text-align: left;
+}
+
+#gfrwsufewz .gt_center {
+  text-align: center;
+}
+
+#gfrwsufewz .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#gfrwsufewz .gt_font_normal {
+  font-weight: normal;
+}
+
+#gfrwsufewz .gt_font_bold {
+  font-weight: bold;
+}
+
+#gfrwsufewz .gt_font_italic {
+  font-style: italic;
+}
+
+#gfrwsufewz .gt_super {
+  font-size: 65%;
+}
+
+#gfrwsufewz .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#gfrwsufewz .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#gfrwsufewz .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#gfrwsufewz .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#gfrwsufewz .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#gfrwsufewz .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#gfrwsufewz .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>量的 × 量的変数の交互作用</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="product">product</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="clerk">clerk</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Estimate">Estimate</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Est.Error">Est.Error</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Q2.5">Q2.5</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Q97.5">Q97.5</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="product" class="gt_row gt_center">0</td>
+<td headers="clerk" class="gt_row gt_center">0</td>
+<td headers="Estimate" class="gt_row gt_center">88.22</td>
+<td headers="Est.Error" class="gt_row gt_center">12.28</td>
+<td headers="Q2.5" class="gt_row gt_center">63.23</td>
+<td headers="Q97.5" class="gt_row gt_center">112.05</td></tr>
+    <tr><td headers="product" class="gt_row gt_center">10</td>
+<td headers="clerk" class="gt_row gt_center">0</td>
+<td headers="Estimate" class="gt_row gt_center">65.63</td>
+<td headers="Est.Error" class="gt_row gt_center">8.83</td>
+<td headers="Q2.5" class="gt_row gt_center">47.53</td>
+<td headers="Q97.5" class="gt_row gt_center">82.50</td></tr>
+    <tr><td headers="product" class="gt_row gt_center">0</td>
+<td headers="clerk" class="gt_row gt_center">10</td>
+<td headers="Estimate" class="gt_row gt_center">153.01</td>
+<td headers="Est.Error" class="gt_row gt_center">12.85</td>
+<td headers="Q2.5" class="gt_row gt_center">128.51</td>
+<td headers="Q97.5" class="gt_row gt_center">178.89</td></tr>
+    <tr><td headers="product" class="gt_row gt_center">10</td>
+<td headers="clerk" class="gt_row gt_center">10</td>
+<td headers="Estimate" class="gt_row gt_center">235.59</td>
+<td headers="Est.Error" class="gt_row gt_center">9.22</td>
+<td headers="Q2.5" class="gt_row gt_center">217.78</td>
+<td headers="Q97.5" class="gt_row gt_center">254.15</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+<p>tab: <a href="https://gedevan-aleksizde.github.io/rmarkdown-cookbook/html-tabs.html" class="uri">https://gedevan-aleksizde.github.io/rmarkdown-cookbook/html-tabs.html</a></p>
+</div>
+<div id="量的変数-質的変数" class="section level3 hasAnchor" number="10.3.2">
+<h3><span class="header-section-number">10.3.2</span> 量的変数 × 質的変数<a href="week9-重回帰分析-3交互作用の解釈.html#量的変数-質的変数" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>データの読み込み</li>
+</ul>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb383-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/3-10-2-interaction-2.csv&quot;</span>)</span></code></pre></div>
+<ul>
+<li><p>コーディング（トリートメント）</p>
+<ul>
+<li>他のコーディングでも分析可能である</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-1" tabindex="-1"></a>dat<span class="sc">$</span>publicity <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>publicity)</span>
+<span id="cb384-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>publicity) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">2</span>)</span>
+<span id="cb384-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>publicity)</span></code></pre></div>
+<pre><code>##              2
+## not          0
+## to_implement 1</code></pre>
+<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb386-1" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">brm</span>(sales <span class="sc">~</span> publicity <span class="sc">*</span> temperature, <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>),</span>
+<span id="cb386-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb386-2" tabindex="-1"></a>              <span class="at">data =</span> dat, <span class="at">seed =</span> <span class="dv">123</span>, <span class="at">refresh =</span> <span class="dv">0</span>, <span class="at">iter =</span> <span class="dv">5000</span>, <span class="at">chains =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## Compiling Stan program...</code></pre>
+<pre><code>## Start sampling</code></pre>
+<ul>
+<li>宣伝アリの方が、切片（線の開始点）も傾きも大きいことが分かる</li>
+</ul>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb389-1" tabindex="-1"></a><span class="fu">plot</span>(eff2, <span class="at">plot =</span> F)[[<span class="dv">1</span>]]</span></code></pre></div>
+<img src="_main_files/figure-html/unnamed-chunk-224-1.png" width="672" />
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="2" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+sales
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI (95%)
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Intercept
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+42.80
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+31.39 – 54.62
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+publicity2
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+17.49
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+1.15 – 33.52
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+temperature
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+2.59
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+1.94 – 3.23
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+publicity2:temperature
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+4.19
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+3.26 – 5.13
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="2">
+100
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+R<sup>2</sup> Bayes
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="2">
+0.904
+</td>
+</tr>
+</table>
+<ul>
+<li>質的 × 量的変数の交互作用の予測値</li>
+</ul>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb390-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-2" tabindex="-1"></a>  宣伝 <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;なし&quot;</span>, <span class="st">&quot;あり&quot;</span>),</span>
+<span id="cb390-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-3" tabindex="-1"></a>  <span class="st">`</span><span class="at">売り上げの予測値</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb390-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-4" tabindex="-1"></a>                 <span class="st">&quot;42.80 + temperature × 2.59&quot;</span>,</span>
+<span id="cb390-5"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-5" tabindex="-1"></a>                 <span class="st">&quot;42.80 + 17.49 + temperature × (2.59 + 4.19)&quot;</span>)</span>
+<span id="cb390-6"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-6" tabindex="-1"></a>)</span>
+<span id="cb390-7"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-7" tabindex="-1"></a></span>
+<span id="cb390-8"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-8" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb390-9"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-9" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb390-10"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-10" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">&quot;質的 × 量的変数の交互作用&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb390-11"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-11" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align =</span> <span class="st">&quot;center&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb390-12"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-12" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">table.width =</span> <span class="fu">pct</span>(<span class="dv">100</span>))</span></code></pre></div>
+<div id="bwxikrsapf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bwxikrsapf table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#bwxikrsapf thead, #bwxikrsapf tbody, #bwxikrsapf tfoot, #bwxikrsapf tr, #bwxikrsapf td, #bwxikrsapf th {
+  border-style: none;
+}
+
+#bwxikrsapf p {
+  margin: 0;
+  padding: 0;
+}
+
+#bwxikrsapf .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: 100%;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#bwxikrsapf .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#bwxikrsapf .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#bwxikrsapf .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#bwxikrsapf .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bwxikrsapf .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bwxikrsapf .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bwxikrsapf .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#bwxikrsapf .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#bwxikrsapf .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#bwxikrsapf .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#bwxikrsapf .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#bwxikrsapf .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#bwxikrsapf .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#bwxikrsapf .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#bwxikrsapf .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#bwxikrsapf .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#bwxikrsapf .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#bwxikrsapf .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bwxikrsapf .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#bwxikrsapf .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#bwxikrsapf .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#bwxikrsapf .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bwxikrsapf .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#bwxikrsapf .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#bwxikrsapf .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bwxikrsapf .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bwxikrsapf .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#bwxikrsapf .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bwxikrsapf .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#bwxikrsapf .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bwxikrsapf .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bwxikrsapf .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bwxikrsapf .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bwxikrsapf .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bwxikrsapf .gt_left {
+  text-align: left;
+}
+
+#bwxikrsapf .gt_center {
+  text-align: center;
+}
+
+#bwxikrsapf .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#bwxikrsapf .gt_font_normal {
+  font-weight: normal;
+}
+
+#bwxikrsapf .gt_font_bold {
+  font-weight: bold;
+}
+
+#bwxikrsapf .gt_font_italic {
+  font-style: italic;
+}
+
+#bwxikrsapf .gt_super {
+  font-size: 65%;
+}
+
+#bwxikrsapf .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#bwxikrsapf .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#bwxikrsapf .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#bwxikrsapf .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#bwxikrsapf .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#bwxikrsapf .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#bwxikrsapf .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="2" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>質的 × 量的変数の交互作用</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="宣伝">宣伝</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="売り上げの予測値">売り上げの予測値</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="宣伝" class="gt_row gt_center">なし</td>
+<td headers="売り上げの予測値" class="gt_row gt_center">42.80 + temperature × 2.59</td></tr>
+    <tr><td headers="宣伝" class="gt_row gt_center">あり</td>
+<td headers="売り上げの予測値" class="gt_row gt_center">42.80 + 17.49 + temperature × (2.59 + 4.19)</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+<ul>
+<li>気温の主効果は、宣伝がなかった時における気温の効果であることに注意。そのため、気温の主効果の数値だけではなく、交互作用を確認して結果を解釈する必要がある。</li>
+</ul>
+<div id="iwvcukfvxe" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#iwvcukfvxe table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#iwvcukfvxe thead, #iwvcukfvxe tbody, #iwvcukfvxe tfoot, #iwvcukfvxe tr, #iwvcukfvxe td, #iwvcukfvxe th {
+  border-style: none;
+}
+
+#iwvcukfvxe p {
+  margin: 0;
+  padding: 0;
+}
+
+#iwvcukfvxe .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: 100%;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#iwvcukfvxe .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#iwvcukfvxe .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#iwvcukfvxe .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#iwvcukfvxe .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#iwvcukfvxe .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#iwvcukfvxe .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#iwvcukfvxe .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#iwvcukfvxe .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#iwvcukfvxe .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#iwvcukfvxe .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#iwvcukfvxe .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#iwvcukfvxe .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#iwvcukfvxe .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#iwvcukfvxe .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#iwvcukfvxe .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#iwvcukfvxe .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#iwvcukfvxe .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#iwvcukfvxe .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iwvcukfvxe .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#iwvcukfvxe .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#iwvcukfvxe .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#iwvcukfvxe .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iwvcukfvxe .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#iwvcukfvxe .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#iwvcukfvxe .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#iwvcukfvxe .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iwvcukfvxe .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#iwvcukfvxe .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#iwvcukfvxe .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#iwvcukfvxe .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#iwvcukfvxe .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#iwvcukfvxe .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iwvcukfvxe .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#iwvcukfvxe .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#iwvcukfvxe .gt_left {
+  text-align: left;
+}
+
+#iwvcukfvxe .gt_center {
+  text-align: center;
+}
+
+#iwvcukfvxe .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#iwvcukfvxe .gt_font_normal {
+  font-weight: normal;
+}
+
+#iwvcukfvxe .gt_font_bold {
+  font-weight: bold;
+}
+
+#iwvcukfvxe .gt_font_italic {
+  font-style: italic;
+}
+
+#iwvcukfvxe .gt_super {
+  font-size: 65%;
+}
+
+#iwvcukfvxe .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#iwvcukfvxe .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#iwvcukfvxe .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#iwvcukfvxe .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#iwvcukfvxe .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#iwvcukfvxe .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#iwvcukfvxe .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>質的 × 量的変数の交互作用</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="publicity">publicity</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="temperature">temperature</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Estimate">Estimate</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Est.Error">Est.Error</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Q2.5">Q2.5</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Q97.5">Q97.5</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="publicity" class="gt_row gt_center">not</td>
+<td headers="temperature" class="gt_row gt_center">0</td>
+<td headers="Estimate" class="gt_row gt_center">42.89</td>
+<td headers="Est.Error" class="gt_row gt_center">5.91</td>
+<td headers="Q2.5" class="gt_row gt_center">31.39</td>
+<td headers="Q97.5" class="gt_row gt_center">54.62</td></tr>
+    <tr><td headers="publicity" class="gt_row gt_center">not</td>
+<td headers="temperature" class="gt_row gt_center">10</td>
+<td headers="Estimate" class="gt_row gt_center">68.80</td>
+<td headers="Est.Error" class="gt_row gt_center">3.29</td>
+<td headers="Q2.5" class="gt_row gt_center">62.26</td>
+<td headers="Q97.5" class="gt_row gt_center">75.37</td></tr>
+    <tr><td headers="publicity" class="gt_row gt_center">to_implement</td>
+<td headers="temperature" class="gt_row gt_center">0</td>
+<td headers="Estimate" class="gt_row gt_center">60.31</td>
+<td headers="Est.Error" class="gt_row gt_center">5.67</td>
+<td headers="Q2.5" class="gt_row gt_center">49.33</td>
+<td headers="Q97.5" class="gt_row gt_center">71.52</td></tr>
+    <tr><td headers="publicity" class="gt_row gt_center">to_implement</td>
+<td headers="temperature" class="gt_row gt_center">10</td>
+<td headers="Estimate" class="gt_row gt_center">128.06</td>
+<td headers="Est.Error" class="gt_row gt_center">3.13</td>
+<td headers="Q2.5" class="gt_row gt_center">121.93</td>
+<td headers="Q97.5" class="gt_row gt_center">134.27</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+<div id="質的変数-質的変数" class="section level3 hasAnchor" number="10.3.3">
+<h3><span class="header-section-number">10.3.3</span> 質的変数 × 質的変数<a href="week9-重回帰分析-3交互作用の解釈.html#質的変数-質的変数" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb391-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/3-10-1-interaction-1.csv&quot;</span>)</span></code></pre></div>
+<ul>
+<li>コーディング（トリートメント）</li>
+</ul>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb392-1" tabindex="-1"></a>dat<span class="sc">$</span>publicity <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>publicity)</span>
+<span id="cb392-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb392-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>publicity) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">2</span>)</span>
+<span id="cb392-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb392-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>publicity)</span></code></pre></div>
+<pre><code>##              2
+## not          0
+## to_implement 1</code></pre>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb394-1" tabindex="-1"></a>dat<span class="sc">$</span>bargen <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>bargen)</span>
+<span id="cb394-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb394-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>bargen) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">2</span>)</span>
+<span id="cb394-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb394-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>bargen)</span></code></pre></div>
+<pre><code>##              2
+## not          0
+## to_implement 1</code></pre>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb396-1" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">brm</span>(sales <span class="sc">~</span> publicity <span class="sc">*</span> bargen, <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>),</span>
+<span id="cb396-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb396-2" tabindex="-1"></a>              <span class="at">data =</span> dat, <span class="at">seed =</span> <span class="dv">123</span>, <span class="at">refresh =</span> <span class="dv">0</span>, <span class="at">iter =</span> <span class="dv">5000</span>, <span class="at">chains =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## Compiling Stan program...</code></pre>
+<pre><code>## Start sampling</code></pre>
+<ul>
+<li>宣伝も安売りもありの方が売り上げが最も大きいことが分かる</li>
+</ul>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb399-1" tabindex="-1"></a><span class="fu">plot</span>(eff3, <span class="at">plot =</span> F)[[<span class="dv">1</span>]]</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-233-1.png" width="672" /></p>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="2" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+sales
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI (95%)
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Intercept
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+103.32
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+96.18 – 110.51
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+publicity2
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+10.05
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.22 – 20.17
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+bargen2
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+27.35
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+17.33 – 37.46
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+publicity2:bargen2
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+20.72
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+6.04 – 35.36
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="2">
+100
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+R<sup>2</sup> Bayes
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="2">
+0.601
+</td>
+</tr>
+</table>
+<ul>
+<li><p>質的 × 質的変数の交互作用の予測値</p>
+<ul>
+<li>宣伝も安売りもあった場合、二つの主効果に加え、交互作用の影響が加算される</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb400-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-2" tabindex="-1"></a>  宣伝 <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;なし&quot;</span>, <span class="st">&quot;あり&quot;</span>, <span class="st">&quot;なし&quot;</span>, <span class="st">&quot;あり&quot;</span>),</span>
+<span id="cb400-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-3" tabindex="-1"></a>  安売り <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;なし&quot;</span>, <span class="st">&quot;なし&quot;</span>, <span class="st">&quot;あり&quot;</span>, <span class="st">&quot;あり&quot;</span>),</span>
+<span id="cb400-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-4" tabindex="-1"></a>  <span class="st">`</span><span class="at">売り上げの予測値</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;103.32&quot;</span>, <span class="st">&quot;103.32 + 10.05&quot;</span>, <span class="st">&quot;103.32 + 27.35&quot;</span>, <span class="st">&quot;103.32 + 10.05 + 27.35 + 20.72&quot;</span>)</span>
+<span id="cb400-5"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-5" tabindex="-1"></a>)</span>
+<span id="cb400-6"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-6" tabindex="-1"></a></span>
+<span id="cb400-7"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-7" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb400-8"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-8" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb400-9"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-9" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">&quot;質的 × 質的の交互作用&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb400-10"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-10" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align =</span> <span class="st">&quot;center&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb400-11"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-11" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">table.width =</span> <span class="fu">pct</span>(<span class="dv">100</span>))</span></code></pre></div>
+<div id="axcnalqeqf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#axcnalqeqf table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#axcnalqeqf thead, #axcnalqeqf tbody, #axcnalqeqf tfoot, #axcnalqeqf tr, #axcnalqeqf td, #axcnalqeqf th {
+  border-style: none;
+}
+
+#axcnalqeqf p {
+  margin: 0;
+  padding: 0;
+}
+
+#axcnalqeqf .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: 100%;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#axcnalqeqf .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#axcnalqeqf .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#axcnalqeqf .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#axcnalqeqf .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#axcnalqeqf .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#axcnalqeqf .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#axcnalqeqf .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#axcnalqeqf .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#axcnalqeqf .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#axcnalqeqf .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#axcnalqeqf .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#axcnalqeqf .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#axcnalqeqf .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#axcnalqeqf .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#axcnalqeqf .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#axcnalqeqf .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#axcnalqeqf .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#axcnalqeqf .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#axcnalqeqf .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#axcnalqeqf .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#axcnalqeqf .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#axcnalqeqf .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#axcnalqeqf .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#axcnalqeqf .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#axcnalqeqf .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#axcnalqeqf .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#axcnalqeqf .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#axcnalqeqf .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#axcnalqeqf .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#axcnalqeqf .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#axcnalqeqf .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#axcnalqeqf .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#axcnalqeqf .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#axcnalqeqf .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#axcnalqeqf .gt_left {
+  text-align: left;
+}
+
+#axcnalqeqf .gt_center {
+  text-align: center;
+}
+
+#axcnalqeqf .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#axcnalqeqf .gt_font_normal {
+  font-weight: normal;
+}
+
+#axcnalqeqf .gt_font_bold {
+  font-weight: bold;
+}
+
+#axcnalqeqf .gt_font_italic {
+  font-style: italic;
+}
+
+#axcnalqeqf .gt_super {
+  font-size: 65%;
+}
+
+#axcnalqeqf .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#axcnalqeqf .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#axcnalqeqf .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#axcnalqeqf .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#axcnalqeqf .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#axcnalqeqf .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#axcnalqeqf .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>質的 × 質的の交互作用</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="宣伝">宣伝</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="安売り">安売り</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="売り上げの予測値">売り上げの予測値</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="宣伝" class="gt_row gt_center">なし</td>
+<td headers="安売り" class="gt_row gt_center">なし</td>
+<td headers="売り上げの予測値" class="gt_row gt_center">103.32</td></tr>
+    <tr><td headers="宣伝" class="gt_row gt_center">あり</td>
+<td headers="安売り" class="gt_row gt_center">なし</td>
+<td headers="売り上げの予測値" class="gt_row gt_center">103.32 + 10.05</td></tr>
+    <tr><td headers="宣伝" class="gt_row gt_center">なし</td>
+<td headers="安売り" class="gt_row gt_center">あり</td>
+<td headers="売り上げの予測値" class="gt_row gt_center">103.32 + 27.35</td></tr>
+    <tr><td headers="宣伝" class="gt_row gt_center">あり</td>
+<td headers="安売り" class="gt_row gt_center">あり</td>
+<td headers="売り上げの予測値" class="gt_row gt_center">103.32 + 10.05 + 27.35 + 20.72</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+<ul>
+<li>得られた係数の結果と比較するとさらに分かりやすい</li>
+</ul>
+<div id="lziwypofzf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lziwypofzf table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#lziwypofzf thead, #lziwypofzf tbody, #lziwypofzf tfoot, #lziwypofzf tr, #lziwypofzf td, #lziwypofzf th {
+  border-style: none;
+}
+
+#lziwypofzf p {
+  margin: 0;
+  padding: 0;
+}
+
+#lziwypofzf .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: 100%;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#lziwypofzf .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#lziwypofzf .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#lziwypofzf .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#lziwypofzf .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#lziwypofzf .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lziwypofzf .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#lziwypofzf .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#lziwypofzf .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#lziwypofzf .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#lziwypofzf .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#lziwypofzf .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#lziwypofzf .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#lziwypofzf .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#lziwypofzf .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#lziwypofzf .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#lziwypofzf .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#lziwypofzf .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#lziwypofzf .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lziwypofzf .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#lziwypofzf .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#lziwypofzf .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#lziwypofzf .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lziwypofzf .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#lziwypofzf .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#lziwypofzf .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lziwypofzf .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lziwypofzf .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#lziwypofzf .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lziwypofzf .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#lziwypofzf .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#lziwypofzf .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#lziwypofzf .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lziwypofzf .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#lziwypofzf .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#lziwypofzf .gt_left {
+  text-align: left;
+}
+
+#lziwypofzf .gt_center {
+  text-align: center;
+}
+
+#lziwypofzf .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#lziwypofzf .gt_font_normal {
+  font-weight: normal;
+}
+
+#lziwypofzf .gt_font_bold {
+  font-weight: bold;
+}
+
+#lziwypofzf .gt_font_italic {
+  font-style: italic;
+}
+
+#lziwypofzf .gt_super {
+  font-size: 65%;
+}
+
+#lziwypofzf .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#lziwypofzf .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#lziwypofzf .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#lziwypofzf .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#lziwypofzf .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#lziwypofzf .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#lziwypofzf .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>質的 × 質的変数の交互作用</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="publicity">publicity</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="bargen">bargen</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Estimate">Estimate</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Est.Error">Est.Error</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Q2.5">Q2.5</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Q97.5">Q97.5</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="publicity" class="gt_row gt_center">not</td>
+<td headers="bargen" class="gt_row gt_center">not</td>
+<td headers="Estimate" class="gt_row gt_center">103.34</td>
+<td headers="Est.Error" class="gt_row gt_center">3.68</td>
+<td headers="Q2.5" class="gt_row gt_center">96.18</td>
+<td headers="Q97.5" class="gt_row gt_center">110.51</td></tr>
+    <tr><td headers="publicity" class="gt_row gt_center">to_implement</td>
+<td headers="bargen" class="gt_row gt_center">not</td>
+<td headers="Estimate" class="gt_row gt_center">113.35</td>
+<td headers="Est.Error" class="gt_row gt_center">3.64</td>
+<td headers="Q2.5" class="gt_row gt_center">106.09</td>
+<td headers="Q97.5" class="gt_row gt_center">120.52</td></tr>
+    <tr><td headers="publicity" class="gt_row gt_center">not</td>
+<td headers="bargen" class="gt_row gt_center">to_implement</td>
+<td headers="Estimate" class="gt_row gt_center">130.65</td>
+<td headers="Est.Error" class="gt_row gt_center">3.70</td>
+<td headers="Q2.5" class="gt_row gt_center">123.49</td>
+<td headers="Q97.5" class="gt_row gt_center">137.85</td></tr>
+    <tr><td headers="publicity" class="gt_row gt_center">to_implement</td>
+<td headers="bargen" class="gt_row gt_center">to_implement</td>
+<td headers="Estimate" class="gt_row gt_center">161.30</td>
+<td headers="Est.Error" class="gt_row gt_center">3.70</td>
+<td headers="Q2.5" class="gt_row gt_center">154.02</td>
+<td headers="Q97.5" class="gt_row gt_center">168.31</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+<div id="下位検定" class="section level4 hasAnchor" number="10.3.3.1">
+<h4><span class="header-section-number">10.3.3.1</span> 下位検定<a href="week9-重回帰分析-3交互作用の解釈.html#下位検定" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p>交互作用が有意だった場合に、単純主効果を調べるために行う</p>
+<ul>
+<li><p>単純主効果</p>
+<ul>
+<li><p>ある要因の各水準における、別の要因の効果のこと</p></li>
+<li><p>e.g., Publicity条件における、Bargen実施の有無（to_impement/not）の平均値差</p></li>
+</ul></li>
+</ul></li>
+<li><p>多重比較</p>
+<ul>
+<li>水準が3以上などの場合、検定を繰り返すため、多重比較の問題が発生する。影響を軽減するため、補正を行う</li>
+</ul></li>
+<li><p>交互作用が有意</p>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+<p> </p>
+</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+<p>sales</p>
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+<p>Predictors</p>
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+<p>Estimates</p>
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+<p>CI</p>
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+<p>p</p>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+<p>(Intercept)</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<p>103.38</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<p>96.15 – 110.60</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<p><strong>&lt;0.001</strong></p>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+<p>publicity [2]</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<p>9.94</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<p>-0.28 – 20.16</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<p>0.057</p>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+<p>bargen [2]</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<p>27.27</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<p>17.05 – 37.49</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<p><strong>&lt;0.001</strong></p>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+<p>publicity [2] × bargen<br>[2]</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<p>20.80</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<p>6.34 – 35.25</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<p><strong>0.005</strong></p>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+<p>Observations</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+<p>100</p>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+<p>R<sup>2</sup> / R<sup>2</sup> adjusted</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+<p>0.604 / 0.592</p>
+</td>
+</tr></li>
+</ul>
+</table>
+<p><img src="_main_files/figure-html/unnamed-chunk-238-1.png" width="672" />
+- <code>emmeans()</code>関数を使って、下位検定を行う</p>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb401-1" tabindex="-1"></a><span class="co">#install.packages(&quot;emmeans&quot;)</span></span>
+<span id="cb401-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb401-2" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span></code></pre></div>
+<ul>
+<li><p>bargenの単純主効果（publicityの各水準ごとにbargenの効果を調べる）</p></li>
+<li><p>bargen by publicity</p></li>
+</ul>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb402-1" tabindex="-1"></a><span class="fu">contrast</span>(</span>
+<span id="cb402-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb402-2" tabindex="-1"></a>  <span class="fu">emmeans</span>(model4, pairwise <span class="sc">~</span> bargen <span class="sc">|</span> publicity), </span>
+<span id="cb402-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb402-3" tabindex="-1"></a>  <span class="at">adjust =</span> <span class="st">&quot;bonferroni&quot;</span></span>
+<span id="cb402-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb402-4" tabindex="-1"></a>  )</span></code></pre></div>
+<pre><code>## publicity = not:
+##  contrast            estimate   SE df t.ratio p.value
+##  not effect             -13.6 2.57 96  -5.297  &lt;.0001
+##  to_implement effect     13.6 2.57 96   5.297  &lt;.0001
+## 
+## publicity = to_implement:
+##  contrast            estimate   SE df t.ratio p.value
+##  not effect             -24.0 2.57 96  -9.335  &lt;.0001
+##  to_implement effect     24.0 2.57 96   9.335  &lt;.0001
+## 
+## P value adjustment: bonferroni method for 2 tests</code></pre>
+<ul>
+<li><p>publicityの単純主効果（bargenの各水準ごとにpublicityの効果を調べる）</p></li>
+<li><p>publicity by bargen</p></li>
+</ul>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb404-1" tabindex="-1"></a><span class="fu">contrast</span>(</span>
+<span id="cb404-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb404-2" tabindex="-1"></a>  <span class="fu">emmeans</span>(model4, pairwise <span class="sc">~</span> publicity <span class="sc">|</span> bargen), </span>
+<span id="cb404-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb404-3" tabindex="-1"></a>  <span class="at">adjust =</span> <span class="st">&quot;bonferroni&quot;</span></span>
+<span id="cb404-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb404-4" tabindex="-1"></a>  )</span></code></pre></div>
+<pre><code>## bargen = not:
+##  contrast            estimate   SE df t.ratio p.value
+##  not effect             -4.97 2.57 96  -1.930  0.1132
+##  to_implement effect     4.97 2.57 96   1.930  0.1132
+## 
+## bargen = to_implement:
+##  contrast            estimate   SE df t.ratio p.value
+##  not effect            -15.37 2.57 96  -5.968  &lt;.0001
+##  to_implement effect    15.37 2.57 96   5.968  &lt;.0001
+## 
+## P value adjustment: bonferroni method for 2 tests</code></pre>
+</div>
+</div>
+</div>
+<div id="ハンズオンセッション-7" class="section level2 hasAnchor" number="10.4">
+<h2><span class="header-section-number">10.4</span> ハンズオンセッション<a href="week9-重回帰分析-3交互作用の解釈.html#ハンズオンセッション-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="質的-質的サムコントラスト" class="section level3 hasAnchor" number="10.4.1">
+<h3><span class="header-section-number">10.4.1</span> 質的 × 質的（サムコントラスト）<a href="week9-重回帰分析-3交互作用の解釈.html#質的-質的サムコントラスト" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb406-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/Example4.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb407-1" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>##   Grade Learning id Post
+## 1 First     List  1   73
+## 2 First     List  2   59
+## 3 First     List  3   63
+## 4 First     List  4   59
+## 5 First     List  5   46</code></pre>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb409-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>Grade)</span></code></pre></div>
+<pre><code>## 
+##  First Second 
+##     15     15</code></pre>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb411-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>Learning)</span></code></pre></div>
+<pre><code>## 
+## Context KeyWord    List 
+##      10      10      10</code></pre>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb413-1" tabindex="-1"></a>dat<span class="sc">$</span>Grade <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Grade)</span>
+<span id="cb413-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb413-2" tabindex="-1"></a>dat<span class="sc">$</span>Learning <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Learning, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;List&quot;</span>, <span class="st">&quot;Context&quot;</span>, <span class="st">&quot;KeyWord&quot;</span>))</span></code></pre></div>
+<ul>
+<li>各群ごとの平均</li>
+</ul>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb414-1" tabindex="-1"></a><span class="fu">aggregate</span>(Post <span class="sc">~</span> Grade, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span></code></pre></div>
+<pre><code>##    Grade     Post
+## 1  First 39.93333
+## 2 Second 55.06667</code></pre>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb416-1" tabindex="-1"></a><span class="fu">aggregate</span>(Post <span class="sc">~</span> Learning, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span></code></pre></div>
+<pre><code>##   Learning Post
+## 1     List 65.1
+## 2  Context 32.5
+## 3  KeyWord 44.9</code></pre>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb418-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Post <span class="sc">~</span> Grade<span class="sc">*</span>Learning , <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span>
+<span id="cb418-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb418-2" tabindex="-1"></a>res</span></code></pre></div>
+<pre><code>##    Grade Learning Post
+## 1  First     List 60.0
+## 2 Second     List 70.2
+## 3  First  Context 19.8
+## 4 Second  Context 45.2
+## 5  First  KeyWord 40.0
+## 6 Second  KeyWord 49.8</code></pre>
+<ul>
+<li>Ground Mean</li>
+</ul>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb420-1" tabindex="-1"></a><span class="fu">mean</span>(res<span class="sc">$</span>Post)</span></code></pre></div>
+<pre><code>## [1] 47.5</code></pre>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb422-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">2</span>)</span>
+<span id="cb422-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb422-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade)</span></code></pre></div>
+<pre><code>##        [,1]
+## First     1
+## Second   -1</code></pre>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb424-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">3</span>)</span>
+<span id="cb424-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb424-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning)</span></code></pre></div>
+<pre><code>##         [,1] [,2]
+## List       1    0
+## Context    0    1
+## KeyWord   -1   -1</code></pre>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb426-1" tabindex="-1"></a>model_sum <span class="ot">&lt;-</span> <span class="fu">lm</span>(Post <span class="sc">~</span> Grade <span class="sc">*</span> Learning, <span class="at">data =</span> dat)</span></code></pre></div>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb427-1" tabindex="-1"></a><span class="fu">summary</span>(model_sum)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Post ~ Grade * Learning, data = dat)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+##  -14.2   -6.7   -1.0    8.1   15.2 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value             Pr(&gt;|t|)    
+## (Intercept)        47.500      1.807  26.285 &lt; 0.0000000000000002 ***
+## Grade1             -7.567      1.807  -4.187             0.000328 ***
+## Learning1          17.600      2.556   6.887          0.000000402 ***
+## Learning2         -15.000      2.556  -5.869          0.000004701 ***
+## Grade1:Learning1    2.467      2.556   0.965             0.344071    
+## Grade1:Learning2   -5.133      2.556  -2.009             0.055952 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 9.898 on 24 degrees of freedom
+## Multiple R-squared:  0.762,  Adjusted R-squared:  0.7124 
+## F-statistic: 15.37 on 5 and 24 DF,  p-value: 0.0000008253</code></pre>
+<ul>
+<li>以下のような作図を行う場合、コーディングによって図中のパターンが変わることはない</li>
+</ul>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb429-1" tabindex="-1"></a><span class="co">#install.packages(&quot;sjPlot&quot;)</span></span>
+<span id="cb429-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb429-2" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span>
+<span id="cb429-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb429-3" tabindex="-1"></a><span class="fu">plot_model</span>(</span>
+<span id="cb429-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb429-4" tabindex="-1"></a>  model_sum, </span>
+<span id="cb429-5"><a href="week9-重回帰分析-3交互作用の解釈.html#cb429-5" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;pred&quot;</span>,</span>
+<span id="cb429-6"><a href="week9-重回帰分析-3交互作用の解釈.html#cb429-6" tabindex="-1"></a>  <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">&quot;Grade&quot;</span>, <span class="st">&quot;Learning&quot;</span>)</span>
+<span id="cb429-7"><a href="week9-重回帰分析-3交互作用の解釈.html#cb429-7" tabindex="-1"></a>           )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-255-1.png" width="672" /></p>
+</div>
+<div id="係数の解釈" class="section level3 hasAnchor" number="10.4.2">
+<h3><span class="header-section-number">10.4.2</span> 係数の解釈<a href="week9-重回帰分析-3交互作用の解釈.html#係数の解釈" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>記述統計の値を参照した考えると分かりやすい
+<ul>
+<li>Intercept: grand mean (47.5)</li>
+<li>GradeSecond: First - grand mean (39.93333 - 47.5)</li>
+<li>Learning1: List - grand mean (65.1 - 47.5)</li>
+<li>Learning2: Context - grand mean (32.5 - 47.5)</li>
+<li>GradeSecond:Learning1: {2 * (60 - 70.2) + (45.2 - 19.8) + (49.8 - 40)} ÷ 6</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+\frac{2(M_{\text{リスト1}} - M_{\text{リスト2}}) + (M_{\text{文脈2}} - M_{\text{文脈1}}) + (M_{\text{キー2}} - M_{\text{キー1}})}{6}
+\]</span></p>
+<ul>
+<li>GradeSecond:Learning2: {(70.2-60) + 2 * (19.8-45.2) + (49.8 - 40)} ÷ 6</li>
+</ul>
+<p><span class="math display">\[
+\frac{(M_{\text{リスト2}} - M_{\text{リスト1}}) + 2(M_{\text{文脈1}} - M_{\text{文脈2}}) + (M_{\text{キー2}} - M_{\text{キー1}})}{6}
+\]</span></p>
+</div>
+<div id="質的-質的反復コントラスト" class="section level3 hasAnchor" number="10.4.3">
+<h3><span class="header-section-number">10.4.3</span> 質的 × 質的（反復コントラスト）<a href="week9-重回帰分析-3交互作用の解釈.html#質的-質的反復コントラスト" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb430-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb430-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb430-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">2</span>))</span>
+<span id="cb430-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb430-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade)</span></code></pre></div>
+<pre><code>##        2-1 
+## First  -1/2
+## Second  1/2</code></pre>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb432-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">3</span>))</span>
+<span id="cb432-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb432-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning)</span></code></pre></div>
+<pre><code>##         2-1  3-2 
+## List    -2/3 -1/3
+## Context  1/3 -1/3
+## KeyWord  1/3  2/3</code></pre>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb434-1" tabindex="-1"></a>model_rep <span class="ot">&lt;-</span> <span class="fu">lm</span>(Post <span class="sc">~</span> Grade <span class="sc">*</span> Learning, <span class="at">data =</span> dat)</span></code></pre></div>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb435-1" tabindex="-1"></a><span class="fu">summary</span>(model_rep)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Post ~ Grade * Learning, data = dat)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+##  -14.2   -6.7   -1.0    8.1   15.2 
+## 
+## Coefficients:
+##                      Estimate Std. Error t value             Pr(&gt;|t|)    
+## (Intercept)            47.500      1.807  26.285 &lt; 0.0000000000000002 ***
+## Grade2-1               15.133      3.614   4.187             0.000328 ***
+## Learning2-1           -32.600      4.426  -7.365          0.000000132 ***
+## Learning3-2            12.400      4.426   2.801             0.009898 ** 
+## Grade2-1:Learning2-1   15.200      8.853   1.717             0.098867 .  
+## Grade2-1:Learning3-2  -15.600      8.853  -1.762             0.090780 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 9.898 on 24 degrees of freedom
+## Multiple R-squared:  0.762,  Adjusted R-squared:  0.7124 
+## F-statistic: 15.37 on 5 and 24 DF,  p-value: 0.0000008253</code></pre>
+</div>
+<div id="係数の解釈-1" class="section level3 hasAnchor" number="10.4.4">
+<h3><span class="header-section-number">10.4.4</span> 係数の解釈<a href="week9-重回帰分析-3交互作用の解釈.html#係数の解釈-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>記述統計の値を参照した考えると分かりやすい
+<ul>
+<li>Intercept: grand mean</li>
+<li>Grade2-1: Second - First</li>
+<li>Learning2-1: Context - List</li>
+<li>Learning3-2: Keyword - Context</li>
+<li>Grade2-1:Learning2-1: (ContextにおけるSecond-First) - (ListにおけるSecond-First) = (45.2 - 19.8) - (70.2 - 60)</li>
+<li>Grade2-1:Learning3-2: (KeywordにおけるSecond-First) - (ContextにおけるSecond-First) = (49.8 - 40) - (45.2 - 19.8)</li>
+</ul></li>
+<li><code>emmeans()</code>関数で下位検定を行う場合も、どのコーディングをあてはめても結果は同じになります。</li>
+</ul>
+<div class="infobox">
+<ul>
+<li>ここまで見てきたように、どのようなコーディングを適用したかで係数の値は異なります。また、何と何を比較しているのかによって係数の正負も変わります。必ず、どの変数にどのようなコーディングを適用したのか、どの水準とどの水準を比較したのかを第三者から見て分かるように記載しましょう。</li>
+<li>2水準 × 3水準の交互作用でも係数の解釈は結構複雑になります。デザインはシンプルな方が解釈する側も分析をしやすいです。</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="最後に" class="section level2 hasAnchor" number="10.5">
+<h2><span class="header-section-number">10.5</span> 最後に<a href="week9-重回帰分析-3交互作用の解釈.html#最後に" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>清水先生の「心理学における重回帰分析の使い所を考える」に関してのコラムをいれる」</li>
+</ul>
+</div>
+<div id="次週までの課題-7" class="section level2 hasAnchor" number="10.6">
+<h2><span class="header-section-number">10.6</span> 次週までの課題<a href="week9-重回帰分析-3交互作用の解釈.html#次週までの課題-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="課題内容-7" class="section level3 hasAnchor" number="10.6.1">
+<h3><span class="header-section-number">10.6.1</span> 課題内容<a href="week9-重回帰分析-3交互作用の解釈.html#課題内容-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。</p></li>
+<li><p>（宿題を考える）- 外れ値を考えてやる</p></li>
+</ol>
+<ul>
+<li><strong>Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。</strong></li>
+</ul>
+</div>
+<div id="提出方法-7" class="section level3 hasAnchor" number="10.6.2">
+<h3><span class="header-section-number">10.6.2</span> 提出方法<a href="week9-重回帰分析-3交互作用の解釈.html#提出方法-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>メールにファイルを添付して送信。</li>
+<li>締め切りは今週の木曜日まで</li>
+</ul>
+</div>
+</div>
+<div id="参考文献-7" class="section level2 hasAnchor" number="10.7">
+<h2><span class="header-section-number">10.7</span> 参考文献<a href="week9-重回帰分析-3交互作用の解釈.html#参考文献-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>南風原</li>
+<li>馬場 RとStanではじめるベイズ統計モデリングによるデータ分析</li>
+<li>小島ますみ（2022）. 外国語教育研究における（一般化）線形混合モデル：仮説に適したコーディング・モデリングを中心に The 2021 Annual Conference on Vocabulary Acquisition</li>
+<li><a href="https://debruine.github.io/faux/articles/contrasts.html#x3-design" class="uri">https://debruine.github.io/faux/articles/contrasts.html#x3-design</a></li>
+</ul>
+<style>
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+
+.beg {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
+
+.caution {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
+  
+</style>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="week8-重回帰分析-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="week10-一般化線形モデルロジスティック回帰分析.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/09-multiplereg_3.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

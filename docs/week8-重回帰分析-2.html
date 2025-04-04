@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 Week8: 重回帰分析 (2) | 言語統計処理（春学期）</title>
+  <meta name="description" content="Chapter 9 Week8: 重回帰分析 (2) | 言語統計処理（春学期）" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 Week8: 重回帰分析 (2) | 言語統計処理（春学期）" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 Week8: 重回帰分析 (2) | 言語統計処理（春学期）" />
+  
+  
+  
+
+<meta name="author" content="寺井雅人（Masato Terai）" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="week7-重回帰分析.html"/>
+<link rel="next" href="week9-重回帰分析-3交互作用の解釈.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">言語統計処理_春学期</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#講義概要"><i class="fa fa-check"></i><b>1.1</b> 講義概要</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#講義スケジュール"><i class="fa fa-check"></i><b>1.2</b> 講義スケジュール</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#成績評価について"><i class="fa fa-check"></i><b>1.3</b> 成績評価について</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#留意事項"><i class="fa fa-check"></i><b>1.4</b> 留意事項</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><i class="fa fa-check"></i><b>2</b> Week 1: オリエンテーション、R(Studio)のインストールと操作、R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#統計処理とは"><i class="fa fa-check"></i><b>2.1</b> 「統計処理」とは</a></li>
+<li class="chapter" data-level="2.2" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rとは"><i class="fa fa-check"></i><b>2.2</b> Rとは</a></li>
+<li class="chapter" data-level="2.3" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rのインストール"><i class="fa fa-check"></i><b>2.3</b> Rのインストール</a></li>
+<li class="chapter" data-level="2.4" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioとは"><i class="fa fa-check"></i><b>2.4</b> RStudioとは</a></li>
+<li class="chapter" data-level="2.5" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioのインストール"><i class="fa fa-check"></i><b>2.5</b> RStudioのインストール</a></li>
+<li class="chapter" data-level="2.6" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioの機能"><i class="fa fa-check"></i><b>2.6</b> RStudioの機能</a></li>
+<li class="chapter" data-level="2.7" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#プロジェクト機能"><i class="fa fa-check"></i><b>2.7</b> プロジェクト機能</a></li>
+<li class="chapter" data-level="2.8" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioのカスタマイズ"><i class="fa fa-check"></i><b>2.8</b> RStudioのカスタマイズ</a></li>
+<li class="chapter" data-level="2.9" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#r-markdown入門"><i class="fa fa-check"></i><b>2.9</b> R Markdown入門</a></li>
+<li class="chapter" data-level="2.10" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#ドキュメントチャンクmarkdown記法"><i class="fa fa-check"></i><b>2.10</b> ドキュメントチャンク：Markdown記法</a></li>
+<li class="chapter" data-level="2.11" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#lets-実践"><i class="fa fa-check"></i><b>2.11</b> Let’s 実践</a></li>
+<li class="chapter" data-level="2.14" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#答え合わせ"><i class="fa fa-check"></i><b>2.14</b> 答え合わせ</a></li>
+<li class="chapter" data-level="2.15" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#コードチャンクの挿入"><i class="fa fa-check"></i><b>2.15</b> コードチャンクの挿入</a></li>
+<li class="chapter" data-level="2.16" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#lets-実践-1"><i class="fa fa-check"></i><b>2.16</b> Let’s 実践</a></li>
+<li class="chapter" data-level="2.17" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#食費の合計"><i class="fa fa-check"></i><b>2.17</b> 食費の合計</a></li>
+<li class="chapter" data-level="2.18" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#答え合わせ-1"><i class="fa fa-check"></i><b>2.18</b> 答え合わせ</a></li>
+<li class="chapter" data-level="2.19" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#次週までの課題"><i class="fa fa-check"></i><b>2.19</b> 次週までの課題</a></li>
+<li class="chapter" data-level="2.20" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#参考文献"><i class="fa fa-check"></i><b>2.20</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="3" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html"><i class="fa fa-check"></i><b>3</b> Week 2：要約統計量</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#事前の確認"><i class="fa fa-check"></i><b>3.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="3.2" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#今日の目標"><i class="fa fa-check"></i><b>3.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="3.3" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#今日の格言"><i class="fa fa-check"></i><b>3.3</b> 今日の格言</a></li>
+<li class="chapter" data-level="3.4" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#記述統計学と推測統計学"><i class="fa fa-check"></i><b>3.4</b> 記述統計学と推測統計学</a></li>
+<li class="chapter" data-level="3.5" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#データの尺度"><i class="fa fa-check"></i><b>3.5</b> データの尺度</a></li>
+<li class="chapter" data-level="3.6" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#とみなす"><i class="fa fa-check"></i><b>3.6</b> 「～とみなす」</a></li>
+<li class="chapter" data-level="3.7" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#要約統計量"><i class="fa fa-check"></i><b>3.7</b> 要約統計量</a></li>
+<li class="chapter" data-level="3.8" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#データの可視化"><i class="fa fa-check"></i><b>3.8</b> データの可視化</a></li>
+<li class="chapter" data-level="3.9" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#ハンズオンセッション"><i class="fa fa-check"></i><b>3.9</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="3.10" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#まとめ"><i class="fa fa-check"></i><b>3.10</b> まとめ</a></li>
+<li class="chapter" data-level="3.11" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#次週までの課題-1"><i class="fa fa-check"></i><b>3.11</b> 次週までの課題</a></li>
+<li class="chapter" data-level="3.12" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#参考文献-1"><i class="fa fa-check"></i><b>3.12</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="推測統計学.html"><a href="推測統計学.html"><i class="fa fa-check"></i><b>4</b> 推測統計学</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="推測統計学.html"><a href="推測統計学.html#事前の確認-1"><i class="fa fa-check"></i><b>4.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="4.2" data-path="推測統計学.html"><a href="推測統計学.html#今日の目標-1"><i class="fa fa-check"></i><b>4.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="4.3" data-path="推測統計学.html"><a href="推測統計学.html#母集団と標本"><i class="fa fa-check"></i><b>4.3</b> 母集団と標本</a></li>
+<li class="chapter" data-level="4.4" data-path="推測統計学.html"><a href="推測統計学.html#確率と確率変数"><i class="fa fa-check"></i><b>4.4</b> 確率と確率変数</a></li>
+<li class="chapter" data-level="4.5" data-path="推測統計学.html"><a href="推測統計学.html#推測統計学の考え方"><i class="fa fa-check"></i><b>4.5</b> 推測統計学の考え方</a></li>
+<li class="chapter" data-level="4.6" data-path="推測統計学.html"><a href="推測統計学.html#区間推定の考え方"><i class="fa fa-check"></i><b>4.6</b> 区間推定の考え方</a></li>
+<li class="chapter" data-level="4.7" data-path="推測統計学.html"><a href="推測統計学.html#rの関数で95信頼区間を求める"><i class="fa fa-check"></i><b>4.7</b> Rの関数で95%信頼区間を求める</a></li>
+<li class="chapter" data-level="4.8" data-path="推測統計学.html"><a href="推測統計学.html#ハンズオンセッション-1"><i class="fa fa-check"></i><b>4.8</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="4.9" data-path="推測統計学.html"><a href="推測統計学.html#まとめ-1"><i class="fa fa-check"></i><b>4.9</b> まとめ</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="統計的検定.html"><a href="統計的検定.html"><i class="fa fa-check"></i><b>5</b> 統計的検定</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="統計的検定.html"><a href="統計的検定.html#事前の確認-2"><i class="fa fa-check"></i><b>5.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="5.2" data-path="統計的検定.html"><a href="統計的検定.html#今日の目標-2"><i class="fa fa-check"></i><b>5.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="5.3" data-path="統計的検定.html"><a href="統計的検定.html#統計的検定statistical-test"><i class="fa fa-check"></i><b>5.3</b> 統計的検定（statistical test）</a></li>
+<li class="chapter" data-level="5.4" data-path="統計的検定.html"><a href="統計的検定.html#統計的検定の手順"><i class="fa fa-check"></i><b>5.4</b> 統計的検定の手順</a></li>
+<li class="chapter" data-level="5.5" data-path="統計的検定.html"><a href="統計的検定.html#統計的検定で必要な知識"><i class="fa fa-check"></i><b>5.5</b> 統計的検定で必要な知識</a></li>
+<li class="chapter" data-level="5.6" data-path="統計的検定.html"><a href="統計的検定.html#ハンズオンセッション-2"><i class="fa fa-check"></i><b>5.6</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="5.7" data-path="統計的検定.html"><a href="統計的検定.html#次週までの課題-2"><i class="fa fa-check"></i><b>5.7</b> 次週までの課題</a></li>
+<li class="chapter" data-level="5.8" data-path="統計的検定.html"><a href="統計的検定.html#参考文献-2"><i class="fa fa-check"></i><b>5.8</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="week5-相関分析.html"><a href="week5-相関分析.html"><i class="fa fa-check"></i><b>6</b> Week5: 相関分析</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="week5-相関分析.html"><a href="week5-相関分析.html#事前の確認-3"><i class="fa fa-check"></i><b>6.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="6.2" data-path="week5-相関分析.html"><a href="week5-相関分析.html#今日の目標-3"><i class="fa fa-check"></i><b>6.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="6.3" data-path="week5-相関分析.html"><a href="week5-相関分析.html#相関分析correlation-analysisとは"><i class="fa fa-check"></i><b>6.3</b> 相関分析（Correlation analysis）とは</a></li>
+<li class="chapter" data-level="6.4" data-path="week5-相関分析.html"><a href="week5-相関分析.html#ハンズオンセッション-3"><i class="fa fa-check"></i><b>6.4</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="6.5" data-path="week5-相関分析.html"><a href="week5-相関分析.html#次週までの課題-3"><i class="fa fa-check"></i><b>6.5</b> 次週までの課題</a></li>
+<li class="chapter" data-level="6.6" data-path="week5-相関分析.html"><a href="week5-相関分析.html#参考文献-3"><i class="fa fa-check"></i><b>6.6</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html"><i class="fa fa-check"></i><b>7</b> 単回帰分析（連続型の説明変数）</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#今後の修正案"><i class="fa fa-check"></i><b>7.1</b> 今後の修正案</a></li>
+<li class="chapter" data-level="7.2" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#事前の確認-4"><i class="fa fa-check"></i><b>7.2</b> 事前の確認</a></li>
+<li class="chapter" data-level="7.3" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#今日の目標-4"><i class="fa fa-check"></i><b>7.3</b> 今日の目標</a></li>
+<li class="chapter" data-level="7.4" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#回帰分析regression-analysisとは"><i class="fa fa-check"></i><b>7.4</b> 回帰分析（regression analysis）とは</a></li>
+<li class="chapter" data-level="7.5" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#ハンズオンセッション-4"><i class="fa fa-check"></i><b>7.5</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="7.6" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#次週までの課題-4"><i class="fa fa-check"></i><b>7.6</b> 次週までの課題</a></li>
+<li class="chapter" data-level="7.7" data-path="単回帰分析連続型の説明変数.html"><a href="単回帰分析連続型の説明変数.html#参考文献-4"><i class="fa fa-check"></i><b>7.7</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html"><i class="fa fa-check"></i><b>8</b> Week7: 重回帰分析</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#メモ"><i class="fa fa-check"></i><b>8.1</b> メモ</a></li>
+<li class="chapter" data-level="8.2" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#事前の確認-5"><i class="fa fa-check"></i><b>8.2</b> 事前の確認</a></li>
+<li class="chapter" data-level="8.3" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#今日の目標-5"><i class="fa fa-check"></i><b>8.3</b> 今日の目標</a></li>
+<li class="chapter" data-level="8.4" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#重回帰分析とは"><i class="fa fa-check"></i><b>8.4</b> 重回帰分析とは</a></li>
+<li class="chapter" data-level="8.5" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#重回帰分析を行う上での注意点"><i class="fa fa-check"></i><b>8.5</b> 重回帰分析を行う上での注意点</a></li>
+<li class="chapter" data-level="8.6" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#投入方"><i class="fa fa-check"></i><b>8.6</b> 投入方</a></li>
+<li class="chapter" data-level="8.7" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#ハンズオンセッション-5"><i class="fa fa-check"></i><b>8.7</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="8.8" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#次週までの課題-5"><i class="fa fa-check"></i><b>8.8</b> 次週までの課題</a></li>
+<li class="chapter" data-level="8.9" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#参考文献-5"><i class="fa fa-check"></i><b>8.9</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html"><i class="fa fa-check"></i><b>9</b> Week8: 重回帰分析 (2)</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#事前の確認-6"><i class="fa fa-check"></i><b>9.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="9.2" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#今日の目標-6"><i class="fa fa-check"></i><b>9.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="9.3" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#分散分析"><i class="fa fa-check"></i><b>9.3</b> 分散分析</a></li>
+<li class="chapter" data-level="9.4" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#分散分析と回帰分析の関係"><i class="fa fa-check"></i><b>9.4</b> 分散分析と回帰分析の関係</a></li>
+<li class="chapter" data-level="9.5" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#分散分析は今回扱いません"><i class="fa fa-check"></i><b>9.5</b> 分散分析は今回扱いません</a></li>
+<li class="chapter" data-level="9.6" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#重回帰分析での質的変数の扱い方"><i class="fa fa-check"></i><b>9.6</b> 重回帰分析での質的変数の扱い方</a></li>
+<li class="chapter" data-level="9.7" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#ハンズオンセッション-6"><i class="fa fa-check"></i><b>9.7</b> ハンズオン・セッション</a></li>
+<li class="chapter" data-level="9.8" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#検定の繰り返し問題アゲイン"><i class="fa fa-check"></i><b>9.8</b> 検定の繰り返し問題アゲイン</a></li>
+<li class="chapter" data-level="9.9" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#解決策"><i class="fa fa-check"></i><b>9.9</b> 解決策</a></li>
+<li class="chapter" data-level="9.10" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#次週までの課題-6"><i class="fa fa-check"></i><b>9.10</b> 次週までの課題</a></li>
+<li class="chapter" data-level="9.11" data-path="week8-重回帰分析-2.html"><a href="week8-重回帰分析-2.html#参考文献-6"><i class="fa fa-check"></i><b>9.11</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html"><i class="fa fa-check"></i><b>10</b> Week9: 重回帰分析 (3)：交互作用の解釈</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#事前の確認-7"><i class="fa fa-check"></i><b>10.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="10.2" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#今日の目標-7"><i class="fa fa-check"></i><b>10.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="10.3" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#交互作用"><i class="fa fa-check"></i><b>10.3</b> 交互作用</a></li>
+<li class="chapter" data-level="10.4" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#ハンズオンセッション-7"><i class="fa fa-check"></i><b>10.4</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="10.5" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#最後に"><i class="fa fa-check"></i><b>10.5</b> 最後に</a></li>
+<li class="chapter" data-level="10.6" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#次週までの課題-7"><i class="fa fa-check"></i><b>10.6</b> 次週までの課題</a></li>
+<li class="chapter" data-level="10.7" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#参考文献-7"><i class="fa fa-check"></i><b>10.7</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html"><i class="fa fa-check"></i><b>11</b> Week10: 一般化線形モデル：ロジスティック回帰分析</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#事前の確認-8"><i class="fa fa-check"></i><b>11.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="11.2" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#今日の目標-8"><i class="fa fa-check"></i><b>11.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="11.3" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#一般化線形モデル"><i class="fa fa-check"></i><b>11.3</b> 一般化線形モデル</a></li>
+<li class="chapter" data-level="11.4" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#二項分布"><i class="fa fa-check"></i><b>11.4</b> 二項分布</a></li>
+<li class="chapter" data-level="11.5" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#ロジット関数"><i class="fa fa-check"></i><b>11.5</b> ロジット関数</a></li>
+<li class="chapter" data-level="11.6" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#ロジスティック関数"><i class="fa fa-check"></i><b>11.6</b> ロジスティック関数</a></li>
+<li class="chapter" data-level="11.7" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#ハンズオンセッション-8"><i class="fa fa-check"></i><b>11.7</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="11.8" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#質的変数の場合"><i class="fa fa-check"></i><b>11.8</b> 質的変数の場合</a></li>
+<li class="chapter" data-level="11.9" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#分類にも使えます"><i class="fa fa-check"></i><b>11.9</b> 分類にも使えます</a></li>
+<li class="chapter" data-level="11.10" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#次週までの課題-8"><i class="fa fa-check"></i><b>11.10</b> 次週までの課題</a></li>
+<li class="chapter" data-level="11.11" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#参考文献-8"><i class="fa fa-check"></i><b>11.11</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html"><i class="fa fa-check"></i><b>12</b> Week11: 階層モデル</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#事前の確認-9"><i class="fa fa-check"></i><b>12.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="12.2" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#今日の目標-9"><i class="fa fa-check"></i><b>12.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="12.3" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#次週までの課題-9"><i class="fa fa-check"></i><b>12.3</b> 次週までの課題</a></li>
+<li class="chapter" data-level="12.4" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#参考文献-9"><i class="fa fa-check"></i><b>12.4</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html"><i class="fa fa-check"></i><b>13</b> Week 15：言語研究とオープンサイエンス</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#事前の確認-10"><i class="fa fa-check"></i><b>13.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="13.2" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#今日の目標-10"><i class="fa fa-check"></i><b>13.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="13.3" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#はじめに"><i class="fa fa-check"></i><b>13.3</b> はじめに</a></li>
+<li class="chapter" data-level="13.4" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#r-markdownを使って分析結果をまとめることができる"><i class="fa fa-check"></i><b>13.4</b> 1. R Markdownを使って分析結果をまとめることができる</a></li>
+<li class="chapter" data-level="13.5" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#プロジェクト"><i class="fa fa-check"></i><b>13.5</b> プロジェクト</a></li>
+<li class="chapter" data-level="13.6" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#実際に作ってみましょう"><i class="fa fa-check"></i><b>13.6</b> 実際に作ってみましょう</a></li>
+<li class="chapter" data-level="13.7" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#ドキュメントチャンクmarkdown記法-1"><i class="fa fa-check"></i><b>13.7</b> ドキュメントチャンク：Markdown記法</a></li>
+<li class="chapter" data-level="13.8" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#lets-実践-2"><i class="fa fa-check"></i><b>13.8</b> Let’s 実践</a></li>
+<li class="chapter" data-level="13.9" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#答え合わせ-2"><i class="fa fa-check"></i><b>13.9</b> 答え合わせ</a></li>
+<li class="chapter" data-level="13.10" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#実はwordのように編集できます"><i class="fa fa-check"></i><b>13.10</b> 実は、Wordのように編集できます！</a></li>
+<li class="chapter" data-level="13.11" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#コードチャンクの挿入-1"><i class="fa fa-check"></i><b>13.11</b> コードチャンクの挿入</a></li>
+<li class="chapter" data-level="13.12" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#lets-実践-3"><i class="fa fa-check"></i><b>13.12</b> Let’s 実践</a></li>
+<li class="chapter" data-level="13.13" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#食費の合計-1"><i class="fa fa-check"></i><b>13.13</b> 食費の合計</a></li>
+<li class="chapter" data-level="13.14" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#答え合わせ-3"><i class="fa fa-check"></i><b>13.14</b> 答え合わせ</a></li>
+<li class="chapter" data-level="13.15" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#r-markdownでまとめた結果を共有することができる"><i class="fa fa-check"></i><b>13.15</b> 2. R Markdownでまとめた結果を共有することができる</a></li>
+<li class="chapter" data-level="13.16" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#html形式だと簡単にウェブサイトにできます"><i class="fa fa-check"></i><b>13.16</b> HTML形式だと、簡単にウェブサイトにできます</a></li>
+<li class="chapter" data-level="13.17" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#様々なパソコンで同じ分析環境を再現することができる"><i class="fa fa-check"></i><b>13.17</b> 3. 様々なパソコンで同じ分析環境を再現することができる</a></li>
+<li class="chapter" data-level="13.18" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#r自体のバージョン管理も可能です"><i class="fa fa-check"></i><b>13.18</b> R自体のバージョン管理も可能です</a></li>
+<li class="chapter" data-level="13.19" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#おまけ"><i class="fa fa-check"></i><b>13.19</b> おまけ</a></li>
+<li class="chapter" data-level="13.20" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#関数の呼び出し方"><i class="fa fa-check"></i><b>13.20</b> 関数の呼び出し方</a></li>
+<li class="chapter" data-level="13.21" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#まとめ-2"><i class="fa fa-check"></i><b>13.21</b> まとめ</a></li>
+<li class="chapter" data-level="13.22" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#参考文献-資料"><i class="fa fa-check"></i><b>13.22</b> 参考文献 &amp; 資料</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>14</b> Sharing your book</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">言語統計処理（春学期）</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="week8-重回帰分析-2" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> Week8: 重回帰分析 (2)<a href="week8-重回帰分析-2.html#week8-重回帰分析-2" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="事前の確認-6" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> 事前の確認<a href="week8-重回帰分析-2.html#事前の確認-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>この講義のRプロジェクトを開いていますか？</p></li>
+<li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
+<ul>
+<li>.Rでも.Rmdでもどちらでも大丈夫です。</li>
+</ul></li>
+</ul>
+</div>
+<div id="今日の目標-6" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> 今日の目標<a href="week8-重回帰分析-2.html#今日の目標-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li></li>
+<li></li>
+</ol>
+</div>
+<div id="分散分析" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> 分散分析<a href="week8-重回帰分析-2.html#分散分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="t-検定覚えてますか" class="section level3 hasAnchor" number="9.3.1">
+<h3><span class="header-section-number">9.3.1</span> <em>t</em> 検定覚えてますか？<a href="week8-重回帰分析-2.html#t-検定覚えてますか" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>2つのデータの平均値の差を <em>t</em> 分布を用いて検定する。</p>
+<ul>
+<li><p>e.g., Aグループの英語テストの平均点 vs. Bグループの英語テストの平均点（対応なし）</p></li>
+<li><p>e.g., Aグループの英語テストの平均点 vs. Aグループの国語テストの平均点（対応あり）</p></li>
+</ul></li>
+</ul>
+</div>
+<div id="検定の繰り返し" class="section level3 hasAnchor" number="9.3.2">
+<h3><span class="header-section-number">9.3.2</span> 検定の繰り返し<a href="week8-重回帰分析-2.html#検定の繰り返し" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>3つのデータを比較する場合</p>
+<ul>
+<li><p>e.g., Aグループの英語テストの平均点 vs. Bグループの英語テストの平均点 vs. Cグループの英語テストの平均点</p></li>
+<li><p>グループ間の平均点の差を検定したい</p>
+<ul>
+<li>A vs. B</li>
+<li>A vs. C</li>
+<li>B vs. C</li>
+</ul></li>
+</ul></li>
+<li><p>検定における有意水準</p>
+<ul>
+<li><p>検定結果は、5 %（有意水準 5%と設定する場合）の間違いの可能性を含む（第一種の誤り）</p>
+<ul>
+<li>帰無仮説が真なのに、誤って偽だと主張すること（本当は差がないのに差があると判断する）</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-167"></span>
+<img src="picture/error.PNG" alt="image source: https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/" width="512" />
+<p class="caption">
+Figure 9.1: image source: <a href="https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/" class="uri">https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/</a>
+</p>
+</div>
+<ul>
+<li><p>検定を繰り返すことの問題</p>
+<ul>
+<li><p>第一種の誤りの確率が当初設定した数値よりも大きくなってしまう</p></li>
+<li><p>同時に帰無仮説が2つ以上成立する場合に問題となる</p>
+<ul>
+<li><p>上記の例では帰無仮説（「AとBに差はない」 + 「AとCに差はない」 + 「BとCに差はない」）のいずれか一つが棄却されればよい。</p></li>
+<li><p>1回の検定で帰無仮説が保留される確率 = 95 %（1 - 0.05 (有意水準)）</p></li>
+<li><p>3回の検定で全て保留される確率 = 0.95 × 0.95 × 0.95 = 0.857 = 86 %</p></li>
+<li><p>3回の中でいずれか一つが棄却される確率</p>
+<ul>
+<li><p>1 - 0.857 = 0.142 = 約 14%</p></li>
+<li><p>当初の値の3倍近くまでエラーが膨張！</p></li>
+</ul></li>
+</ul></li>
+<li><p>同じデータに対して複数回検定を行うこともエラー率を高める</p>
+<ul>
+<li>留学から帰ってきた学生に質問紙（100項目）を配布し、留学前と留学後でどの項目に差がみられるか確認する</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+1 - (1 - 0.05)^{100}
+= 99.4 %
+\]</span>
+- 同じ参加者のリーディング、リスニング、スピーキングテストそれぞれに2群の <em>t</em> 検定</p>
+<div class="infobox">
+<p>「AとBの比較を行う。正規性の確認のために正規分布かを検定し、その後、等分散性を検定でさらに確認し、 <em>t</em> 検定を行った。」も検定の多重性の問題に該当する。この場合、AもBのデータもそれぞれ正規分布に従うという二つの帰無仮説を成立させる必要がある。またいくつかの検定を通過させ、条件（都合）に合う検定を選ぶことにもなる。</p>
+</div>
+</div>
+<div id="検定の多重性を考慮する" class="section level3 hasAnchor" number="9.3.3">
+<h3><span class="header-section-number">9.3.3</span> 検定の多重性を考慮する<a href="week8-重回帰分析-2.html#検定の多重性を考慮する" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>多重比較補正を行う</p>
+<ul>
+<li><p>有意水準を調整する</p>
+<ul>
+<li>ボンフェロー二補正、ホルム補正など</li>
+</ul></li>
+<li><p>ボンフェロー二補正</p>
+<ul>
+<li><p>有意水準の値を厳しくする</p></li>
+<li><p>3回繰り返す場合、毎回の有意差を 0.05 / 3 = 0.017</p></li>
+</ul></li>
+</ul></li>
+<li><p>新しいサンプルを集める</p>
+<ul>
+<li>e.g., リーディングテストとは別のサンプルを集めて、リスニングテストの検定を行う</li>
+</ul></li>
+<li><p>3群以上の比較が可能な分析を使う</p>
+<ul>
+<li><strong>分散分析</strong>など</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="分散分析と回帰分析の関係" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> 分散分析と回帰分析の関係<a href="week8-重回帰分析-2.html#分散分析と回帰分析の関係" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>前の週では、量的変数による重回帰を扱った。しかし、重回帰分析では、質的変数（e.g., 性別、クラス）同士、量的変数と質的変数などのデータを扱う場合もある。</p>
+<ul>
+<li><p>独立変数が一つ：単回帰分析</p></li>
+<li><p>独立変数が二つ以上：重回帰分析</p></li>
+<li><p>独立変数が質的（独立変数の数は関係ない）：分散分析</p>
+<ul>
+<li>分散分析に、量的変数（共変量）を加える：共分散分析</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="分散分析は今回扱いません" class="section level2 hasAnchor" number="9.5">
+<h2><span class="header-section-number">9.5</span> 分散分析は今回扱いません<a href="week8-重回帰分析-2.html#分散分析は今回扱いません" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="理由-1" class="section level3 hasAnchor" number="9.5.1">
+<h3><span class="header-section-number">9.5.1</span> 理由 1<a href="week8-重回帰分析-2.html#理由-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>当該分野で分散分析を行っている論文をほとんど見なくなったから</p>
+<ul>
+<li><p>2010年代前半までの研究では分散分析が多いです。</p></li>
+<li><p>僕は授業以外で分散分析をやったことがありません</p></li>
+</ul></li>
+</ul>
+</div>
+<div id="理由-2" class="section level3 hasAnchor" number="9.5.2">
+<h3><span class="header-section-number">9.5.2</span> 理由 2<a href="week8-重回帰分析-2.html#理由-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>分散分析よりも自由に分析が行える（理由1に関連している）</p>
+<ul>
+<li><p>分散分析は独立変数として質的変数を仮定するが、実際には量的変数との交互作用を検討したい場面が多い</p>
+<ul>
+<li>過去の研究を見ると、量的変数を質的変数に変換する手立てが取られたりした（語彙サイズを得点をもとに、閾値を求めて低・中・高にしたり）</li>
+</ul></li>
+<li><p>後半で扱う一般化線形混合効果モデルでは、様々な確率分布、ランダムな誤差を考慮できる</p></li>
+<li><p>分散分析と同じような平均値の比較を行うことが可能</p>
+<ul>
+<li>質的変数のコーディング</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="infobox">
+<p>分散分析は統計学の教科書であれば必ず登場します。それほど学習する必要性のある内容で、今後説明する回帰モデルでの質的変数の扱いでも、分散分析の考え方を理解しておくと理解しやすいです。しかし、本講義は統計学以外にプログラミング言語の習得まで扱うため、時間的制約があります。そのため、やむを得ずシラバスから削除しました(´;ω;｀)。自分が使わなくても以前の研究を読む際に必要になることもあり得ますよね。</p>
+</div>
+</div>
+</div>
+<div id="重回帰分析での質的変数の扱い方" class="section level2 hasAnchor" number="9.6">
+<h2><span class="header-section-number">9.6</span> 重回帰分析での質的変数の扱い方<a href="week8-重回帰分析-2.html#重回帰分析での質的変数の扱い方" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="変数のコーディング" class="section level3 hasAnchor" number="9.6.1">
+<h3><span class="header-section-number">9.6.1</span> 変数のコーディング<a href="week8-重回帰分析-2.html#変数のコーディング" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>指導法A、Bなどの変数はそのまま分析することができない。その為、数値のデータをあてはめて分析を行う（データを変換する）。この手立てを変数を△△コーディングするという。</p>
+<ul>
+<li>今回扱うコーディングにより、分析結果の係数の数値の意味が異なるため、重回帰分析の肝となる内容である。</li>
+</ul></li>
+<li><p>言語研究で使われる頻度が高いコーディング法</p></li>
+</ul>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="week8-重回帰分析-2.html#cb290-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># 再現性のための乱数設定</span></span>
+<span id="cb290-2"><a href="week8-重回帰分析-2.html#cb290-2" tabindex="-1"></a></span>
+<span id="cb290-3"><a href="week8-重回帰分析-2.html#cb290-3" tabindex="-1"></a><span class="co"># サンプルサイズ</span></span>
+<span id="cb290-4"><a href="week8-重回帰分析-2.html#cb290-4" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb290-5"><a href="week8-重回帰分析-2.html#cb290-5" tabindex="-1"></a></span>
+<span id="cb290-6"><a href="week8-重回帰分析-2.html#cb290-6" tabindex="-1"></a><span class="co"># 疑似データの作成</span></span>
+<span id="cb290-7"><a href="week8-重回帰分析-2.html#cb290-7" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb290-8"><a href="week8-重回帰分析-2.html#cb290-8" tabindex="-1"></a>  <span class="at">ID =</span> <span class="dv">1</span><span class="sc">:</span>n,</span>
+<span id="cb290-9"><a href="week8-重回帰分析-2.html#cb290-9" tabindex="-1"></a>  <span class="at">Method =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>), <span class="at">length.out =</span> n)),  <span class="co"># 3つの指導法を割り当て</span></span>
+<span id="cb290-10"><a href="week8-重回帰分析-2.html#cb290-10" tabindex="-1"></a>  <span class="at">Score =</span> <span class="fu">round</span>(<span class="fu">runif</span>(n, <span class="at">min =</span> <span class="dv">50</span>, <span class="at">max =</span> <span class="dv">100</span>), <span class="dv">1</span>)  <span class="co"># 50-100の範囲でランダムに得点を生成</span></span>
+<span id="cb290-11"><a href="week8-重回帰分析-2.html#cb290-11" tabindex="-1"></a>)</span>
+<span id="cb290-12"><a href="week8-重回帰分析-2.html#cb290-12" tabindex="-1"></a></span>
+<span id="cb290-13"><a href="week8-重回帰分析-2.html#cb290-13" tabindex="-1"></a><span class="co"># データの表示</span></span>
+<span id="cb290-14"><a href="week8-重回帰分析-2.html#cb290-14" tabindex="-1"></a><span class="fu">print</span>(df)</span></code></pre></div>
+<pre><code>##    ID Method Score
+## 1   1      A  64.4
+## 2   2      B  89.4
+## 3   3      C  70.4
+## 4   4      A  94.2
+## 5   5      B  97.0
+## 6   6      C  52.3
+## 7   7      A  76.4
+## 8   8      B  94.6
+## 9   9      C  77.6
+## 10 10      A  72.8
+## 11 11      B  97.8
+## 12 12      C  72.7
+## 13 13      A  83.9
+## 14 14      B  78.6
+## 15 15      C  55.1
+## 16 16      A  95.0
+## 17 17      B  62.3
+## 18 18      C  52.1
+## 19 19      A  66.4
+## 20 20      B  97.7</code></pre>
+<ul>
+<li><p>トリートメント・コントラスト（treatment contrasts）</p>
+<ul>
+<li><p>別名ダミーコーディング</p></li>
+<li><p><strong>基準のグループと、それ以外の各グループを比較</strong></p></li>
+<li><p><code>contr.treatment(水準数)</code>関数（<code>stats</code>パッケージ）</p></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="week8-重回帰分析-2.html#cb292-1" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb292-2"><a href="week8-重回帰分析-2.html#cb292-2" tabindex="-1"></a><span class="fu">contrasts</span>(df<span class="sc">$</span>Method) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">3</span>) </span></code></pre></div>
+<ul>
+<li><p>指導法Aが基準となる（0）</p>
+<ul>
+<li>指導法AとB、指導法AとCの比較</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="week8-重回帰分析-2.html#cb293-1" tabindex="-1"></a>df<span class="sc">$</span>Method</span></code></pre></div>
+<pre><code>##  [1] A B C A B C A B C A B C A B C A B C A B
+## attr(,&quot;contrasts&quot;)
+##   2 3
+## A 0 0
+## B 1 0
+## C 0 1
+## Levels: A B C</code></pre>
+<ul>
+<li><p>係数の方向（正/負）も重要</p>
+<ul>
+<li><p>切片：基準の指導法Aの平均値</p></li>
+<li><p>Method 2: 指導法B - 指導法A</p></li>
+<li><p>Method 3: 指導法C - 指導法A</p></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="week8-重回帰分析-2.html#cb295-1" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score <span class="sc">~</span> Method, <span class="at">data =</span> df)</span>
+<span id="cb295-2"><a href="week8-重回帰分析-2.html#cb295-2" tabindex="-1"></a>results<span class="sc">$</span>coefficients</span></code></pre></div>
+<pre><code>## (Intercept)     Method2     Method3 
+##   79.014286    9.185714  -15.647619</code></pre>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="week8-重回帰分析-2.html#cb297-1" tabindex="-1"></a><span class="co"># 各指導法の平均を確認</span></span>
+<span id="cb297-2"><a href="week8-重回帰分析-2.html#cb297-2" tabindex="-1"></a><span class="fu">aggregate</span>(Score <span class="sc">~</span> Method, <span class="at">data =</span> df, <span class="at">FUN =</span> mean)</span></code></pre></div>
+<pre><code>##   Method    Score
+## 1      A 79.01429
+## 2      B 88.20000
+## 3      C 63.36667</code></pre>
+<ul>
+<li><p>サム・コントラスト（sum contrasts）</p>
+<ul>
+<li><p><strong>全グループの平均の平均値（GM: grand mean）と1が割り当てられたデータを比較</strong></p></li>
+<li><p><code>contr.sum(水準数)</code>関数（<code>stats</code>パッケージ）</p></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="week8-重回帰分析-2.html#cb299-1" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb299-2"><a href="week8-重回帰分析-2.html#cb299-2" tabindex="-1"></a><span class="fu">contrasts</span>(df<span class="sc">$</span>Method) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">3</span>) </span></code></pre></div>
+<ul>
+<li><p>指導法Cが比較から除外（0）</p>
+<ul>
+<li>指導法Aと全体平均、指導法Bと全体平均の比較</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="week8-重回帰分析-2.html#cb300-1" tabindex="-1"></a>df<span class="sc">$</span>Method</span></code></pre></div>
+<pre><code>##  [1] A B C A B C A B C A B C A B C A B C A B
+## attr(,&quot;contrasts&quot;)
+##   [,1] [,2]
+## A    1    0
+## B    0    1
+## C   -1   -1
+## Levels: A B C</code></pre>
+<ul>
+<li><p>係数の方向（正/負）も重要</p>
+<ul>
+<li><p>切片： GM</p></li>
+<li><p>Method 1: 指導法A - GM</p></li>
+<li><p>Method 2: 指導法B - GM</p></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="week8-重回帰分析-2.html#cb302-1" tabindex="-1"></a>results_sum <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score <span class="sc">~</span> Method, <span class="at">data =</span> df)</span>
+<span id="cb302-2"><a href="week8-重回帰分析-2.html#cb302-2" tabindex="-1"></a>results_sum<span class="sc">$</span>coefficients</span></code></pre></div>
+<pre><code>## (Intercept)     Method1     Method2 
+##   76.860317    2.153968   11.339683</code></pre>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="week8-重回帰分析-2.html#cb304-1" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Score <span class="sc">~</span> Method, <span class="at">data =</span> df, <span class="at">FUN =</span> mean)</span>
+<span id="cb304-2"><a href="week8-重回帰分析-2.html#cb304-2" tabindex="-1"></a></span>
+<span id="cb304-3"><a href="week8-重回帰分析-2.html#cb304-3" tabindex="-1"></a>GM <span class="ot">&lt;-</span> <span class="fu">mean</span>(tmp<span class="sc">$</span>Score)</span>
+<span id="cb304-4"><a href="week8-重回帰分析-2.html#cb304-4" tabindex="-1"></a></span>
+<span id="cb304-5"><a href="week8-重回帰分析-2.html#cb304-5" tabindex="-1"></a>GM</span></code></pre></div>
+<pre><code>## [1] 76.86032</code></pre>
+<ul>
+<li><p>反復コントラスト（repeated contrasts）</p>
+<ul>
+<li><p><strong>隣接する2つのグループを比較する</strong></p></li>
+<li><p>上・中・下の場合、上 vs. 中、中 vs. 下</p></li>
+<li><p><code>contr.sdif(水準数)</code>関数（<code>MASS</code>パッケージ）</p></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="week8-重回帰分析-2.html#cb306-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;MASS&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:olsrr&#39;:
+## 
+##     cement</code></pre>
+<pre><code>## The following object is masked from &#39;package:sm&#39;:
+## 
+##     muscle</code></pre>
+<pre><code>## The following object is masked from &#39;package:patchwork&#39;:
+## 
+##     area</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     select</code></pre>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="week8-重回帰分析-2.html#cb312-1" tabindex="-1"></a><span class="fu">contrasts</span>(df<span class="sc">$</span>Method) <span class="ot">&lt;-</span> <span class="fu">contr.sdif</span>(<span class="dv">3</span>) </span></code></pre></div>
+<ul>
+<li>指導法Aと指導法B、指導法Bと指導法Cの比較</li>
+</ul>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="week8-重回帰分析-2.html#cb313-1" tabindex="-1"></a>df<span class="sc">$</span>Method</span></code></pre></div>
+<pre><code>##  [1] A B C A B C A B C A B C A B C A B C A B
+## attr(,&quot;contrasts&quot;)
+##          2-1        3-2
+## A -0.6666667 -0.3333333
+## B  0.3333333 -0.3333333
+## C  0.3333333  0.6666667
+## Levels: A B C</code></pre>
+<ul>
+<li>分数表示</li>
+</ul>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="week8-重回帰分析-2.html#cb315-1" tabindex="-1"></a><span class="fu">contrasts</span>(df<span class="sc">$</span>Method) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">3</span>))</span>
+<span id="cb315-2"><a href="week8-重回帰分析-2.html#cb315-2" tabindex="-1"></a>df<span class="sc">$</span>Method</span></code></pre></div>
+<pre><code>##  [1] A B C A B C A B C A B C A B C A B C A B
+## attr(,&quot;contrasts&quot;)
+##   2-1  3-2 
+## A -2/3 -1/3
+## B  1/3 -1/3
+## C  1/3  2/3
+## Levels: A B C</code></pre>
+<ul>
+<li><p>係数の方向（正/負）も重要</p>
+<ul>
+<li><p>切片： GM</p></li>
+<li><p>Method 2-1: 指導法B - 指導法A</p></li>
+<li><p>Method 3-2: 指導法C - 指導法B</p></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="week8-重回帰分析-2.html#cb317-1" tabindex="-1"></a>results_rep <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score <span class="sc">~</span> Method, <span class="at">data =</span> df)</span>
+<span id="cb317-2"><a href="week8-重回帰分析-2.html#cb317-2" tabindex="-1"></a>results_rep<span class="sc">$</span>coefficients</span></code></pre></div>
+<pre><code>## (Intercept)   Method2-1   Method3-2 
+##   76.860317    9.185714  -24.833333</code></pre>
+<ul>
+<li>全体のコーディングの比較</li>
+</ul>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="2" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+Treatment
+</th>
+<th colspan="2" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+Sum
+</th>
+<th colspan="2" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+Repeat
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  col7">
+p
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+(Intercept)
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+79.01
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+76.86
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+76.86
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Method [2]
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+9.19
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.187
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+11.34
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.010</strong>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7">
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Method [3]
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-15.65
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.038</strong>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7">
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Method [1]
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+2.15
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.589
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7">
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Method2-1
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+9.19
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7">
+0.187
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Method3-2
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-24.83
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7">
+<strong>0.002</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="2">
+20
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="2">
+20
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="2">
+20
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+R<sup>2</sup> / R<sup>2</sup> adjusted
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="2">
+0.432 / 0.365
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="2">
+0.432 / 0.365
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="2">
+0.432 / 0.365
+</td>
+</tr>
+</table>
+<ul>
+<li><p>他にも多項コントラスト、ヘルムートコントラストなど</p></li>
+<li><p>変数の順番を並び替える方法</p>
+<ul>
+<li><code>factor()</code>関数を使う</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="week8-重回帰分析-2.html#cb319-1" tabindex="-1"></a>df<span class="sc">$</span>Method <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>Method, </span>
+<span id="cb319-2"><a href="week8-重回帰分析-2.html#cb319-2" tabindex="-1"></a>                    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;C&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>))</span></code></pre></div>
+<div class="infobox">
+<ul>
+<li>研究課題に合わせてコーディング法を選ぶ必要があり、またどのコーディングを使用したか、どの数値をどのデータにあてはめたのかを報告する必要がある。</li>
+<li>参加者内/参加者間のデータかは関係ない。</li>
+<li>以上のどのコーディング法でも、水準数 - 1が計算される</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="ハンズオンセッション-6" class="section level2 hasAnchor" number="9.7">
+<h2><span class="header-section-number">9.7</span> ハンズオン・セッション<a href="week8-重回帰分析-2.html#ハンズオンセッション-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>ポケモンのデータセットの中身を減らしたもの</li>
+</ul>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="week8-重回帰分析-2.html#cb320-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb320-2"><a href="week8-重回帰分析-2.html#cb320-2" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/week8_data.csv&quot;</span>)</span></code></pre></div>
+<pre><code>## New names:
+## Rows: 46 Columns: 17
+## ── Column specification
+## ───────────────────────────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot; chr (3): 名前, タイプ1, 画像URL dbl (14): ...1, id, 高さ, 重さ, 世代, ステータス, HP,
+## こうげき, ぼうぎょ, とくこう, とくぼう, すばやさ, 捕まえ...
+## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ Specify the column types or
+## set `show_col_types = FALSE` to quiet this message.
+## • `` -&gt; `...1`</code></pre>
+<div id="データの概要" class="section level3 hasAnchor" number="9.7.1">
+<h3><span class="header-section-number">9.7.1</span> データの概要<a href="week8-重回帰分析-2.html#データの概要" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>今回は、重さ、タイプ1、世代の三つに関心があると仮定する</p></li>
+<li><p>データ構造の分かりやすさを優先しており、モデル自体の妥当性は考慮していないことに注意</p></li>
+</ul>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="week8-重回帰分析-2.html#cb322-1" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 17
+##    ...1    id 名前  タイプ1  高さ  重さ  世代 ステータス    HP こうげき ぼうぎょ
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1     1     7 ゼニガメ… みず      0.5   9       1        314    44       48       65
+## 2     2    55 ゴルダッ… みず      1.7  76.6     1        500    80       82       78
+## 3     3    61 ニョロゾ… みず      1    20       1        385    65       65       65
+## 4     4    73 ドククラ… みず      1.6  55       1        515    80       70       65
+## 5     5    79 ヤドン…… みず      1.2  36       1        315    90       65       65
+## # ℹ 6 more variables: とくこう &lt;dbl&gt;, とくぼう &lt;dbl&gt;, すばやさ &lt;dbl&gt;,
+## #   捕まえやすさ &lt;dbl&gt;, 進化 &lt;dbl&gt;, 画像URL &lt;chr&gt;</code></pre>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="week8-重回帰分析-2.html#cb324-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb324-2"><a href="week8-重回帰分析-2.html#cb324-2" tabindex="-1"></a></span>
+<span id="cb324-3"><a href="week8-重回帰分析-2.html#cb324-3" tabindex="-1"></a><span class="fu">describe</span>(dat<span class="sc">$</span>重さ)</span></code></pre></div>
+<pre><code>##    vars  n  mean    sd median trimmed   mad min max range skew kurtosis    se
+## X1    1 46 47.32 72.65   25.7   31.56 28.84 0.8 398 397.2    3    10.25 10.71</code></pre>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="week8-重回帰分析-2.html#cb326-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat<span class="sc">$</span>重さ)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-186-1.png" width="672" /></p>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="week8-重回帰分析-2.html#cb327-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>タイプ1)</span></code></pre></div>
+<pre><code>## 
+## ノーマル     みず 
+##       22       24</code></pre>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="week8-重回帰分析-2.html#cb329-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat<span class="sc">$</span>重さ<span class="sc">~</span> dat<span class="sc">$</span>タイプ1)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-188-1.png" width="672" /></p>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="week8-重回帰分析-2.html#cb330-1" tabindex="-1"></a><span class="fu">aggregate</span>(重さ <span class="sc">~</span> タイプ1, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span></code></pre></div>
+<pre><code>##    タイプ1     重さ
+## 1 ノーマル 25.11818
+## 2     みず 67.67500</code></pre>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="week8-重回帰分析-2.html#cb332-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>世代)</span></code></pre></div>
+<pre><code>## 
+##  1  2  3 
+## 17 12 17</code></pre>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="week8-重回帰分析-2.html#cb334-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat<span class="sc">$</span>重さ<span class="sc">~</span> dat<span class="sc">$</span>世代)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-191-1.png" width="672" /></p>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="week8-重回帰分析-2.html#cb335-1" tabindex="-1"></a><span class="fu">aggregate</span>(重さ <span class="sc">~</span> 世代, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span></code></pre></div>
+<pre><code>##   世代     重さ
+## 1    1 52.37059
+## 2    2 48.25833
+## 3    3 41.61176</code></pre>
+</div>
+<div id="水準のコーディング" class="section level3 hasAnchor" number="9.7.2">
+<h3><span class="header-section-number">9.7.2</span> 2水準のコーディング<a href="week8-重回帰分析-2.html#水準のコーディング" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>世代間の重さの比較をトリートメントコントラストコーディングで検討</p></li>
+<li><p>トリートメントコントラスト</p>
+<ul>
+<li>ノーマルタイプを基準にする</li>
+</ul></li>
+<li><p>水準の順番を確認</p></li>
+</ul>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="week8-重回帰分析-2.html#cb337-1" tabindex="-1"></a><span class="fu">factor</span>(dat<span class="sc">$</span>タイプ1)</span></code></pre></div>
+<pre><code>##  [1] みず     みず     みず     みず     みず     みず     みず     みず    
+##  [9] みず     みず     みず     みず     みず     みず     みず     みず    
+## [17] みず     みず     みず     みず     みず     みず     みず     みず    
+## [25] ノーマル ノーマル ノーマル ノーマル ノーマル ノーマル ノーマル ノーマル
+## [33] ノーマル ノーマル ノーマル ノーマル ノーマル ノーマル ノーマル ノーマル
+## [41] ノーマル ノーマル ノーマル ノーマル ノーマル ノーマル
+## Levels: ノーマル みず</code></pre>
+<ul>
+<li>コーディングする際は、<strong>Factor型</strong>になっている必要がある</li>
+</ul>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="week8-重回帰分析-2.html#cb339-1" tabindex="-1"></a><span class="fu">class</span>(dat<span class="sc">$</span>タイプ1)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<ul>
+<li>Factor型に変更する</li>
+</ul>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="week8-重回帰分析-2.html#cb341-1" tabindex="-1"></a>dat<span class="sc">$</span>タイプ1 <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>タイプ1)</span>
+<span id="cb341-2"><a href="week8-重回帰分析-2.html#cb341-2" tabindex="-1"></a><span class="fu">class</span>(dat<span class="sc">$</span>タイプ1)</span></code></pre></div>
+<pre><code>## [1] &quot;factor&quot;</code></pre>
+<ul>
+<li>トリートメントコントラストコーディングを実施</li>
+</ul>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="week8-重回帰分析-2.html#cb343-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>タイプ1) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">2</span>)</span></code></pre></div>
+<ul>
+<li>ノーマルが基準となっている</li>
+</ul>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="week8-重回帰分析-2.html#cb344-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>タイプ1)</span></code></pre></div>
+<pre><code>##          2
+## ノーマル 0
+## みず     1</code></pre>
+<ul>
+<li>(単)回帰分析の実施</li>
+</ul>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="week8-重回帰分析-2.html#cb346-1" tabindex="-1"></a>results_tr <span class="ot">&lt;-</span> <span class="fu">lm</span>(重さ <span class="sc">~</span> タイプ1, <span class="at">data =</span> dat) </span></code></pre></div>
+<ul>
+<li>みずタイプポケモンの方が、平均して42.56kg ノーマルポケモンよりも重いこと。</li>
+</ul>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="week8-重回帰分析-2.html#cb347-1" tabindex="-1"></a><span class="fu">summary</span>(results_tr)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = 重さ ~ タイプ1, data = dat)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -65.77 -39.55 -18.87  14.76 330.33 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)    25.12      14.96   1.679   0.1003  
+## タイプ12       42.56      20.72   2.054   0.0459 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 70.18 on 44 degrees of freedom
+## Multiple R-squared:  0.08752,    Adjusted R-squared:  0.06678 
+## F-statistic:  4.22 on 1 and 44 DF,  p-value: 0.04592</code></pre>
+<ul>
+<li>報告の例</li>
+</ul>
+<p>ポケモンの重さを、ポケモンのタイプでどの程度予測できるかを調査するため、回帰分析を行った。その結果、ポケモンのタイプは重さを統計的有意に予測していた。しかし、決定係数の値は8.8%、調整済決定係数は6.7%と予測力は大きくなかった。トリートメントコントラストコーディングでノーマルタイプを基準に（ノーマル = 0、みず = 1）比較すると、みずタイプのポケモンはノーマルタイプのポケモンよりも42.56 kg平均して重いことが予想される。</p>
+</div>
+<div id="水準のコーディング-1" class="section level3 hasAnchor" number="9.7.3">
+<h3><span class="header-section-number">9.7.3</span> 3水準のコーディング<a href="week8-重回帰分析-2.html#水準のコーディング-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>反復コントラストコーディングで世代間の重さを比較</li>
+</ul>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="week8-重回帰分析-2.html#cb349-1" tabindex="-1"></a>dat<span class="sc">$</span>世代 <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>世代)</span></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="week8-重回帰分析-2.html#cb350-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>世代) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">3</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="week8-重回帰分析-2.html#cb351-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>世代)</span></code></pre></div>
+<pre><code>##   2-1  3-2 
+## 1 -2/3 -1/3
+## 2  1/3 -1/3
+## 3  1/3  2/3</code></pre>
+<ul>
+<li>（単）回帰分析</li>
+</ul>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="week8-重回帰分析-2.html#cb353-1" tabindex="-1"></a>results_repe <span class="ot">&lt;-</span> <span class="fu">lm</span>(重さ <span class="sc">~</span> 世代, <span class="at">data =</span> dat)</span>
+<span id="cb353-2"><a href="week8-重回帰分析-2.html#cb353-2" tabindex="-1"></a><span class="fu">summary</span>(results_repe)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = 重さ ~ 世代, data = dat)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -50.57 -39.24 -18.99   1.69 356.39 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   47.414     11.083   4.278 0.000103 ***
+## 世代2-1       -4.112     27.963  -0.147 0.883773    
+## 世代3-2       -6.647     27.963  -0.238 0.813252    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 74.17 on 43 degrees of freedom
+## Multiple R-squared:  0.004202,   Adjusted R-squared:  -0.04211 
+## F-statistic: 0.09073 on 2 and 43 DF,  p-value: 0.9134</code></pre>
+<ul>
+<li>世代1と3を比較するためコーディングを変更</li>
+</ul>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="week8-重回帰分析-2.html#cb355-1" tabindex="-1"></a>dat<span class="sc">$</span>世代 <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>世代, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;2&quot;</span>))</span>
+<span id="cb355-2"><a href="week8-重回帰分析-2.html#cb355-2" tabindex="-1"></a></span>
+<span id="cb355-3"><a href="week8-重回帰分析-2.html#cb355-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>世代)</span></code></pre></div>
+<pre><code>##   3 2
+## 1 0 0
+## 3 1 0
+## 2 0 1</code></pre>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="week8-重回帰分析-2.html#cb357-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>世代) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">3</span>))</span></code></pre></div>
+<ul>
+<li><p>世代2-1：世代3 - 世代1</p></li>
+<li><p>世代3-2：世代2 - 世代3</p></li>
+</ul>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="week8-重回帰分析-2.html#cb358-1" tabindex="-1"></a>results_repe2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(重さ <span class="sc">~</span> 世代, <span class="at">data =</span> dat)</span>
+<span id="cb358-2"><a href="week8-重回帰分析-2.html#cb358-2" tabindex="-1"></a><span class="fu">summary</span>(results_repe2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = 重さ ~ 世代, data = dat)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -50.57 -39.24 -18.99   1.69 356.39 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   47.414     11.083   4.278 0.000103 ***
+## 世代2-1      -10.759     25.439  -0.423 0.674455    
+## 世代3-2        6.647     27.963   0.238 0.813252    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 74.17 on 43 degrees of freedom
+## Multiple R-squared:  0.004202,   Adjusted R-squared:  -0.04211 
+## F-statistic: 0.09073 on 2 and 43 DF,  p-value: 0.9134</code></pre>
+<ul>
+<li>報告の例</li>
+</ul>
+<p>ポケモンの重さを、ポケモンの世代でどの程度予測できるかを調査するため、回帰分析を行った。その結果、ポケモンの世代は重さを統計的有意に予測していなかった。しかし、決定係数の値は0.42%、調整済決定係数はマイナスの値を示していた。さらに、<em>F</em> 検定に有意差は見られなかった。世代間の比較においても、有意差がみられるペアはなかった。</p>
+</div>
+</div>
+<div id="検定の繰り返し問題アゲイン" class="section level2 hasAnchor" number="9.8">
+<h2><span class="header-section-number">9.8</span> 検定の繰り返し問題アゲイン<a href="week8-重回帰分析-2.html#検定の繰り返し問題アゲイン" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><em>t</em> 検定から分散分析の接続で取り上げたりしますが、 <em>t</em> 検定に限った話ではなく、これから先の分析でも、<strong>帰無仮説と付き合うのであれば</strong>、向き合っていく必要のあるテーマです。常に意識しましょう。</li>
+</ul>
+<div id="重回帰分析における検定" class="section level3 hasAnchor" number="9.8.1">
+<h3><span class="header-section-number">9.8.1</span> 重回帰分析における検定<a href="week8-重回帰分析-2.html#重回帰分析における検定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>検定の多重性は、第一種の過誤を高めてしまうことが問題</p></li>
+<li><p>重回帰分析で使用される検定として二つある（モデル比較の際にはさらに検定を行う）</p>
+<ul>
+<li><p>モデル全体: <em>F</em> 検定</p>
+<ul>
+<li>回帰モデル自体の有意性を検定。帰無仮説「すべての偏回帰係数がゼロ」</li>
+</ul></li>
+</ul></li>
+<li><p>各係数</p>
+<ul>
+<li><p>各係数は <em>t</em> 値をもとに検定が行われている</p>
+<ul>
+<li>2水準と3水準では、係数の数がそれぞれ1と2となり、水準が増えるほど検定を繰り返すことになる</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="infobox">
+<p>同じ参加者に対し、英語と日本語で実験を行い、言語別のデータセットを作成。それらに重回帰分析を行うと、検定を繰り返していることになります。この場合、モデルに言語変数を入れ、下位検定で多重比較を行って言語ごとの影響を確認します。</p>
+</div>
+<div class="infobox">
+<p>各係数での検定の繰り返しの問題は、この分野ではあまり問題にされることが少ないと思います。しかし、シミュレーションを行うと、係数の <em>p</em> 値がインフレするのを確認できるのも事実です。</p>
+</div>
+</div>
+</div>
+<div id="解決策" class="section level2 hasAnchor" number="9.9">
+<h2><span class="header-section-number">9.9</span> 解決策<a href="week8-重回帰分析-2.html#解決策" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="p-値の補正" class="section level3 hasAnchor" number="9.9.1">
+<h3><span class="header-section-number">9.9.1</span> <em>p</em> 値の補正<a href="week8-重回帰分析-2.html#p-値の補正" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p><code>p_adjust()</code>関数</p>
+<ul>
+<li><code>lm()</code>関数で作成したモデルを使用する。</li>
+<li>補正法： Romano-Wolf stepdown（初期値）, Bonferroni, Bonferroni-Holm, and Benjamini-Hochberg corrections, etc…</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="week8-重回帰分析-2.html#cb360-1" tabindex="-1"></a><span class="co">#install.packages(&quot;hdm&quot;)</span></span>
+<span id="cb360-2"><a href="week8-重回帰分析-2.html#cb360-2" tabindex="-1"></a><span class="fu">library</span>(hdm)</span></code></pre></div>
+<pre><code>## Warning: package &#39;hdm&#39; was built under R version 4.3.3</code></pre>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="week8-重回帰分析-2.html#cb362-1" tabindex="-1"></a>results_sum_RM <span class="ot">&lt;-</span> <span class="fu">p_adjust</span>(results_sum, <span class="at">method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
+<ul>
+<li>補正後</li>
+</ul>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="week8-重回帰分析-2.html#cb363-1" tabindex="-1"></a>results_sum_RM[,<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>##             (Intercept)                 Method1                 Method2 
+## 0.000000000000004800219 1.000000000000000000000 0.029708515524948679587</code></pre>
+<ul>
+<li>補正前</li>
+</ul>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="week8-重回帰分析-2.html#cb365-1" tabindex="-1"></a><span class="fu">summary</span>(results_sum)[[<span class="st">&quot;coefficients&quot;</span>]][,<span class="dv">4</span>]</span></code></pre></div>
+<pre><code>##             (Intercept)                 Method1                 Method2 
+## 0.000000000000001600073 0.588539274664316103269 0.009902838508316226529</code></pre>
+<ul>
+<li>補正では第2種の誤りが大きくなるのを防げないというシミュレーション結果もある</li>
+</ul>
+</div>
+<div id="ベイズ統計" class="section level3 hasAnchor" number="9.9.2">
+<h3><span class="header-section-number">9.9.2</span> ベイズ統計<a href="week8-重回帰分析-2.html#ベイズ統計" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>検定の繰り返しは、帰無仮説検定を行う頻度統計における問題。</p>
+<ul>
+<li>以前使用した<code>brm()</code>関数を使用。</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="week8-重回帰分析-2.html#cb367-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>タイプ1) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="week8-重回帰分析-2.html#cb368-1" tabindex="-1"></a><span class="fu">library</span>(brms)</span></code></pre></div>
+<pre><code>## Loading &#39;brms&#39; package (version 2.20.4). Useful instructions
+## can be found by typing help(&#39;brms&#39;). A more detailed introduction
+## to the package is available through vignette(&#39;brms_overview&#39;).</code></pre>
+<pre><code>## 
+## Attaching package: &#39;brms&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:rstanarm&#39;:
+## 
+##     dirichlet, exponential, get_y, lasso, ngrps</code></pre>
+<pre><code>## The following object is masked from &#39;package:psych&#39;:
+## 
+##     cs</code></pre>
+<pre><code>## The following object is masked from &#39;package:stats&#39;:
+## 
+##     ar</code></pre>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="week8-重回帰分析-2.html#cb374-1" tabindex="-1"></a>results_sum_bayes <span class="ot">&lt;-</span> <span class="fu">brm</span>(</span>
+<span id="cb374-2"><a href="week8-重回帰分析-2.html#cb374-2" tabindex="-1"></a>  重さ <span class="sc">~</span> タイプ1,  <span class="co"># 応答変数「重さ」と説明変数「タイプ1」の回帰モデル</span></span>
+<span id="cb374-3"><a href="week8-重回帰分析-2.html#cb374-3" tabindex="-1"></a>  <span class="at">data =</span> dat,  <span class="co"># データフレーム dat を使用</span></span>
+<span id="cb374-4"><a href="week8-重回帰分析-2.html#cb374-4" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">gaussian</span>(),  <span class="co"># 正規分布（ガウス分布）を仮定</span></span>
+<span id="cb374-5"><a href="week8-重回帰分析-2.html#cb374-5" tabindex="-1"></a>  <span class="at">prior =</span> <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">10</span>)),  <span class="co"># 事前分布として平均0、標準偏差10の正規分布を設定</span></span>
+<span id="cb374-6"><a href="week8-重回帰分析-2.html#cb374-6" tabindex="-1"></a>  <span class="at">chains =</span> <span class="dv">4</span>,  <span class="co"># MCMCの独立した4つのチェーンを使用</span></span>
+<span id="cb374-7"><a href="week8-重回帰分析-2.html#cb374-7" tabindex="-1"></a>  <span class="at">iter =</span> <span class="dv">5000</span>,  <span class="co"># 総サンプリング回数（各チェーンあたり5000回）</span></span>
+<span id="cb374-8"><a href="week8-重回帰分析-2.html#cb374-8" tabindex="-1"></a>  <span class="at">warmup =</span> <span class="dv">500</span>,  <span class="co"># ウォームアップ（バーンイン）期間として最初の500回を破棄</span></span>
+<span id="cb374-9"><a href="week8-重回帰分析-2.html#cb374-9" tabindex="-1"></a>  <span class="at">thin =</span> <span class="dv">2</span>,  <span class="co"># 2回ごとに1つのサンプルを取得（間引き）</span></span>
+<span id="cb374-10"><a href="week8-重回帰分析-2.html#cb374-10" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">123</span>,  <span class="co"># 乱数シードを設定し、再現性を確保</span></span>
+<span id="cb374-11"><a href="week8-重回帰分析-2.html#cb374-11" tabindex="-1"></a>  <span class="at">refresh =</span> <span class="dv">0</span></span>
+<span id="cb374-12"><a href="week8-重回帰分析-2.html#cb374-12" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Compiling Stan program...</code></pre>
+<pre><code>## Start sampling</code></pre>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="week8-重回帰分析-2.html#cb377-1" tabindex="-1"></a><span class="fu">summary</span>(results_sum_bayes)</span></code></pre></div>
+<pre><code>##  Family: gaussian 
+##   Links: mu = identity; sigma = identity 
+## Formula: 重さ ~ タイプ1 
+##    Data: dat (Number of observations: 46) 
+##   Draws: 4 chains, each with iter = 5000; warmup = 500; thin = 2;
+##          total post-warmup draws = 9000
+## 
+## Population-Level Effects: 
+##           Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+## Intercept    44.17      9.96    24.97    63.71 1.00     8205     8555
+## タイプ11    -10.21      7.28   -24.50     4.07 1.00     8493     8029
+## 
+## Family Specific Parameters: 
+##       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+## sigma    70.50      7.49    57.58    86.81 1.00     8154     7938
+## 
+## Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+## and Tail_ESS are effective sample size measures, and Rhat is the potential
+## scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+</div>
+</div>
+<div id="次週までの課題-6" class="section level2 hasAnchor" number="9.10">
+<h2><span class="header-section-number">9.10</span> 次週までの課題<a href="week8-重回帰分析-2.html#次週までの課題-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="課題内容-6" class="section level3 hasAnchor" number="9.10.1">
+<h3><span class="header-section-number">9.10.1</span> 課題内容<a href="week8-重回帰分析-2.html#課題内容-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。</p></li>
+<li><p>Week 7の内容も踏まえ、以下のデータを基に重回帰分析を行いましょう</p></li>
+</ol>
+<ul>
+<li><p>外れ値のデータが入っていることに注意です</p></li>
+<li><p><strong>Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。</strong></p></li>
+</ul>
+</div>
+<div id="提出方法-6" class="section level3 hasAnchor" number="9.10.2">
+<h3><span class="header-section-number">9.10.2</span> 提出方法<a href="week8-重回帰分析-2.html#提出方法-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>メールにファイルを添付して送信。</li>
+<li>締め切りは今週の木曜日まで</li>
+</ul>
+</div>
+</div>
+<div id="参考文献-6" class="section level2 hasAnchor" number="9.11">
+<h2><span class="header-section-number">9.11</span> 参考文献<a href="week8-重回帰分析-2.html#参考文献-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>平井 et al. </p></li>
+<li><p>外国語教育ハンドブック</p></li>
+<li><p>南風原</p></li>
+<li><p><a href="https://bellcurve.jp/statistics/course/24461.html?srsltid=AfmBOoq5YejCPBlcGOIawwi-sCV98ib6WvQKuCNEhshmn1IzwdR7JhyV" class="uri">https://bellcurve.jp/statistics/course/24461.html?srsltid=AfmBOoq5YejCPBlcGOIawwi-sCV98ib6WvQKuCNEhshmn1IzwdR7JhyV</a></p></li>
+<li><p><a href="https://home.hirosaki-u.ac.jp/pteiki/r/3pecification/multiplecomp/" class="uri">https://home.hirosaki-u.ac.jp/pteiki/r/3pecification/multiplecomp/</a></p></li>
+<li><p>Plonsky, L., &amp; Oswald, F. L. (2017). Multiple regression as a flexible alternative to ANOVA in L2 research. Studies in Second Language Acquisition, 39(3), 579-592.</p></li>
+<li><p>水本篤. (2009). 複数の項目やテストにおける検定の多重性: モンテカルロ・シミュレーションによる検証. 外国語教育メディア学会機関誌, 46, 1-19.</p></li>
+<li><p><a href="https://yukiyanai.github.io/jp/classes/econometrics1/contents/R/multiple-comparison.html#%E5%A4%9A%E9%87%8D%E6%AF%94%E8%BC%83%E8%A3%9C%E6%AD%A3%E3%81%AE%E8%A8%88%E7%AE%97%E6%B3%95" class="uri">https://yukiyanai.github.io/jp/classes/econometrics1/contents/R/multiple-comparison.html#%E5%A4%9A%E9%87%8D%E6%AF%94%E8%BC%83%E8%A3%9C%E6%AD%A3%E3%81%AE%E8%A8%88%E7%AE%97%E6%B3%95</a></p></li>
+<li><p>小島ますみ（2022）. 外国語教育研究における（一般化）線形混合モデル：仮説に適したコーディング・モデリングを中心に The 2021 Annual Conference on Vocabulary Acquisition</p></li>
+</ul>
+<style>
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+
+.beg {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
+
+.caution {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
+  
+</style>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="week7-重回帰分析.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="week9-重回帰分析-3交互作用の解釈.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/08-multiplereg_2.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
