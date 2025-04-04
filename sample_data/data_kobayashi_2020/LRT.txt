@@ -1,0 +1,189 @@
+
+LRA <- function(data,fn=2,neighbor=0.07,SOM=FALSE,maxit = 1000){
+  SOM <- ifelse(SOM==TRUE,T,SOM)
+  data <- as.matrix(na.omit(data))
+  m <- ncol(data) #number of variables
+  n <- nrow(data) #sample size
+  fn <- fn #number of rank
+  cm <- matrix(nrow=fn,ncol=m) #means
+  cv <- matrix(nrow=fn,ncol=m) #variances
+  l <- matrix(nrow=n,ncol=fn) #likelihood
+  r <- matrix(nrow=n,ncol=fn) #responsibilities
+  w <- matrix(nrow=n,ncol=fn) #winner matrix
+  h <- matrix(nrow=fn,ncol=fn) #neighbor matrix
+  sigma <- fn ^2 * neighbor ^ 2 #variance of neighbor function
+  #neighbor function
+  for(i in 1:fn){
+    for(j in 1:fn){
+      h[i,j] <- exp(-0.5*(i-j)^2/sigma)
+    }
+  }
+  for(i in 1:fn){
+    h[,i] <- h[,i]/sum(h[,i])
+  }  
+  #initial responsibilities
+  x <-eigen(cor(data))$vectors[,1]
+  x <- ifelse(length(x[x<0]) > m /2,-1,1)
+  prins <- x *rowSums(t(t(scale(data)) * (eigen(cor(data))$vectors[,1] / eigen(cor(data))$values[1] ^0.5)))
+  for(i in 1:n){
+    for(j in 1:fn){
+      if(rank(prins)[i] < n/fn * j && rank(prins)[i] > n/fn * (j-1)){
+        r[i,j] <- 1
+      }else{
+        r[i,j] <- 0
+      }
+    }  
+  }
+  old_r <- r
+  w <- r  
+  p <- colSums(r)/n #mixture ratio
+  
+  #EM algorithm
+  for(count in 1:maxit){  
+    #Mstep
+    p <- colSums(r)/n  
+    if(!fn==1){
+      if(!SOM==T){
+        g <- diag(apply(r %*% h,2,sum)^-1)
+        cm <- t(t(data) %*% r %*% h %*% g)
+      }else{
+        g <- diag(apply(w %*% h,2,sum)^-1)
+        cm <- t(t(data) %*% w %*% h %*% g)
+      }    
+    }else{
+      cm <- t(colMeans(data))
+    }
+    for(i in 1:fn){  
+      cv[i,] <- colSums(r[,i] * t(t(data)-cm[i,])^2)/ sum(r[,i])
+    }
+        
+    #Estep
+    for(i in 1:fn){
+      temp <- exp(-0.5*(colSums((cm[i,]-t(data))^2 / cv[i,])))
+      detv <- ifelse(!m==1,det(diag(cv[i,])),cv[i,])
+      l[,i] <- (2*pi) ^ (-m/2) *detv ^ -0.5 * temp
+      r[,i] <- p[i]*l[,i]
+      w[,i] <- -1*colSums((cm[i,]-t(data))^2)
+    }
+    r <- r / apply(r,1,sum)
+    w <- ifelse(w==apply(w,1,max),1,0)
+    
+    #convergence check
+    ep <- max(old_r - r)
+    if(ep < 0.0001){
+      break
+    }else{
+      old_r <- r 
+    }     
+  }
+  
+  #log-likelihood
+  for(i in 1:fn){
+    l[,i] <- p[i]*l[,i]
+  }    
+  ll <- sum(log(rowSums(l)))
+  rank <- max.col(r)
+  if(!fn==1){
+    if(!SOM==T){
+      std <- t(t(prins) %*% r %*% h %*% g)
+    }else{
+      std <- t(t(prins) %*% w %*% h %*% g)
+    }    
+  }else{
+    std <- 0
+  }
+
+  #check ordinary alignment condition
+  oac <- TRUE
+  if(!fn==1){    
+    for(i in 2:fn){
+      if(std[i-1]>std[i]){
+        oac <- FALSE
+      }
+    }
+  }
+
+  #rank correlations
+  temprank <- p*n / 2
+  rankmean <- n / 2
+  ranksd <- 0
+  temprank2 <- 0
+  for(i in 1:fn){
+    temprank2 <- temprank2 + ifelse(i==1,0,p[i-1]*n)
+    temprank[i] <- temprank2 + temprank[i]
+    ranksd <- ranksd + (temprank[i]-rankmean) ^ 2 * p[i]*n
+  }
+  ranksd <- (ranksd/(n-1)) ^ 0.5
+  rankcorr <- 1:m
+  for(i in 1:m){
+    rankcorr[i] <-sum(t(t(r)*(temprank))*(data[,i] - mean(data[,i])))/(n-1)
+  }
+  rankcorr <- rankcorr/ (ranksd*apply(data,2,sd))
+
+  colnamelist <-list()
+  if(!fn==1){
+    for(i in 1:fn){colnamelist[i]<-paste("rank",i)}
+    rownames(cm) <- colnamelist
+    rownames(cv) <- colnamelist
+    colnames(r) <- colnamelist
+    names(p) <- colnamelist
+    colnames(cv) <- colnames(data)
+  }
+  result <- list(means=cm,vars=cv,prob=p,res=r,winner=w,rank=rank,ll=ll,
+                 conv=ep,count=count,fn=fn,i=m,n=n,std=std,rankcorr=rankcorr,oac=oac)
+  class(result) <- "lra"
+  if(oac==FALSE){
+    cat("\nWarning:The ordinal alignment condition was not satisfied.\n")
+  }
+  return(result)
+}
+
+AIC.lra <- function(x){
+  if(class(x)=="lra"){
+    AIC <- -2*x$ll + 2*(2*x$fn*x$i+(x$fn-1))
+    BIC <- -2*x$ll + log(x$n)*(2*x$fn*x$i+(x$fn-1))
+    SBIC <- -2*x$ll + log((x$n+2)/24)*(2*x$fn*x$i+(x$fn-1))
+    print(cbind(AIC,BIC,SBIC))
+  }
+}
+
+plot.lra <- function(x,var=0){
+  if(class(x)=="lra"){
+    if(var<=x$i && !var==0){
+      plot(1:x$fn,t(x$means[,var]),type="l",xlab ="Rank",ylab=colnames(x$means)[var])
+    }else{      
+      plot(1:x$fn,t(x$std),type="l",xlab ="Rank",ylab="Principal component")
+    }    
+  }    
+}
+
+print.lra <- function(x){
+  if(class(x)=="lra"){
+    cat("\nLatent frequencies:\n")
+    print(round(x$prob*x$n,digits=3))
+    cat("\nLatent probabilities:\n")
+    print(round(x$prob,digits=3))
+    cat("\nMeans:\n")
+    print(round(x$means,digits=3))
+    cat("\nVariances:\n")
+    print(round(x$vars,digits=3))
+    cat("\nRank correlations:\n")
+    print(round(x$rankcorr,digits=3))
+    cat("\nLog-likelihood:\n")
+    print(round(x$ll,digits=3))
+  }
+}
+
+summary.lra <- function(x){
+  if(class(x)=="lra"){
+    if(x$oac==FALSE){
+      cat("\nWarning:The ordinal alignment condition was not satisfied.\n")
+    }
+    cat("\nLatent frequencies:\n")
+    print(round(x$prob*x$n,digits=3))
+    cat("\nMeans:\n")
+    print(round(x$means,digits=3))
+    cat("\nRank correlations:\n")
+    print(round(x$rankcorr,digits=3))
+  }    
+}
