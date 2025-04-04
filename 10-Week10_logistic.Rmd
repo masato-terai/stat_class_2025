@@ -460,8 +460,8 @@ pred_probs * 100
 ## 質的変数の場合
 
 ```{r}
-res <- aggregate(Pass ~ Method, data = dat, FUN = mean)
-res
+means <- aggregate(Pass ~ Method, data = dat, FUN = mean)
+means
 ```
 
 
@@ -490,7 +490,7 @@ contrasts(dat$Method)
 ```{r}
 res.2 <- glm(
   Pass ~ Method,
-  family = binomial,
+  family = binomial(link = "logit"),
   data = dat
 )
 ```
@@ -562,7 +562,7 @@ axis(1, at = c(1, 2), labels = c("Method A", "Method B"))
   - 以下では、合格の予測確率が0.6未満の場合やばい（0）、0.6以上の場合安心（1）と分類しています
 
 ```{r}
-pred_probs <- predict(res, type = "response", newdata = dat)
+pred_probs <- predict(res, type = "response", newdata = data.frame(Starting_age = dat$Starting_age))
 
 # 予測クラスを作成
 pred_class <- ifelse(pred_probs > 0.6, 1, 0)

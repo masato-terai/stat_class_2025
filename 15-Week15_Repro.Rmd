@@ -1,0 +1,766 @@
+# Week 15：言語研究とオープンサイエンス
+
+```{r, include=FALSE}
+library(tidyverse)
+library(kableExtra)
+```
+
+
+## 事前の確認
+
+- この講義のRプロジェクトを開いていますか？
+- 英数字で名前を付けた本日の講義のファイルを作成しましたか？
+
+  - .Rでも.Rmdでもどちらでも大丈夫です。
+
+## 今日の目標
+
+1. 
+2. 
+
+```{=html}
+<style>
+
+/* Whole document */
+body {
+  font-family: Helvetica;
+  font-size: 16pt;
+}
+
+/* Headers */
+h1, h2, h3, h4, h5, h6 {
+  font-size: 24pt;
+}
+
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+
+}
+
+.beg {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
+
+.caution {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
+  
+</style>
+```
+
+::: {.infobox .beg data-latex="{beg}"}
+2024年8月に名古屋学院大で行われた外国語メディア学会全国大会でのワークショップ（外国語教育研究者のためのオープンサイエンス入門― R Markdownを用いた実践編の内容を改変したものです。
+:::
+
+
+## はじめに
+
+### 研究成果や研究資料の公開・共有の必要性
+
+#### 再現可能な研究のために、研究に使用したマテリアルの提出を推奨
+
+-   e.g., 実験で使用した刺激文、分析に使用した生データ、分析コード
+
+-   [Language LearningのHPより](https://onlinelibrary.wiley.com/page/journal/14679922/homepage/ForAuthors.html#badgel)
+
+> **Shared Research Materials and Data Policy for Accepted Articles.** <mark style="background-color: orange;">*Language Learning* encourages accepted authors to upload their data collection materials and/or data to the IRIS database (<http://www.iris-database.org>).</mark> IRIS is an online repository for data collection materials used for second language research. This includes data elicitation instruments such as <mark style="background-color: orange;">interview and observation schedules, language tests, pictures, questionnaires, software scripts, URL links, word lists, pedagogical interventions, and so on.</mark> (...) The sharing of research instrumentation benefits the research community and helps authors and journals increase the visibility of their published research.
+
+
+
+## 1. R Markdownを使って分析結果をまとめることができる
+
+### R Studioを開いて作成する
+
+#### R Markdownの解体新書
+
+-   【パーツ１】YAML（YAML　Ain't Markup Language）ヘッダー：文章全体の体裁や情報を操作する
+
+    -   タイトル、サブタイトル
+    -   作成者
+    -   作成した日時、更新日時も設定可能
+    -   どのような形式で作成するか
+
+::: {.infobox .caution data-latex="{caution}"}
+**注意**<br>
+・ YAMLヘッダーは、RでもMarkdownでもないプログラム言語で記述します。
+:::
+
+-   【パーツ２】コードチャンク：Rのコードを記述するところ
+
+-   【パーツ３】ドキュメントチャンク：[Markdownと呼ばれるプログラム言語](https://www.jaysong.net/RBook/rmarkdown.html#rmarkdown-intro)で記述するところ
+
+    -   見出し、表、箇条書き、強調、斜体など、Wordのリボン部分にある機能をMarkdownで書く
+
+
+### Knit🧶を押して出力！
+- 初期設定はHTMLファイル出力です
+
+## プロジェクト
+
+-   プロジェクト = ディレクトリ
+    -   ファイルや操作履歴を保存できる
+-   プロジェクトを作成する利点
+    -   研究ごとに分析に必要なファイルをまとめることができる
+    
+## 実際に作ってみましょう
+- デスクトップに新しいフォルダーを作成してください
+    - 名前は、英数字のみがいいです（Rが関係しそうな場合、ファイル名、フォルダ名に日本語を使わない方が安心です）
+    -   作り方を解説しているサイト（[私たちのR](https://www.jaysong.net/RBook/project.html)）
+-   デスクトップのフォルダーを指定してプロジェクトを作成しましょう
+
+
+## ドキュメントチャンク：Markdown記法
+
+### 覚えるのはマストではない。その都度調べてよく使うものを覚えていく
+
+-   Markdownなら生成AIはほぼ完ぺきに正解を教えてくれる
+-   [必要最低限で覚えておくとよい記法](https://qiita.com/tbpgr/items/989c6badefff69377da7)
+    -   見出し → これはマスト！
+        -   #の数で指定。文字との間を半角あけるのを忘れない。
+    -   箇条書き
+        -   `*`, `+`, `-`のいずれかを入れる。文字との間を半角あけるのを忘れない。
+        -   半角スペースを2つ前（もしくはtab）に入れると、レベル２を作れる。さらに2ついれると、、、
+    -   強調
+        -   \*で挟むと斜体
+        -   \*\*で挟むとBold体
+        -   \*\*\*で挟むとどうなるでしょう
+
+## Let's 実践
+
+-   以下の文章をMarkdownを使って再現してください。
+
+::: infobox
+'# 名古屋飯といえば
+
+'## ひつまぶし：*Hitsumabushi*
+
+おすすめは以下のお店です。
+
+- **ひつまぶし花岡**
+  - 場所：栄
+:::
+
+## 答え合わせ
+
+```{markdown}
+# 名古屋飯といえば
+## ひつまぶし：*Hitsumabushi*
+おすすめは以下のお店です。
+
+- **ひつまぶし花岡**
+  - 場所：栄
+
+```
+
+## 実は、Wordのように編集できます！
+
+-   Markdownで書かなくとも、VisualモードであればWordと似たようにできます。
+-   以下で設定ができる
+    -   [Tools] → [Global Options...] → [R Markdown] → [Visual]
+    -   "Use visual editor by default for new documents"の項目に☑
+    -   "Soft-wrap R Markdown files"にも☑を入れると、右側にアウトラインが出ます
+-   欠点として、少し動作が遅い。簡単なものはMarkdownで書く方が速い
+-   表などはVisualモードがおすすめ
+
+## コードチャンクの挿入
+
+### ショートカットキーが便利：[Ctrl] + [Alt] + [I]（Windows）、[Command] + [Option] + [I]（Mac）
+
+-   このコードの中はRです。Rで使う関数などを自由に指定できます。
+-   以下のチャンク内でないと、動きません。
+
+\`\`\`{r}\
+\`\`\`
+
+```{r}
+dat <- c(1, 4, 6)
+
+mean(dat)
+
+```
+
+```{r}
+plot(dat)
+```
+
+-   {r}の中にもいろいろな指定ができます。
+
+    -   コードを非表示にして結果だけを表示させたい（オープンサイエンスではないですが）
+
+```{r, echo=FALSE}
+dat <- c(1, 4, 6)
+
+mean(dat)
+```
+
+-   チャンクのオプションは沢山あるので、その都度チートシートを参照するとよいです。
+
+    -   [チートシート](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+
+## Let's 実践
+
+-   以下をドキュメントチャンクとコードチャンクを使って再現してください。
+
+::: infobox
+## 食費の合計
+
+- 以下は、名古屋旅行で使った食費の合計である。
+
+  - **注!** *hitsu*はひつまぶし、*miso*は味噌カツを表す。
+
+```{r}
+hitsu <- 1300 * 2
+
+miso <- 1000 * 2
+
+total <- sum(hitsu, miso)
+```
+:::
+
+## 答え合わせ
+
+```{markdown}
+## 食費の合計
+- 以下は、名古屋旅行で使った食費の合計である。
+
+  - **注!** *hitsu*はひつまぶし、*miso*は味噌カツを表す
+
+\```{r}
+hitsu <- 1300 * 2
+
+miso <- 1000 * 2
+
+total <- sum(hitsu, miso)
+\```
+
+```
+
+## 2. R Markdownでまとめた結果を共有することができる
+
+-   YAMLヘッダーのoutputを変更するだけ！
+
+### Wordに出力
+
+### Before
+
+```{markdown}         
+title: "Untitled"
+output: html_document
+date: "2024-04-15"
+```
+
+### After
+
+```{markdown}         
+title: "Untitled"
+output: word_document
+date: "2024-04-15"
+```
+
+-   テンプレートを追加することも可能。テンプレートはきちんとレベル分けの設定などを行っておく必要あり[（設定の仕方）](https://gedevan-aleksizde.github.io/rmarkdown-cookbook/word-template.html)。
+
+### Power Pointに出力
+
+-   図や表は必ず新しいページに表示されるなど、knitした後の修正が面倒。
+
+```{markdown}         
+title: "Untitled"
+output: powerpoint_presentation
+date: "2024-04-15"
+```
+
+### HTML slideに変更
+
+```{markdown}         
+title: "Untitled"
+output: ioslides_presentation
+date: "2024-04-15"
+```
+
+-   **\#**で定義するレベル分けでスライドの区切りが代わる
+
+    -   **\#**でスライドのセクション見出し
+    -   **\##**で新しいページ
+    -   **\###**ページ内の太文字
+
+-   枠にとらわれない！
+
+    -   以下のチャンクを先頭に入れると、スクロール可能なスライドになる（チャンク内はrではなく、`=html`にする）。
+    -   注意点として、タッチパッドや、マウスホイールでスクロールできますが、スクロールバーを掴んでスクロールはできません。
+
+```{markdown}         
+<style>
+  slides > slide {
+    overflow-x: auto !important;
+    overflow-y: auto !important;
+}
+</style>
+```
+
+## HTML形式だと、簡単にウェブサイトにできます
+
+-   リンクで他者に共有できます。
+-   以下の二つは無料で利用できるが、無料版の場合、リンクを知る人だれもが閲覧できるので注意
+
+### RPubsを使う
+
+-   コメント機能もあるので、「発表へのコメントは匿名でこちらへ」みたいにできそう。
+-   [使い方の解説](https://qiita.com/masato-terai/items/664c5ee782f690260eca#rpubs%E4%B8%80%E7%95%AA%E7%B0%A1%E5%8D%98)
+
+### Githubを使う
+
+-   Githubとは、コードのバージョン管理をするツール。共同編集可能。
+-   今回は一番簡単な方法で実行します。しかし、Git(hub)をフルで使いこなせば、ファイルのバージョン管理、共同編集などが可能でより再現可能な資料作成に一歩近づくと思います。R Studioとの連携も可能。
+-   [使い方の解説](https://qiita.com/masato-terai/items/664c5ee782f690260eca#rpubs%E4%B8%80%E7%95%AA%E7%B0%A1%E5%8D%98)
+
+## 3. 様々なパソコンで同じ分析環境を再現することができる
+
+### パッケージのバージョン管理：`renv`パッケージ
+
+-   *r*eproducible *env*ironments（再現性のある分析環境）の略
+
+-   RのプロジェクトごとにRの環境を作る。同じパソコンで、同じ名前でバージョンが異なるパッケージを使うことができる。
+
+-   旧バージョンを試しに使ってみたい場合が、今のバージョンも記録しておきたいときに！
+
+-   プロジェクトディレクトリを相手に共有できる！別のパソコンで分析したいときにも！
+
+-   Let's インストール
+
+```{markdown}         
+install.packages("renv")
+```
+
+-   使用する3つの関数
+
+    1.  `init`関数：パッケージ管理の開始を宣言
+    2.  `snapshot`関数：パッケージ情報の保存
+    3.  `restore`関数：パッケージ情報の復元
+
+### バージョン管理の開始
+
+-   以下のコマンドを走らせると、**プロジェクト内で**使用しているパッケージを、RやRmdファイルなどから検出します。そして、そのバージョンの情報を`renv.lock`ファイルに保存します。
+
+```{markdown}         
+renv::init()
+```
+
+-   最初に実行すると、以下のメッセージが表示されます。
+
+```         
+renv: Project Environments for R
+
+Welcome to renv! It looks like this is your first time using renv.
+This is a one-time message, briefly describing some of renv's functionality.
+
+renv will write to files within the active project folder, including:
+
+  - A folder 'renv' in the project directory, and
+  - A lockfile called 'renv.lock' in the project directory.
+
+In particular, projects using renv will normally use a private, per-project
+R library, in which new packages will be installed. This project library is
+isolated from other R libraries on your system.
+
+In addition, renv will update files within your project directory, including:
+
+  - .gitignore
+  - .Rbuildignore
+  - .Rprofile
+
+Finally, renv maintains a local cache of data on the filesystem, located at:
+
+  - "C:/Users/terai-masato/AppData/Local/R/cache/R/renv"
+
+This path can be customized: please see the documentation in `?renv::paths`.
+
+Please read the introduction vignette with `vignette("renv")` for more information.
+You can browse the package documentation online at https://rstudio.github.io/renv/.
+Do you want to proceed? [y/N]: 
+```
+
+-   yを押して進むと、開いているプロジェクトのあるディレクトリに**renv**というフォルダーが作成されます。その中に、3つのファイルと、1つのディレクトリが作成されています。また、**renv.lock**というファイルも同じディレクトリに作成されます。**新しく作成されたものは、すべて`renv`パッケージの利用に必要なので、削除しないでください。**
+
+```         
+- "C:/Users/terai-masato/AppData/Local/R/cache/R/renv" has been created.
+- Linking packages into the project library ... [33/33] Done!
+- Resolving missing dependencies ... 
+# Installing packages --------------------------------------------------------
+The following package(s) will be updated in the lockfile:
+
+# CRAN -----------------------------------------------------------------------
+- base64enc     [* -> 0.1-3]
+- bslib         [* -> 0.5.1]
+- cachem        [* -> 1.0.8]
+- cli           [* -> 3.6.1]
+- digest        [* -> 0.6.33]
+- ellipsis      [* -> 0.3.2]
+- evaluate      [* -> 0.23]
+- fastmap       [* -> 1.1.1]
+- fontawesome   [* -> 0.5.2]
+- fs            [* -> 1.6.3]
+- glue          [* -> 1.6.2]
+- highr         [* -> 0.10]
+- htmltools     [* -> 0.5.7]
+- jquerylib     [* -> 0.1.4]
+- jsonlite      [* -> 1.8.7]
+- knitr         [* -> 1.45]
+- lifecycle     [* -> 1.0.4]
+- magrittr      [* -> 2.0.3]
+- memoise       [* -> 2.0.1]
+- mime          [* -> 0.12]
+- prettydoc     [* -> 0.4.1]
+- R6            [* -> 2.5.1]
+- rappdirs      [* -> 0.3.3]
+- renv          [* -> 1.0.7]
+- rlang         [* -> 1.1.2]
+- rmarkdown     [* -> 2.25]
+- sass          [* -> 0.4.7]
+- stringi       [* -> 1.7.12]
+- stringr       [* -> 1.5.0]
+- tictoc        [* -> 1.2]
+- tinytex       [* -> 0.48]
+- vctrs         [* -> 0.6.4]
+- xfun          [* -> 0.41]
+- yaml          [* -> 2.3.7]
+
+The version of R recorded in the lockfile will be updated:
+- R             [* -> 4.3.2]
+
+- Lockfile written to "~/LET/LET_Workshop_2024/materials_LETworkshop_2024/renv.lock".
+
+Restarting R session...
+
+- Project '~/LET/LET_Workshop_2024/materials_LETworkshop_2024' loaded. [renv 1.0.7]
+```
+
+### パッケージ情報の保存
+
+-   パッケージの追加・更新・削除を行ったら、`snapshot`関数を使って**renv.lock**ファイルを更新します。これを忘れると、バージョン情報が変更されないので、注意。
+
+-   試しに、新しいパッケージをインストールしましょう。今回は、Rに関する様々な名言を含んでいる`fortunes`パッケージをインストールしましょう。興味のある方はこちらにリストがあります([R Fortunes: Collected Wisdom](https://cran.r-project.org/web/packages/fortunes/vignettes/fortunes.pdf))。
+
+```{markdown}         
+install.packages("fortunes")
+```
+
+```{r}
+packageVersion("fortunes")
+```
+
+
+```{r}
+fortunes::fortune(which = 78)
+```
+
+```{r}
+fortunes::fortune(which = 386)
+```
+
+-   今回の追加をrenv.lockファイルに追加しましょう。
+
+```{markdown}         
+renv::snapshot()
+```
+
+```         
+The following package(s) will be updated in the lockfile:
+
+# CRAN -----------------------------------------------------------------------
+- fortunes   [* -> 1.5-4]
+
+Do you want to proceed? [Y/n]: 
+```
+
+-   ファイルが更新される。
+
+```         
+- Lockfile written to "~/LET/LET_Workshop_2024/materials_LETworkshop_2024/renv.lock".
+```
+-   renvフォルダーの中の、library \> R-あなたのバージョン \> あなたのパソコンPlatformを開くと、パッケージの名前と同じフォルダ（**fortunes**）が追加されています（五十音順になっているので見つけやすいです）。
+
+### パッケージ情報の復元
+
+-   記録しておくことで、１）パッケージを前のバージョンに戻したり、２）他のパソコンにプロジェクトの分析環境を整えたりすることができる。
+
+-   パッケージの更新では、お馴染みの`install.packages`関数や、`update.packages`関数、`remove.packages`関数を使うが、`renv`関数で管理しているプロジェクト内では、これらの関数は`renv`関数内のパッケージを呼び出している。特に、バージョンを指定したパッケージのインストールがしやすくなっている。
+
+-   以下のように、[パッケージ名\@バージョン名で指定](mailto:パッケージ名@バージョン名で指定){.email}
+
+    -   今回は、`fortunes`パッケージの古いバージョンをインストールする。
+
+-   最初に、`remove.packages`で**fortunes**パッケージを削除。\
+
+-   注！ここで`renv::snapshot()`はやらない。やってしまうと、renv.lockからも削除され、戻らなくなってしまう。
+
+```{r, eval=FALSE}
+install.packages("fortunes@1.4-0")
+```
+
+```         
+# Installing packages --------------------------------------------------------
+- Installing fortunes ...                       OK [linked from cache]
+Successfully installed 1 package in 22 milliseconds.
+
+The following loaded package(s) have been updated:
+- fortunes
+Restart your R session to use the new versions.
+```
+
+-   restart（quit session）をして再度開く。
+-   **renv.lock**ファイルは確認すると、1.5-4のまま！
+-   しかし、パッケージのバージョンは1.4.0!
+
+```{r, eval=FALSE}
+packageVersion("fortunes")
+```
+
+-   [バージョン1.4.0は2010年9月9日にリリースされている](https://cran.r-project.org/src/contrib/Archive/fortunes/)
+-   2016年に追加された386番目の名言はこのバージョンでは追加されていないので表示されない。
+
+```{r, eval=FALSE}
+fortunes::fortune(which = 78)
+```
+
+```{r, eval=FALSE}
+fortunes::fortune(which = 386)
+```
+
+-   元に戻す場合は、`renv::restore()`
+
+```{markdown}         
+renv::restore()
+```
+
+```         
+The following package(s) will be updated:
+
+# CRAN -----------------------------------------------------------------------
+- fortunes   [1.4-0 -> 1.5-4]
+
+Do you want to proceed? [Y/n]: 
+```
+
+<!-- - 再度quit sessionをすると、 -->
+
+<!-- ```{r} -->
+
+<!-- packageVersion("fortunes") -->
+
+<!-- ``` -->
+
+::: {.infobox .caution data-latex="{caution}"}
+**注意**<br>
+・ パッケージによっては、手動でのダウンロードが必要なものがあります。その場合、エラーメッセージでどのパッケージのインストールができないのか表示されます。エラーメッセージに表示されているパッケージを見て、手動でそれをインストールします。
+:::
+
+## R自体のバージョン管理も可能です
+
+### Windows
+
+-   [Tools] → [Global Options] → [R version]をクリックすると、過去にそのPCで使用していたRのバージョンが記録されている。
+
+### Mac
+
+-   Windowsのようなセレクトボタンがない！
+-   [RSwitch](https://rud.is/rswitch/)をダウンロードする必要あり
+
+## おまけ
+
+### R Markdownに含めておきたい情報
+### 日付、日時
+- いつ作成されたファイルで、更新はされたことあるのかを明記することが重要
+    -   デフォルトでは、ファイルの作成日を手動で切り替えないといけない。
+
+-   r Sys.Date：2022-01-20
+
+```{markdown}         
+title: "Untitled"
+author: "Masato Terai"
+date: "`r Sys.Date()` in JST"   # ``と""で囲うのを忘れない。
+output: html_document
+```
+
+-   r Sys.time：2022-01-20 21:36:36
+
+```{markdown}         
+title: "Untitled"
+author: "Masato Terai"
+date: "`r format(Sys.time(), '%Y-%m-%d %X')`"   # ``と""で囲うのを忘れない。
+output: html_document
+```
+
+- 寺井おすすめ
+```{markdown}         
+title: "Untitled"
+author: "Masato Terai"
+date: "作成日:2024-05-20, 最終更新(JST): `r format(Sys.time(), '%Y-%m-%d %X')`"
+output: html_document
+```
+
+
+### Rのバージョン & 使用したRのパッケージのバージョン
+- Rのバージョンやパッケージのバージョン情報など
+
+```{r, warning=FALSE}
+sessionInfo()
+```
+
+### パソコンのスペック
+- CPUとコア数とRAM
+  - CPU
+  - コア数（論理コア）
+    - 「論理コア」は「スレッド」「論理プロセッサ」、「仮想コア」とも呼ばれる
+    - [CPUとコアについて](https://wa3.i-3-i.info/diff735core.html)
+  - RAM (Random Access Memory)
+    - ストレージ（SSDやHDD）ではなく、データを一時保存する場所
+  
+```{r}
+#install.packages("benchmarkme") # 入れていないかたは先にインストールしてください
+benchmarkme::get_cpu()
+```
+
+```{r}
+benchmarkme::get_ram()
+```
+
+
+### 処理にかかった時間
+
+- 時間のかかる分析を行う人は明記する方が親切！
+  - いつ終わるのか分からない見通しのつかない分析を実行するのは怖いです。コア数に加え処理にかかった時間が記載されていればおおよその見通しがつきます。
+
+```{r}
+#install.packages("tictoc") # 入れていないかたは先にインストールしてください
+library(tictoc)
+
+tic() #測定開始
+
+I <-NULL
+for(i in 1:100000){
+  I <- c(I,  i)}
+
+toc() #測定終了
+```
+
+## 関数の呼び出し方
+
+1.  `library(関数名)`：一番メジャー
+
+2.  `パッケージ名::関数名`：あまりメジャーじゃない
+
+3.  `require(関数名)`：`library()`とほとんど変わらないが、関数を読み込めたかどうかを論理値で返すことができる。関数が読み込めない（＝パッケージを入れていない）場合に、まずそのパッケージを読み込んで、処理に進ませるみたいな用途で使える。
+
+```{markdown}
+if (require(パッケージ名) == FALSE) {
+ install.packages(パッケージ名)
+} else {
+ #パッケージを利用してやろうとしていたことをここに書く
+}
+```
+
+### 関数名が被ることがある（xxxはマスクされています）
+
+-   グラフの透明度を設定する`alpha`関数（`ggplot2`パッケージ）と、信頼性係数を出す`alpha`関数（`psych`パッケージ）
+
+    -   エラーの原因になる場合あり。`::`で定義すると回避できる。
+
+```{markdown masa, include = F}         
+> library(ggplot2)
+Need help getting started? Try the R Graphics
+Cookbook: https://r-graphics.org
+
+ 次のパッケージを付け加えます: ‘ggplot2’ 
+
+ 以下のオブジェクトは ‘package:psych’ からマスクされています:
+
+    %+%, alpha
+```
+
+
+```{r, echo=FALSE, warning = F}
+library(flair)
+decorate("masa") %>% 
+  flair("以下のオブジェクトは ‘package:psych’ からマスクされています:", background = "#FDB933") %>%
+  flair("%+%, alpha", background = "#FDB933")
+```
+
+### 関数とパッケージの対応は覚えにくい
+
+-   R Markdownのファイルの冒頭にこのようにまとめてある。確かに、その分析で使うパッケージが一目瞭然だが、個別の処理においてどのパッケージが読み込まれたのか分かりにくく、そのコードを参考に書き換えにくくなる。
+
+```{markdown ex, include =F}         
+library(dplyr)
+library(stats)
+```
+
+
+```{r, echo=FALSE, warning = F}
+library(flair)
+decorate("ex") %>% 
+  flair("dplyr", background = "#FDB933") %>%
+  flair("stats", background = "#FDB933")
+```
+
+-   どのパッケージに属する関数なのか一目瞭然。ただしその都度パッケージ名を書くので、コードが長くなるという欠点も
+
+```{markdown example, include = F}         
+data |>
+  dplyr::select() |>
+  stats::lm(formula = cyl ~ am)
+```
+
+```{r, echo=FALSE, warning = F}
+library(flair)
+decorate("example") %>% 
+  flair("dplyr::", background = "#FDB933") %>%
+  flair("stats::", background = "#FDB933")
+```
+
+
+## まとめ
+<div style="border: 3px solid blue; padding: 10px; background-color: #e6f7ff;">
+1.  R Markdownでは、YAMLヘッダー、コードチャンク、ドキュメントチャンクを使って分析結果をまとめることができる。
+
+    -   研究ごとにプロジェクトを作成しておくとよい
+
+2.  作成したR Markdownファイルは、Word、HTMLファイル、Power Pointなど様々な形式に出力できる。
+
+    -   RPubsやGithubを使えば、ウェブページとして共有できる
+
+3.  RのパッケージやR自体のバージョンは切り替えて使うことができる。
+
+    -   再現しようとする分析ファイルに記載されたバージョンに合わせて分析することでより再現性が高まる
+</div>
+
+<br>
+
+## 参考文献 & 資料
+
+### 📚：書籍、💻：ウェブサイトの記事
+
+-   [💻「物理コア」と「論理コア」の違い](https://wa3.i-3-i.info/diff735core.html)
+
+-   [💻MacでのRstudio上でのR versionの切り替え方法](https://qiita.com/gp333/items/9ed91fc280fc6f26ef93)
+
+-   [📚Rが生産性を高める データ分析ワークフロー効率化の実践](https://www.amazon.co.jp/R%E3%81%8C%E7%94%9F%E7%94%A3%E6%80%A7%E3%82%92%E9%AB%98%E3%82%81%E3%82%8B%E3%80%9C%E3%83%87%E3%83%BC%E3%82%BF%E5%88%86%E6%9E%90%E3%83%AF%E3%83%BC%E3%82%AF%E3%83%95%E3%83%AD%E3%83%BC%E5%8A%B9%E7%8E%87%E5%8C%96%E3%81%AE%E5%AE%9F%E8%B7%B5-igjit/dp/4297125242)
+
+-   [💻Rで関数の前に::をつけるのなんで？](https://beginner-r.com/why_two_colons_are_needed_in_rlang/)
+
+-   [💻R言語でパッケージから関数を呼び出す](https://webbeginner.hatenablog.com/entry/2015/07/23/064441)
+
+-   [💻Switching R versions in Windows](https://bioinformatics.ccr.cancer.gov/docs/rtools/R%20and%20RStudio/2.6_switching_r_version/)
+
+-   [📚再現可能性のすすめ：RStudioによるデータ解析とレポート作成](https://www.amazon.co.jp/%E5%86%8D%E7%8F%BE%E5%8F%AF%E8%83%BD%E6%80%A7%E3%81%AE%E3%81%99%E3%82%9D%E3%82%81-Wonderful-R-%E7%9F%B3%E7%94%B0-%E5%9F%BA%E5%BA%83/dp/4320112431)
+
+-   [💻私たちのR](https://www.jaysong.net/RBook/renv.html)
+
+-   [💻YAMLについての基本知識](https://qiita.com/xuwenzhen/items/b01f78525626b3e87d23)
+
+-   [💻R Markdownでスライドを作成（ioslides）](https://qiita.com/masato-terai/items/664c5ee782f690260eca)
+
+-   [💻R Markdown クックブック](https://gedevan-aleksizde.github.io/rmarkdown-cookbook/)
+
+-   [💻R Markdown Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)

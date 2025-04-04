@@ -1,0 +1,588 @@
+# Week8: 重回帰分析 (2)
+
+## 事前の確認
+
+- この講義のRプロジェクトを開いていますか？
+- 英数字で名前を付けた本日の講義のファイルを作成しましたか？
+
+  - .Rでも.Rmdでもどちらでも大丈夫です。
+
+## 今日の目標
+
+1. 
+2. 
+
+## 分散分析
+
+### *t* 検定覚えてますか？
+- 2つのデータの平均値の差を *t* 分布を用いて検定する。
+
+  - e.g., Aグループの英語テストの平均点 vs. Bグループの英語テストの平均点（対応なし）
+  
+  - e.g., Aグループの英語テストの平均点 vs. Aグループの国語テストの平均点（対応あり）
+  
+### 検定の繰り返し
+- 3つのデータを比較する場合
+
+  - e.g., Aグループの英語テストの平均点 vs. Bグループの英語テストの平均点 vs. Cグループの英語テストの平均点
+  
+  - グループ間の平均点の差を検定したい
+  
+    - A vs. B
+    - A vs. C
+    - B vs. C
+    
+- 検定における有意水準
+
+  - 検定結果は、5 %（有意水準 5%と設定する場合）の間違いの可能性を含む（第一種の誤り）
+
+    - 帰無仮説が真なのに、誤って偽だと主張すること（本当は差がないのに差があると判断する）
+  
+```{r, echo = F, fig.cap = "image source: https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/"}
+frink <- magick::image_read("C:/Users/terai-masato/Documents/stat_class_2025/picture/error.png")
+magick::image_write(frink, "C:/Users/terai-masato/Documents/stat_class_2025/picture/error.png", format = "png")
+knitr::include_graphics("C:/Users/terai-masato/Documents/stat_class_2025/picture/error.png")
+```
+
+- 検定を繰り返すことの問題
+
+  - 第一種の誤りの確率が当初設定した数値よりも大きくなってしまう
+  
+  - 同時に帰無仮説が2つ以上成立する場合に問題となる
+  
+    - 上記の例では帰無仮説（「AとBに差はない」 + 「AとCに差はない」 + 「BとCに差はない」）のいずれか一つが棄却されればよい。
+    
+    - 1回の検定で帰無仮説が保留される確率 = 95 %（1 - 0.05 (有意水準)）
+
+    - 3回の検定で全て保留される確率 = 0.95 × 0.95 × 0.95 = 0.857 = 86 % 
+    
+    - 3回の中でいずれか一つが棄却される確率
+    
+      - 1 - 0.857 = 0.142 = 約 14%
+      
+      - 当初の値の3倍近くまでエラーが膨張！
+
+  - 同じデータに対して複数回検定を行うこともエラー率を高める
+  
+    - 留学から帰ってきた学生に質問紙（100項目）を配布し、留学前と留学後でどの項目に差がみられるか確認する
+
+\[
+1 - (1 - 0.05)^{100}
+= 99.4 %
+\] 
+    - 同じ参加者のリーディング、リスニング、スピーキングテストそれぞれに2群の *t* 検定
+    
+::: infobox
+「AとBの比較を行う。正規性の確認のために正規分布かを検定し、その後、等分散性を検定でさらに確認し、 *t* 検定を行った。」も検定の多重性の問題に該当する。この場合、AもBのデータもそれぞれ正規分布に従うという二つの帰無仮説を成立させる必要がある。またいくつかの検定を通過させ、条件（都合）に合う検定を選ぶことにもなる。
+:::
+
+### 検定の多重性を考慮する
+
+- 多重比較補正を行う
+
+  - 有意水準を調整する
+
+    - ボンフェロー二補正、ホルム補正など
+    
+  - ボンフェロー二補正
+  
+    - 有意水準の値を厳しくする
+    
+    - 3回繰り返す場合、毎回の有意差を 0.05 / 3 = 0.017
+    
+- 新しいサンプルを集める
+
+  - e.g., リーディングテストとは別のサンプルを集めて、リスニングテストの検定を行う
+
+- 3群以上の比較が可能な分析を使う
+
+  - **分散分析**など
+
+## 分散分析と回帰分析の関係
+- 前の週では、量的変数による重回帰を扱った。しかし、重回帰分析では、質的変数（e.g., 性別、クラス）同士、量的変数と質的変数などのデータを扱う場合もある。
+
+  - 独立変数が一つ：単回帰分析
+  
+  - 独立変数が二つ以上：重回帰分析
+  
+  - 独立変数が質的（独立変数の数は関係ない）：分散分析
+  
+    - 分散分析に、量的変数（共変量）を加える：共分散分析
+
+## 分散分析は今回扱いません
+
+### 理由 1
+- 当該分野で分散分析を行っている論文をほとんど見なくなったから
+
+  - 2010年代前半までの研究では分散分析が多いです。
+
+  - 僕は授業以外で分散分析をやったことがありません
+
+### 理由 2
+- 分散分析よりも自由に分析が行える（理由1に関連している）
+
+  - 分散分析は独立変数として質的変数を仮定するが、実際には量的変数との交互作用を検討したい場面が多い
+  
+    - 過去の研究を見ると、量的変数を質的変数に変換する手立てが取られたりした（語彙サイズを得点をもとに、閾値を求めて低・中・高にしたり）
+  
+  - 後半で扱う一般化線形混合効果モデルでは、様々な確率分布、ランダムな誤差を考慮できる
+  
+  - 分散分析と同じような平均値の比較を行うことが可能
+  
+    - 質的変数のコーディング
+  
+::: infobox
+分散分析は統計学の教科書であれば必ず登場します。それほど学習する必要性のある内容で、今後説明する回帰モデルでの質的変数の扱いでも、分散分析の考え方を理解しておくと理解しやすいです。しかし、本講義は統計学以外にプログラミング言語の習得まで扱うため、時間的制約があります。そのため、やむを得ずシラバスから削除しました(´;ω;｀)。自分が使わなくても以前の研究を読む際に必要になることもあり得ますよね。
+:::
+
+
+## 重回帰分析での質的変数の扱い方
+
+### 変数のコーディング
+- 指導法A、Bなどの変数はそのまま分析することができない。その為、数値のデータをあてはめて分析を行う（データを変換する）。この手立てを変数を△△コーディングするという。
+
+  - 今回扱うコーディングにより、分析結果の係数の数値の意味が異なるため、重回帰分析の肝となる内容である。
+  
+- 言語研究で使われる頻度が高いコーディング法
+
+```{r}
+set.seed(123)  # 再現性のための乱数設定
+
+# サンプルサイズ
+n <- 20
+
+# 疑似データの作成
+df <- data.frame(
+  ID = 1:n,
+  Method = factor(rep(c("A", "B", "C"), length.out = n)),  # 3つの指導法を割り当て
+  Score = round(runif(n, min = 50, max = 100), 1)  # 50-100の範囲でランダムに得点を生成
+)
+
+# データの表示
+print(df)
+
+```
+
+
+  - トリートメント・コントラスト（treatment contrasts）
+
+    - 別名ダミーコーディング
+    
+    - **基準のグループと、それ以外の各グループを比較**
+    
+    - ```contr.treatment(水準数)```関数（```stats```パッケージ）
+    
+```{r}
+library(stats)
+contrasts(df$Method) <- contr.treatment(3) 
+```
+
+- 指導法Aが基準となる（0）
+
+  - 指導法AとB、指導法AとCの比較
+```{r}
+df$Method
+```
+
+- 係数の方向（正/負）も重要
+
+  - 切片：基準の指導法Aの平均値
+  
+  - Method 2: 指導法B - 指導法A
+
+  - Method 3: 指導法C - 指導法A
+
+```{r}
+results <- lm(Score ~ Method, data = df)
+results$coefficients
+```
+
+```{r}
+# 各指導法の平均を確認
+aggregate(Score ~ Method, data = df, FUN = mean)
+```
+
+  - サム・コントラスト（sum contrasts）
+  
+    - **全グループの平均の平均値（GM: grand mean）と1が割り当てられたデータを比較**
+
+    - ```contr.sum(水準数)```関数（```stats```パッケージ）
+
+```{r}
+library(stats)
+contrasts(df$Method) <- contr.sum(3) 
+```
+
+- 指導法Cが比較から除外（0）
+
+  - 指導法Aと全体平均、指導法Bと全体平均の比較
+```{r}
+df$Method
+```
+
+- 係数の方向（正/負）も重要
+
+  - 切片： GM
+  
+  - Method 1: 指導法A - GM
+
+  - Method 2: 指導法B - GM
+
+```{r}
+results_sum <- lm(Score ~ Method, data = df)
+results_sum$coefficients
+```
+
+```{r}
+tmp <- aggregate(Score ~ Method, data = df, FUN = mean)
+
+GM <- mean(tmp$Score)
+
+GM
+```
+
+  - 反復コントラスト（repeated contrasts）
+
+    - **隣接する2つのグループを比較する**
+    
+    - 上・中・下の場合、上 vs. 中、中 vs. 下
+
+    - ```contr.sdif(水準数)```関数（```MASS```パッケージ）
+
+```{r}
+library(MASS)
+contrasts(df$Method) <- contr.sdif(3) 
+```
+
+- 指導法Aと指導法B、指導法Bと指導法Cの比較
+```{r}
+df$Method
+```
+
+- 分数表示
+```{r}
+contrasts(df$Method) <- fractions(contr.sdif(3))
+df$Method
+```
+
+
+- 係数の方向（正/負）も重要
+
+  - 切片： GM
+  
+  - Method 2-1: 指導法B - 指導法A
+
+  - Method 3-2: 指導法C - 指導法B
+
+```{r}
+results_rep <- lm(Score ~ Method, data = df)
+results_rep$coefficients
+```
+
+- 全体のコーディングの比較
+
+```{r, echo=FALSE}
+sjPlot::tab_model(results, results_sum, results_rep, show.ci = F, dv.labels = c("Treatment", "Sum","Repeat"))
+```
+
+
+- 他にも多項コントラスト、ヘルムートコントラストなど
+
+- 変数の順番を並び替える方法
+
+  - ```factor()```関数を使う
+
+```{r}
+df$Method <- factor(df$Method, 
+                    levels = c("C", "A", "B"))
+```
+
+::: infobox
+- 研究課題に合わせてコーディング法を選ぶ必要があり、またどのコーディングを使用したか、どの数値をどのデータにあてはめたのかを報告する必要がある。
+- 参加者内/参加者間のデータかは関係ない。
+- 以上のどのコーディング法でも、水準数 - 1が計算される
+:::
+
+
+## ハンズオン・セッション
+- ポケモンのデータセットの中身を減らしたもの
+
+```{r}
+library(readr)
+dat <- read_csv("../stat_class_2025/sample_data/week8_data.csv")
+```
+
+### データの概要
+
+- 今回は、重さ、タイプ1、世代の三つに関心があると仮定する
+
+- データ構造の分かりやすさを優先しており、モデル自体の妥当性は考慮していないことに注意
+
+```{r}
+head(dat, 5)
+```
+
+```{r}
+library(psych)
+
+describe(dat$重さ)
+```
+```{r}
+boxplot(dat$重さ)
+```
+
+
+```{r}
+table(dat$タイプ1)
+```
+
+```{r}
+boxplot(dat$重さ~ dat$タイプ1)
+```
+
+```{r}
+aggregate(重さ ~ タイプ1, data = dat, FUN = mean)
+```
+
+```{r}
+table(dat$世代)
+```
+
+```{r}
+boxplot(dat$重さ~ dat$世代)
+```
+
+```{r}
+aggregate(重さ ~ 世代, data = dat, FUN = mean)
+```
+
+
+### 2水準のコーディング
+- 世代間の重さの比較をトリートメントコントラストコーディングで検討
+
+- トリートメントコントラスト
+
+  - ノーマルタイプを基準にする
+
+- 水準の順番を確認
+```{r}
+factor(dat$タイプ1)
+```
+
+- コーディングする際は、**Factor型**になっている必要がある
+
+```{r}
+class(dat$タイプ1)
+```
+
+- Factor型に変更する
+```{r}
+dat$タイプ1 <- factor(dat$タイプ1)
+class(dat$タイプ1)
+```
+
+- トリートメントコントラストコーディングを実施
+```{r}
+contrasts(dat$タイプ1) <- contr.treatment(2)
+```
+
+- ノーマルが基準となっている
+```{r}
+contrasts(dat$タイプ1)
+```
+
+- (単)回帰分析の実施
+
+```{r}
+results_tr <- lm(重さ ~ タイプ1, data = dat) 
+```
+
+- みずタイプポケモンの方が、平均して42.56kg ノーマルポケモンよりも重いこと。
+```{r}
+summary(results_tr)
+```
+
+- 報告の例
+
+ポケモンの重さを、ポケモンのタイプでどの程度予測できるかを調査するため、回帰分析を行った。その結果、ポケモンのタイプは重さを統計的有意に予測していた。しかし、決定係数の値は8.8%、調整済決定係数は6.7%と予測力は大きくなかった。トリートメントコントラストコーディングでノーマルタイプを基準に（ノーマル = 0、みず = 1）比較すると、みずタイプのポケモンはノーマルタイプのポケモンよりも42.56 kg平均して重いことが予想される。
+
+### 3水準のコーディング
+- 反復コントラストコーディングで世代間の重さを比較
+
+```{r}
+dat$世代 <- factor(dat$世代)
+```
+
+```{r}
+contrasts(dat$世代) <- fractions(contr.sdif(3))
+```
+
+```{r}
+contrasts(dat$世代)
+```
+
+- （単）回帰分析
+```{r}
+results_repe <- lm(重さ ~ 世代, data = dat)
+summary(results_repe)
+```
+
+- 世代1と3を比較するためコーディングを変更
+
+```{r}
+dat$世代 <- factor(dat$世代, levels = c("1", "3", "2"))
+
+contrasts(dat$世代)
+```
+
+```{r}
+contrasts(dat$世代) <- fractions(contr.sdif(3))
+```
+
+- 世代2-1：世代3 - 世代1
+
+- 世代3-2：世代2 - 世代3
+```{r}
+results_repe2 <- lm(重さ ~ 世代, data = dat)
+summary(results_repe2)
+```
+
+- 報告の例
+
+ポケモンの重さを、ポケモンの世代でどの程度予測できるかを調査するため、回帰分析を行った。その結果、ポケモンの世代は重さを統計的有意に予測していなかった。しかし、決定係数の値は0.42%、調整済決定係数はマイナスの値を示していた。さらに、*F* 検定に有意差は見られなかった。世代間の比較においても、有意差がみられるペアはなかった。
+
+## 検定の繰り返し問題アゲイン
+
+- *t* 検定から分散分析の接続で取り上げたりしますが、 *t* 検定に限った話ではなく、これから先の分析でも、**帰無仮説と付き合うのであれば**、向き合っていく必要のあるテーマです。常に意識しましょう。
+
+### 重回帰分析における検定
+
+- 検定の多重性は、第一種の過誤を高めてしまうことが問題
+
+- 重回帰分析で使用される検定として二つある（モデル比較の際にはさらに検定を行う）
+
+  - モデル全体: *F* 検定
+  
+    - 回帰モデル自体の有意性を検定。帰無仮説「すべての偏回帰係数がゼロ」
+
+- 各係数
+
+  - 各係数は *t* 値をもとに検定が行われている
+  
+    - 2水準と3水準では、係数の数がそれぞれ1と2となり、水準が増えるほど検定を繰り返すことになる
+
+::: infobox
+同じ参加者に対し、英語と日本語で実験を行い、言語別のデータセットを作成。それらに重回帰分析を行うと、検定を繰り返していることになります。この場合、モデルに言語変数を入れ、下位検定で多重比較を行って言語ごとの影響を確認します。
+:::
+
+::: infobox
+各係数での検定の繰り返しの問題は、この分野ではあまり問題にされることが少ないと思います。しかし、シミュレーションを行うと、係数の *p* 値がインフレするのを確認できるのも事実です。
+:::
+
+## 解決策
+
+### *p* 値の補正
+
+- ```p_adjust()```関数
+
+  - ```lm()```関数で作成したモデルを使用する。
+  -  補正法： Romano-Wolf stepdown（初期値）, Bonferroni, Bonferroni-Holm, and Benjamini-Hochberg corrections, etc...
+
+```{r}
+#install.packages("hdm")
+library(hdm)
+results_sum_RM <- p_adjust(results_sum, method = "bonferroni")
+```
+
+- 補正後
+```{r}
+results_sum_RM[,2]
+```
+
+- 補正前
+```{r}
+summary(results_sum)[["coefficients"]][,4]
+```
+
+- 補正では第2種の誤りが大きくなるのを防げないというシミュレーション結果もある
+
+### ベイズ統計
+- 検定の繰り返しは、帰無仮説検定を行う頻度統計における問題。
+
+  - 以前使用した```brm()```関数を使用。
+
+```{r}
+contrasts(dat$タイプ1) <- contr.sum(2)
+```
+
+
+```{r}
+library(brms)
+
+results_sum_bayes <- brm(
+  重さ ~ タイプ1,  # 応答変数「重さ」と説明変数「タイプ1」の回帰モデル
+  data = dat,  # データフレーム dat を使用
+  family = gaussian(),  # 正規分布（ガウス分布）を仮定
+  prior = prior(normal(0, 10)),  # 事前分布として平均0、標準偏差10の正規分布を設定
+  chains = 4,  # MCMCの独立した4つのチェーンを使用
+  iter = 5000,  # 総サンプリング回数（各チェーンあたり5000回）
+  warmup = 500,  # ウォームアップ（バーンイン）期間として最初の500回を破棄
+  thin = 2,  # 2回ごとに1つのサンプルを取得（間引き）
+  seed = 123,  # 乱数シードを設定し、再現性を確保
+  refresh = 0
+)
+
+```
+
+```{r}
+summary(results_sum_bayes)
+```
+
+
+## 次週までの課題
+### 課題内容
+
+1. 小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。
+
+2. Week 7の内容も踏まえ、以下のデータを基に重回帰分析を行いましょう
+
+  - 外れ値のデータが入っていることに注意です
+
+- **Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。**
+
+### 提出方法
+- メールにファイルを添付して送信。
+- 締め切りは今週の木曜日まで
+
+
+## 参考文献
+
+- 平井 et al. 
+
+- 外国語教育ハンドブック
+- 南風原
+- https://bellcurve.jp/statistics/course/24461.html?srsltid=AfmBOoq5YejCPBlcGOIawwi-sCV98ib6WvQKuCNEhshmn1IzwdR7JhyV
+- https://home.hirosaki-u.ac.jp/pteiki/r/3pecification/multiplecomp/
+- Plonsky, L., & Oswald, F. L. (2017). Multiple regression as a flexible alternative to ANOVA in L2 research. Studies in Second Language Acquisition, 39(3), 579-592.
+- 水本篤. (2009). 複数の項目やテストにおける検定の多重性: モンテカルロ・シミュレーションによる検証. 外国語教育メディア学会機関誌, 46, 1-19.
+- https://yukiyanai.github.io/jp/classes/econometrics1/contents/R/multiple-comparison.html#%E5%A4%9A%E9%87%8D%E6%AF%94%E8%BC%83%E8%A3%9C%E6%AD%A3%E3%81%AE%E8%A8%88%E7%AE%97%E6%B3%95
+- 小島ますみ（2022）. 外国語教育研究における（一般化）線形混合モデル：仮説に適したコーディング・モデリングを中心に The 2021 Annual Conference on Vocabulary Acquisition
+
+```{=html}
+<style>
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+
+.beg {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
+
+.caution {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
+  
+</style>
+```
