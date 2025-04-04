@@ -394,13 +394,54 @@ summary(model_rep)
   - Grade2-1:Learning3-2: (KeywordにおけるSecond-First) -  (ContextにおけるSecond-First) = (49.8 - 40) - (45.2 - 19.8)
 
 
-::: .infobox
+- ```emmeans()```関数で下位検定を行う場合も、どのコーディングをあてはめても結果は同じになります。
+
+```{r, include=FALSE, eval=FALSE}
+library(emmeans)
+
+# サンプルデータの作成
+set.seed(123)
+df <- data.frame(
+  class = rep(c("X", "Y"), each = 15),  # 2つのクラス
+  group = rep(c("A", "B", "C"), each = 5, times = 2),  # 3つのグループ
+  score = c(
+    rnorm(5, mean = 5, sd = 1), rnorm(5, mean = 7, sd = 1), rnorm(5, mean = 9, sd = 1),  # class X
+    rnorm(5, mean = 6, sd = 1), rnorm(5, mean = 6.5, sd = 1), rnorm(5, mean = 7, sd = 1)  # class Y
+  )
+)
+
+df$class <- factor(df$class)
+df$group <- factor(df$group)
+
+# Treatment contrast (デフォルト)
+contrasts(df$class) <- contr.treatment(2)
+contrasts(df$group) <- contr.treatment(3)
+
+# Sum contrast
+contrasts(df$class) <- contr.sum(2)
+contrasts(df$group) <- contr.sum(3)
+
+# Repeated contrast (MASS パッケージが必要)
+library(MASS)
+contrasts(df$class) <- contr.sdif(2)
+contrasts(df$group) <- contr.sdif(3)
+
+model <- lm(score ~ class * group, data = df)
+
+# emmeans の適用
+contrast(
+  emmeans(model, pairwise ~ class | group), 
+  adjust = "bonferroni"
+)
+```
+
+
+::: infobox
 - ここまで見てきたように、どのようなコーディングを適用したかで係数の値は異なります。また、何と何を比較しているのかによって係数の正負も変わります。必ず、どの変数にどのようなコーディングを適用したのか、どの水準とどの水準を比較したのかを第三者から見て分かるように記載しましょう。
 - 2水準 × 3水準の交互作用でも係数の解釈は結構複雑になります。デザインはシンプルな方が解釈する側も分析をしやすいです。
 :::
 
-# 最後に
-- 下位検定とコーディングの関係を入れる。少なくともemmeansに関して?
+## 最後に
 
 - 清水先生の「心理学における重回帰分析の使い所を考える」に関してのコラムをいれる」
 

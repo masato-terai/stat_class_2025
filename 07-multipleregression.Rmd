@@ -1,5 +1,8 @@
 # Week7: 重回帰分析
 
+## メモ
+- 重回帰分析の係数の解釈にきを付ける。ある変数の影響を0にした際の影響であることを示す
+
 ## 事前の確認
 
 - この講義のRプロジェクトを開いていますか？
@@ -29,6 +32,10 @@
 - 重回帰式における回帰係数：偏回帰係数（partial regression coefficient）
 
   - **他の独立変数の影響を取り除いた（一定にした）**、ある独立変数の従属変数への影響力
+  
+    - **平均化された 1 単位の比較**
+
+    - e.g., "When comparing two children whose mother have the same level of education, the child whose mother is *x* IQ points higher is predicted to have a test score is 6*x* higher, **on average.** (Gelman et al., 2020, pp. 134)
   
 - 変数間で単位が異なる場合、従属変数、独立変数をすべて標準化することで、**標準化偏回帰係数（standardized partial regression coefficient）**を算出し、変数間の影響力を比較する
 
@@ -284,7 +291,7 @@ summary(output_step)
 - 外国語教育ハンドブック
 - 南風原
 - https://bellcurve.jp/statistics/course/24461.html?srsltid=AfmBOoq5YejCPBlcGOIawwi-sCV98ib6WvQKuCNEhshmn1IzwdR7JhyV
-
+- Gelman et al., 2021. regression and Other Stories
 
 ```{=html}
 <style>
