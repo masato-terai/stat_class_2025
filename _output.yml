@@ -1,5 +1,6 @@
 bookdown::gitbook:
   css: style.css
+  self_contained: false
   config:
     toc:
       before: |
@@ -16,4 +17,3 @@ bookdown::pdf_book:
   citation_package: natbib
   keep_tex: yes
 bookdown::epub_book: default
-self_contained: false
