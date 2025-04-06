@@ -1,7 +1,6 @@
 tab:unnamed-chunk-19
 tab:unnamed-chunk-20
-fig:unnamed-chunk-73
-fig:unnamed-chunk-167
+fig:unnamed-chunk-166
 about
 講義概要
 講義スケジュール

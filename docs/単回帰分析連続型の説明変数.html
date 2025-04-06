@@ -382,7 +382,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>青い線が回帰直線</li>
 </ul></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-99-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
 <div id="回帰分析の種類" class="section level3 hasAnchor" number="7.4.1">
 <h3><span class="header-section-number">7.4.1</span> 回帰分析の種類<a href="単回帰分析連続型の説明変数.html#回帰分析の種類" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
@@ -509,14 +509,14 @@ a = \hat{y} - b\bar{x}
 ## log-posterior 0.0  1.0  1537 
 ## 
 ## For each parameter, mcse is Monte Carlo standard error, n_eff is a crude measure of effective sample size, and Rhat is the potential scale reduction factor on split chains (at convergence Rhat=1).</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
 <ul>
 <li><p>ベイズ推定では、事前分布を指定する。つまり、最小2乗法や最尤推定法を使う場合と異なり、得られたデータだけでなく、事前の知識を反映して分析できる。</p>
 <ul>
 <li>変数 <em>x</em>により狭い事前分布を設定平均が0、標準偏差が0.2</li>
 </ul></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
 <pre><code>## 
 ## Model Info:
 ##  function:     stan_glm
@@ -558,7 +558,7 @@ a = \hat{y} - b\bar{x}
 </ul></li>
 </ul></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
 <div class="alert alert-info">
 <p><strong>注</strong> 事前分布を狭く指定しない場合、頻度統計の結果もベイズ統計の結果も近似する。</p>
 </div>
@@ -650,14 +650,14 @@ y = \hat{y} + e
 <ul>
 <li><p>こうげき：<code>150</code></p></li>
 <li><p>HP：<code>105</code>
-<img src="_main_files/figure-html/unnamed-chunk-112-1.png" width="238" /></p></li>
+<img src="_main_files/figure-html/unnamed-chunk-111-1.png" width="238" /></p></li>
 <li><p>残差は「HPのうち、こうげきでは説明できない成分」</p>
 <ul>
 <li>残差が<strong>正</strong>の大きな値：「こうげきから予測されるレベルよりもHPがかなり高いポケモン」</li>
 </ul></li>
 </ul></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-113-1.png" width="238" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-112-1.png" width="238" /></p>
 <ul>
 <li>HPの平均と当該ポケモンのHP</li>
 </ul>
@@ -671,7 +671,7 @@ y = \hat{y} + e
 <ul>
 <li>残差が<strong>負</strong>の大きな値：「こうげきから予測されるレベルよりもHPがかなり低いポケモン」</li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-116-1.png" width="238" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-115-1.png" width="238" /></p>
 <ul>
 <li>HPの平均と当該ポケモンのHP</li>
 </ul>
@@ -829,7 +829,7 @@ R^{2} = 1 - \frac{SS_e}{SS_y}
 <span id="cb225-6"><a href="単回帰分析連続型の説明変数.html#cb225-6" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Mid-term&quot;</span>,</span>
 <span id="cb225-7"><a href="単回帰分析連続型の説明変数.html#cb225-7" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Final&quot;</span>,</span>
 <span id="cb225-8"><a href="単回帰分析連続型の説明変数.html#cb225-8" tabindex="-1"></a>     )</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-126-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
 <ul>
 <li>外れ値
 <ul>
@@ -851,7 +851,7 @@ R^{2} = 1 - \frac{SS_e}{SS_y}
 <span id="cb228-7"><a href="単回帰分析連続型の説明変数.html#cb228-7" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Mid-term&quot;</span>,</span>
 <span id="cb228-8"><a href="単回帰分析連続型の説明変数.html#cb228-8" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Final&quot;</span></span>
 <span id="cb228-9"><a href="単回帰分析連続型の説明変数.html#cb228-9" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-129-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-128-1.png" width="672" /></p>
 <ul>
 <li>外れ値の除去</li>
 </ul>
@@ -864,7 +864,7 @@ R^{2} = 1 - \frac{SS_e}{SS_y}
 <span id="cb230-6"><a href="単回帰分析連続型の説明変数.html#cb230-6" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Mid-term&quot;</span>,</span>
 <span id="cb230-7"><a href="単回帰分析連続型の説明変数.html#cb230-7" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Final&quot;</span></span>
 <span id="cb230-8"><a href="単回帰分析連続型の説明変数.html#cb230-8" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-131-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-130-1.png" width="672" /></p>
 </div>
 <div id="変数間の相関の確認" class="section level3 hasAnchor" number="7.5.3">
 <h3><span class="header-section-number">7.5.3</span> 変数間の相関の確認<a href="単回帰分析連続型の説明変数.html#変数間の相関の確認" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -989,7 +989,7 @@ R^{2} = 1 - \frac{SS_e}{SS_y}
 <span id="cb248-8"><a href="単回帰分析連続型の説明変数.html#cb248-8" tabindex="-1"></a>)</span>
 <span id="cb248-9"><a href="単回帰分析連続型の説明変数.html#cb248-9" tabindex="-1"></a></span>
 <span id="cb248-10"><a href="単回帰分析連続型の説明変数.html#cb248-10" tabindex="-1"></a><span class="fu">abline</span>(model.mlm)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-141-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-140-1.png" width="672" /></p>
 <ul>
 <li><p>信頼区間も可視化</p>
 <ul>
@@ -1032,7 +1032,7 @@ R^{2} = 1 - \frac{SS_e}{SS_y}
 <span id="cb254-11"><a href="単回帰分析連続型の説明変数.html#cb254-11" tabindex="-1"></a></span>
 <span id="cb254-12"><a href="単回帰分析連続型の説明変数.html#cb254-12" tabindex="-1"></a><span class="fu">lines</span>(new<span class="sc">$</span>mid, confidence[, <span class="dv">2</span>], <span class="at">lty =</span> <span class="dv">3</span>)</span>
 <span id="cb254-13"><a href="単回帰分析連続型の説明変数.html#cb254-13" tabindex="-1"></a><span class="fu">lines</span>(new<span class="sc">$</span>mid, confidence[, <span class="dv">3</span>], <span class="at">lty =</span> <span class="dv">3</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-145-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-144-1.png" width="672" /></p>
 </div>
 <div id="モデルの診断" class="section level3 hasAnchor" number="7.5.6">
 <h3><span class="header-section-number">7.5.6</span> モデルの診断<a href="単回帰分析連続型の説明変数.html#モデルの診断" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1045,7 +1045,7 @@ R^{2} = 1 - \frac{SS_e}{SS_y}
 </ul>
 <div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="単回帰分析連続型の説明変数.html#cb255-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">pty=</span><span class="st">&quot;s&quot;</span>)</span>
 <span id="cb255-2"><a href="単回帰分析連続型の説明変数.html#cb255-2" tabindex="-1"></a><span class="fu">plot</span>(model.mlm, <span class="at">which =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-146-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-145-1.png" width="672" /></p>
 <ul>
 <li><p>Q-Q（quantile-quantile）プロット（x軸 = 標準正規分布の分位点、y軸 = 残差の分位点）</p>
 <ul>
@@ -1058,7 +1058,7 @@ R^{2} = 1 - \frac{SS_e}{SS_y}
 </ul>
 <div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="単回帰分析連続型の説明変数.html#cb256-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">pty=</span><span class="st">&quot;s&quot;</span>)</span>
 <span id="cb256-2"><a href="単回帰分析連続型の説明変数.html#cb256-2" tabindex="-1"></a><span class="fu">plot</span>(model.mlm, <span class="at">which =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-147-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-146-1.png" width="672" /></p>
 <ul>
 <li><p><code>acf</code>関数で残差の独立性を確認</p>
 <ul>
@@ -1079,7 +1079,7 @@ R^{2} = 1 - \frac{SS_e}{SS_y}
 ##     11     12     13     14     15     16     17     18     19 
 ##  0.181  0.047  0.125 -0.118 -0.020 -0.185 -0.086 -0.018 -0.095</code></pre>
 <div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="単回帰分析連続型の説明変数.html#cb259-1" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">acf</span>(model.mlm<span class="sc">$</span>residuals, <span class="at">plot =</span> T)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-149-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-148-1.png" width="672" /></p>
 <ul>
 <li><p>論文への記載</p>
 <p>中間試験の得点から学期末試験の得点を予測するため、回帰分析を行った。その結果、係数は統計的に有意であった（<em>b</em> = 0.73 [0.60, 0.85], <em>SE</em> = 0.07, <em>p</em> &lt; .001）。係数は分散の57 %を説明していた（<span class="math inline">\(R^2\)</span> = 56.7 %, 調整 <span class="math inline">\(R^2\)</span> = 56.2 %）。</p>
