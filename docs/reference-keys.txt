@@ -373,3 +373,5 @@ rのバージョン-使用したrのパッケージのバージョン
 参考文献-資料
 書籍ウェブサイトの記事
 sharing-your-book
+fig:unnamed-chunk-10
+url-your-book-url-like-httpsbookdown.orgyihuibookdown
