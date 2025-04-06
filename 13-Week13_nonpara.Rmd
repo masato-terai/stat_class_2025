@@ -1,16 +1,12 @@
 # Week 13: ノンパラメトリック検定
 
 ```{r, include=FALSE}
-library(rstan)
-library(brms)
 library(gt)
 library(tidyverse)
 library(kableExtra)
-
-rstan_options(auto_write = T)
-options(mc.cores = parallel::detectCores())
 ```
 
+#まだ工事中
 
 ## 事前の確認
 
