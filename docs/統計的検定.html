@@ -577,11 +577,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><em>β</em> で表す</p></li>
 </ul></li>
 </ul>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-73"></span>
-<img src="picture/error.png" alt="image source: https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/" width="512" />
-<p class="caption">
-Figure 5.1: image source: <a href="https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/" class="uri">https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/</a>
-</p>
+<div class="float">
+<img src="https://www.statisticssolutions.com/wp-content/uploads/2017/12/rachnovblog-1024x413.jpg" alt="image source: https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/" />
+<div class="figcaption">image source: <a href="https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/" class="uri">https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/</a></div>
 </div>
 <ul>
 <li><p>検出力（power）</p>
@@ -744,7 +742,7 @@ t = \frac{\bar{x}_1 - \bar{x}_2}{S_D / \sqrt{n}} \hspace{3pc} (df = n - 1)
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="統計的検定.html#cb149-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">table</span>(dat_t_ind<span class="sc">$</span>ID))</span></code></pre></div>
 <pre><code>## [1] 80</code></pre>
 <div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="統計的検定.html#cb151-1" tabindex="-1"></a><span class="fu">boxplot</span>(English <span class="sc">~</span> Class, <span class="at">data =</span> dat_t_ind)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
 <div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="統計的検定.html#cb152-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
 <span id="cb152-2"><a href="統計的検定.html#cb152-2" tabindex="-1"></a><span class="fu">describeBy</span>(dat_t_ind<span class="sc">$</span>English, <span class="at">group =</span> dat_t_ind<span class="sc">$</span>Class)</span></code></pre></div>
 <pre><code>## 
@@ -796,7 +794,7 @@ t = \frac{\bar{x}_1 - \bar{x}_2}{S_D / \sqrt{n}} \hspace{3pc} (df = n - 1)
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="統計的検定.html#cb159-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">table</span>(dat_t_rep<span class="sc">$</span>ID))</span></code></pre></div>
 <pre><code>## [1] 40</code></pre>
 <div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="統計的検定.html#cb161-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat_t_rep<span class="sc">$</span>English, dat_t_rep<span class="sc">$</span>Math, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;English&quot;</span>, <span class="st">&quot;Math&quot;</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
 <div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="統計的検定.html#cb162-1" tabindex="-1"></a><span class="fu">describe</span>(dat_t_rep<span class="sc">$</span>English)</span></code></pre></div>
 <pre><code>##    vars  n  mean   sd median trimmed   mad min max range skew kurtosis   se
 ## X1    1 40 82.22 8.65     82   82.16 11.86  70  96    26 0.04    -1.67 1.37</code></pre>

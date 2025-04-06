@@ -398,7 +398,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 </ul>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-167"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-166"></span>
 <img src="picture/error.png" alt="image source: https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/" width="512" />
 <p class="caption">
 Figure 9.1: image source: <a href="https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/" class="uri">https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/</a>
@@ -913,11 +913,11 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <pre><code>## New names:
 ## Rows: 46 Columns: 17
 ## ── Column specification
-## ───────────────────────────────────────────────────────────────────────────────
+## ────────────────────────────────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot; chr (3): 名前, タイプ1, 画像URL dbl (14): ...1, id, 高さ, 重さ, 世代, ステータス, HP,
 ## こうげき, ぼうぎょ, とくこう, とくぼう, すばやさ, 捕まえ...
-## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ Specify the column types or
-## set `show_col_types = FALSE` to quiet this message.
+## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ Specify the column types or set
+## `show_col_types = FALSE` to quiet this message.
 ## • `` -&gt; `...1`</code></pre>
 <div id="データの概要" class="section level3 hasAnchor" number="9.7.1">
 <h3><span class="header-section-number">9.7.1</span> データの概要<a href="week8-重回帰分析-2.html#データの概要" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -942,13 +942,13 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <pre><code>##    vars  n  mean    sd median trimmed   mad min max range skew kurtosis    se
 ## X1    1 46 47.32 72.65   25.7   31.56 28.84 0.8 398 397.2    3    10.25 10.71</code></pre>
 <div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="week8-重回帰分析-2.html#cb326-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat<span class="sc">$</span>重さ)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-186-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-185-1.png" width="672" /></p>
 <div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="week8-重回帰分析-2.html#cb327-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>タイプ1)</span></code></pre></div>
 <pre><code>## 
 ## ノーマル     みず 
 ##       22       24</code></pre>
 <div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="week8-重回帰分析-2.html#cb329-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat<span class="sc">$</span>重さ<span class="sc">~</span> dat<span class="sc">$</span>タイプ1)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-188-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-187-1.png" width="672" /></p>
 <div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="week8-重回帰分析-2.html#cb330-1" tabindex="-1"></a><span class="fu">aggregate</span>(重さ <span class="sc">~</span> タイプ1, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span></code></pre></div>
 <pre><code>##    タイプ1     重さ
 ## 1 ノーマル 25.11818
@@ -958,7 +958,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 ##  1  2  3 
 ## 17 12 17</code></pre>
 <div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="week8-重回帰分析-2.html#cb334-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat<span class="sc">$</span>重さ<span class="sc">~</span> dat<span class="sc">$</span>世代)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-191-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-190-1.png" width="672" /></p>
 <div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="week8-重回帰分析-2.html#cb335-1" tabindex="-1"></a><span class="fu">aggregate</span>(重さ <span class="sc">~</span> 世代, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span></code></pre></div>
 <pre><code>##   世代     重さ
 ## 1    1 52.37059

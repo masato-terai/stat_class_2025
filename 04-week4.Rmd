@@ -232,11 +232,7 @@ t.test(df$Data2, mu = 55)
 
   - *β* で表す
 
-```{r, echo = F, fig.cap = "image source: https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/"}
-frink <- magick::image_read("C:/Users/terai-masato/Documents/stat_class_2025/picture/error.png")
-magick::image_write(frink, "C:/Users/terai-masato/Documents/stat_class_2025/picture/error.png", format = "png")
-knitr::include_graphics("C:/Users/terai-masato/Documents/stat_class_2025/picture/error.png")
-```
+![image source: https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/](https://www.statisticssolutions.com/wp-content/uploads/2017/12/rachnovblog-1024x413.jpg)
 
 - 検出力（power）
 

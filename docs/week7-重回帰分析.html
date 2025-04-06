@@ -535,7 +535,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="week7-重回帰分析.html#cb260-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb260-2"><a href="week7-重回帰分析.html#cb260-2" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/regression_data.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 120 Columns: 8
-## ── Column specification ───────────────────────────────────────────────────────────────────────────────
+## ── Column specification ────────────────────────────────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## dbl (8): ID, Placement, FirstT, MidT, LastT, EndT, Class, Course
 ## 
@@ -588,14 +588,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb266-3"><a href="week7-重回帰分析.html#cb266-3" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Score&quot;</span>,</span>
 <span id="cb266-4"><a href="week7-重回帰分析.html#cb266-4" tabindex="-1"></a>        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="co"># y軸を0から100の範囲で表示する</span></span>
 <span id="cb266-5"><a href="week7-重回帰分析.html#cb266-5" tabindex="-1"></a>        )</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-153-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-152-1.png" width="672" /></p>
 <ul>
 <li>蜂群図</li>
 </ul>
 <div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="week7-重回帰分析.html#cb267-1" tabindex="-1"></a><span class="co">#install.packages(&quot;beeswarm&quot;, dependencies = T) #一度やればOK</span></span>
 <span id="cb267-2"><a href="week7-重回帰分析.html#cb267-2" tabindex="-1"></a><span class="fu">library</span>(beeswarm)</span>
 <span id="cb267-3"><a href="week7-重回帰分析.html#cb267-3" tabindex="-1"></a><span class="fu">beeswarm</span>(dat[, <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>])</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-154-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-153-1.png" width="672" /></p>
 <ul>
 <li>箱ひげ図 + 蜂群図</li>
 </ul>
@@ -603,7 +603,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb268-2"><a href="week7-重回帰分析.html#cb268-2" tabindex="-1"></a><span class="fu">beeswarm</span>(dat[, <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>],</span>
 <span id="cb268-3"><a href="week7-重回帰分析.html#cb268-3" tabindex="-1"></a>         <span class="at">add =</span> T <span class="co">#箱ひげ図の上に描画すると明示的に記す</span></span>
 <span id="cb268-4"><a href="week7-重回帰分析.html#cb268-4" tabindex="-1"></a>         )</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-155-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-154-1.png" width="672" /></p>
 </div>
 <div id="相関関係の確認" class="section level3 hasAnchor" number="8.7.4">
 <h3><span class="header-section-number">8.7.4</span> 相関関係の確認<a href="week7-重回帰分析.html#相関関係の確認" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -631,7 +631,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ##  To see confidence intervals of the correlations, print with the short=FALSE option</code></pre>
 <div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="week7-重回帰分析.html#cb271-1" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">pairs.panels</span>(dat[, <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>])</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-157-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-156-1.png" width="672" /></p>
 </div>
 <div id="重回帰分析の実施強制投入法" class="section level3 hasAnchor" number="8.7.5">
 <h3><span class="header-section-number">8.7.5</span> 重回帰分析の実施（強制投入法）<a href="week7-重回帰分析.html#重回帰分析の実施強制投入法" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -683,7 +683,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb275-2"><a href="week7-重回帰分析.html#cb275-2" tabindex="-1"></a></span>
 <span id="cb275-3"><a href="week7-重回帰分析.html#cb275-3" tabindex="-1"></a>z.res <span class="ot">&lt;-</span> <span class="fu">scale</span>(res)</span></code></pre></div>
 <div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="week7-重回帰分析.html#cb276-1" tabindex="-1"></a><span class="fu">boxplot</span>(z.res)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-161-1.png" width="672" />
+<p><img src="_main_files/figure-html/unnamed-chunk-160-1.png" width="672" />
 - 最大値、最小値の2つが外れ値の可能性あり</p>
 <div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="week7-重回帰分析.html#cb277-1" tabindex="-1"></a><span class="fu">describe</span>(z.res)</span></code></pre></div>
 <pre><code>##    vars   n mean sd median trimmed  mad   min  max range  skew kurtosis   se
@@ -700,7 +700,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ##     rivers</code></pre>
 <div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="week7-重回帰分析.html#cb283-1" tabindex="-1"></a><span class="fu">ols_plot_diagnostics</span>(output_forced)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-163-1.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-163-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-163-3.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-163-4.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-163-5.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-163-6.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-163-7.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-163-8.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-163-9.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-163-10.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-163-11.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-163-12.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-163-13.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-162-1.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-3.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-4.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-5.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-6.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-7.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-8.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-9.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-10.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-11.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-12.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-13.png" width="672" /></p>
 </div>
 <div id="多重共線性の確認" class="section level3 hasAnchor" number="8.7.7">
 <h3><span class="header-section-number">8.7.7</span> 多重共線性の確認<a href="week7-重回帰分析.html#多重共線性の確認" class="anchor-section" aria-label="Anchor link to header"></a></h3>

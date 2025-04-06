@@ -415,11 +415,11 @@ r_{xy} = \frac{S_{xy}}{S_xS_y}
 <li>相関係数が負の値をとる</li>
 </ul></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
 <ul>
 <li><p>ピアソンの相関係数は<strong>外れ値</strong>に影響されやすい。あらかじめ散布図で外れ値がないかを確認する</p></li>
 <li><p>以下の図では、左側の図のデータの一部（<em>n</em> = 2）を外れ値に変更した
-<img src="_main_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p></li>
+<img src="_main_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p></li>
 <li><p>右側の図の相関係数がわずか2つの外れ値によって大きくなっていることが分かる</p></li>
 </ul>
 <div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="week5-相関分析.html#cb169-1" tabindex="-1"></a><span class="fu">cor</span>(data2<span class="sc">$</span>x, data2<span class="sc">$</span>y, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span></code></pre></div>
@@ -479,11 +479,11 @@ t = \frac{r}{\sqrt{1-r^2}}\sqrt{n-2}
 <div id="散布図の作成" class="section level3 hasAnchor" number="6.4.2">
 <h3><span class="header-section-number">6.4.2</span> 散布図の作成<a href="week5-相関分析.html#散布図の作成" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="week5-相関分析.html#cb182-1" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>English, dat<span class="sc">$</span>Math)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
 <div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="week5-相関分析.html#cb183-1" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>English, dat<span class="sc">$</span>Japanese)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-93-2.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-92-2.png" width="672" /></p>
 <div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="week5-相関分析.html#cb184-1" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">pairs.panels</span>(dat[,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
 </div>
 <div id="相関係数の算出" class="section level3 hasAnchor" number="6.4.3">
 <h3><span class="header-section-number">6.4.3</span> 相関係数の算出<a href="week5-相関分析.html#相関係数の算出" class="anchor-section" aria-label="Anchor link to header"></a></h3>
