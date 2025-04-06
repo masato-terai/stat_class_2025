@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="week-12-効果量と検定力分析.html"/>
-<link rel="next" href="week-15言語研究とオープンサイエンス.html"/>
+<link rel="next" href="week-14-tidyverseパッケージによるデータの加工と可視化.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -171,7 +171,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.19" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#次週までの課題"><i class="fa fa-check"></i><b>2.19</b> 次週までの課題</a></li>
 <li class="chapter" data-level="2.20" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#参考文献"><i class="fa fa-check"></i><b>2.20</b> 参考文献</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="chapter" data-level="3" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html"><i class="fa fa-check"></i><b>3</b> Week 2：要約統計量</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#事前の確認"><i class="fa fa-check"></i><b>3.1</b> 事前の確認</a></li>
@@ -295,37 +294,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="14" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html"><i class="fa fa-check"></i><b>14</b> Week 13: ノンパラメトリック検定</a>
 <ul>
-<li class="chapter" data-level="14.1" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#事前の確認-11"><i class="fa fa-check"></i><b>14.1</b> 事前の確認</a></li>
-<li class="chapter" data-level="14.2" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#今日の目標-11"><i class="fa fa-check"></i><b>14.2</b> 今日の目標</a></li>
-<li class="chapter" data-level="14.3" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#次週までの課題-11"><i class="fa fa-check"></i><b>14.3</b> 次週までの課題</a></li>
-<li class="chapter" data-level="14.4" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#参考文献-11"><i class="fa fa-check"></i><b>14.4</b> 参考文献</a></li>
+<li class="chapter" data-level="14.1" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#ハンズオンと説明セッションを明確に分けずに行う"><i class="fa fa-check"></i><b>14.1</b> ハンズオンと説明セッションを明確に分けずに行う</a></li>
+<li class="chapter" data-level="14.2" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#事前の確認-11"><i class="fa fa-check"></i><b>14.2</b> 事前の確認</a></li>
+<li class="chapter" data-level="14.3" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#今日の目標-11"><i class="fa fa-check"></i><b>14.3</b> 今日の目標</a></li>
+<li class="chapter" data-level="14.4" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#ノンパラメトリック検定"><i class="fa fa-check"></i><b>14.4</b> ノンパラメトリック検定</a></li>
+<li class="chapter" data-level="14.5" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#名義尺度データ"><i class="fa fa-check"></i><b>14.5</b> 名義尺度データ</a></li>
+<li class="chapter" data-level="14.6" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#リスク比とオッズ比"><i class="fa fa-check"></i><b>14.6</b> リスク比とオッズ比</a></li>
+<li class="chapter" data-level="14.7" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#対応のあるデータを比較する"><i class="fa fa-check"></i><b>14.7</b> 対応のあるデータを比較する</a></li>
+<li class="chapter" data-level="14.8" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#順序尺度データ"><i class="fa fa-check"></i><b>14.8</b> 順序尺度データ</a></li>
+<li class="chapter" data-level="14.9" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#次週までの課題-11"><i class="fa fa-check"></i><b>14.9</b> 次週までの課題</a></li>
+<li class="chapter" data-level="14.10" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#参考文献-11"><i class="fa fa-check"></i><b>14.10</b> 参考文献</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html"><i class="fa fa-check"></i><b>15</b> Week 15：言語研究とオープンサイエンス</a>
+<li class="chapter" data-level="15" data-path="week-14-tidyverseパッケージによるデータの加工と可視化.html"><a href="week-14-tidyverseパッケージによるデータの加工と可視化.html"><i class="fa fa-check"></i><b>15</b> Week 14: tidyverseパッケージによるデータの加工と可視化</a>
 <ul>
-<li class="chapter" data-level="15.1" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#事前の確認-12"><i class="fa fa-check"></i><b>15.1</b> 事前の確認</a></li>
-<li class="chapter" data-level="15.2" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#今日の目標-12"><i class="fa fa-check"></i><b>15.2</b> 今日の目標</a></li>
-<li class="chapter" data-level="15.3" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#はじめに"><i class="fa fa-check"></i><b>15.3</b> はじめに</a></li>
-<li class="chapter" data-level="15.4" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#r-markdownを使って分析結果をまとめることができる"><i class="fa fa-check"></i><b>15.4</b> 1. R Markdownを使って分析結果をまとめることができる</a></li>
-<li class="chapter" data-level="15.5" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#プロジェクト"><i class="fa fa-check"></i><b>15.5</b> プロジェクト</a></li>
-<li class="chapter" data-level="15.6" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#実際に作ってみましょう"><i class="fa fa-check"></i><b>15.6</b> 実際に作ってみましょう</a></li>
-<li class="chapter" data-level="15.7" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#ドキュメントチャンクmarkdown記法-1"><i class="fa fa-check"></i><b>15.7</b> ドキュメントチャンク：Markdown記法</a></li>
-<li class="chapter" data-level="15.8" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#lets-実践-2"><i class="fa fa-check"></i><b>15.8</b> Let’s 実践</a></li>
-<li class="chapter" data-level="15.9" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#答え合わせ-2"><i class="fa fa-check"></i><b>15.9</b> 答え合わせ</a></li>
-<li class="chapter" data-level="15.10" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#実はwordのように編集できます"><i class="fa fa-check"></i><b>15.10</b> 実は、Wordのように編集できます！</a></li>
-<li class="chapter" data-level="15.11" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#コードチャンクの挿入-1"><i class="fa fa-check"></i><b>15.11</b> コードチャンクの挿入</a></li>
-<li class="chapter" data-level="15.12" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#lets-実践-3"><i class="fa fa-check"></i><b>15.12</b> Let’s 実践</a></li>
-<li class="chapter" data-level="15.13" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#食費の合計-1"><i class="fa fa-check"></i><b>15.13</b> 食費の合計</a></li>
-<li class="chapter" data-level="15.14" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#答え合わせ-3"><i class="fa fa-check"></i><b>15.14</b> 答え合わせ</a></li>
-<li class="chapter" data-level="15.15" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#r-markdownでまとめた結果を共有することができる"><i class="fa fa-check"></i><b>15.15</b> 2. R Markdownでまとめた結果を共有することができる</a></li>
-<li class="chapter" data-level="15.16" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#html形式だと簡単にウェブサイトにできます"><i class="fa fa-check"></i><b>15.16</b> HTML形式だと、簡単にウェブサイトにできます</a></li>
-<li class="chapter" data-level="15.17" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#様々なパソコンで同じ分析環境を再現することができる"><i class="fa fa-check"></i><b>15.17</b> 3. 様々なパソコンで同じ分析環境を再現することができる</a></li>
-<li class="chapter" data-level="15.18" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#r自体のバージョン管理も可能です"><i class="fa fa-check"></i><b>15.18</b> R自体のバージョン管理も可能です</a></li>
-<li class="chapter" data-level="15.19" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#おまけ"><i class="fa fa-check"></i><b>15.19</b> おまけ</a></li>
-<li class="chapter" data-level="15.20" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#関数の呼び出し方"><i class="fa fa-check"></i><b>15.20</b> 関数の呼び出し方</a></li>
-<li class="chapter" data-level="15.21" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#まとめ-2"><i class="fa fa-check"></i><b>15.21</b> まとめ</a></li>
-<li class="chapter" data-level="15.22" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#参考文献-資料"><i class="fa fa-check"></i><b>15.22</b> 参考文献 &amp; 資料</a></li>
+<li class="chapter" data-level="15.1" data-path="week-14-tidyverseパッケージによるデータの加工と可視化.html"><a href="week-14-tidyverseパッケージによるデータの加工と可視化.html#事前の確認-12"><i class="fa fa-check"></i><b>15.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="15.2" data-path="week-14-tidyverseパッケージによるデータの加工と可視化.html"><a href="week-14-tidyverseパッケージによるデータの加工と可視化.html#今日の目標-12"><i class="fa fa-check"></i><b>15.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="15.3" data-path="week-14-tidyverseパッケージによるデータの加工と可視化.html"><a href="week-14-tidyverseパッケージによるデータの加工と可視化.html#次週までの課題-12"><i class="fa fa-check"></i><b>15.3</b> 次週までの課題</a></li>
+<li class="chapter" data-level="15.4" data-path="week-14-tidyverseパッケージによるデータの加工と可視化.html"><a href="week-14-tidyverseパッケージによるデータの加工と可視化.html#参考文献-12"><i class="fa fa-check"></i><b>15.4</b> 参考文献</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>16</b> Sharing your book</a></li>
+<li class="chapter" data-level="16" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html"><i class="fa fa-check"></i><b>16</b> Week 15：言語研究とオープンサイエンス</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#事前の確認-13"><i class="fa fa-check"></i><b>16.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="16.2" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#今日の目標-13"><i class="fa fa-check"></i><b>16.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="16.3" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#はじめに"><i class="fa fa-check"></i><b>16.3</b> はじめに</a></li>
+<li class="chapter" data-level="16.4" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#r-markdownを使って分析結果をまとめることができる"><i class="fa fa-check"></i><b>16.4</b> 1. R Markdownを使って分析結果をまとめることができる</a></li>
+<li class="chapter" data-level="16.5" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#プロジェクト"><i class="fa fa-check"></i><b>16.5</b> プロジェクト</a></li>
+<li class="chapter" data-level="16.6" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#実際に作ってみましょう"><i class="fa fa-check"></i><b>16.6</b> 実際に作ってみましょう</a></li>
+<li class="chapter" data-level="16.7" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#ドキュメントチャンクmarkdown記法-1"><i class="fa fa-check"></i><b>16.7</b> ドキュメントチャンク：Markdown記法</a></li>
+<li class="chapter" data-level="16.8" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#lets-実践-2"><i class="fa fa-check"></i><b>16.8</b> Let’s 実践</a></li>
+<li class="chapter" data-level="16.9" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#答え合わせ-2"><i class="fa fa-check"></i><b>16.9</b> 答え合わせ</a></li>
+<li class="chapter" data-level="16.10" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#実はwordのように編集できます"><i class="fa fa-check"></i><b>16.10</b> 実は、Wordのように編集できます！</a></li>
+<li class="chapter" data-level="16.11" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#コードチャンクの挿入-1"><i class="fa fa-check"></i><b>16.11</b> コードチャンクの挿入</a></li>
+<li class="chapter" data-level="16.12" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#lets-実践-3"><i class="fa fa-check"></i><b>16.12</b> Let’s 実践</a></li>
+<li class="chapter" data-level="16.13" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#食費の合計-1"><i class="fa fa-check"></i><b>16.13</b> 食費の合計</a></li>
+<li class="chapter" data-level="16.14" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#答え合わせ-3"><i class="fa fa-check"></i><b>16.14</b> 答え合わせ</a></li>
+<li class="chapter" data-level="16.15" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#r-markdownでまとめた結果を共有することができる"><i class="fa fa-check"></i><b>16.15</b> 2. R Markdownでまとめた結果を共有することができる</a></li>
+<li class="chapter" data-level="16.16" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#html形式だと簡単にウェブサイトにできます"><i class="fa fa-check"></i><b>16.16</b> HTML形式だと、簡単にウェブサイトにできます</a></li>
+<li class="chapter" data-level="16.17" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#様々なパソコンで同じ分析環境を再現することができる"><i class="fa fa-check"></i><b>16.17</b> 3. 様々なパソコンで同じ分析環境を再現することができる</a></li>
+<li class="chapter" data-level="16.18" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#r自体のバージョン管理も可能です"><i class="fa fa-check"></i><b>16.18</b> R自体のバージョン管理も可能です</a></li>
+<li class="chapter" data-level="16.19" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#おまけ"><i class="fa fa-check"></i><b>16.19</b> おまけ</a></li>
+<li class="chapter" data-level="16.20" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#関数の呼び出し方"><i class="fa fa-check"></i><b>16.20</b> 関数の呼び出し方</a></li>
+<li class="chapter" data-level="16.21" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#まとめ-2"><i class="fa fa-check"></i><b>16.21</b> まとめ</a></li>
+<li class="chapter" data-level="16.22" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#参考文献-資料"><i class="fa fa-check"></i><b>16.22</b> 参考文献 &amp; 資料</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -348,9 +359,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="week-13-ノンパラメトリック検定" class="section level1 hasAnchor" number="14">
 <h1><span class="header-section-number">Chapter 14</span> Week 13: ノンパラメトリック検定<a href="week-13-ノンパラメトリック検定.html#week-13-ノンパラメトリック検定" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>#まだ工事中</p>
-<div id="事前の確認-11" class="section level2 hasAnchor" number="14.1">
-<h2><span class="header-section-number">14.1</span> 事前の確認<a href="week-13-ノンパラメトリック検定.html#事前の確認-11" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ハンズオンと説明セッションを明確に分けずに行う" class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">14.1</span> ハンズオンと説明セッションを明確に分けずに行う<a href="week-13-ノンパラメトリック検定.html#ハンズオンと説明セッションを明確に分けずに行う" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="事前の確認-11" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">14.2</span> 事前の確認<a href="week-13-ノンパラメトリック検定.html#事前の確認-11" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><p>この講義のRプロジェクトを開いていますか？</p></li>
 <li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
@@ -359,17 +372,496 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </div>
-<div id="今日の目標-11" class="section level2 hasAnchor" number="14.2">
-<h2><span class="header-section-number">14.2</span> 今日の目標<a href="week-13-ノンパラメトリック検定.html#今日の目標-11" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="今日の目標-11" class="section level2 hasAnchor" number="14.3">
+<h2><span class="header-section-number">14.3</span> 今日の目標<a href="week-13-ノンパラメトリック検定.html#今日の目標-11" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
 <li></li>
 <li></li>
 </ol>
 </div>
-<div id="次週までの課題-11" class="section level2 hasAnchor" number="14.3">
-<h2><span class="header-section-number">14.3</span> 次週までの課題<a href="week-13-ノンパラメトリック検定.html#次週までの課題-11" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="課題内容-11" class="section level3 hasAnchor" number="14.3.1">
-<h3><span class="header-section-number">14.3.1</span> 課題内容<a href="week-13-ノンパラメトリック検定.html#課題内容-11" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="ノンパラメトリック検定" class="section level2 hasAnchor" number="14.4">
+<h2><span class="header-section-number">14.4</span> ノンパラメトリック検定<a href="week-13-ノンパラメトリック検定.html#ノンパラメトリック検定" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>母集団に特定の分布を仮定しない検定に対して用いることができる手法。</p>
+<ul>
+<li>e.g., カイ二乗検定、フィッシャーの正確確率検定</li>
+</ul></li>
+<li><p>名義尺度データや順序尺度データの分析に使われる</p></li>
+<li><p>名義尺度データの場合、クロス集計表などで集計結果が示される</p></li>
+</ul>
+</div>
+<div id="名義尺度データ" class="section level2 hasAnchor" number="14.5">
+<h2><span class="header-section-number">14.5</span> 名義尺度データ<a href="week-13-ノンパラメトリック検定.html#名義尺度データ" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="カイ二乗検定1変数" class="section level3 hasAnchor" number="14.5.1">
+<h3><span class="header-section-number">14.5.1</span> カイ二乗検定（1変数）<a href="week-13-ノンパラメトリック検定.html#カイ二乗検定1変数" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="データの読み込み-4" class="section level3 hasAnchor" number="14.5.2">
+<h3><span class="header-section-number">14.5.2</span> データの読み込み<a href="week-13-ノンパラメトリック検定.html#データの読み込み-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>英語の授業で60名の学生に対し、歌、映画、ニュースのどれを使った授業を受講したいかのアンケートを実施。これら3つの種類の希望者の数に有意な違いがあるかを調べる。</p>
+<ul>
+<li><p>3つのカテゴリの期待値は、それぞれ <span class="math inline">\(\frac{60}{3} = 20\)</span></p></li>
+<li><p>帰無仮説：「3つの種類の度数は一様である」</p></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="week-13-ノンパラメトリック検定.html#cb491-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/chisq.csv&quot;</span>)</span></code></pre></div>
+</div>
+<div id="中身の確認" class="section level3 hasAnchor" number="14.5.3">
+<h3><span class="header-section-number">14.5.3</span> 中身の確認<a href="week-13-ノンパラメトリック検定.html#中身の確認" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="week-13-ノンパラメトリック検定.html#cb492-1" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##   Method
+## 1   song
+## 2   song
+## 3   song</code></pre>
+</div>
+<div id="クロス集計表" class="section level3 hasAnchor" number="14.5.4">
+<h3><span class="header-section-number">14.5.4</span> クロス集計表<a href="week-13-ノンパラメトリック検定.html#クロス集計表" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="week-13-ノンパラメトリック検定.html#cb494-1" tabindex="-1"></a><span class="fu">table</span>(dat)</span></code></pre></div>
+<pre><code>## Method
+## movie  news  song 
+##    29    14    17</code></pre>
+</div>
+<div id="カイ二乗検定の実行" class="section level3 hasAnchor" number="14.5.5">
+<h3><span class="header-section-number">14.5.5</span> カイ二乗検定の実行<a href="week-13-ノンパラメトリック検定.html#カイ二乗検定の実行" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><code>table()</code>の結果を保存</li>
+</ul>
+<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="week-13-ノンパラメトリック検定.html#cb496-1" tabindex="-1"></a>tx <span class="ot">&lt;-</span> <span class="fu">table</span>(dat)</span></code></pre></div>
+<ul>
+<li><p><code>chisq.test()</code>関数を実行</p></li>
+<li><p><em>p</em> 値が有意水準 .05以下になっており、受講希望に有意差がある</p></li>
+</ul>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="week-13-ノンパラメトリック検定.html#cb497-1" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb497-2"><a href="week-13-ノンパラメトリック検定.html#cb497-2" tabindex="-1"></a><span class="fu">chisq.test</span>(tx)</span></code></pre></div>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  tx
+## X-squared = 6.3, df = 2, p-value = 0.04285</code></pre>
+</div>
+<div id="多重比較" class="section level3 hasAnchor" number="14.5.6">
+<h3><span class="header-section-number">14.5.6</span> 多重比較<a href="week-13-ノンパラメトリック検定.html#多重比較" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>3つの種類のどこに有意差があるかを検定する</p>
+<ul>
+<li><p>各カテゴリ間でカイ二乗検定を3回行う。検定を繰り返すため、ボンフェロー二の方法で有意水準の調節をする</p></li>
+<li><p>3回繰り返すため、有意水準の .05を3で割った値を基準にする（ <em>p</em> = .167）</p></li>
+</ul></li>
+<li><p>映画 vs. ニュース</p></li>
+</ul>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="week-13-ノンパラメトリック検定.html#cb499-1" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">c</span>(<span class="dv">29</span>, <span class="dv">14</span>), <span class="at">p =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>))</span></code></pre></div>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  c(29, 14)
+## X-squared = 5.2326, df = 1, p-value = 0.02217</code></pre>
+<ul>
+<li>映画 vs. 歌</li>
+</ul>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="week-13-ノンパラメトリック検定.html#cb501-1" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">c</span>(<span class="dv">29</span>, <span class="dv">17</span>), <span class="at">p =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>))</span></code></pre></div>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  c(29, 17)
+## X-squared = 3.1304, df = 1, p-value = 0.07684</code></pre>
+<ul>
+<li>歌 vs. ニュース</li>
+</ul>
+<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="week-13-ノンパラメトリック検定.html#cb503-1" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">c</span>(<span class="dv">17</span>, <span class="dv">14</span>), <span class="at">p =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>))</span></code></pre></div>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  c(17, 14)
+## X-squared = 0.29032, df = 1, p-value = 0.59</code></pre>
+</div>
+<div id="論文への記載-1" class="section level3 hasAnchor" number="14.5.7">
+<h3><span class="header-section-number">14.5.7</span> 論文への記載<a href="week-13-ノンパラメトリック検定.html#論文への記載-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>学生60名に映画、ニュース、歌のうちどれを使った授業を受講したいか調査した結果、それぞれ29、17、14人であった。カイ二乗検定を行った結果、<em>χ^2</em>(2) = 6.30、<em>p</em> = .0429と5%有意水準で受講希望者が有意に異なっていた。そこで多重比較を行い、ボンフェロー二の方法で補正した有意水準（ <em>α</em> = .0167）と比較した結果、どこにも有意差は見られなかった。</p>
+<ul>
+<li><em>χ^2</em>(自由度)</li>
+</ul>
+</div>
+<div id="分割表のカイ二乗検定" class="section level3 hasAnchor" number="14.5.8">
+<h3><span class="header-section-number">14.5.8</span> 3×3分割表のカイ二乗検定<a href="week-13-ノンパラメトリック検定.html#分割表のカイ二乗検定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>高校生55名の単語テストの得点順に3グループに分けた後、「声に出す」「書き写す」あるいは、その「両方」のいずれの方法で暗記したかを尋ねた。</p>
+<ul>
+<li>帰無仮説：「単語テストの成績と暗記方法に関連はない」</li>
+</ul>
+<pre><code>##           両方 書き写す 声に出す
+## 下位群(1)    4        7       10
+## 下位群(2)    6        4        6
+## 下位群(3)   13        3        2</code></pre>
+</div>
+<div id="練習用データの作成" class="section level3 hasAnchor" number="14.5.9">
+<h3><span class="header-section-number">14.5.9</span> 練習用データの作成<a href="week-13-ノンパラメトリック検定.html#練習用データの作成" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="week-13-ノンパラメトリック検定.html#cb506-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">13</span>, <span class="dv">3</span>, <span class="dv">2</span>),</span>
+<span id="cb506-2"><a href="week-13-ノンパラメトリック検定.html#cb506-2" tabindex="-1"></a>            <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> T)</span></code></pre></div>
+</div>
+<div id="カイ二乗検定の実施" class="section level3 hasAnchor" number="14.5.10">
+<h3><span class="header-section-number">14.5.10</span> カイ二乗検定の実施<a href="week-13-ノンパラメトリック検定.html#カイ二乗検定の実施" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>期待度数が0、もしくは期待度数が5未満になるセルが全体の20%以上の場合に警告メッセージが表示される。</p></li>
+<li><p>この場合、Fisherの正確確率検定の値を確認する</p></li>
+</ul>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="week-13-ノンパラメトリック検定.html#cb507-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(x)</span></code></pre></div>
+<pre><code>## Warning in chisq.test(x): Chi-squared approximation may be incorrect</code></pre>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="week-13-ノンパラメトリック検定.html#cb509-1" tabindex="-1"></a>res</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  x
+## X-squared = 11.818, df = 4, p-value = 0.01876</code></pre>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="week-13-ノンパラメトリック検定.html#cb511-1" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">fisher.test</span>(x)</span></code></pre></div>
+<pre><code>## 
+##  Fisher&#39;s Exact Test for Count Data
+## 
+## data:  x
+## p-value = 0.01728
+## alternative hypothesis: two.sided</code></pre>
+</div>
+<div id="効果量の算出" class="section level3 hasAnchor" number="14.5.11">
+<h3><span class="header-section-number">14.5.11</span> 効果量の算出<a href="week-13-ノンパラメトリック検定.html#効果量の算出" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><code>vcd</code>パッケージの<code>assocstats</code>関数でCramerの <em>V</em> を算出する</li>
+</ul>
+<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="week-13-ノンパラメトリック検定.html#cb513-1" tabindex="-1"></a><span class="co">#install.packages(&quot;vcd&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="week-13-ノンパラメトリック検定.html#cb514-1" tabindex="-1"></a><span class="fu">library</span>(vcd)</span></code></pre></div>
+<pre><code>## Warning: package &#39;vcd&#39; was built under R version 4.3.3</code></pre>
+<pre><code>## Loading required package: grid</code></pre>
+<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="week-13-ノンパラメトリック検定.html#cb517-1" tabindex="-1"></a><span class="fu">assocstats</span>(x)</span></code></pre></div>
+<pre><code>##                     X^2 df P(&gt; X^2)
+## Likelihood Ratio 12.511  4 0.013929
+## Pearson          11.818  4 0.018758
+## 
+## Phi-Coefficient   : NA 
+## Contingency Coeff.: 0.421 
+## Cramer&#39;s V        : 0.328</code></pre>
+</div>
+<div id="調整済み標準化残差の確認" class="section level3 hasAnchor" number="14.5.12">
+<h3><span class="header-section-number">14.5.12</span> 調整済み標準化残差の確認<a href="week-13-ノンパラメトリック検定.html#調整済み標準化残差の確認" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>絶対値1.96（5%水準棄却値）より絶対値が大きいものを確認</li>
+</ul>
+<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="week-13-ノンパラメトリック検定.html#cb519-1" tabindex="-1"></a>res<span class="sc">$</span>stdres</span></code></pre></div>
+<pre><code>##            [,1]        [,2]       [,3]
+## [1,] -2.6905996  1.05418707  1.8497949
+## [2,] -0.4158472 -0.04956705  0.4831714
+## [3,]  3.1883928 -1.04353624 -2.3829827</code></pre>
+</div>
+<div id="結果の記載" class="section level3 hasAnchor" number="14.5.13">
+<h3><span class="header-section-number">14.5.13</span> 結果の記載<a href="week-13-ノンパラメトリック検定.html#結果の記載" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>単語テストを受けた55名の単語の暗記方法とテストの成績に関連があるかをカイ2乗検定で分析した。その結果、<em>χ^</em> (1) = 11.82、<em>p</em> = .018、 Cramer’ <em>V</em> = .33と、有意な関連が見られた。 クロス集計表で期待値5未満が全体の20%以上あったため、Fisherの直接法を行った。その結果、<em>p</em> = .017と5%水準で有意だった。そこで、標準残差で判断したところ、上位群は暗記の際に声を出す方法だけを使用する場合が有意に少なく（ <em>z</em> = -2.38, <em>p</em> &lt; .05）、その方法と書き写す方法の両方を使う傾向にあることがわかった（<em>z</em> = -3.19, <em>p</em> &lt; .08）。それに対して、下位群は声を出す方法だけを使う傾向があり（ <em>z</em> = 1.85. <em>p</em> &lt;.05）、両方の方法を使うことが有意に少なかった（ <em>z</em> = -2.69, <em>p</em> &lt; .01）。中位群にはそのような顕著な傾向はみられなかった。</p>
+</div>
+</div>
+<div id="リスク比とオッズ比" class="section level2 hasAnchor" number="14.6">
+<h2><span class="header-section-number">14.6</span> リスク比とオッズ比<a href="week-13-ノンパラメトリック検定.html#リスク比とオッズ比" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>2群のカテゴリデータの効果量として使われる</li>
+</ul>
+<div id="リスク比相対危険度" class="section level3 hasAnchor" number="14.6.1">
+<h3><span class="header-section-number">14.6.1</span> リスク比（相対危険度）<a href="week-13-ノンパラメトリック検定.html#リスク比相対危険度" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>「海外経験がある人は英語を話すのが好きな傾向があるか」</li>
+</ul>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+好き
+</th>
+<th style="text-align:right;">
+嫌い
+</th>
+<th style="text-align:right;">
+計
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+海外経験あり
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+海外経験なし
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+33
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+計
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+54
+</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>海外経験のある人で英語で話すのが好きな人の割合</li>
+</ul>
+<p><span class="math display">\[
+リスク = \frac{10}{10 + 11} = \frac{\text{海外経験あり群で英語を話すのが好き}}{\text{海外経験あり群全体}} = \frac{10}{21} = 0.476
+\]</span></p>
+<ul>
+<li>海外経験のない人で英語で話すのが好きな人の割合</li>
+</ul>
+<p><span class="math display">\[
+リスク = \frac{8}{8 + 25} = \frac{\text{海外経験なし群で英語を話すのが好き}}{\text{海外経験なし群全体}} = \frac{10}{21} = 0.476
+\]</span></p>
+<ul>
+<li><p>リスク比の算出</p></li>
+<li><p>海外経験のある人で英語を話すのが好きな人は、海外経験のない人の何倍か</p></li>
+</ul>
+<p><span class="math display">\[
+リスク比 = \frac{0.4762}{0.2424} = \frac{\text{海外経験のある人で英語で話すのが好きな人の割合}}{\text{海外経験のない人で英語で話すのが好きな人の割合}} = 1.964
+\]</span></p>
+<ul>
+<li>海外経験のある人で英語を話すのが好きになる確率は、海外経験のない人の約2倍である</li>
+</ul>
+</div>
+<div id="オッズ比-1" class="section level3 hasAnchor" number="14.6.2">
+<h3><span class="header-section-number">14.6.2</span> オッズ比<a href="week-13-ノンパラメトリック検定.html#オッズ比-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>海外経験のある人</li>
+</ul>
+<p><span class="math display">\[
+オッズ = \frac{\text{海外経験あり群で英語を話すのが好き}}{\text{海外経験あり群で英語を話すのが嫌い}} = \frac{10}{11} = 0.909
+\]</span></p>
+<ul>
+<li><p>海外経験のある人は英語を話すのが好きと嫌いの比率がほぼ等しい</p></li>
+<li><p>海外経験のない</p></li>
+</ul>
+<p><span class="math display">\[
+オッズ = \frac{\text{海外経験なし群で英語を話すのが好き}}{\text{海外経験なし群で英語を話すのが嫌い}} = \frac{8}{25} = 0.320
+\]</span></p>
+<ul>
+<li><p>海外経験のない人は英語を話すのが好きと嫌いの比率は0.320:1で、嫌いが約3倍高い</p></li>
+<li><p>オッズ比の計算
+<span class="math display">\[
+オッズ比 =  \frac{0.909}{0.320} = 2.841
+\]</span></p>
+<ul>
+<li>海外経験のある人は、英語を話すのが好きになる確率が、海外経験のない人の2.84倍である</li>
+</ul></li>
+</ul>
+<div class="infobox">
+<p>リスク比もオッズ比も、分子を何にするかで数値やその解釈が変わる。分子に大きい値の方を持ってくる方が解釈しやすい。結果が分かった後に、その原因をさかのぼって調査する研究（後ろ向き調査）では、リスク比を使うことができない。</p>
+</div>
+</div>
+</div>
+<div id="対応のあるデータを比較する" class="section level2 hasAnchor" number="14.7">
+<h2><span class="header-section-number">14.7</span> 対応のあるデータを比較する<a href="week-13-ノンパラメトリック検定.html#対応のあるデータを比較する" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="マクネマー検定" class="section level3 hasAnchor" number="14.7.1">
+<h3><span class="header-section-number">14.7.1</span> マクネマー検定<a href="week-13-ノンパラメトリック検定.html#マクネマー検定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>2 × 2分割表で使用される</p></li>
+<li><p><em>t</em> 検定に似ている</p></li>
+<li><p>話すことへの自信に関するアンケート調査</p>
+<ul>
+<li>話す前と後で自信に統計的有意な変化があったかを分析する</li>
+</ul></li>
+</ul>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="1">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+留学前
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+留学後
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+ない
+</th>
+<th style="text-align:right;">
+ある
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;color: black !important;">
+ない
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;color: black !important;">
+ある
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+11
+</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>データの読み込み</p></li>
+<li><p>1列目と2列目のデータのみ読み込む</p></li>
+</ul>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="week-13-ノンパラメトリック検定.html#cb521-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/McN_Signed.csv&quot;</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="week-13-ノンパラメトリック検定.html#cb522-1" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
+<pre><code>##   Before2 After2
+## 1       0      0
+## 2       0      0
+## 3       0      0
+## 4       0      0
+## 5       0      0
+## 6       0      0</code></pre>
+<ul>
+<li><code>table()</code>で分割表を作成する</li>
+</ul>
+<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="week-13-ノンパラメトリック検定.html#cb524-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>Before2, dat<span class="sc">$</span>After2)</span></code></pre></div>
+<pre><code>##    
+##      0  1
+##   0 15 21
+##   1  3 11</code></pre>
+<ul>
+<li><code>mcnemar.test()</code>で分析を行う</li>
+</ul>
+<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="week-13-ノンパラメトリック検定.html#cb526-1" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">mcnemar.test</span>(dat<span class="sc">$</span>Before2, dat<span class="sc">$</span>After2)</span></code></pre></div>
+<pre><code>## 
+##  McNemar&#39;s Chi-squared test with continuity correction
+## 
+## data:  dat$Before2 and dat$After2
+## McNemar&#39;s chi-squared = 12.042, df = 1, p-value = 0.0005202</code></pre>
+<ul>
+<li>効果量の算出</li>
+</ul>
+<p><span class="math display">\[
+効果量 r = \sqrt\frac{{χ^2}}{N} = \sqrt\frac{12.04}{21 + 3} = 0.708
+\]</span></p>
+<ul>
+<li>結果の記載
+1年問の留学を経験した50名の学生に対して、留学先の言語で話す自信があるかを留学前後で尋ね、その変
+化をマクネマー検定で分析した。その結果、留学前後で、「自信がない」から「自信がある」となった学生は21
+名で、逆に、「自信がある」から「自信がない」に変わった学生は3名で、検定の結果、<em>p</em> &lt; .001で有意な変化が見られた。また、効果量も <em>r</em> = .71と大きく、1年問の留学は、話すことへの自信につながることが示された。</li>
+</ul>
+</div>
+<div id="コクランのq検定" class="section level3 hasAnchor" number="14.7.2">
+<h3><span class="header-section-number">14.7.2</span> コクランのQ検定<a href="week-13-ノンパラメトリック検定.html#コクランのq検定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>対応ある3変数以上の間でそれぞれの比率に変化や差があるかを検定（フリードマン検定の2値データ版）。</p>
+<ul>
+<li><p>データは2値データ</p></li>
+<li><p>帰無仮説「1/0の比率がすべての変数間で等しい」</p></li>
+<li><p>最低でも10以上のサンプルが必要</p></li>
+</ul></li>
+<li><p>データの読み込み</p></li>
+</ul>
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="week-13-ノンパラメトリック検定.html#cb528-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/Cochran.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="week-13-ノンパラメトリック検定.html#cb529-1" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##   Listening Reading Speaking Writing
+## 1         0       1        0       0
+## 2         1       1        0       0</code></pre>
+<ul>
+<li><code>nonpar</code>パッケージの<code>cochrans.q()</code>関数を使う</li>
+</ul>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="week-13-ノンパラメトリック検定.html#cb531-1" tabindex="-1"></a><span class="co">#install.packages(&quot;nonpar&quot;)</span></span>
+<span id="cb531-2"><a href="week-13-ノンパラメトリック検定.html#cb531-2" tabindex="-1"></a><span class="fu">library</span>(nonpar)</span>
+<span id="cb531-3"><a href="week-13-ノンパラメトリック検定.html#cb531-3" tabindex="-1"></a><span class="fu">cochrans.q</span>(dat)</span></code></pre></div>
+<pre><code>## 
+##  Cochran&#39;s Q Test 
+##  
+##  H0: There is no difference in the effectiveness of treatments. 
+##  HA: There is a difference in the effectiveness of treatments. 
+##  
+##  Q = 9.71428571428572 
+##  
+##  Degrees of Freedom = 3 
+##  
+##  Significance Level = 0.05 
+##  The p-value is  0.0211576681477015 
+##  There is enough evidence to conclude that the effectiveness of at least two treatments differ. 
+## </code></pre>
+<ul>
+<li><p>マクネマ―検定による多重比較</p>
+<ul>
+<li>4回行うので、<em>α</em> は 0.0125</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="week-13-ノンパラメトリック検定.html#cb533-1" tabindex="-1"></a><span class="fu">mcnemar.test</span>(dat<span class="sc">$</span>Listening, dat<span class="sc">$</span>Speaking)</span></code></pre></div>
+<pre><code>## 
+##  McNemar&#39;s Chi-squared test with continuity correction
+## 
+## data:  dat$Listening and dat$Speaking
+## McNemar&#39;s chi-squared = 2.2857, df = 1, p-value = 0.1306</code></pre>
+<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb535-1"><a href="week-13-ノンパラメトリック検定.html#cb535-1" tabindex="-1"></a><span class="fu">mcnemar.test</span>(dat<span class="sc">$</span>Listening, dat<span class="sc">$</span>Writing)</span></code></pre></div>
+<pre><code>## 
+##  McNemar&#39;s Chi-squared test with continuity correction
+## 
+## data:  dat$Listening and dat$Writing
+## McNemar&#39;s chi-squared = 0.25, df = 1, p-value = 0.6171</code></pre>
+<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="week-13-ノンパラメトリック検定.html#cb537-1" tabindex="-1"></a><span class="fu">mcnemar.test</span>(dat<span class="sc">$</span>Reading, dat<span class="sc">$</span>Speaking)</span></code></pre></div>
+<pre><code>## 
+##  McNemar&#39;s Chi-squared test with continuity correction
+## 
+## data:  dat$Reading and dat$Speaking
+## McNemar&#39;s chi-squared = 6.125, df = 1, p-value = 0.01333</code></pre>
+<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="week-13-ノンパラメトリック検定.html#cb539-1" tabindex="-1"></a><span class="fu">mcnemar.test</span>(dat<span class="sc">$</span>Reading, dat<span class="sc">$</span>Writing)</span></code></pre></div>
+<pre><code>## 
+##  McNemar&#39;s Chi-squared test with continuity correction
+## 
+## data:  dat$Reading and dat$Writing
+## McNemar&#39;s chi-squared = 1.4545, df = 1, p-value = 0.2278</code></pre>
+<ul>
+<li><p>効果量はマクネマー同様に、カイ二乗値をデータ数で割ってルートを取る</p></li>
+<li><p>記載例
+学生15人に対して、英語の4技能に対する苦手意識を調査した技能問によって得意と感じる比率に差があるかどうかを、コクランの Q検定で検証したところ、<em>Q</em>(3) = 9.714, <em>p</em> = .021と 5%水準で有意であったそこで,マクネマー検定であらかじめ関心のある技能問で4回の多重比較を行ったところ、ボンフェロー二の方法で調整した有意水準( = .05/4 = 0.0125)で判断すると、どの条件間にも有意差はなかった。</p></li>
+</ul>
+</div>
+</div>
+<div id="順序尺度データ" class="section level2 hasAnchor" number="14.8">
+<h2><span class="header-section-number">14.8</span> 順序尺度データ<a href="week-13-ノンパラメトリック検定.html#順序尺度データ" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="次週までの課題-11" class="section level2 hasAnchor" number="14.9">
+<h2><span class="header-section-number">14.9</span> 次週までの課題<a href="week-13-ノンパラメトリック検定.html#次週までの課題-11" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="課題内容-11" class="section level3 hasAnchor" number="14.9.1">
+<h3><span class="header-section-number">14.9.1</span> 課題内容<a href="week-13-ノンパラメトリック検定.html#課題内容-11" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
 <li><p>小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。</p></li>
 <li><p>（宿題を考える）</p></li>
@@ -379,16 +871,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><strong>Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。</strong></p></li>
 </ul>
 </div>
-<div id="提出方法-11" class="section level3 hasAnchor" number="14.3.2">
-<h3><span class="header-section-number">14.3.2</span> 提出方法<a href="week-13-ノンパラメトリック検定.html#提出方法-11" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="提出方法-11" class="section level3 hasAnchor" number="14.9.2">
+<h3><span class="header-section-number">14.9.2</span> 提出方法<a href="week-13-ノンパラメトリック検定.html#提出方法-11" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>メールにファイルを添付して送信。</li>
 <li>締め切りは今週の木曜日まで</li>
 </ul>
 </div>
 </div>
-<div id="参考文献-11" class="section level2 hasAnchor" number="14.4">
-<h2><span class="header-section-number">14.4</span> 参考文献<a href="week-13-ノンパラメトリック検定.html#参考文献-11" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="参考文献-11" class="section level2 hasAnchor" number="14.10">
+<h2><span class="header-section-number">14.10</span> 参考文献<a href="week-13-ノンパラメトリック検定.html#参考文献-11" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>平井et al. Rによる教育データ</li>
+</ul>
 <style>
 .infobox {
   padding: 1em 1em 1em 4em;
@@ -414,7 +909,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="week-12-効果量と検定力分析.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="week-15言語研究とオープンサイエンス.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="week-14-tidyverseパッケージによるデータの加工と可視化.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

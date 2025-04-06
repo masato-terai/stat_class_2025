@@ -410,6 +410,7 @@ dat.2 <- na.omit(dat)
 ```{r}
 subset(dat.2, complete.cases(dat.2) == FALSE)
 ```
+
 ```{r}
 summary(dat)
 ```
