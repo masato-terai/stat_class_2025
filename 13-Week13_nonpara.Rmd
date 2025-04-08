@@ -20,6 +20,8 @@ library(kableExtra)
 1. 
 2. 
 
+
+
 ## ノンパラメトリック検定
 - 母集団に特定の分布を仮定しない検定に対して用いることができる手法。
 
@@ -71,6 +73,11 @@ table4a %>%
 ### カイ二乗検定（1変数）
 
 ### データの読み込み
+
+<p class="comment">
+今週の講義内で使用する、csvファイルのデータは、平井 et al.（2022）『教育・心理系研究のための Rによるデータ分析　論文作成への理論と実践集』のものです。
+</p>
+
 
 - 英語の授業で60名の学生に対し、歌、映画、ニュースのどれを使った授業を受講したいかのアンケートを実施。これら3つの種類の希望者の数に有意な違いがあるかを調べる。
 
@@ -557,7 +564,7 @@ cor.test(変数A, 変数B, method = "kendall")
 - 締め切りは今週の木曜日まで
 
 ## 参考文献
-- 平井et al. Rによる教育データ
+- 平井 et al.（2022）『教育・心理系研究のための Rによるデータ分析　論文作成への理論と実践集』東京図書
 - 三浦（監）「英語教師のための教育データ入門」
 - 水本外国語教育ハンドブック
 ```{=html}
@@ -575,6 +582,15 @@ cor.test(変数A, 変数B, method = "kendall")
 
 .caution {
   background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
-  
+
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+
 </style>
 ```

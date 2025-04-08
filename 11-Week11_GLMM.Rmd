@@ -11,6 +11,7 @@ rstan_options(auto_write = T)
 options(mc.cores = parallel::detectCores())
 ```
 
+# 寺井
 
 ## 事前の確認
 
@@ -24,6 +25,234 @@ options(mc.cores = parallel::detectCores())
 1. 
 2. 
 
+
+
+## 一般化線形モデルからの発展
+
+- 一般線形モデル：従属変数が正規分布に従う（e.g., *t* 検定、分散分析、回帰分析）
+
+  - Week 4 - Week 9
+
+- 一般**化**線形モデル：正規分布以外の分布を扱う
+
+  - Week 10
+  
+- 一般化線形混合効果モデル（Genealized Linewr **Mixed** Model: GLMM）：一般化線形モデルを拡張。実験計画などではコントロールできない要因（ランダム効果）をモデルに組み込む => 本日
+
+  - 混合効果：これまでの講義で扱ってきた独立変数（固定効果）とランダム効果を1つのモデルで表す
+
+  - 得られたデータには、研究目的とは関係のないノイズが含まれる
+  
+    - 項目を提示する順番の影響
+    
+    - 項目や参加者が持つ特性
+
+  - マルチレベルモデル（multilevel model）、階層線形モデル（hierarchical linear model）、混合効果モデル（mixed-effects model）などとも呼ばれる
+
+  - 最尤推定法を用いるモデルを指すが、推定法がマルコフ連鎖モンテカルロ法（MCMC）の場合は、階層ベイズモデルと呼ばれる。階層ベイズモデルは、最尤推定法によるGLMMに比べ、よりデータに合わせた柔軟なモデリングが可能である。
+
+<p class="comment">
+どのように高度な手法を使う場合でも、分析の前に平均や分散などの記述統計・図示をもとに、立てた仮説や予測と一致しているかなどの確認が必要です。また、分析に入れる変数も、理論や仮説などから妥当なものを原則入れるべきです。
+</p>
+
+## ランダム効果とは
+
+- ランダム効果を考慮する場合、しない場合
+
+  - Brysbaert (2025)
+  
+- ランダム切片モデル
+
+- ランダム係数モデル
+
+## GLMMを行うときの留意点
+
+### データセットの構造に注意
+- これまでに使用してきたデータセットが必ずしもGLMMの分析に合うものではない。
+
+- 各行には、一人の参加者の各項目が含まれているべきである
+
+  - この形式にしておけば、どのような分析にも対応できる
+
+（データセットの例を示す）
+
+### 計算の負荷が大きい
+- これまでに紹介した分析とは異なり、結果が出力されるまでに時間がかかります。モデルの変数が多く、ランダム効果にも複数の変数を含む場合、数日かかることもあります。
+
+## ハンズオンセッション
+
+(SOP for using mixed effects modelsに従う)
+
+### データの読み込み
+
+### パッケージのインストール
+
+- ```lme4```パッケージを使用します
+
+```{r, warning=FALSE, message=FALSE}
+#install.packages("lme4")
+library(lme4)
+```
+
+- 処理にかかる時間を計測するため、```tictoc```パッケージを使います。
+
+```{r, warning=FALSE, message=FALSE}
+#install.packages("tictoc")
+library(tictoc)
+```
+
+- Terai et al. (2024)のデータを使用します。
+
+```{r}
+dat <- read.csv("../stat_class_2025/sample_data/AJ.csv")
+```
+
+```{r}
+dat$Itemtype <- factor(dat$Itemtype, levels = c("Baseline", "JE", "Eonly"))
+contrasts(dat$Itemtype) <- contr.treatment(3)
+
+contrasts(dat$Itemtype)
+```
+
+- 連続値の場合中心化します
+```{r}
+dat2 <- dat %>%
+  group_by(subject) %>%
+  mutate(across(c("pres.order", "Length"), ~scale(.x)[,1],.names = "z.{col}")) %>%
+  ungroup()
+```
+
+- 切片のみのモデル
+
+```{r}
+tic()
+res.1 <- glmer(
+  res ~ Itemtype + 
+  (1|subject) + (1|itemID),
+  family = binomial,
+  data = dat2,
+  control = glmerControl(optimizer = "bobyqa")
+               )
+toc()
+```
+
+```{r}
+summary(res.1)
+```
+
+- 切片と係数のモデル
+
+- モデルが上手く収束していない
+```{r}
+tic()
+res.2 <- glmer(
+  res ~ Itemtype +
+  (1 + pres.order|subject) + (1|itemID),
+  family = binomial,
+  data = dat2,
+  control = glmerControl(optimizer = "bobyqa")
+               )
+toc()
+```
+
+- 中心化した変数だとうまくいった
+```{r}
+tic()
+res.3 <- glmer(
+  res ~ Itemtype +
+  (1 + z.pres.order|subject) + (1|itemID),
+  family = binomial,
+  data = dat2,
+  control = glmerControl(optimizer = "bobyqa") #スムーズに推定を行うためにこれを設定します
+               )
+toc()
+```
+
+```{r}
+summary(res.3)
+```
+
+- 95% CI
+```{r}
+se <- sqrt(diag(vcov(res.3)))
+
+# table of estimates with 95% CI
+tab <- cbind(
+  Est = fixef(res.3), 
+  LL = fixef(res.3) - 1.96 * se, 
+  UL = fixef(res.3) + 1.96 * se
+  )
+
+tab
+```
+
+- ```confint()```でも算出可能
+
+  - こちらは推定法の関係で時間がかかる
+
+```{markdown}
+confint(res.3)
+```
+
+- オッズ比
+
+```{r}
+exp(tab)
+```
+
+- モデル比較
+
+  - 尤度比検定の結果、係数を考慮したモデルの方がよりAICが有意に低かった
+
+```{r}
+anova(res.1, res.3)
+```
+
+- ```performance```パッケージでモデルの当てはまり度合いを確認
+
+```{r}
+library(performance)
+compare_performance(res.1, res.3, rank = TRUE, verbose = FALSE)
+```
+
+
+```{r}
+plot(compare_performance(res.1, res.3, rank = TRUE, verbose = FALSE))
+```
+
+- 図示
+```{r}
+library(ggeffects)
+eff <- ggpredict(res.3, terms = "Itemtype")
+plot(eff)
+```
+
+- モデル診断
+
+  - ```performance```パッケージが便利
+```{r}
+#install.packages("performance", dependencies = T)
+```
+
+  - VIF
+
+    - 今回は1変数しかないので確認の必要はない
+
+```{markdown}
+check_collinearity(モデルの結果を格納した変数名)
+```
+
+  - Outliers
+
+```{r}
+check_residuals(res.3)
+```
+
+  - 自己相関（Auto-correlation）
+
+```{r}
+check_autocorrelation(res.3)
+```
 
 
 
@@ -42,6 +271,12 @@ options(mc.cores = parallel::detectCores())
 - 締め切りは今週の木曜日まで
 
 ## 参考文献
+- 外国語教育ハンドブック
+- Brysbaert, M. (2025). Applying Mixed-Effects Models in Research on Second Language Acquisition: A Tutorial for Beginners. Languages, 10(2), 20.
+- 山口剛. (2018). [心理学系] 混合効果モデルの利用: 刺激の変量効果への対処. バイオフィードバック研究, 45(2), 93-98.
+- https://qiita.com/ocean_f/items/9de4c6bc60616e5a3cf2
+- https://stats.oarc.ucla.edu/r/dae/mixed-effects-logistic-regression/
+- Terai, M., Fukuta, J., & Tamura, Y. (2024). Learnability of L2 collocations and L1 influence on L2 collocational representations of Japanese learners of English. International Review of Applied Linguistics in Language Teaching, 62(4), 1959-1983.
 
 ```{=html}
 <style>
@@ -58,6 +293,15 @@ options(mc.cores = parallel::detectCores())
 
 .caution {
   background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
-  
+
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+
 </style>
 ```
