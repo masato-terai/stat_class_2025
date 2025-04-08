@@ -89,170 +89,170 @@ options(mc.cores = parallel::detectCores())
 
 - ```lme4```パッケージを使用します
 
-```{r, warning=FALSE, message=FALSE}
-#install.packages("lme4")
-library(lme4)
-```
+<!-- ```{r, warning=FALSE, message=FALSE} -->
+<!-- #install.packages("lme4") -->
+<!-- library(lme4) -->
+<!-- ``` -->
 
-- 処理にかかる時間を計測するため、```tictoc```パッケージを使います。
+<!-- - 処理にかかる時間を計測するため、```tictoc```パッケージを使います。 -->
 
-```{r, warning=FALSE, message=FALSE}
-#install.packages("tictoc")
-library(tictoc)
-```
+<!-- ```{r, warning=FALSE, message=FALSE} -->
+<!-- #install.packages("tictoc") -->
+<!-- library(tictoc) -->
+<!-- ``` -->
 
-- Terai et al. (2024)のデータを使用します。
+<!-- - Terai et al. (2024)のデータを使用します。 -->
 
-```{r}
-dat <- read.csv("../stat_class_2025/sample_data/AJ.csv")
-```
+<!-- ```{r} -->
+<!-- dat <- read.csv("../stat_class_2025/sample_data/AJ.csv") -->
+<!-- ``` -->
 
-```{r}
-dat$Itemtype <- factor(dat$Itemtype, levels = c("Baseline", "JE", "Eonly"))
-contrasts(dat$Itemtype) <- contr.treatment(3)
+<!-- ```{r} -->
+<!-- dat$Itemtype <- factor(dat$Itemtype, levels = c("Baseline", "JE", "Eonly")) -->
+<!-- contrasts(dat$Itemtype) <- contr.treatment(3) -->
 
-contrasts(dat$Itemtype)
-```
+<!-- contrasts(dat$Itemtype) -->
+<!-- ``` -->
 
-- 連続値の場合中心化します
-```{r}
-dat2 <- dat %>%
-  group_by(subject) %>%
-  mutate(across(c("pres.order", "Length"), ~scale(.x)[,1],.names = "z.{col}")) %>%
-  ungroup()
-```
+<!-- - 連続値の場合中心化します -->
+<!-- ```{r} -->
+<!-- dat2 <- dat %>% -->
+<!--   group_by(subject) %>% -->
+<!--   mutate(across(c("pres.order", "Length"), ~scale(.x)[,1],.names = "z.{col}")) %>% -->
+<!--   ungroup() -->
+<!-- ``` -->
 
-- 切片のみのモデル
+<!-- - 切片のみのモデル -->
 
-```{r}
-tic()
-res.1 <- glmer(
-  res ~ Itemtype + 
-  (1|subject) + (1|itemID),
-  family = binomial,
-  data = dat2,
-  control = glmerControl(optimizer = "bobyqa")
-               )
-toc()
-```
+<!-- ```{r} -->
+<!-- tic() -->
+<!-- res.1 <- glmer( -->
+<!--   res ~ Itemtype +  -->
+<!--   (1|subject) + (1|itemID), -->
+<!--   family = binomial, -->
+<!--   data = dat2, -->
+<!--   control = glmerControl(optimizer = "bobyqa") -->
+<!--                ) -->
+<!-- toc() -->
+<!-- ``` -->
 
-```{r}
-summary(res.1)
-```
+<!-- ```{r} -->
+<!-- summary(res.1) -->
+<!-- ``` -->
 
-- 切片と係数のモデル
+<!-- - 切片と係数のモデル -->
 
-- モデルが上手く収束していない
-```{r}
-tic()
-res.2 <- glmer(
-  res ~ Itemtype +
-  (1 + pres.order|subject) + (1|itemID),
-  family = binomial,
-  data = dat2,
-  control = glmerControl(optimizer = "bobyqa")
-               )
-toc()
-```
+<!-- - モデルが上手く収束していない -->
+<!-- ```{r} -->
+<!-- tic() -->
+<!-- res.2 <- glmer( -->
+<!--   res ~ Itemtype + -->
+<!--   (1 + pres.order|subject) + (1|itemID), -->
+<!--   family = binomial, -->
+<!--   data = dat2, -->
+<!--   control = glmerControl(optimizer = "bobyqa") -->
+<!--                ) -->
+<!-- toc() -->
+<!-- ``` -->
 
-- 中心化した変数だとうまくいった
-```{r}
-tic()
-res.3 <- glmer(
-  res ~ Itemtype +
-  (1 + z.pres.order|subject) + (1|itemID),
-  family = binomial,
-  data = dat2,
-  control = glmerControl(optimizer = "bobyqa") #スムーズに推定を行うためにこれを設定します
-               )
-toc()
-```
+<!-- - 中心化した変数だとうまくいった -->
+<!-- ```{r} -->
+<!-- tic() -->
+<!-- res.3 <- glmer( -->
+<!--   res ~ Itemtype + -->
+<!--   (1 + z.pres.order|subject) + (1|itemID), -->
+<!--   family = binomial, -->
+<!--   data = dat2, -->
+<!--   control = glmerControl(optimizer = "bobyqa") #スムーズに推定を行うためにこれを設定します -->
+<!--                ) -->
+<!-- toc() -->
+<!-- ``` -->
 
-```{r}
-summary(res.3)
-```
+<!-- ```{r} -->
+<!-- summary(res.3) -->
+<!-- ``` -->
 
-- 95% CI
-```{r}
-se <- sqrt(diag(vcov(res.3)))
+<!-- - 95% CI -->
+<!-- ```{r} -->
+<!-- se <- sqrt(diag(vcov(res.3))) -->
 
-# table of estimates with 95% CI
-tab <- cbind(
-  Est = fixef(res.3), 
-  LL = fixef(res.3) - 1.96 * se, 
-  UL = fixef(res.3) + 1.96 * se
-  )
+<!-- # table of estimates with 95% CI -->
+<!-- tab <- cbind( -->
+<!--   Est = fixef(res.3),  -->
+<!--   LL = fixef(res.3) - 1.96 * se,  -->
+<!--   UL = fixef(res.3) + 1.96 * se -->
+<!--   ) -->
 
-tab
-```
+<!-- tab -->
+<!-- ``` -->
 
-- ```confint()```でも算出可能
+<!-- - ```confint()```でも算出可能 -->
 
-  - こちらは推定法の関係で時間がかかる
+<!--   - こちらは推定法の関係で時間がかかる -->
 
-```{markdown}
-confint(res.3)
-```
+<!-- ```{markdown} -->
+<!-- confint(res.3) -->
+<!-- ``` -->
 
-- オッズ比
+<!-- - オッズ比 -->
 
-```{r}
-exp(tab)
-```
+<!-- ```{r} -->
+<!-- exp(tab) -->
+<!-- ``` -->
 
-- モデル比較
+<!-- - モデル比較 -->
 
-  - 尤度比検定の結果、係数を考慮したモデルの方がよりAICが有意に低かった
+<!--   - 尤度比検定の結果、係数を考慮したモデルの方がよりAICが有意に低かった -->
 
-```{r}
-anova(res.1, res.3)
-```
+<!-- ```{r} -->
+<!-- anova(res.1, res.3) -->
+<!-- ``` -->
 
-- ```performance```パッケージでモデルの当てはまり度合いを確認
+<!-- - ```performance```パッケージでモデルの当てはまり度合いを確認 -->
 
-```{r}
-library(performance)
-compare_performance(res.1, res.3, rank = TRUE, verbose = FALSE)
-```
+<!-- ```{r} -->
+<!-- library(performance) -->
+<!-- compare_performance(res.1, res.3, rank = TRUE, verbose = FALSE) -->
+<!-- ``` -->
 
 
-```{r}
-plot(compare_performance(res.1, res.3, rank = TRUE, verbose = FALSE))
-```
+<!-- ```{r} -->
+<!-- plot(compare_performance(res.1, res.3, rank = TRUE, verbose = FALSE)) -->
+<!-- ``` -->
 
-- 図示
-```{r}
-library(ggeffects)
-eff <- ggpredict(res.3, terms = "Itemtype")
-plot(eff)
-```
+<!-- - 図示 -->
+<!-- ```{r} -->
+<!-- library(ggeffects) -->
+<!-- eff <- ggpredict(res.3, terms = "Itemtype") -->
+<!-- plot(eff) -->
+<!-- ``` -->
 
-- モデル診断
+<!-- - モデル診断 -->
 
-  - ```performance```パッケージが便利
-```{r}
-#install.packages("performance", dependencies = T)
-```
+<!--   - ```performance```パッケージが便利 -->
+<!-- ```{r} -->
+<!-- #install.packages("performance", dependencies = T) -->
+<!-- ``` -->
 
-  - VIF
+<!--   - VIF -->
 
-    - 今回は1変数しかないので確認の必要はない
+<!--     - 今回は1変数しかないので確認の必要はない -->
 
-```{markdown}
-check_collinearity(モデルの結果を格納した変数名)
-```
+<!-- ```{markdown} -->
+<!-- check_collinearity(モデルの結果を格納した変数名) -->
+<!-- ``` -->
 
-  - Outliers
+<!--   - Outliers -->
 
-```{r}
-check_residuals(res.3)
-```
+<!-- ```{r} -->
+<!-- check_residuals(res.3) -->
+<!-- ``` -->
 
-  - 自己相関（Auto-correlation）
+<!--   - 自己相関（Auto-correlation） -->
 
-```{r}
-check_autocorrelation(res.3)
-```
+<!-- ```{r} -->
+<!-- check_autocorrelation(res.3) -->
+<!-- ``` -->
 
 
 
