@@ -530,20 +530,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li><p>言語研究で使われる頻度が高いコーディング法</p></li>
 </ul>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="week8-重回帰分析-2.html#cb290-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># 再現性のための乱数設定</span></span>
-<span id="cb290-2"><a href="week8-重回帰分析-2.html#cb290-2" tabindex="-1"></a></span>
-<span id="cb290-3"><a href="week8-重回帰分析-2.html#cb290-3" tabindex="-1"></a><span class="co"># サンプルサイズ</span></span>
-<span id="cb290-4"><a href="week8-重回帰分析-2.html#cb290-4" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb290-5"><a href="week8-重回帰分析-2.html#cb290-5" tabindex="-1"></a></span>
-<span id="cb290-6"><a href="week8-重回帰分析-2.html#cb290-6" tabindex="-1"></a><span class="co"># 疑似データの作成</span></span>
-<span id="cb290-7"><a href="week8-重回帰分析-2.html#cb290-7" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb290-8"><a href="week8-重回帰分析-2.html#cb290-8" tabindex="-1"></a>  <span class="at">ID =</span> <span class="dv">1</span><span class="sc">:</span>n,</span>
-<span id="cb290-9"><a href="week8-重回帰分析-2.html#cb290-9" tabindex="-1"></a>  <span class="at">Method =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>), <span class="at">length.out =</span> n)),  <span class="co"># 3つの指導法を割り当て</span></span>
-<span id="cb290-10"><a href="week8-重回帰分析-2.html#cb290-10" tabindex="-1"></a>  <span class="at">Score =</span> <span class="fu">round</span>(<span class="fu">runif</span>(n, <span class="at">min =</span> <span class="dv">50</span>, <span class="at">max =</span> <span class="dv">100</span>), <span class="dv">1</span>)  <span class="co"># 50-100の範囲でランダムに得点を生成</span></span>
-<span id="cb290-11"><a href="week8-重回帰分析-2.html#cb290-11" tabindex="-1"></a>)</span>
-<span id="cb290-12"><a href="week8-重回帰分析-2.html#cb290-12" tabindex="-1"></a></span>
-<span id="cb290-13"><a href="week8-重回帰分析-2.html#cb290-13" tabindex="-1"></a><span class="co"># データの表示</span></span>
-<span id="cb290-14"><a href="week8-重回帰分析-2.html#cb290-14" tabindex="-1"></a><span class="fu">print</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="week8-重回帰分析-2.html#cb285-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># 再現性のための乱数設定</span></span>
+<span id="cb285-2"><a href="week8-重回帰分析-2.html#cb285-2" tabindex="-1"></a></span>
+<span id="cb285-3"><a href="week8-重回帰分析-2.html#cb285-3" tabindex="-1"></a><span class="co"># サンプルサイズ</span></span>
+<span id="cb285-4"><a href="week8-重回帰分析-2.html#cb285-4" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb285-5"><a href="week8-重回帰分析-2.html#cb285-5" tabindex="-1"></a></span>
+<span id="cb285-6"><a href="week8-重回帰分析-2.html#cb285-6" tabindex="-1"></a><span class="co"># 疑似データの作成</span></span>
+<span id="cb285-7"><a href="week8-重回帰分析-2.html#cb285-7" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb285-8"><a href="week8-重回帰分析-2.html#cb285-8" tabindex="-1"></a>  <span class="at">ID =</span> <span class="dv">1</span><span class="sc">:</span>n,</span>
+<span id="cb285-9"><a href="week8-重回帰分析-2.html#cb285-9" tabindex="-1"></a>  <span class="at">Method =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>), <span class="at">length.out =</span> n)),  <span class="co"># 3つの指導法を割り当て</span></span>
+<span id="cb285-10"><a href="week8-重回帰分析-2.html#cb285-10" tabindex="-1"></a>  <span class="at">Score =</span> <span class="fu">round</span>(<span class="fu">runif</span>(n, <span class="at">min =</span> <span class="dv">50</span>, <span class="at">max =</span> <span class="dv">100</span>), <span class="dv">1</span>)  <span class="co"># 50-100の範囲でランダムに得点を生成</span></span>
+<span id="cb285-11"><a href="week8-重回帰分析-2.html#cb285-11" tabindex="-1"></a>)</span>
+<span id="cb285-12"><a href="week8-重回帰分析-2.html#cb285-12" tabindex="-1"></a></span>
+<span id="cb285-13"><a href="week8-重回帰分析-2.html#cb285-13" tabindex="-1"></a><span class="co"># データの表示</span></span>
+<span id="cb285-14"><a href="week8-重回帰分析-2.html#cb285-14" tabindex="-1"></a><span class="fu">print</span>(df)</span></code></pre></div>
 <pre><code>##    ID Method Score
 ## 1   1      A  64.4
 ## 2   2      B  89.4
@@ -573,15 +573,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>contr.treatment(水準数)</code>関数（<code>stats</code>パッケージ）</p></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="week8-重回帰分析-2.html#cb292-1" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
-<span id="cb292-2"><a href="week8-重回帰分析-2.html#cb292-2" tabindex="-1"></a><span class="fu">contrasts</span>(df<span class="sc">$</span>Method) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">3</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="week8-重回帰分析-2.html#cb287-1" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb287-2"><a href="week8-重回帰分析-2.html#cb287-2" tabindex="-1"></a><span class="fu">contrasts</span>(df<span class="sc">$</span>Method) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">3</span>) </span></code></pre></div>
 <ul>
 <li><p>指導法Aが基準となる（0）</p>
 <ul>
 <li>指導法AとB、指導法AとCの比較</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="week8-重回帰分析-2.html#cb293-1" tabindex="-1"></a>df<span class="sc">$</span>Method</span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="week8-重回帰分析-2.html#cb288-1" tabindex="-1"></a>df<span class="sc">$</span>Method</span></code></pre></div>
 <pre><code>##  [1] A B C A B C A B C A B C A B C A B C A B
 ## attr(,&quot;contrasts&quot;)
 ##   2 3
@@ -597,12 +597,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Method 3: 指導法C - 指導法A</p></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="week8-重回帰分析-2.html#cb295-1" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score <span class="sc">~</span> Method, <span class="at">data =</span> df)</span>
-<span id="cb295-2"><a href="week8-重回帰分析-2.html#cb295-2" tabindex="-1"></a>results<span class="sc">$</span>coefficients</span></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="week8-重回帰分析-2.html#cb290-1" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score <span class="sc">~</span> Method, <span class="at">data =</span> df)</span>
+<span id="cb290-2"><a href="week8-重回帰分析-2.html#cb290-2" tabindex="-1"></a>results<span class="sc">$</span>coefficients</span></code></pre></div>
 <pre><code>## (Intercept)     Method2     Method3 
 ##   79.014286    9.185714  -15.647619</code></pre>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="week8-重回帰分析-2.html#cb297-1" tabindex="-1"></a><span class="co"># 各指導法の平均を確認</span></span>
-<span id="cb297-2"><a href="week8-重回帰分析-2.html#cb297-2" tabindex="-1"></a><span class="fu">aggregate</span>(Score <span class="sc">~</span> Method, <span class="at">data =</span> df, <span class="at">FUN =</span> mean)</span></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="week8-重回帰分析-2.html#cb292-1" tabindex="-1"></a><span class="co"># 各指導法の平均を確認</span></span>
+<span id="cb292-2"><a href="week8-重回帰分析-2.html#cb292-2" tabindex="-1"></a><span class="fu">aggregate</span>(Score <span class="sc">~</span> Method, <span class="at">data =</span> df, <span class="at">FUN =</span> mean)</span></code></pre></div>
 <pre><code>##   Method    Score
 ## 1      A 79.01429
 ## 2      B 88.20000
@@ -614,15 +614,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>contr.sum(水準数)</code>関数（<code>stats</code>パッケージ）</p></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="week8-重回帰分析-2.html#cb299-1" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
-<span id="cb299-2"><a href="week8-重回帰分析-2.html#cb299-2" tabindex="-1"></a><span class="fu">contrasts</span>(df<span class="sc">$</span>Method) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">3</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="week8-重回帰分析-2.html#cb294-1" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb294-2"><a href="week8-重回帰分析-2.html#cb294-2" tabindex="-1"></a><span class="fu">contrasts</span>(df<span class="sc">$</span>Method) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">3</span>) </span></code></pre></div>
 <ul>
 <li><p>指導法Cが比較から除外（0）</p>
 <ul>
 <li>指導法Aと全体平均、指導法Bと全体平均の比較</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="week8-重回帰分析-2.html#cb300-1" tabindex="-1"></a>df<span class="sc">$</span>Method</span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="week8-重回帰分析-2.html#cb295-1" tabindex="-1"></a>df<span class="sc">$</span>Method</span></code></pre></div>
 <pre><code>##  [1] A B C A B C A B C A B C A B C A B C A B
 ## attr(,&quot;contrasts&quot;)
 ##   [,1] [,2]
@@ -638,15 +638,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Method 2: 指導法B - GM</p></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="week8-重回帰分析-2.html#cb302-1" tabindex="-1"></a>results_sum <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score <span class="sc">~</span> Method, <span class="at">data =</span> df)</span>
-<span id="cb302-2"><a href="week8-重回帰分析-2.html#cb302-2" tabindex="-1"></a>results_sum<span class="sc">$</span>coefficients</span></code></pre></div>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="week8-重回帰分析-2.html#cb297-1" tabindex="-1"></a>results_sum <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score <span class="sc">~</span> Method, <span class="at">data =</span> df)</span>
+<span id="cb297-2"><a href="week8-重回帰分析-2.html#cb297-2" tabindex="-1"></a>results_sum<span class="sc">$</span>coefficients</span></code></pre></div>
 <pre><code>## (Intercept)     Method1     Method2 
 ##   76.860317    2.153968   11.339683</code></pre>
-<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="week8-重回帰分析-2.html#cb304-1" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Score <span class="sc">~</span> Method, <span class="at">data =</span> df, <span class="at">FUN =</span> mean)</span>
-<span id="cb304-2"><a href="week8-重回帰分析-2.html#cb304-2" tabindex="-1"></a></span>
-<span id="cb304-3"><a href="week8-重回帰分析-2.html#cb304-3" tabindex="-1"></a>GM <span class="ot">&lt;-</span> <span class="fu">mean</span>(tmp<span class="sc">$</span>Score)</span>
-<span id="cb304-4"><a href="week8-重回帰分析-2.html#cb304-4" tabindex="-1"></a></span>
-<span id="cb304-5"><a href="week8-重回帰分析-2.html#cb304-5" tabindex="-1"></a>GM</span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="week8-重回帰分析-2.html#cb299-1" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Score <span class="sc">~</span> Method, <span class="at">data =</span> df, <span class="at">FUN =</span> mean)</span>
+<span id="cb299-2"><a href="week8-重回帰分析-2.html#cb299-2" tabindex="-1"></a></span>
+<span id="cb299-3"><a href="week8-重回帰分析-2.html#cb299-3" tabindex="-1"></a>GM <span class="ot">&lt;-</span> <span class="fu">mean</span>(tmp<span class="sc">$</span>Score)</span>
+<span id="cb299-4"><a href="week8-重回帰分析-2.html#cb299-4" tabindex="-1"></a></span>
+<span id="cb299-5"><a href="week8-重回帰分析-2.html#cb299-5" tabindex="-1"></a>GM</span></code></pre></div>
 <pre><code>## [1] 76.86032</code></pre>
 <ul>
 <li><p>反復コントラスト（repeated contrasts）</p>
@@ -656,7 +656,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>contr.sdif(水準数)</code>関数（<code>MASS</code>パッケージ）</p></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="week8-重回帰分析-2.html#cb306-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="week8-重回帰分析-2.html#cb301-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;MASS&#39;</code></pre>
 <pre><code>## The following object is masked from &#39;package:olsrr&#39;:
@@ -671,11 +671,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## The following object is masked from &#39;package:dplyr&#39;:
 ## 
 ##     select</code></pre>
-<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="week8-重回帰分析-2.html#cb312-1" tabindex="-1"></a><span class="fu">contrasts</span>(df<span class="sc">$</span>Method) <span class="ot">&lt;-</span> <span class="fu">contr.sdif</span>(<span class="dv">3</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="week8-重回帰分析-2.html#cb307-1" tabindex="-1"></a><span class="fu">contrasts</span>(df<span class="sc">$</span>Method) <span class="ot">&lt;-</span> <span class="fu">contr.sdif</span>(<span class="dv">3</span>) </span></code></pre></div>
 <ul>
 <li>指導法Aと指導法B、指導法Bと指導法Cの比較</li>
 </ul>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="week8-重回帰分析-2.html#cb313-1" tabindex="-1"></a>df<span class="sc">$</span>Method</span></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="week8-重回帰分析-2.html#cb308-1" tabindex="-1"></a>df<span class="sc">$</span>Method</span></code></pre></div>
 <pre><code>##  [1] A B C A B C A B C A B C A B C A B C A B
 ## attr(,&quot;contrasts&quot;)
 ##          2-1        3-2
@@ -686,8 +686,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>分数表示</li>
 </ul>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="week8-重回帰分析-2.html#cb315-1" tabindex="-1"></a><span class="fu">contrasts</span>(df<span class="sc">$</span>Method) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">3</span>))</span>
-<span id="cb315-2"><a href="week8-重回帰分析-2.html#cb315-2" tabindex="-1"></a>df<span class="sc">$</span>Method</span></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="week8-重回帰分析-2.html#cb310-1" tabindex="-1"></a><span class="fu">contrasts</span>(df<span class="sc">$</span>Method) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">3</span>))</span>
+<span id="cb310-2"><a href="week8-重回帰分析-2.html#cb310-2" tabindex="-1"></a>df<span class="sc">$</span>Method</span></code></pre></div>
 <pre><code>##  [1] A B C A B C A B C A B C A B C A B C A B
 ## attr(,&quot;contrasts&quot;)
 ##   2-1  3-2 
@@ -703,8 +703,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Method 3-2: 指導法C - 指導法B</p></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="week8-重回帰分析-2.html#cb317-1" tabindex="-1"></a>results_rep <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score <span class="sc">~</span> Method, <span class="at">data =</span> df)</span>
-<span id="cb317-2"><a href="week8-重回帰分析-2.html#cb317-2" tabindex="-1"></a>results_rep<span class="sc">$</span>coefficients</span></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="week8-重回帰分析-2.html#cb312-1" tabindex="-1"></a>results_rep <span class="ot">&lt;-</span> <span class="fu">lm</span>(Score <span class="sc">~</span> Method, <span class="at">data =</span> df)</span>
+<span id="cb312-2"><a href="week8-重回帰分析-2.html#cb312-2" tabindex="-1"></a>results_rep<span class="sc">$</span>coefficients</span></code></pre></div>
 <pre><code>## (Intercept)   Method2-1   Method3-2 
 ##   76.860317    9.185714  -24.833333</code></pre>
 <ul>
@@ -904,8 +904,8 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <li><code>factor()</code>関数を使う</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="week8-重回帰分析-2.html#cb319-1" tabindex="-1"></a>df<span class="sc">$</span>Method <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>Method, </span>
-<span id="cb319-2"><a href="week8-重回帰分析-2.html#cb319-2" tabindex="-1"></a>                    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;C&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="week8-重回帰分析-2.html#cb314-1" tabindex="-1"></a>df<span class="sc">$</span>Method <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>Method, </span>
+<span id="cb314-2"><a href="week8-重回帰分析-2.html#cb314-2" tabindex="-1"></a>                    <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;C&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>))</span></code></pre></div>
 <div class="infobox">
 <ul>
 <li>研究課題に合わせてコーディング法を選ぶ必要があり、またどのコーディングを使用したか、どの数値をどのデータにあてはめたのかを報告する必要がある。</li>
@@ -920,16 +920,16 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <ul>
 <li>ポケモンのデータセットの中身を減らしたもの</li>
 </ul>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="week8-重回帰分析-2.html#cb320-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb320-2"><a href="week8-重回帰分析-2.html#cb320-2" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/week8_data.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="week8-重回帰分析-2.html#cb315-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb315-2"><a href="week8-重回帰分析-2.html#cb315-2" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/week8_data.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## New names:
 ## Rows: 46 Columns: 17
 ## ── Column specification
-## ────────────────────────────────────────────────────────────────────────
+## ──────────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot; chr (3): 名前, タイプ1, 画像URL dbl (14): ...1, id, 高さ, 重さ, 世代,
 ## ステータス, HP, こうげき, ぼうぎょ, とくこう, とくぼう, すばやさ, 捕まえ...
-## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ Specify the column
-## types or set `show_col_types = FALSE` to quiet this message.
+## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ Specify the
+## column types or set `show_col_types = FALSE` to quiet this message.
 ## • `` -&gt; `...1`</code></pre>
 <div id="データの概要" class="section level3 hasAnchor" number="9.7.1">
 <h3><span class="header-section-number">9.7.1</span> データの概要<a href="week8-重回帰分析-2.html#データの概要" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -937,7 +937,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <li><p>今回は、重さ、タイプ1、世代の三つに関心があると仮定する</p></li>
 <li><p>データ構造の分かりやすさを優先しており、モデル自体の妥当性は考慮していないことに注意</p></li>
 </ul>
-<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="week8-重回帰分析-2.html#cb322-1" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="week8-重回帰分析-2.html#cb317-1" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 17
 ##    ...1    id 名前  タイプ1  高さ  重さ  世代 ステータス    HP こうげき ぼうぎょ
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
@@ -948,30 +948,30 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 ## 5     5    79 ヤドン…… みず      1.2  36       1        315    90       65       65
 ## # ℹ 6 more variables: とくこう &lt;dbl&gt;, とくぼう &lt;dbl&gt;, すばやさ &lt;dbl&gt;,
 ## #   捕まえやすさ &lt;dbl&gt;, 進化 &lt;dbl&gt;, 画像URL &lt;chr&gt;</code></pre>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="week8-重回帰分析-2.html#cb324-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb324-2"><a href="week8-重回帰分析-2.html#cb324-2" tabindex="-1"></a></span>
-<span id="cb324-3"><a href="week8-重回帰分析-2.html#cb324-3" tabindex="-1"></a><span class="fu">describe</span>(dat<span class="sc">$</span>重さ)</span></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="week8-重回帰分析-2.html#cb319-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb319-2"><a href="week8-重回帰分析-2.html#cb319-2" tabindex="-1"></a></span>
+<span id="cb319-3"><a href="week8-重回帰分析-2.html#cb319-3" tabindex="-1"></a><span class="fu">describe</span>(dat<span class="sc">$</span>重さ)</span></code></pre></div>
 <pre><code>##    vars  n  mean    sd median trimmed   mad min max range skew kurtosis    se
 ## X1    1 46 47.32 72.65   25.7   31.56 28.84 0.8 398 397.2    3    10.25 10.71</code></pre>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="week8-重回帰分析-2.html#cb326-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat<span class="sc">$</span>重さ)</span></code></pre></div>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="week8-重回帰分析-2.html#cb321-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat<span class="sc">$</span>重さ)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-184-1.png" width="672" /></p>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="week8-重回帰分析-2.html#cb327-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>タイプ1)</span></code></pre></div>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="week8-重回帰分析-2.html#cb322-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>タイプ1)</span></code></pre></div>
 <pre><code>## 
 ## ノーマル     みず 
 ##       22       24</code></pre>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="week8-重回帰分析-2.html#cb329-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat<span class="sc">$</span>重さ<span class="sc">~</span> dat<span class="sc">$</span>タイプ1)</span></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="week8-重回帰分析-2.html#cb324-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat<span class="sc">$</span>重さ<span class="sc">~</span> dat<span class="sc">$</span>タイプ1)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-186-1.png" width="672" /></p>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="week8-重回帰分析-2.html#cb330-1" tabindex="-1"></a><span class="fu">aggregate</span>(重さ <span class="sc">~</span> タイプ1, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span></code></pre></div>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="week8-重回帰分析-2.html#cb325-1" tabindex="-1"></a><span class="fu">aggregate</span>(重さ <span class="sc">~</span> タイプ1, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span></code></pre></div>
 <pre><code>##    タイプ1     重さ
 ## 1 ノーマル 25.11818
 ## 2     みず 67.67500</code></pre>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="week8-重回帰分析-2.html#cb332-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>世代)</span></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="week8-重回帰分析-2.html#cb327-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>世代)</span></code></pre></div>
 <pre><code>## 
 ##  1  2  3 
 ## 17 12 17</code></pre>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="week8-重回帰分析-2.html#cb334-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat<span class="sc">$</span>重さ<span class="sc">~</span> dat<span class="sc">$</span>世代)</span></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="week8-重回帰分析-2.html#cb329-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat<span class="sc">$</span>重さ<span class="sc">~</span> dat<span class="sc">$</span>世代)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-189-1.png" width="672" /></p>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="week8-重回帰分析-2.html#cb335-1" tabindex="-1"></a><span class="fu">aggregate</span>(重さ <span class="sc">~</span> 世代, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="week8-重回帰分析-2.html#cb330-1" tabindex="-1"></a><span class="fu">aggregate</span>(重さ <span class="sc">~</span> 世代, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span></code></pre></div>
 <pre><code>##   世代     重さ
 ## 1    1 52.37059
 ## 2    2 48.25833
@@ -987,7 +987,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 </ul></li>
 <li><p>水準の順番を確認</p></li>
 </ul>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="week8-重回帰分析-2.html#cb337-1" tabindex="-1"></a><span class="fu">factor</span>(dat<span class="sc">$</span>タイプ1)</span></code></pre></div>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="week8-重回帰分析-2.html#cb332-1" tabindex="-1"></a><span class="fu">factor</span>(dat<span class="sc">$</span>タイプ1)</span></code></pre></div>
 <pre><code>##  [1] みず     みず     みず     みず     みず     みず     みず     みず    
 ##  [9] みず     みず     みず     みず     みず     みず     みず     みず    
 ## [17] みず     みず     みず     みず     みず     みず     みず     みず    
@@ -998,33 +998,33 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <ul>
 <li>コーディングする際は、<strong>Factor型</strong>になっている必要がある</li>
 </ul>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="week8-重回帰分析-2.html#cb339-1" tabindex="-1"></a><span class="fu">class</span>(dat<span class="sc">$</span>タイプ1)</span></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="week8-重回帰分析-2.html#cb334-1" tabindex="-1"></a><span class="fu">class</span>(dat<span class="sc">$</span>タイプ1)</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <ul>
 <li>Factor型に変更する</li>
 </ul>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="week8-重回帰分析-2.html#cb341-1" tabindex="-1"></a>dat<span class="sc">$</span>タイプ1 <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>タイプ1)</span>
-<span id="cb341-2"><a href="week8-重回帰分析-2.html#cb341-2" tabindex="-1"></a><span class="fu">class</span>(dat<span class="sc">$</span>タイプ1)</span></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="week8-重回帰分析-2.html#cb336-1" tabindex="-1"></a>dat<span class="sc">$</span>タイプ1 <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>タイプ1)</span>
+<span id="cb336-2"><a href="week8-重回帰分析-2.html#cb336-2" tabindex="-1"></a><span class="fu">class</span>(dat<span class="sc">$</span>タイプ1)</span></code></pre></div>
 <pre><code>## [1] &quot;factor&quot;</code></pre>
 <ul>
 <li>トリートメントコントラストコーディングを実施</li>
 </ul>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="week8-重回帰分析-2.html#cb343-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>タイプ1) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="week8-重回帰分析-2.html#cb338-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>タイプ1) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">2</span>)</span></code></pre></div>
 <ul>
 <li>ノーマルが基準となっている</li>
 </ul>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="week8-重回帰分析-2.html#cb344-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>タイプ1)</span></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="week8-重回帰分析-2.html#cb339-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>タイプ1)</span></code></pre></div>
 <pre><code>##          2
 ## ノーマル 0
 ## みず     1</code></pre>
 <ul>
 <li>(単)回帰分析の実施</li>
 </ul>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="week8-重回帰分析-2.html#cb346-1" tabindex="-1"></a>results_tr <span class="ot">&lt;-</span> <span class="fu">lm</span>(重さ <span class="sc">~</span> タイプ1, <span class="at">data =</span> dat) </span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="week8-重回帰分析-2.html#cb341-1" tabindex="-1"></a>results_tr <span class="ot">&lt;-</span> <span class="fu">lm</span>(重さ <span class="sc">~</span> タイプ1, <span class="at">data =</span> dat) </span></code></pre></div>
 <ul>
 <li>みずタイプポケモンの方が、平均して42.56kg ノーマルポケモンよりも重いこと。</li>
 </ul>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="week8-重回帰分析-2.html#cb347-1" tabindex="-1"></a><span class="fu">summary</span>(results_tr)</span></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="week8-重回帰分析-2.html#cb342-1" tabindex="-1"></a><span class="fu">summary</span>(results_tr)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = 重さ ~ タイプ1, data = dat)
@@ -1053,9 +1053,9 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <ul>
 <li>反復コントラストコーディングで世代間の重さを比較</li>
 </ul>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="week8-重回帰分析-2.html#cb349-1" tabindex="-1"></a>dat<span class="sc">$</span>世代 <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>世代)</span></code></pre></div>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="week8-重回帰分析-2.html#cb350-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>世代) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">3</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="week8-重回帰分析-2.html#cb351-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>世代)</span></code></pre></div>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="week8-重回帰分析-2.html#cb344-1" tabindex="-1"></a>dat<span class="sc">$</span>世代 <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>世代)</span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="week8-重回帰分析-2.html#cb345-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>世代) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">3</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="week8-重回帰分析-2.html#cb346-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>世代)</span></code></pre></div>
 <pre><code>##   2-1  3-2 
 ## 1 -2/3 -1/3
 ## 2  1/3 -1/3
@@ -1063,8 +1063,8 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <ul>
 <li>（単）回帰分析</li>
 </ul>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="week8-重回帰分析-2.html#cb353-1" tabindex="-1"></a>results_repe <span class="ot">&lt;-</span> <span class="fu">lm</span>(重さ <span class="sc">~</span> 世代, <span class="at">data =</span> dat)</span>
-<span id="cb353-2"><a href="week8-重回帰分析-2.html#cb353-2" tabindex="-1"></a><span class="fu">summary</span>(results_repe)</span></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="week8-重回帰分析-2.html#cb348-1" tabindex="-1"></a>results_repe <span class="ot">&lt;-</span> <span class="fu">lm</span>(重さ <span class="sc">~</span> 世代, <span class="at">data =</span> dat)</span>
+<span id="cb348-2"><a href="week8-重回帰分析-2.html#cb348-2" tabindex="-1"></a><span class="fu">summary</span>(results_repe)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = 重さ ~ 世代, data = dat)
@@ -1087,20 +1087,20 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <ul>
 <li>世代1と3を比較するためコーディングを変更</li>
 </ul>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="week8-重回帰分析-2.html#cb355-1" tabindex="-1"></a>dat<span class="sc">$</span>世代 <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>世代, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;2&quot;</span>))</span>
-<span id="cb355-2"><a href="week8-重回帰分析-2.html#cb355-2" tabindex="-1"></a></span>
-<span id="cb355-3"><a href="week8-重回帰分析-2.html#cb355-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>世代)</span></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="week8-重回帰分析-2.html#cb350-1" tabindex="-1"></a>dat<span class="sc">$</span>世代 <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>世代, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;2&quot;</span>))</span>
+<span id="cb350-2"><a href="week8-重回帰分析-2.html#cb350-2" tabindex="-1"></a></span>
+<span id="cb350-3"><a href="week8-重回帰分析-2.html#cb350-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>世代)</span></code></pre></div>
 <pre><code>##   3 2
 ## 1 0 0
 ## 3 1 0
 ## 2 0 1</code></pre>
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="week8-重回帰分析-2.html#cb357-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>世代) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">3</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="week8-重回帰分析-2.html#cb352-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>世代) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">3</span>))</span></code></pre></div>
 <ul>
 <li><p>世代2-1：世代3 - 世代1</p></li>
 <li><p>世代3-2：世代2 - 世代3</p></li>
 </ul>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="week8-重回帰分析-2.html#cb358-1" tabindex="-1"></a>results_repe2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(重さ <span class="sc">~</span> 世代, <span class="at">data =</span> dat)</span>
-<span id="cb358-2"><a href="week8-重回帰分析-2.html#cb358-2" tabindex="-1"></a><span class="fu">summary</span>(results_repe2)</span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="week8-重回帰分析-2.html#cb353-1" tabindex="-1"></a>results_repe2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(重さ <span class="sc">~</span> 世代, <span class="at">data =</span> dat)</span>
+<span id="cb353-2"><a href="week8-重回帰分析-2.html#cb353-2" tabindex="-1"></a><span class="fu">summary</span>(results_repe2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = 重さ ~ 世代, data = dat)
@@ -1169,20 +1169,20 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <li>補正法： Romano-Wolf stepdown（初期値）, Bonferroni, Bonferroni-Holm, and Benjamini-Hochberg corrections, etc…</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="week8-重回帰分析-2.html#cb360-1" tabindex="-1"></a><span class="co">#install.packages(&quot;hdm&quot;)</span></span>
-<span id="cb360-2"><a href="week8-重回帰分析-2.html#cb360-2" tabindex="-1"></a><span class="fu">library</span>(hdm)</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="week8-重回帰分析-2.html#cb355-1" tabindex="-1"></a><span class="co">#install.packages(&quot;hdm&quot;)</span></span>
+<span id="cb355-2"><a href="week8-重回帰分析-2.html#cb355-2" tabindex="-1"></a><span class="fu">library</span>(hdm)</span></code></pre></div>
 <pre><code>## Warning: package &#39;hdm&#39; was built under R version 4.3.3</code></pre>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="week8-重回帰分析-2.html#cb362-1" tabindex="-1"></a>results_sum_RM <span class="ot">&lt;-</span> <span class="fu">p_adjust</span>(results_sum, <span class="at">method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="week8-重回帰分析-2.html#cb357-1" tabindex="-1"></a>results_sum_RM <span class="ot">&lt;-</span> <span class="fu">p_adjust</span>(results_sum, <span class="at">method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
 <ul>
 <li>補正後</li>
 </ul>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="week8-重回帰分析-2.html#cb363-1" tabindex="-1"></a>results_sum_RM[,<span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="week8-重回帰分析-2.html#cb358-1" tabindex="-1"></a>results_sum_RM[,<span class="dv">2</span>]</span></code></pre></div>
 <pre><code>##             (Intercept)                 Method1                 Method2 
 ## 0.000000000000004800219 1.000000000000000000000 0.029708515524948679587</code></pre>
 <ul>
 <li>補正前</li>
 </ul>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="week8-重回帰分析-2.html#cb365-1" tabindex="-1"></a><span class="fu">summary</span>(results_sum)[[<span class="st">&quot;coefficients&quot;</span>]][,<span class="dv">4</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="week8-重回帰分析-2.html#cb360-1" tabindex="-1"></a><span class="fu">summary</span>(results_sum)[[<span class="st">&quot;coefficients&quot;</span>]][,<span class="dv">4</span>]</span></code></pre></div>
 <pre><code>##             (Intercept)                 Method1                 Method2 
 ## 0.000000000000001600073 0.588539274664316103269 0.009902838508316226529</code></pre>
 <ul>
@@ -1197,8 +1197,8 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <li>以前使用した<code>brm()</code>関数を使用。</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="week8-重回帰分析-2.html#cb367-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>タイプ1) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">2</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="week8-重回帰分析-2.html#cb368-1" tabindex="-1"></a><span class="fu">library</span>(brms)</span></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="week8-重回帰分析-2.html#cb362-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>タイプ1) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="week8-重回帰分析-2.html#cb363-1" tabindex="-1"></a><span class="fu">library</span>(brms)</span></code></pre></div>
 <pre><code>## Loading &#39;brms&#39; package (version 2.20.4). Useful instructions
 ## can be found by typing help(&#39;brms&#39;). A more detailed introduction
 ## to the package is available through vignette(&#39;brms_overview&#39;).</code></pre>
@@ -1213,21 +1213,21 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <pre><code>## The following object is masked from &#39;package:stats&#39;:
 ## 
 ##     ar</code></pre>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="week8-重回帰分析-2.html#cb374-1" tabindex="-1"></a>results_sum_bayes <span class="ot">&lt;-</span> <span class="fu">brm</span>(</span>
-<span id="cb374-2"><a href="week8-重回帰分析-2.html#cb374-2" tabindex="-1"></a>  重さ <span class="sc">~</span> タイプ1,  <span class="co"># 応答変数「重さ」と説明変数「タイプ1」の回帰モデル</span></span>
-<span id="cb374-3"><a href="week8-重回帰分析-2.html#cb374-3" tabindex="-1"></a>  <span class="at">data =</span> dat,  <span class="co"># データフレーム dat を使用</span></span>
-<span id="cb374-4"><a href="week8-重回帰分析-2.html#cb374-4" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">gaussian</span>(),  <span class="co"># 正規分布（ガウス分布）を仮定</span></span>
-<span id="cb374-5"><a href="week8-重回帰分析-2.html#cb374-5" tabindex="-1"></a>  <span class="at">prior =</span> <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">10</span>)),  <span class="co"># 事前分布として平均0、標準偏差10の正規分布を設定</span></span>
-<span id="cb374-6"><a href="week8-重回帰分析-2.html#cb374-6" tabindex="-1"></a>  <span class="at">chains =</span> <span class="dv">4</span>,  <span class="co"># MCMCの独立した4つのチェーンを使用</span></span>
-<span id="cb374-7"><a href="week8-重回帰分析-2.html#cb374-7" tabindex="-1"></a>  <span class="at">iter =</span> <span class="dv">5000</span>,  <span class="co"># 総サンプリング回数（各チェーンあたり5000回）</span></span>
-<span id="cb374-8"><a href="week8-重回帰分析-2.html#cb374-8" tabindex="-1"></a>  <span class="at">warmup =</span> <span class="dv">500</span>,  <span class="co"># ウォームアップ（バーンイン）期間として最初の500回を破棄</span></span>
-<span id="cb374-9"><a href="week8-重回帰分析-2.html#cb374-9" tabindex="-1"></a>  <span class="at">thin =</span> <span class="dv">2</span>,  <span class="co"># 2回ごとに1つのサンプルを取得（間引き）</span></span>
-<span id="cb374-10"><a href="week8-重回帰分析-2.html#cb374-10" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">123</span>,  <span class="co"># 乱数シードを設定し、再現性を確保</span></span>
-<span id="cb374-11"><a href="week8-重回帰分析-2.html#cb374-11" tabindex="-1"></a>  <span class="at">refresh =</span> <span class="dv">0</span></span>
-<span id="cb374-12"><a href="week8-重回帰分析-2.html#cb374-12" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="week8-重回帰分析-2.html#cb369-1" tabindex="-1"></a>results_sum_bayes <span class="ot">&lt;-</span> <span class="fu">brm</span>(</span>
+<span id="cb369-2"><a href="week8-重回帰分析-2.html#cb369-2" tabindex="-1"></a>  重さ <span class="sc">~</span> タイプ1,  <span class="co"># 応答変数「重さ」と説明変数「タイプ1」の回帰モデル</span></span>
+<span id="cb369-3"><a href="week8-重回帰分析-2.html#cb369-3" tabindex="-1"></a>  <span class="at">data =</span> dat,  <span class="co"># データフレーム dat を使用</span></span>
+<span id="cb369-4"><a href="week8-重回帰分析-2.html#cb369-4" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">gaussian</span>(),  <span class="co"># 正規分布（ガウス分布）を仮定</span></span>
+<span id="cb369-5"><a href="week8-重回帰分析-2.html#cb369-5" tabindex="-1"></a>  <span class="at">prior =</span> <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">10</span>)),  <span class="co"># 事前分布として平均0、標準偏差10の正規分布を設定</span></span>
+<span id="cb369-6"><a href="week8-重回帰分析-2.html#cb369-6" tabindex="-1"></a>  <span class="at">chains =</span> <span class="dv">4</span>,  <span class="co"># MCMCの独立した4つのチェーンを使用</span></span>
+<span id="cb369-7"><a href="week8-重回帰分析-2.html#cb369-7" tabindex="-1"></a>  <span class="at">iter =</span> <span class="dv">5000</span>,  <span class="co"># 総サンプリング回数（各チェーンあたり5000回）</span></span>
+<span id="cb369-8"><a href="week8-重回帰分析-2.html#cb369-8" tabindex="-1"></a>  <span class="at">warmup =</span> <span class="dv">500</span>,  <span class="co"># ウォームアップ（バーンイン）期間として最初の500回を破棄</span></span>
+<span id="cb369-9"><a href="week8-重回帰分析-2.html#cb369-9" tabindex="-1"></a>  <span class="at">thin =</span> <span class="dv">2</span>,  <span class="co"># 2回ごとに1つのサンプルを取得（間引き）</span></span>
+<span id="cb369-10"><a href="week8-重回帰分析-2.html#cb369-10" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">123</span>,  <span class="co"># 乱数シードを設定し、再現性を確保</span></span>
+<span id="cb369-11"><a href="week8-重回帰分析-2.html#cb369-11" tabindex="-1"></a>  <span class="at">refresh =</span> <span class="dv">0</span></span>
+<span id="cb369-12"><a href="week8-重回帰分析-2.html#cb369-12" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Compiling Stan program...</code></pre>
 <pre><code>## Start sampling</code></pre>
-<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="week8-重回帰分析-2.html#cb377-1" tabindex="-1"></a><span class="fu">summary</span>(results_sum_bayes)</span></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="week8-重回帰分析-2.html#cb372-1" tabindex="-1"></a><span class="fu">summary</span>(results_sum_bayes)</span></code></pre></div>
 <pre><code>##  Family: gaussian 
 ##   Links: mu = identity; sigma = identity 
 ## Formula: 重さ ~ タイプ1 

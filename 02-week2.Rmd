@@ -160,7 +160,7 @@ summary_stats <- df %>%
         -   偶数の時：1, 2, 3, 4 =\> 中央値は \frac{\left(2+3\right)}{2}= 2.5
 
 ::: infobox
-平均値は外れ値の影響を受けやすいが、逆に外れ値を考慮しやすい。この二つはことなる基準であるため、平均値と中央値の二つを算出して比較するとよい。
+平均値は外れ値の影響を受けやすいが、逆に外れ値を考慮しやすい。この二つは異なる基準であるため、平均値と中央値の二つを算出して比較するとよい。
 
 ```{r, echo=FALSE}
 ggplot(df, aes(y = value, x = 1)) +
@@ -233,7 +233,7 @@ $$\sigma^2=\frac{1}{N}\sum_{i=1}^N(x_i-\mu)^2$$
 
 1.  各データを平均値から引き、「平均値との差」という指標に変換（ = 平均からの**偏差**）
 2.  全部足したいが、プラスとマイナスが混じっており、全部足すと0になる。
-3.  2乗し全部プラスにする。
+3.  2乗し、全部プラスにする。
 4.  全部の偏差を足して、データの数で割る。
 
 -   標準偏差（standard deviation）：*σ*
@@ -307,7 +307,7 @@ score_data <- data.frame(
 
 -   データを階級幅で区切り、その中に入るデータがいくつあるか（度数）を描画する
 
-```{r}
+```{r, echo=FALSE, warning=FALSE}
 score_data %>%
   ggplot(aes(x = score_data$English)) +
   geom_histogram(binwidth = 5, fill = "skyblue", color = "black") +
@@ -322,7 +322,7 @@ score_data %>%
 
     -   以下の図では100人がそれぞれ国語と英語のテストを受け、その得点を描画している。
 
-```{r}
+```{r, echo=FALSE, warning=FALSE}
 ggplot(score_data, aes(x = English, y = Japanese)) +
   geom_point(color = "blue", alpha = 0.6) +
   labs(title = "英語と国語の得点の関係", x = "英語の得点", y = "国語の得点") +
@@ -371,7 +371,7 @@ ggplot(score_data, aes(x = "英語", y = English, fill = "英語")) +
   labs(title = "英語と国語の得点分布", x = "科目", y = "得点") +
   annotate("text", x = 1.55, y = quantile(score_data$English, prob = 0.75), label = "第3四分位数", color = "blue", size = 4) +
   annotate("text", x = 1.55, y = quantile(score_data$English, prob = 0.25), label = "第1四分位数", color = "blue", size = 4) +
-  annotate("text", x = 1.3, y = min(score_data$English), label = "外れ値", color = "red", size = 4) + 
+  annotate("text", x = 1.4, y = min(score_data$English), label = "外れ値", color = "red", size = 4) + 
   stat_boxplot(geom='errorbar', width = 0.05) +
   annotate("text", x = 1.15, y = min(score_data$English), label = "最小値", color = "blue", size = 4) +
   annotate("text", x = 1.15, y = max(score_data$English), label = "最大値", color = "blue", size = 4) +
@@ -384,7 +384,7 @@ ggplot(score_data, aes(x = "英語", y = English, fill = "英語")) +
 
     -   データが集まっている個所が膨らんで描画されるため、全体的な分布を把握しやすい
 
-```{r}
+```{r, echo=FALSE, warning=FALSE}
 ggplot(score_data, aes(x = "英語", y = English, fill = "英語")) +
   geom_violin(trim = FALSE, alpha = 0.6) +
   geom_violin(aes(x = "国語", y = Japanese, fill = "国語"), trim = FALSE, alpha = 0.6) +
@@ -425,7 +425,7 @@ survey_data %>%
 
     -   2次元
 
-```{r}
+```{r, echo=FALSE, warning=FALSE}
 survey_data %>%
   group_by(Pokemon, Like) %>%
   count() %>%
@@ -566,11 +566,11 @@ mode(numchVector)
 
 -   拡張子を表示させる設定に変更する。
 
--   データを読み込む場合、ファイルの種類によって読み込む際の関数が異なる。リンク先から（[データ格納庫](リンクを挿入)）データをダウンロードし、本講義用のR project内に移動させる。
+-   データを読み込む場合、ファイルの種類によって読み込む際の関数が異なる。配布されたデータを、**本講義用のR projectに移動させる**（ = 本講義用の📁）。
 
 -   移動させたら、以下のコードを走らせ、データをR(Studio)に読み込む
 
-    -   文字化けする場合、以下のコードを引数の中に加える（Windows: `挿入`, MAC: `挿入`）。
+    -   文字化けしている場合教えてください。
 
 -   以下の処理で、csvファイル内のデータを`dat`という変数の中に格納したことになる。
 
@@ -766,7 +766,7 @@ vioplot(mtcars$mpg[mtcars$vs == 1], mtcars$mpg[mtcars$vs == 0],
 
 1.  小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。
 
-2.  下記のデータをもとに、どの指標でもよいので、以下の内容を含めること。R Markdownファイルで作成し、HTMLファイルに変換しそれを提出
+2.  下記のデータをもとに、どの指標でもよいので、以下の内容を含めること。
 
 -   要約統計量を算出
 
@@ -799,17 +799,18 @@ vioplot(mtcars$mpg[mtcars$vs == 1], mtcars$mpg[mtcars$vs == 0],
 
 ### 提出方法
 
--   メールにファイルを添付して送信。
--   締め切りは今週の木曜日まで
+-   R Markdownファイルで作成し、HTMLファイルに変換しTACTへ提出
+-   締め切りは今週の木曜日23:59まで
 
 ## 参考文献
 
--   外国語教育ハンドブック
--   Rでらくらくデータ分析
--   心理学統計法　放送大学
--   <https://www.geeksforgeeks.org/a-complete-guide-to-the-built-in-datasets-in-r/>
--   <https://eau.uijin.com/advgraphs/parameters.html>
--   <https://smart-hint.com/poke-data/introduction/#%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%83%87%E3%83%BC%E3%82%BF%E5%88%86%E6%9E%90%E3%82%92%E5%AD%A6%E3%81%B6>
+- 📚清水（2021）『心理学統計法 (放送大学教材 1638)』放送大学教育振興会
+- 📚竹内・水本（2023）『外国語教育研究ハンドブック【増補版】―研究手法のより良い理解のために』松柏社
+- 📚西田（2022）『Rでらくらくデータ分析入門 ―効率的なデータ加工のための基礎知識』技術評論社
+- 📚平井・岡・草薙（編著）（2022） 『教育・心理系研究のためのＲによるデータ分析―論文作成への理論と実践集』東京図書
+- 💻[A Complete Guide to the Built-in Datasets in R](https://www.geeksforgeeks.org/a-complete-guide-to-the-built-in-datasets-in-r/)
+- 💻[グラフのパラメータ](https://eau.uijin.com/advgraphs/parameters.html)
+- 💻[ポケモンで学ぶデータ分析｜データの中身を知ろう](https://smart-hint.com/poke-data/introduction/#%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%83%87%E3%83%BC%E3%82%BF%E5%88%86%E6%9E%90%E3%82%92%E5%AD%A6%E3%81%B6)
 
 ```{=html}
 <style>

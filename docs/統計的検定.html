@@ -454,13 +454,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>計算すると、 <em>t</em> = 10.54となる。このような検定のための統計量を<strong>検定統計量</strong>という。</li>
 </ul>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="統計的検定.html#cb132-1" tabindex="-1"></a>(<span class="dv">60-55</span>)<span class="sc">/</span>(<span class="dv">3</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">40</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="統計的検定.html#cb127-1" tabindex="-1"></a>(<span class="dv">60-55</span>)<span class="sc">/</span>(<span class="dv">3</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">40</span>))</span></code></pre></div>
 <pre><code>## [1] 10.54093</code></pre>
 <ul>
 <li>自由度が39（40-1）で95%の範囲は0±2.02であるため、得られた<em>t</em>値がこの絶対値より大きいと棄却域に（青く塗られた箇所）に入ることになる。帰無仮説が真であると仮定したときの検定統計量の標本分布のことを<strong>帰無分布（null distribution）</strong>という。</li>
 <li>棄却域が占める割合を<strong>有意水準（significance level）</strong>と言い、<em>α</em>と表記する。慣例的に、両側合わせて0.05が用いられる。</li>
 </ul>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="統計的検定.html#cb134-1" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> (<span class="dv">40-1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="統計的検定.html#cb129-1" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> (<span class="dv">40-1</span>))</span></code></pre></div>
 <pre><code>## [1] 2.022691</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
 <ul>
@@ -471,10 +471,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div class="infobox">
 <p>2025年度の得点が昨年度よりも統計的有意に高いことは、<strong>全員の得点が昨年度よりも高いことを必ずしも意味しない</strong>ということに注意。比較しているのはあくまでも<strong>平均点</strong>。以下のどちらのデータでも統計的有意差が得られる。</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="統計的検定.html#cb136-1" tabindex="-1"></a><span class="fu">summary</span>(data1)</span></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="統計的検定.html#cb131-1" tabindex="-1"></a><span class="fu">summary</span>(data1)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   55.00   58.33   60.27   60.16   62.08   65.36</code></pre>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="統計的検定.html#cb138-1" tabindex="-1"></a><span class="fu">summary</span>(data2)</span></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="統計的検定.html#cb133-1" tabindex="-1"></a><span class="fu">summary</span>(data2)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   52.88   54.14   57.34   58.11   61.45   66.51</code></pre>
 <ul>
@@ -533,7 +533,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li><p>上記の手順では、検定統計量の実現値と棄却域の範囲を確認して、帰無仮説が棄却されるかを判断していた。しかし、コンピュータソフトウェアでは、<em>p</em>値が表示され、この値が事前に設定した有意水準よりも大きいかもしくは小さいかを確認して棄却の有無を判断する。</p></li>
 </ul>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="統計的検定.html#cb140-1" tabindex="-1"></a><span class="fu">t.test</span>(df<span class="sc">$</span>Data1, <span class="at">mu =</span> <span class="dv">55</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="統計的検定.html#cb135-1" tabindex="-1"></a><span class="fu">t.test</span>(df<span class="sc">$</span>Data1, <span class="at">mu =</span> <span class="dv">55</span>)</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -545,7 +545,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## sample estimates:
 ## mean of x 
 ##  60.15955</code></pre>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="統計的検定.html#cb142-1" tabindex="-1"></a><span class="fu">t.test</span>(df<span class="sc">$</span>Data2, <span class="at">mu =</span> <span class="dv">55</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="統計的検定.html#cb137-1" tabindex="-1"></a><span class="fu">t.test</span>(df<span class="sc">$</span>Data2, <span class="at">mu =</span> <span class="dv">55</span>)</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -559,8 +559,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  58.10553</code></pre>
 <div class="infobox">
 <p>e-やe+は指数的記法です。6.106e-05であれば、6.106 × 10^(-5)なので、0.を合わせて0が5つ6の前につきます。逆に6.106e+05であれば6.106 × 10^5です。Rでは<code>options</code>関数で通常の値に戻して表示できます。</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="統計的検定.html#cb144-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
-<span id="cb144-2"><a href="統計的検定.html#cb144-2" tabindex="-1"></a><span class="fu">t.test</span>(df<span class="sc">$</span>Data2, <span class="at">mu =</span> <span class="dv">55</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="統計的検定.html#cb139-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
+<span id="cb139-2"><a href="統計的検定.html#cb139-2" tabindex="-1"></a><span class="fu">t.test</span>(df<span class="sc">$</span>Data2, <span class="at">mu =</span> <span class="dv">55</span>)</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -744,8 +744,8 @@ t = \frac{\bar{x}_1 - \bar{x}_2}{S_D / \sqrt{n}} \hspace{3pc} (df = n - 1)
 <ul>
 <li>データの読み込み</li>
 </ul>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="統計的検定.html#cb146-1" tabindex="-1"></a>dat_t_ind <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/ttest_inde.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="統計的検定.html#cb147-1" tabindex="-1"></a><span class="fu">head</span>(dat_t_ind)</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="統計的検定.html#cb141-1" tabindex="-1"></a>dat_t_ind <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/ttest_inde.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="統計的検定.html#cb142-1" tabindex="-1"></a><span class="fu">head</span>(dat_t_ind)</span></code></pre></div>
 <pre><code>##   ID Class English
 ## 1  1     A      85
 ## 2  2     A      78
@@ -753,12 +753,12 @@ t = \frac{\bar{x}_1 - \bar{x}_2}{S_D / \sqrt{n}} \hspace{3pc} (df = n - 1)
 ## 4  4     A      82
 ## 5  5     A      88
 ## 6  6     A      84</code></pre>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="統計的検定.html#cb149-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">table</span>(dat_t_ind<span class="sc">$</span>ID))</span></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="統計的検定.html#cb144-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">table</span>(dat_t_ind<span class="sc">$</span>ID))</span></code></pre></div>
 <pre><code>## [1] 80</code></pre>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="統計的検定.html#cb151-1" tabindex="-1"></a><span class="fu">boxplot</span>(English <span class="sc">~</span> Class, <span class="at">data =</span> dat_t_ind)</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="統計的検定.html#cb146-1" tabindex="-1"></a><span class="fu">boxplot</span>(English <span class="sc">~</span> Class, <span class="at">data =</span> dat_t_ind)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="統計的検定.html#cb152-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb152-2"><a href="統計的検定.html#cb152-2" tabindex="-1"></a><span class="fu">describeBy</span>(dat_t_ind<span class="sc">$</span>English, <span class="at">group =</span> dat_t_ind<span class="sc">$</span>Class)</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="統計的検定.html#cb147-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb147-2"><a href="統計的検定.html#cb147-2" tabindex="-1"></a><span class="fu">describeBy</span>(dat_t_ind<span class="sc">$</span>English, <span class="at">group =</span> dat_t_ind<span class="sc">$</span>Class)</span></code></pre></div>
 <pre><code>## 
 ##  Descriptive statistics by group 
 ## group: A
@@ -768,7 +768,7 @@ t = \frac{\bar{x}_1 - \bar{x}_2}{S_D / \sqrt{n}} \hspace{3pc} (df = n - 1)
 ## group: B
 ##    vars  n  mean   sd median trimmed  mad min max range skew kurtosis   se
 ## X1    1 40 60.48 5.73     60   60.44 7.41  50  70    20 0.05    -1.25 0.91</code></pre>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="統計的検定.html#cb154-1" tabindex="-1"></a><span class="fu">t.test</span>(English <span class="sc">~</span> Class, <span class="at">data =</span> dat_t_ind)</span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="統計的検定.html#cb149-1" tabindex="-1"></a><span class="fu">t.test</span>(English <span class="sc">~</span> Class, <span class="at">data =</span> dat_t_ind)</span></code></pre></div>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
@@ -796,8 +796,8 @@ t = \frac{\bar{x}_1 - \bar{x}_2}{S_D / \sqrt{n}} \hspace{3pc} (df = n - 1)
 <ul>
 <li>データの読み込み</li>
 </ul>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="統計的検定.html#cb156-1" tabindex="-1"></a>dat_t_rep <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/ttest_rep.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="統計的検定.html#cb157-1" tabindex="-1"></a><span class="fu">head</span>(dat_t_rep)</span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="統計的検定.html#cb151-1" tabindex="-1"></a>dat_t_rep <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/ttest_rep.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="統計的検定.html#cb152-1" tabindex="-1"></a><span class="fu">head</span>(dat_t_rep)</span></code></pre></div>
 <pre><code>##   ID English Math
 ## 1  1      85   78
 ## 2  2      88   82
@@ -805,22 +805,22 @@ t = \frac{\bar{x}_1 - \bar{x}_2}{S_D / \sqrt{n}} \hspace{3pc} (df = n - 1)
 ## 4  4      92   89
 ## 5  5      87   83
 ## 6  6      91   86</code></pre>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="統計的検定.html#cb159-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">table</span>(dat_t_rep<span class="sc">$</span>ID))</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="統計的検定.html#cb154-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">table</span>(dat_t_rep<span class="sc">$</span>ID))</span></code></pre></div>
 <pre><code>## [1] 40</code></pre>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="統計的検定.html#cb161-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat_t_rep<span class="sc">$</span>English, dat_t_rep<span class="sc">$</span>Math, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;English&quot;</span>, <span class="st">&quot;Math&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="統計的検定.html#cb156-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat_t_rep<span class="sc">$</span>English, dat_t_rep<span class="sc">$</span>Math, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;English&quot;</span>, <span class="st">&quot;Math&quot;</span>))</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="統計的検定.html#cb162-1" tabindex="-1"></a><span class="fu">describe</span>(dat_t_rep<span class="sc">$</span>English)</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="統計的検定.html#cb157-1" tabindex="-1"></a><span class="fu">describe</span>(dat_t_rep<span class="sc">$</span>English)</span></code></pre></div>
 <pre><code>##    vars  n  mean   sd median trimmed   mad min max range skew kurtosis   se
 ## X1    1 40 82.22 8.65     82   82.16 11.86  70  96    26 0.04    -1.67 1.37</code></pre>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="統計的検定.html#cb164-1" tabindex="-1"></a><span class="fu">describe</span>(dat_t_rep<span class="sc">$</span>Math)</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="統計的検定.html#cb159-1" tabindex="-1"></a><span class="fu">describe</span>(dat_t_rep<span class="sc">$</span>Math)</span></code></pre></div>
 <pre><code>##    vars  n  mean    sd median trimmed   mad min max range skew kurtosis   se
 ## X1    1 40 75.85 10.02   75.5   75.56 13.34  61  94    33 0.15    -1.47 1.59</code></pre>
 <ul>
 <li><code>paired = T</code>を設定する</li>
 </ul>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="統計的検定.html#cb166-1" tabindex="-1"></a><span class="fu">t.test</span>(dat_t_rep<span class="sc">$</span>English, dat_t_rep<span class="sc">$</span>Math,</span>
-<span id="cb166-2"><a href="統計的検定.html#cb166-2" tabindex="-1"></a>      <span class="at">paired =</span> T</span>
-<span id="cb166-3"><a href="統計的検定.html#cb166-3" tabindex="-1"></a>       )</span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="統計的検定.html#cb161-1" tabindex="-1"></a><span class="fu">t.test</span>(dat_t_rep<span class="sc">$</span>English, dat_t_rep<span class="sc">$</span>Math,</span>
+<span id="cb161-2"><a href="統計的検定.html#cb161-2" tabindex="-1"></a>      <span class="at">paired =</span> T</span>
+<span id="cb161-3"><a href="統計的検定.html#cb161-3" tabindex="-1"></a>       )</span></code></pre></div>
 <pre><code>## 
 ##  Paired t-test
 ## 

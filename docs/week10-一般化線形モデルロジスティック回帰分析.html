@@ -396,14 +396,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>外国語研究、言語研究では、正規分布、二項分布、対数正規分布などが用いられる</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb437"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb437-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb437-1" tabindex="-1"></a>binomial(link = &quot;logit&quot;)</span>
-<span id="cb437-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb437-2" tabindex="-1"></a>gaussian(link = &quot;identity&quot;)</span>
-<span id="cb437-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb437-3" tabindex="-1"></a>Gamma(link = &quot;inverse&quot;)</span>
-<span id="cb437-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb437-4" tabindex="-1"></a>inverse.gaussian(link = &quot;1/mu^2&quot;)</span>
-<span id="cb437-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb437-5" tabindex="-1"></a>poisson(link = &quot;log&quot;)</span>
-<span id="cb437-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb437-6" tabindex="-1"></a>quasi(link = &quot;identity&quot;, variance = &quot;constant&quot;)</span>
-<span id="cb437-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb437-7" tabindex="-1"></a>quasibinomial(link = &quot;logit&quot;)</span>
-<span id="cb437-8"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb437-8" tabindex="-1"></a>quasipoisson(link = &quot;log&quot;)</span></code></pre></div>
+<div class="sourceCode" id="cb432"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb432-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb432-1" tabindex="-1"></a>binomial(link = &quot;logit&quot;)</span>
+<span id="cb432-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb432-2" tabindex="-1"></a>gaussian(link = &quot;identity&quot;)</span>
+<span id="cb432-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb432-3" tabindex="-1"></a>Gamma(link = &quot;inverse&quot;)</span>
+<span id="cb432-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb432-4" tabindex="-1"></a>inverse.gaussian(link = &quot;1/mu^2&quot;)</span>
+<span id="cb432-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb432-5" tabindex="-1"></a>poisson(link = &quot;log&quot;)</span>
+<span id="cb432-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb432-6" tabindex="-1"></a>quasi(link = &quot;identity&quot;, variance = &quot;constant&quot;)</span>
+<span id="cb432-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb432-7" tabindex="-1"></a>quasibinomial(link = &quot;logit&quot;)</span>
+<span id="cb432-8"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb432-8" tabindex="-1"></a>quasipoisson(link = &quot;log&quot;)</span></code></pre></div>
 <div class="infobox">
 <p>使用するRの関数によって、使用できる確率分布が異なります。<code>glm</code>関数には対数正規分布は含まれていません。</p>
 </div>
@@ -453,14 +453,14 @@ P(X = 4) = 210 \times (0.5)^{10} = 210 \times \frac{1}{1024} \approx 0.205078
 <ul>
 <li>4回勝つ確率は約 <strong>0.2051</strong></li>
 </ul>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb438-1" tabindex="-1"></a><span class="co"># パラメータ</span></span>
-<span id="cb438-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb438-2" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">10</span>  <span class="co"># 試行回数</span></span>
-<span id="cb438-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb438-3" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">4</span>   <span class="co"># 成功回数</span></span>
-<span id="cb438-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb438-4" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.5</span>  <span class="co"># 成功確率（例えば、50%の確率）</span></span>
-<span id="cb438-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb438-5" tabindex="-1"></a></span>
-<span id="cb438-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb438-6" tabindex="-1"></a><span class="co"># 2項分布における確率を計算</span></span>
-<span id="cb438-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb438-7" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(k, <span class="at">size =</span> N, <span class="at">prob =</span> p)</span>
-<span id="cb438-8"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb438-8" tabindex="-1"></a><span class="fu">print</span>(prob)</span></code></pre></div>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb433-1" tabindex="-1"></a><span class="co"># パラメータ</span></span>
+<span id="cb433-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb433-2" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">10</span>  <span class="co"># 試行回数</span></span>
+<span id="cb433-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb433-3" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">4</span>   <span class="co"># 成功回数</span></span>
+<span id="cb433-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb433-4" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.5</span>  <span class="co"># 成功確率（例えば、50%の確率）</span></span>
+<span id="cb433-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb433-5" tabindex="-1"></a></span>
+<span id="cb433-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb433-6" tabindex="-1"></a><span class="co"># 2項分布における確率を計算</span></span>
+<span id="cb433-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb433-7" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(k, <span class="at">size =</span> N, <span class="at">prob =</span> p)</span>
+<span id="cb433-8"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb433-8" tabindex="-1"></a><span class="fu">print</span>(prob)</span></code></pre></div>
 <pre><code>## [1] 0.2050781</code></pre>
 <ul>
 <li><p>線形回帰を2値のデータに当てはめたモデルは、予測値（直線）が1以上であったり0以下であったりしている（本来は1 = 合格、0 = 不合格）</p>
@@ -472,8 +472,8 @@ P(X = 4) = 210 \times (0.5)^{10} = 210 \times \frac{1}{1024} \approx 0.205078
 <ul>
 <li>切片の値はマイナスとなっており、0-1という確率の範囲を超えている。</li>
 </ul>
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb440-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">lm</span>(Pass <span class="sc">~</span> Years_of_Study, <span class="at">data =</span> dat)</span>
-<span id="cb440-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb440-2" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(res)</span></code></pre></div>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb435-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">lm</span>(Pass <span class="sc">~</span> Years_of_Study, <span class="at">data =</span> dat)</span>
+<span id="cb435-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb435-2" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_model</span>(res)</span></code></pre></div>
 <table style="border-collapse:collapse; border:none;">
 <tr>
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
@@ -642,14 +642,14 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <li><p>Method：指導法A、指導法B</p></li>
 <li><p>Starting_age：英語を勉強し始めた年齢</p></li>
 </ul>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># 再現性のため</span></span>
-<span id="cb441-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-2" tabindex="-1"></a></span>
-<span id="cb441-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-3" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb441-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-4" tabindex="-1"></a>  <span class="at">Pass =</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="dv">40</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),  <span class="co"># 1 または 0</span></span>
-<span id="cb441-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-5" tabindex="-1"></a>  <span class="at">Method =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="dv">40</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),  <span class="co"># A または B</span></span>
-<span id="cb441-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-6" tabindex="-1"></a>  <span class="at">Starting_age =</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">40</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)  <span class="co"># 0 ~ 10 の数値</span></span>
-<span id="cb441-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-7" tabindex="-1"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb442-1" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="at">head =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb436-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># 再現性のため</span></span>
+<span id="cb436-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb436-2" tabindex="-1"></a></span>
+<span id="cb436-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb436-3" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb436-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb436-4" tabindex="-1"></a>  <span class="at">Pass =</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="dv">40</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),  <span class="co"># 1 または 0</span></span>
+<span id="cb436-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb436-5" tabindex="-1"></a>  <span class="at">Method =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="dv">40</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),  <span class="co"># A または B</span></span>
+<span id="cb436-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb436-6" tabindex="-1"></a>  <span class="at">Starting_age =</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">40</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)  <span class="co"># 0 ~ 10 の数値</span></span>
+<span id="cb436-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb436-7" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb437-1" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="at">head =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##   Pass Method Starting_age
 ## 1    0      A            5
 ## 2    0      B           10
@@ -657,7 +657,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 ## 4    1      A            5
 ## 5    0      A            5
 ## 6    1      A            6</code></pre>
-<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb444-1" tabindex="-1"></a><span class="fu">summary</span>(dat)</span></code></pre></div>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb439-1" tabindex="-1"></a><span class="fu">summary</span>(dat)</span></code></pre></div>
 <pre><code>##       Pass          Method           Starting_age   
 ##  Min.   :0.000   Length:40          Min.   : 0.000  
 ##  1st Qu.:0.000   Class :character   1st Qu.: 2.000  
@@ -674,13 +674,13 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <li><code>family</code>で確率分布を指定する</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-1" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
-<span id="cb446-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-2" tabindex="-1"></a></span>
-<span id="cb446-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-3" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
-<span id="cb446-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-4" tabindex="-1"></a>  Pass <span class="sc">~</span> Starting_age,</span>
-<span id="cb446-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-5" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
-<span id="cb446-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-6" tabindex="-1"></a>  <span class="at">data =</span> dat</span>
-<span id="cb446-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-7" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-1" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb441-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-2" tabindex="-1"></a></span>
+<span id="cb441-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-3" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb441-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-4" tabindex="-1"></a>  Pass <span class="sc">~</span> Starting_age,</span>
+<span id="cb441-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-5" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
+<span id="cb441-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-6" tabindex="-1"></a>  <span class="at">data =</span> dat</span>
+<span id="cb441-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb441-7" tabindex="-1"></a>)</span></code></pre></div>
 <ul>
 <li><p>Estimate: 偏回帰係数</p></li>
 <li><p>Std. Error (Standard Error): 標準誤差</p>
@@ -691,7 +691,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <li><p>Pr(&gt;|z|): 平均が z値の絶対値で、標準偏差が1の正規分布において、マイナス無限大からゼロまでの値をとる確率。この確率が大きいほどZ値がゼロに近くなり、Estimateがゼロに近い。</p></li>
 <li><p><em>p</em> 値（アスタリスク）：95%CIに0を含む場合有意とされる</p></li>
 </ul>
-<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb447-1" tabindex="-1"></a><span class="fu">summary</span>(res)</span></code></pre></div>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb442-1" tabindex="-1"></a><span class="fu">summary</span>(res)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Pass ~ Starting_age, family = binomial(link = &quot;logit&quot;), 
@@ -714,34 +714,34 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <ul>
 <li>95%信頼区間の算出</li>
 </ul>
-<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb449-1" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">confint</span>(res)</span></code></pre></div>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb444-1" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">confint</span>(res)</span></code></pre></div>
 <pre><code>##                   2.5 %     97.5 %
 ## (Intercept)  -0.6010333 2.05617252
 ## Starting_age -0.4667027 0.02681936</code></pre>
 </div>
 <div id="作図-1" class="section level3 hasAnchor" number="11.7.3">
 <h3><span class="header-section-number">11.7.3</span> 作図<a href="week10-一般化線形モデルロジスティック回帰分析.html#作図-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-1" tabindex="-1"></a><span class="co"># 年齢（Years_of_Study）の範囲を設定</span></span>
-<span id="cb451-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-2" tabindex="-1"></a>years_range <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">length.out =</span> <span class="dv">100</span>)</span>
-<span id="cb451-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-3" tabindex="-1"></a></span>
-<span id="cb451-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-4" tabindex="-1"></a><span class="co"># 各年数に対する予測確率を計算</span></span>
-<span id="cb451-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-5" tabindex="-1"></a>pred_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(res, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Starting_age =</span> years_range), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb451-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-6" tabindex="-1"></a></span>
-<span id="cb451-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-7" tabindex="-1"></a><span class="co"># 予測確率を描画</span></span>
-<span id="cb451-8"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-8" tabindex="-1"></a><span class="fu">plot</span>(</span>
-<span id="cb451-9"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-9" tabindex="-1"></a>  years_range, pred_probs, </span>
-<span id="cb451-10"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-10" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,  <span class="co"># 線で描画</span></span>
-<span id="cb451-11"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-11" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, </span>
-<span id="cb451-12"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-12" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">2</span>, </span>
-<span id="cb451-13"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-13" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;Starting Age&quot;</span>, </span>
-<span id="cb451-14"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-14" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Pr (Pass)&quot;</span>, </span>
-<span id="cb451-15"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-15" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">&quot;Logistic Regression: Probability of Passing&quot;</span>,</span>
-<span id="cb451-16"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-16" tabindex="-1"></a>  <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb451-17"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-17" tabindex="-1"></a>  <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="at">yaxs =</span> <span class="st">&quot;i&quot;</span></span>
-<span id="cb451-18"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-18" tabindex="-1"></a>)</span>
-<span id="cb451-19"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-19" tabindex="-1"></a></span>
-<span id="cb451-20"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-20" tabindex="-1"></a><span class="co"># x軸のカスタムラベルを追加</span></span>
-<span id="cb451-21"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-21" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-1" tabindex="-1"></a><span class="co"># 年齢（Years_of_Study）の範囲を設定</span></span>
+<span id="cb446-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-2" tabindex="-1"></a>years_range <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">length.out =</span> <span class="dv">100</span>)</span>
+<span id="cb446-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-3" tabindex="-1"></a></span>
+<span id="cb446-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-4" tabindex="-1"></a><span class="co"># 各年数に対する予測確率を計算</span></span>
+<span id="cb446-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-5" tabindex="-1"></a>pred_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(res, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Starting_age =</span> years_range), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb446-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-6" tabindex="-1"></a></span>
+<span id="cb446-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-7" tabindex="-1"></a><span class="co"># 予測確率を描画</span></span>
+<span id="cb446-8"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-8" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb446-9"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-9" tabindex="-1"></a>  years_range, pred_probs, </span>
+<span id="cb446-10"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-10" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,  <span class="co"># 線で描画</span></span>
+<span id="cb446-11"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-11" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, </span>
+<span id="cb446-12"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-12" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb446-13"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-13" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;Starting Age&quot;</span>, </span>
+<span id="cb446-14"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-14" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Pr (Pass)&quot;</span>, </span>
+<span id="cb446-15"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-15" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">&quot;Logistic Regression: Probability of Passing&quot;</span>,</span>
+<span id="cb446-16"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-16" tabindex="-1"></a>  <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb446-17"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-17" tabindex="-1"></a>  <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="at">yaxs =</span> <span class="st">&quot;i&quot;</span></span>
+<span id="cb446-18"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-18" tabindex="-1"></a>)</span>
+<span id="cb446-19"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-19" tabindex="-1"></a></span>
+<span id="cb446-20"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-20" tabindex="-1"></a><span class="co"># x軸のカスタムラベルを追加</span></span>
+<span id="cb446-21"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb446-21" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">1</span>))</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-273-1.png" width="672" /></p>
 </div>
 <div id="オッズ比の算出" class="section level3 hasAnchor" number="11.7.4">
@@ -805,10 +805,10 @@ Estimate
 <ul>
 <li>係数がマイナスだったので、 オッズ比 &lt; 1となっている点に注意</li>
 </ul>
-<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb452-1" tabindex="-1"></a><span class="fu">exp</span>(res<span class="sc">$</span>coefficients)</span></code></pre></div>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb447-1" tabindex="-1"></a><span class="fu">exp</span>(res<span class="sc">$</span>coefficients)</span></code></pre></div>
 <pre><code>##  (Intercept) Starting_age 
 ##    1.9715609    0.8137445</code></pre>
-<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb454-1" tabindex="-1"></a><span class="fu">exp</span>(stats<span class="sc">::</span><span class="fu">confint</span>(res))</span></code></pre></div>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb449-1" tabindex="-1"></a><span class="fu">exp</span>(stats<span class="sc">::</span><span class="fu">confint</span>(res))</span></code></pre></div>
 <pre><code>##                  2.5 %   97.5 %
 ## (Intercept)  0.5482448 7.815997
 ## Starting_age 0.6270665 1.027182</code></pre>
@@ -823,15 +823,15 @@ Estimate
 </ul></li>
 <li><p>しかし、オッズやオッズ比で結果を言われても解釈が少し難しい。<code>predict</code>関数で具体的な合格する確率を算出する方が分かりやすい。</p></li>
 </ul>
-<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb456-1" tabindex="-1"></a><span class="co"># 年齢（Years_of_Study）の範囲を設定</span></span>
-<span id="cb456-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb456-2" tabindex="-1"></a>years_range <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span>
-<span id="cb456-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb456-3" tabindex="-1"></a></span>
-<span id="cb456-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb456-4" tabindex="-1"></a><span class="co"># 各年数に対する予測確率を計算</span></span>
-<span id="cb456-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb456-5" tabindex="-1"></a>pred_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(res, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Starting_age =</span> years_range), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-1" tabindex="-1"></a><span class="co"># 年齢（Years_of_Study）の範囲を設定</span></span>
+<span id="cb451-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-2" tabindex="-1"></a>years_range <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb451-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-3" tabindex="-1"></a></span>
+<span id="cb451-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-4" tabindex="-1"></a><span class="co"># 各年数に対する予測確率を計算</span></span>
+<span id="cb451-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb451-5" tabindex="-1"></a>pred_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(res, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Starting_age =</span> years_range), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
 <ul>
 <li>100を書けて%単位に変換</li>
 </ul>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb457-1" tabindex="-1"></a>pred_probs <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb452-1" tabindex="-1"></a>pred_probs <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
 <pre><code>##        1        2        3        4        5        6        7        8 
 ## 66.34765 61.60266 56.62600 51.51202 46.36618 41.29658 36.40504 31.77923 
 ##        9       10       11 
@@ -839,7 +839,7 @@ Estimate
 <ul>
 <li>作図</li>
 </ul>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb459-1" tabindex="-1"></a><span class="fu">plot</span>(pred_probs <span class="sc">*</span> <span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb454-1" tabindex="-1"></a><span class="fu">plot</span>(pred_probs <span class="sc">*</span> <span class="dv">100</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-279-1.png" width="672" /></p>
 </div>
 <div id="新たなデータで予測してみる" class="section level3 hasAnchor" number="11.7.6">
@@ -848,62 +848,62 @@ Estimate
 <li>25歳で初めて場合を調べてみる</li>
 <li><code>type = "link"</code>にすると、係数が得られる</li>
 </ul>
-<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb460-1" tabindex="-1"></a>new <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Starting_age =</span> <span class="dv">25</span>)</span>
-<span id="cb460-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb460-2" tabindex="-1"></a>pred_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(res, <span class="at">newdata =</span> new, <span class="at">type =</span> <span class="st">&quot;link&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb455-1" tabindex="-1"></a>new <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Starting_age =</span> <span class="dv">25</span>)</span>
+<span id="cb455-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb455-2" tabindex="-1"></a>pred_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(res, <span class="at">newdata =</span> new, <span class="at">type =</span> <span class="st">&quot;link&quot;</span>)</span></code></pre></div>
 <ul>
 <li>オッズ比を計算</li>
 </ul>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb461-1" tabindex="-1"></a><span class="fu">exp</span>(pred_probs)</span></code></pre></div>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb456-1" tabindex="-1"></a><span class="fu">exp</span>(pred_probs)</span></code></pre></div>
 <pre><code>##          1 
 ## 0.01140283</code></pre>
 <ul>
 <li><code>type = "response"</code>にすると、予測確率が返される</li>
 </ul>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb463-1" tabindex="-1"></a>pred_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(res, <span class="at">newdata =</span> new, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb458-1" tabindex="-1"></a>pred_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(res, <span class="at">newdata =</span> new, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
 <ul>
 <li>25歳ではじめると、1.13 %の合格確率となる</li>
 </ul>
-<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb464-1" tabindex="-1"></a>pred_probs <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb459-1" tabindex="-1"></a>pred_probs <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
 <pre><code>##        1 
 ## 1.127427</code></pre>
 </div>
 </div>
 <div id="質的変数の場合" class="section level2 hasAnchor" number="11.8">
 <h2><span class="header-section-number">11.8</span> 質的変数の場合<a href="week10-一般化線形モデルロジスティック回帰分析.html#質的変数の場合" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb466-1" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Pass <span class="sc">~</span> Method, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span>
-<span id="cb466-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb466-2" tabindex="-1"></a>means</span></code></pre></div>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb461-1" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Pass <span class="sc">~</span> Method, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span>
+<span id="cb461-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb461-2" tabindex="-1"></a>means</span></code></pre></div>
 <pre><code>##   Method      Pass
 ## 1      A 0.4800000
 ## 2      B 0.3333333</code></pre>
-<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb468-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>Method)</span></code></pre></div>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb463-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>Method)</span></code></pre></div>
 <pre><code>## 
 ##  A  B 
 ## 25 15</code></pre>
-<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb470-1" tabindex="-1"></a><span class="co"># Methodごとの正答率を計算</span></span>
-<span id="cb470-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb470-2" tabindex="-1"></a>table_data <span class="ot">&lt;-</span> <span class="fu">table</span>(dat<span class="sc">$</span>Method, dat<span class="sc">$</span>Pass)</span>
-<span id="cb470-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb470-3" tabindex="-1"></a></span>
-<span id="cb470-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb470-4" tabindex="-1"></a><span class="co"># 棒グラフで可視化</span></span>
-<span id="cb470-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb470-5" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">prop.table</span>(table_data, <span class="at">margin =</span> <span class="dv">1</span>), <span class="at">beside =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb470-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb470-6" tabindex="-1"></a>        <span class="at">legend =</span> <span class="fu">rownames</span>(table_data), <span class="at">xlab =</span> <span class="st">&quot;Pass (0 = Incorrect, 1 = Correct)&quot;</span>,</span>
-<span id="cb470-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb470-7" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Proportion&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Proportion of Passing by Method&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb465-1" tabindex="-1"></a><span class="co"># Methodごとの正答率を計算</span></span>
+<span id="cb465-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb465-2" tabindex="-1"></a>table_data <span class="ot">&lt;-</span> <span class="fu">table</span>(dat<span class="sc">$</span>Method, dat<span class="sc">$</span>Pass)</span>
+<span id="cb465-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb465-3" tabindex="-1"></a></span>
+<span id="cb465-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb465-4" tabindex="-1"></a><span class="co"># 棒グラフで可視化</span></span>
+<span id="cb465-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb465-5" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">prop.table</span>(table_data, <span class="at">margin =</span> <span class="dv">1</span>), <span class="at">beside =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb465-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb465-6" tabindex="-1"></a>        <span class="at">legend =</span> <span class="fu">rownames</span>(table_data), <span class="at">xlab =</span> <span class="st">&quot;Pass (0 = Incorrect, 1 = Correct)&quot;</span>,</span>
+<span id="cb465-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb465-7" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Proportion&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Proportion of Passing by Method&quot;</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-286-1.png" width="672" /></p>
 <div id="トリートメントコントラスト" class="section level3 hasAnchor" number="11.8.1">
 <h3><span class="header-section-number">11.8.1</span> トリートメントコントラスト<a href="week10-一般化線形モデルロジスティック回帰分析.html#トリートメントコントラスト" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb471-1" tabindex="-1"></a>dat<span class="sc">$</span>Method <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Method)</span>
-<span id="cb471-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb471-2" tabindex="-1"></a></span>
-<span id="cb471-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb471-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Method)</span></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb466-1" tabindex="-1"></a>dat<span class="sc">$</span>Method <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Method)</span>
+<span id="cb466-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb466-2" tabindex="-1"></a></span>
+<span id="cb466-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb466-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Method)</span></code></pre></div>
 <pre><code>##   B
 ## A 0
 ## B 1</code></pre>
-<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb473-1" tabindex="-1"></a>res<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
-<span id="cb473-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb473-2" tabindex="-1"></a>  Pass <span class="sc">~</span> Method,</span>
-<span id="cb473-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb473-3" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
-<span id="cb473-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb473-4" tabindex="-1"></a>  <span class="at">data =</span> dat</span>
-<span id="cb473-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb473-5" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb468-1" tabindex="-1"></a>res<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb468-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb468-2" tabindex="-1"></a>  Pass <span class="sc">~</span> Method,</span>
+<span id="cb468-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb468-3" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
+<span id="cb468-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb468-4" tabindex="-1"></a>  <span class="at">data =</span> dat</span>
+<span id="cb468-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb468-5" tabindex="-1"></a>)</span></code></pre></div>
 <ul>
 <li>Method Bの係数：Method B - Method A</li>
 </ul>
-<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb474-1" tabindex="-1"></a><span class="fu">summary</span>(res<span class="fl">.2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb469-1" tabindex="-1"></a><span class="fu">summary</span>(res<span class="fl">.2</span>)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Pass ~ Method, family = binomial(link = &quot;logit&quot;), 
@@ -924,7 +924,7 @@ Estimate
 <ul>
 <li>95%信頼区間の算出</li>
 </ul>
-<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb476-1" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">confint</span>(res<span class="fl">.2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb471-1" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">confint</span>(res<span class="fl">.2</span>)</span></code></pre></div>
 <pre><code>## Waiting for profiling to be done...</code></pre>
 <pre><code>##                  2.5 %   97.5 %
 ## (Intercept) -0.8789758 0.710550
@@ -935,10 +935,10 @@ Estimate
 <ul>
 <li>Methodのオッズ比は0.54だった。よってMethod BはAに比べ、合格の成功オッズが(1 - 0.54 = 0.46) 46%低い</li>
 </ul>
-<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb479-1" tabindex="-1"></a><span class="fu">exp</span>(res<span class="fl">.2</span><span class="sc">$</span>coefficients)</span></code></pre></div>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb474-1" tabindex="-1"></a><span class="fu">exp</span>(res<span class="fl">.2</span><span class="sc">$</span>coefficients)</span></code></pre></div>
 <pre><code>## (Intercept)     MethodB 
 ##   0.9230769   0.5416667</code></pre>
-<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb481-1" tabindex="-1"></a><span class="fu">exp</span>(stats<span class="sc">::</span><span class="fu">confint</span>(res<span class="fl">.2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb476-1" tabindex="-1"></a><span class="fu">exp</span>(stats<span class="sc">::</span><span class="fu">confint</span>(res<span class="fl">.2</span>))</span></code></pre></div>
 <pre><code>## Waiting for profiling to be done...</code></pre>
 <pre><code>##                 2.5 %   97.5 %
 ## (Intercept) 0.4152080 2.035110
@@ -946,37 +946,37 @@ Estimate
 </div>
 <div id="確率を計算" class="section level3 hasAnchor" number="11.8.3">
 <h3><span class="header-section-number">11.8.3</span> 確率を計算<a href="week10-一般化線形モデルロジスティック回帰分析.html#確率を計算" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-1" tabindex="-1"></a><span class="co"># glmモデルの結果を使って予測確率を計算</span></span>
-<span id="cb484-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-2" tabindex="-1"></a>pred_probs_A <span class="ot">&lt;-</span> <span class="fu">predict</span>(res<span class="fl">.2</span>, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Method =</span> <span class="st">&quot;A&quot;</span>), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb484-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-3" tabindex="-1"></a>pred_probs_B <span class="ot">&lt;-</span> <span class="fu">predict</span>(res<span class="fl">.2</span>, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Method =</span> <span class="st">&quot;B&quot;</span>), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb485-1" tabindex="-1"></a>pred_probs_A</span></code></pre></div>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb479-1" tabindex="-1"></a><span class="co"># glmモデルの結果を使って予測確率を計算</span></span>
+<span id="cb479-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb479-2" tabindex="-1"></a>pred_probs_A <span class="ot">&lt;-</span> <span class="fu">predict</span>(res<span class="fl">.2</span>, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Method =</span> <span class="st">&quot;A&quot;</span>), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb479-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb479-3" tabindex="-1"></a>pred_probs_B <span class="ot">&lt;-</span> <span class="fu">predict</span>(res<span class="fl">.2</span>, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Method =</span> <span class="st">&quot;B&quot;</span>), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb480-1" tabindex="-1"></a>pred_probs_A</span></code></pre></div>
 <pre><code>##    1 
 ## 0.48</code></pre>
-<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb487-1" tabindex="-1"></a>pred_probs_B</span></code></pre></div>
+<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb482-1" tabindex="-1"></a>pred_probs_B</span></code></pre></div>
 <pre><code>##         1 
 ## 0.3333333</code></pre>
 </div>
 <div id="作図-2" class="section level3 hasAnchor" number="11.8.4">
 <h3><span class="header-section-number">11.8.4</span> 作図<a href="week10-一般化線形モデルロジスティック回帰分析.html#作図-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-1" tabindex="-1"></a><span class="co">#install.packages(&quot;arm&quot;)</span></span>
-<span id="cb489-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-2" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
-<span id="cb489-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-3" tabindex="-1"></a></span>
-<span id="cb489-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-4" tabindex="-1"></a><span class="co"># Method A と Method B の予測確率を描画</span></span>
-<span id="cb489-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-5" tabindex="-1"></a><span class="fu">plot</span>(</span>
-<span id="cb489-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-6" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="fu">c</span>(pred_probs_A, pred_probs_B), </span>
-<span id="cb489-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-7" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>, </span>
-<span id="cb489-8"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-8" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3</span>), </span>
-<span id="cb489-9"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-9" tabindex="-1"></a>  <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
-<span id="cb489-10"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-10" tabindex="-1"></a>  <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Method&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Pr (Pass)&quot;</span>,</span>
-<span id="cb489-11"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-11" tabindex="-1"></a>  <span class="at">xaxs =</span> <span class="st">&quot;i&quot;</span>, <span class="at">yaxs =</span> <span class="st">&quot;i&quot;</span></span>
-<span id="cb489-12"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-12" tabindex="-1"></a>)</span>
-<span id="cb489-13"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-13" tabindex="-1"></a></span>
-<span id="cb489-14"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-14" tabindex="-1"></a><span class="co"># 信頼区間のエラーバーを追加</span></span>
-<span id="cb489-15"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-15" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">1</span>, pred_probs_A <span class="sc">-</span> <span class="fl">0.1</span>, <span class="dv">1</span>, pred_probs_A <span class="sc">+</span> <span class="fl">0.1</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">code =</span> <span class="dv">3</span>, <span class="at">length =</span> <span class="fl">0.1</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span>
-<span id="cb489-16"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-16" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">2</span>, pred_probs_B <span class="sc">-</span> <span class="fl">0.1</span>, <span class="dv">2</span>, pred_probs_B <span class="sc">+</span> <span class="fl">0.1</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">code =</span> <span class="dv">3</span>, <span class="at">length =</span> <span class="fl">0.1</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span>
-<span id="cb489-17"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-17" tabindex="-1"></a></span>
-<span id="cb489-18"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-18" tabindex="-1"></a><span class="co"># x軸のカスタムラベルを追加 (Method A と Method B)</span></span>
-<span id="cb489-19"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb489-19" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Method A&quot;</span>, <span class="st">&quot;Method B&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-1" tabindex="-1"></a><span class="co">#install.packages(&quot;arm&quot;)</span></span>
+<span id="cb484-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-2" tabindex="-1"></a><span class="fu">library</span>(arm)</span>
+<span id="cb484-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-3" tabindex="-1"></a></span>
+<span id="cb484-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-4" tabindex="-1"></a><span class="co"># Method A と Method B の予測確率を描画</span></span>
+<span id="cb484-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-5" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb484-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-6" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="fu">c</span>(pred_probs_A, pred_probs_B), </span>
+<span id="cb484-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-7" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>, </span>
+<span id="cb484-8"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-8" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3</span>), </span>
+<span id="cb484-9"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-9" tabindex="-1"></a>  <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb484-10"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-10" tabindex="-1"></a>  <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Method&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Pr (Pass)&quot;</span>,</span>
+<span id="cb484-11"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-11" tabindex="-1"></a>  <span class="at">xaxs =</span> <span class="st">&quot;i&quot;</span>, <span class="at">yaxs =</span> <span class="st">&quot;i&quot;</span></span>
+<span id="cb484-12"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-12" tabindex="-1"></a>)</span>
+<span id="cb484-13"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-13" tabindex="-1"></a></span>
+<span id="cb484-14"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-14" tabindex="-1"></a><span class="co"># 信頼区間のエラーバーを追加</span></span>
+<span id="cb484-15"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-15" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">1</span>, pred_probs_A <span class="sc">-</span> <span class="fl">0.1</span>, <span class="dv">1</span>, pred_probs_A <span class="sc">+</span> <span class="fl">0.1</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">code =</span> <span class="dv">3</span>, <span class="at">length =</span> <span class="fl">0.1</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb484-16"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-16" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">2</span>, pred_probs_B <span class="sc">-</span> <span class="fl">0.1</span>, <span class="dv">2</span>, pred_probs_B <span class="sc">+</span> <span class="fl">0.1</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">code =</span> <span class="dv">3</span>, <span class="at">length =</span> <span class="fl">0.1</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb484-17"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-17" tabindex="-1"></a></span>
+<span id="cb484-18"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-18" tabindex="-1"></a><span class="co"># x軸のカスタムラベルを追加 (Method A と Method B)</span></span>
+<span id="cb484-19"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb484-19" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Method A&quot;</span>, <span class="st">&quot;Method B&quot;</span>))</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-295-1.png" width="672" /></p>
 </div>
 </div>
@@ -988,22 +988,22 @@ Estimate
 <li>以下では、合格の予測確率が0.6未満の場合やばい（0）、0.6以上の場合安心（1）と分類しています</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-1" tabindex="-1"></a>pred_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(res, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Starting_age =</span> dat<span class="sc">$</span>Starting_age))</span>
-<span id="cb490-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-2" tabindex="-1"></a></span>
-<span id="cb490-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-3" tabindex="-1"></a><span class="co"># 予測クラスを作成</span></span>
-<span id="cb490-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-4" tabindex="-1"></a>pred_class <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(pred_probs <span class="sc">&gt;</span> <span class="fl">0.6</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb490-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-5" tabindex="-1"></a></span>
-<span id="cb490-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-6" tabindex="-1"></a><span class="co"># 元のデータに予測確率と予測クラスを追加</span></span>
-<span id="cb490-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-7" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
-<span id="cb490-8"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pred_probs =</span> pred_probs,</span>
-<span id="cb490-9"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-9" tabindex="-1"></a>         <span class="at">pred_class =</span> pred_class)</span>
-<span id="cb490-10"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-10" tabindex="-1"></a></span>
-<span id="cb490-11"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-11" tabindex="-1"></a><span class="co"># ggplotで視覚化</span></span>
-<span id="cb490-12"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-12" tabindex="-1"></a><span class="fu">ggplot</span>(new_data, <span class="fu">aes</span>(<span class="at">x =</span> Starting_age, <span class="at">y =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="fu">factor</span>(pred_class))) <span class="sc">+</span></span>
-<span id="cb490-13"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-13" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">height =</span> <span class="dv">1</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span>  <span class="co"># 矩形のサイズ調整</span></span>
-<span id="cb490-14"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-14" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkblue&quot;</span>, <span class="st">&quot;skyblue&quot;</span>)) <span class="sc">+</span>  </span>
-<span id="cb490-15"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Starting Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Predicted Class&quot;</span>) <span class="sc">+</span></span>
-<span id="cb490-16"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb490-16" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb485-1" tabindex="-1"></a>pred_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(res, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">Starting_age =</span> dat<span class="sc">$</span>Starting_age))</span>
+<span id="cb485-2"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb485-2" tabindex="-1"></a></span>
+<span id="cb485-3"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb485-3" tabindex="-1"></a><span class="co"># 予測クラスを作成</span></span>
+<span id="cb485-4"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb485-4" tabindex="-1"></a>pred_class <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(pred_probs <span class="sc">&gt;</span> <span class="fl">0.6</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb485-5"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb485-5" tabindex="-1"></a></span>
+<span id="cb485-6"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb485-6" tabindex="-1"></a><span class="co"># 元のデータに予測確率と予測クラスを追加</span></span>
+<span id="cb485-7"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb485-7" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb485-8"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb485-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pred_probs =</span> pred_probs,</span>
+<span id="cb485-9"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb485-9" tabindex="-1"></a>         <span class="at">pred_class =</span> pred_class)</span>
+<span id="cb485-10"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb485-10" tabindex="-1"></a></span>
+<span id="cb485-11"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb485-11" tabindex="-1"></a><span class="co"># ggplotで視覚化</span></span>
+<span id="cb485-12"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb485-12" tabindex="-1"></a><span class="fu">ggplot</span>(new_data, <span class="fu">aes</span>(<span class="at">x =</span> Starting_age, <span class="at">y =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="fu">factor</span>(pred_class))) <span class="sc">+</span></span>
+<span id="cb485-13"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb485-13" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">height =</span> <span class="dv">1</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span>  <span class="co"># 矩形のサイズ調整</span></span>
+<span id="cb485-14"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb485-14" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;darkblue&quot;</span>, <span class="st">&quot;skyblue&quot;</span>)) <span class="sc">+</span>  </span>
+<span id="cb485-15"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb485-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Starting Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Predicted Class&quot;</span>) <span class="sc">+</span></span>
+<span id="cb485-16"><a href="week10-一般化線形モデルロジスティック回帰分析.html#cb485-16" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-296-1.png" width="672" /></p>
 </div>
 <div id="次週までの課題-8" class="section level2 hasAnchor" number="11.10">

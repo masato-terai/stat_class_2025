@@ -546,10 +546,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div id="データの読み込み-3" class="section level3 hasAnchor" number="8.7.1">
 <h3><span class="header-section-number">8.7.1</span> データの読み込み<a href="week7-重回帰分析.html#データの読み込み-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="week7-重回帰分析.html#cb260-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb260-2"><a href="week7-重回帰分析.html#cb260-2" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/regression_data.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="week7-重回帰分析.html#cb255-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb255-2"><a href="week7-重回帰分析.html#cb255-2" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/regression_data.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 120 Columns: 8
-## ── Column specification ────────────────────────────────────────────────────────────────────────
+## ── Column specification ──────────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## dbl (8): ID, Placement, FirstT, MidT, LastT, EndT, Class, Course
 ## 
@@ -558,7 +558,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>必ず中身を確認。</li>
 </ul>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="week7-重回帰分析.html#cb262-1" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="week7-重回帰分析.html#cb257-1" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 8
 ##      ID Placement FirstT  MidT LastT  EndT Class Course
 ##   &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
@@ -571,8 +571,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="基本統計量の算出" class="section level3 hasAnchor" number="8.7.2">
 <h3><span class="header-section-number">8.7.2</span> 基本統計量の算出<a href="week7-重回帰分析.html#基本統計量の算出" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="week7-重回帰分析.html#cb264-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb264-2"><a href="week7-重回帰分析.html#cb264-2" tabindex="-1"></a><span class="fu">describe</span>(dat)</span></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="week7-重回帰分析.html#cb259-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb259-2"><a href="week7-重回帰分析.html#cb259-2" tabindex="-1"></a><span class="fu">describe</span>(dat)</span></code></pre></div>
 <pre><code>##           vars   n  mean    sd median trimmed   mad min max range  skew
 ## ID           1 120 60.50 34.79   60.5   60.50 44.48   1 120   119  0.00
 ## Placement    2 120 54.20 28.50   50.5   54.61 37.81   4  99    95 -0.02
@@ -597,26 +597,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>箱ひげ図</li>
 </ul>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="week7-重回帰分析.html#cb266-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat[, <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>], </span>
-<span id="cb266-2"><a href="week7-重回帰分析.html#cb266-2" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;Test&quot;</span>,</span>
-<span id="cb266-3"><a href="week7-重回帰分析.html#cb266-3" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Score&quot;</span>,</span>
-<span id="cb266-4"><a href="week7-重回帰分析.html#cb266-4" tabindex="-1"></a>        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="co"># y軸を0から100の範囲で表示する</span></span>
-<span id="cb266-5"><a href="week7-重回帰分析.html#cb266-5" tabindex="-1"></a>        )</span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="week7-重回帰分析.html#cb261-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat[, <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>], </span>
+<span id="cb261-2"><a href="week7-重回帰分析.html#cb261-2" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;Test&quot;</span>,</span>
+<span id="cb261-3"><a href="week7-重回帰分析.html#cb261-3" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Score&quot;</span>,</span>
+<span id="cb261-4"><a href="week7-重回帰分析.html#cb261-4" tabindex="-1"></a>        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="co"># y軸を0から100の範囲で表示する</span></span>
+<span id="cb261-5"><a href="week7-重回帰分析.html#cb261-5" tabindex="-1"></a>        )</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-152-1.png" width="672" /></p>
 <ul>
 <li>蜂群図</li>
 </ul>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="week7-重回帰分析.html#cb267-1" tabindex="-1"></a><span class="co">#install.packages(&quot;beeswarm&quot;, dependencies = T) #一度やればOK</span></span>
-<span id="cb267-2"><a href="week7-重回帰分析.html#cb267-2" tabindex="-1"></a><span class="fu">library</span>(beeswarm)</span>
-<span id="cb267-3"><a href="week7-重回帰分析.html#cb267-3" tabindex="-1"></a><span class="fu">beeswarm</span>(dat[, <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="week7-重回帰分析.html#cb262-1" tabindex="-1"></a><span class="co">#install.packages(&quot;beeswarm&quot;, dependencies = T) #一度やればOK</span></span>
+<span id="cb262-2"><a href="week7-重回帰分析.html#cb262-2" tabindex="-1"></a><span class="fu">library</span>(beeswarm)</span>
+<span id="cb262-3"><a href="week7-重回帰分析.html#cb262-3" tabindex="-1"></a><span class="fu">beeswarm</span>(dat[, <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>])</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-153-1.png" width="672" /></p>
 <ul>
 <li>箱ひげ図 + 蜂群図</li>
 </ul>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="week7-重回帰分析.html#cb268-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat[, <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>], <span class="at">xlab =</span> <span class="st">&quot;Test&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Score&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>))</span>
-<span id="cb268-2"><a href="week7-重回帰分析.html#cb268-2" tabindex="-1"></a><span class="fu">beeswarm</span>(dat[, <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>],</span>
-<span id="cb268-3"><a href="week7-重回帰分析.html#cb268-3" tabindex="-1"></a>         <span class="at">add =</span> T <span class="co">#箱ひげ図の上に描画すると明示的に記す</span></span>
-<span id="cb268-4"><a href="week7-重回帰分析.html#cb268-4" tabindex="-1"></a>         )</span></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="week7-重回帰分析.html#cb263-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat[, <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>], <span class="at">xlab =</span> <span class="st">&quot;Test&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Score&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>))</span>
+<span id="cb263-2"><a href="week7-重回帰分析.html#cb263-2" tabindex="-1"></a><span class="fu">beeswarm</span>(dat[, <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>],</span>
+<span id="cb263-3"><a href="week7-重回帰分析.html#cb263-3" tabindex="-1"></a>         <span class="at">add =</span> T <span class="co">#箱ひげ図の上に描画すると明示的に記す</span></span>
+<span id="cb263-4"><a href="week7-重回帰分析.html#cb263-4" tabindex="-1"></a>         )</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-154-1.png" width="672" /></p>
 </div>
 <div id="相関関係の確認" class="section level3 hasAnchor" number="8.7.4">
@@ -624,7 +624,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>高い相関関係を示す独立変数はない</li>
 </ul>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="week7-重回帰分析.html#cb269-1" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">corr.test</span>(dat[, <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="week7-重回帰分析.html#cb264-1" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">corr.test</span>(dat[, <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>])</span></code></pre></div>
 <pre><code>## Call:psych::corr.test(x = dat[, 2:6])
 ## Correlation matrix 
 ##           Placement FirstT  MidT LastT  EndT
@@ -644,7 +644,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## EndT           0.00   0.00 0.00  0.00    0
 ## 
 ##  To see confidence intervals of the correlations, print with the short=FALSE option</code></pre>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="week7-重回帰分析.html#cb271-1" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">pairs.panels</span>(dat[, <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="week7-重回帰分析.html#cb266-1" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">pairs.panels</span>(dat[, <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>])</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-156-1.png" width="672" /></p>
 </div>
 <div id="重回帰分析の実施強制投入法" class="section level3 hasAnchor" number="8.7.5">
@@ -653,11 +653,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><code>lm()</code>関数を使用する。</p></li>
 <li><p>重回帰分析の結果を<code>output_forced</code>という変数に格納する</p></li>
 </ul>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="week7-重回帰分析.html#cb272-1" tabindex="-1"></a>output_forced <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
-<span id="cb272-2"><a href="week7-重回帰分析.html#cb272-2" tabindex="-1"></a>    EndT <span class="sc">~</span>                                <span class="co"># 従属変数</span></span>
-<span id="cb272-3"><a href="week7-重回帰分析.html#cb272-3" tabindex="-1"></a>    Placement <span class="sc">+</span> FirstT <span class="sc">+</span> MidT <span class="sc">+</span> LastT,   <span class="co"># 独立変数</span></span>
-<span id="cb272-4"><a href="week7-重回帰分析.html#cb272-4" tabindex="-1"></a>    <span class="at">data =</span> dat                           <span class="co"># データセット</span></span>
-<span id="cb272-5"><a href="week7-重回帰分析.html#cb272-5" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="week7-重回帰分析.html#cb267-1" tabindex="-1"></a>output_forced <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb267-2"><a href="week7-重回帰分析.html#cb267-2" tabindex="-1"></a>    EndT <span class="sc">~</span>                                <span class="co"># 従属変数</span></span>
+<span id="cb267-3"><a href="week7-重回帰分析.html#cb267-3" tabindex="-1"></a>    Placement <span class="sc">+</span> FirstT <span class="sc">+</span> MidT <span class="sc">+</span> LastT,   <span class="co"># 独立変数</span></span>
+<span id="cb267-4"><a href="week7-重回帰分析.html#cb267-4" tabindex="-1"></a>    <span class="at">data =</span> dat                           <span class="co"># データセット</span></span>
+<span id="cb267-5"><a href="week7-重回帰分析.html#cb267-5" tabindex="-1"></a>  )</span></code></pre></div>
 <ul>
 <li><code>summary()</code>で結果を確認
 <ul>
@@ -665,7 +665,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Adjusted R-squaredの結果を確認すると、4つの独立変数で従属変数の77.6%を説明</p></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="week7-重回帰分析.html#cb273-1" tabindex="-1"></a><span class="fu">summary</span>(output_forced)</span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="week7-重回帰分析.html#cb268-1" tabindex="-1"></a><span class="fu">summary</span>(output_forced)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = EndT ~ Placement + FirstT + MidT + LastT, data = dat)
@@ -693,27 +693,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>分析結果から<code>resid()</code>関数で残差を算出し、その値を<code>scale()</code>関数で標準化</li>
 </ul>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="week7-重回帰分析.html#cb275-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">resid</span>(output_forced)</span>
-<span id="cb275-2"><a href="week7-重回帰分析.html#cb275-2" tabindex="-1"></a></span>
-<span id="cb275-3"><a href="week7-重回帰分析.html#cb275-3" tabindex="-1"></a>z.res <span class="ot">&lt;-</span> <span class="fu">scale</span>(res)</span></code></pre></div>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="week7-重回帰分析.html#cb276-1" tabindex="-1"></a><span class="fu">boxplot</span>(z.res)</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="week7-重回帰分析.html#cb270-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">resid</span>(output_forced)</span>
+<span id="cb270-2"><a href="week7-重回帰分析.html#cb270-2" tabindex="-1"></a></span>
+<span id="cb270-3"><a href="week7-重回帰分析.html#cb270-3" tabindex="-1"></a>z.res <span class="ot">&lt;-</span> <span class="fu">scale</span>(res)</span></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="week7-重回帰分析.html#cb271-1" tabindex="-1"></a><span class="fu">boxplot</span>(z.res)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-160-1.png" width="672" />
 - 最大値、最小値の2つが外れ値の可能性あり</p>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="week7-重回帰分析.html#cb277-1" tabindex="-1"></a><span class="fu">describe</span>(z.res)</span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="week7-重回帰分析.html#cb272-1" tabindex="-1"></a><span class="fu">describe</span>(z.res)</span></code></pre></div>
 <pre><code>##    vars   n mean sd median trimmed  mad   min  max range  skew kurtosis   se
 ## X1    1 120    0  1   0.03    0.01 0.95 -2.56 3.33   5.9 -0.03     0.45 0.09</code></pre>
 <ul>
 <li><code>olsrr</code>関数を使うと、様々な図を一度に表示可能</li>
 </ul>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="week7-重回帰分析.html#cb279-1" tabindex="-1"></a><span class="co">#install.packages(&quot;olsrr&quot;)</span></span>
-<span id="cb279-2"><a href="week7-重回帰分析.html#cb279-2" tabindex="-1"></a><span class="fu">library</span>(olsrr)</span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="week7-重回帰分析.html#cb274-1" tabindex="-1"></a><span class="co">#install.packages(&quot;olsrr&quot;)</span></span>
+<span id="cb274-2"><a href="week7-重回帰分析.html#cb274-2" tabindex="-1"></a><span class="fu">library</span>(olsrr)</span></code></pre></div>
 <pre><code>## Warning: package &#39;olsrr&#39; was built under R version 4.3.3</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;olsrr&#39;</code></pre>
 <pre><code>## The following object is masked from &#39;package:datasets&#39;:
 ## 
 ##     rivers</code></pre>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="week7-重回帰分析.html#cb283-1" tabindex="-1"></a><span class="fu">ols_plot_diagnostics</span>(output_forced)</span></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="week7-重回帰分析.html#cb278-1" tabindex="-1"></a><span class="fu">ols_plot_diagnostics</span>(output_forced)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-162-1.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-3.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-4.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-5.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-6.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-7.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-8.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-9.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-10.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-11.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-12.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-162-13.png" width="672" /></p>
 </div>
 <div id="多重共線性の確認" class="section level3 hasAnchor" number="8.7.7">
@@ -726,7 +726,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>条件指数（Condirion Index）：全て15以下</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="week7-重回帰分析.html#cb284-1" tabindex="-1"></a><span class="fu">ols_coll_diag</span>(output_forced)</span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="week7-重回帰分析.html#cb279-1" tabindex="-1"></a><span class="fu">ols_coll_diag</span>(output_forced)</span></code></pre></div>
 <pre><code>## Tolerance and Variance Inflation Factor
 ## ---------------------------------------
 ##   Variables Tolerance      VIF
@@ -761,7 +761,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>none：すべての変数を含めたモデル</p></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="week7-重回帰分析.html#cb286-1" tabindex="-1"></a>output_step <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">step</span>(output_forced)</span></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="week7-重回帰分析.html#cb281-1" tabindex="-1"></a>output_step <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">step</span>(output_forced)</span></code></pre></div>
 <pre><code>## Start:  AIC=599.41
 ## EndT ~ Placement + FirstT + MidT + LastT
 ## 
@@ -786,7 +786,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>中間試験のみで約71%のデータを説明している（0.71 × 100）</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="week7-重回帰分析.html#cb288-1" tabindex="-1"></a><span class="fu">summary</span>(output_step)</span></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="week7-重回帰分析.html#cb283-1" tabindex="-1"></a><span class="fu">summary</span>(output_step)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = EndT ~ FirstT + MidT + LastT, data = dat)

@@ -537,7 +537,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>確率変数が連続的な値をとる場合、実現値の値ではなく、その<strong>範囲と確率</strong>が対応する。つまり、確率分布の面積が確率と対応する（数値積分をして求めないといけない）。</li>
 </ul>
 <p><img src="_main_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="推測統計学.html#cb97-1" tabindex="-1"></a><span class="fu">integrate</span>(<span class="at">f =</span> dnorm, <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="推測統計学.html#cb92-1" tabindex="-1"></a><span class="fu">integrate</span>(<span class="at">f =</span> dnorm, <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## 0.3413447 with absolute error &lt; 3.8e-15</code></pre>
 <ul>
 <li>平均値 ± <strong>1.96</strong> × 標準偏差で、標本分布の95%の範囲になる。</li>
@@ -546,7 +546,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] 2.055362</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-50-1.png" width="672" />
 - mean(density_data$x) ± 1.96となっているのは、標準偏差が1であるため。</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="推測統計学.html#cb100-1" tabindex="-1"></a><span class="fu">integrate</span>(<span class="at">f =</span> dnorm, <span class="at">lower =</span> <span class="fu">mean</span>(density_data<span class="sc">$</span>x) <span class="sc">-</span> <span class="fl">1.96</span>, <span class="at">upper =</span> <span class="fu">mean</span>(density_data<span class="sc">$</span>x) <span class="sc">+</span> <span class="fl">1.96</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="推測統計学.html#cb95-1" tabindex="-1"></a><span class="fu">integrate</span>(<span class="at">f =</span> dnorm, <span class="at">lower =</span> <span class="fu">mean</span>(density_data<span class="sc">$</span>x) <span class="sc">-</span> <span class="fl">1.96</span>, <span class="at">upper =</span> <span class="fu">mean</span>(density_data<span class="sc">$</span>x) <span class="sc">+</span> <span class="fl">1.96</span>)</span></code></pre></div>
 <pre><code>## 0.9489619 with absolute error &lt; 9.2e-12</code></pre>
 </div>
 <div id="確率モデルを用いた推定" class="section level3 hasAnchor" number="4.6.3">
@@ -625,9 +625,9 @@ t = \frac{\bar{x} - \mu}{\frac{u^2}{\sqrt{n}}}
 <li><p>母平均が分からない場合、上記の<em>t</em>値を計算することはできない。しかし、母平均の信頼区間を求める場合、<em>t</em>分布の95%の面積にああるような範囲を考えればいい。自由度25の時、上側と下側それぞれ2.5%（5% ÷ 2）となるような<em>t</em>値を求める（表から値を探したりして値を見つける）。</p></li>
 <li><p>Rの標準的な関数で求めることも可能</p></li>
 </ul>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="推測統計学.html#cb102-1" tabindex="-1"></a><span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> <span class="dv">24</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="推測統計学.html#cb97-1" tabindex="-1"></a><span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> <span class="dv">24</span>)</span></code></pre></div>
 <pre><code>## [1] 2.063899</code></pre>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="推測統計学.html#cb104-1" tabindex="-1"></a><span class="fu">qt</span>(.<span class="dv">025</span>, <span class="at">df =</span> <span class="dv">24</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="推測統計学.html#cb99-1" tabindex="-1"></a><span class="fu">qt</span>(.<span class="dv">025</span>, <span class="at">df =</span> <span class="dv">24</span>)</span></code></pre></div>
 <pre><code>## [1] -2.063899</code></pre>
 <p>以下の式をもとに算出する</p>
 <p><span class="math display">\[
@@ -653,7 +653,7 @@ s^2 = \frac{1}{n-1}S^2
 </div>
 <div id="rの関数で95信頼区間を求める" class="section level2 hasAnchor" number="4.7">
 <h2><span class="header-section-number">4.7</span> Rの関数で95%信頼区間を求める<a href="推測統計学.html#rの関数で95信頼区間を求める" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="推測統計学.html#cb106-1" tabindex="-1"></a>gmodels<span class="sc">::</span><span class="fu">ci</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="推測統計学.html#cb101-1" tabindex="-1"></a>gmodels<span class="sc">::</span><span class="fu">ci</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
 <pre><code>## Warning in ci.numeric(mtcars$mpg): No class or unkown class.  Using default
 ## calcuation.</code></pre>
 <pre><code>##   Estimate   CI lower   CI upper Std. Error 
@@ -661,9 +661,9 @@ s^2 = \frac{1}{n-1}S^2
 <ul>
 <li>上記の関数と一致した</li>
 </ul>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="推測統計学.html#cb109-1" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg) <span class="sc">+</span> <span class="fu">qt</span>(<span class="at">df =</span> (<span class="fu">nrow</span>(mtcars)<span class="sc">-</span><span class="dv">1</span>), .<span class="dv">025</span>) <span class="sc">*</span> <span class="fu">sd</span>(mtcars<span class="sc">$</span>mpg)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(mtcars))</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="推測統計学.html#cb104-1" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg) <span class="sc">+</span> <span class="fu">qt</span>(<span class="at">df =</span> (<span class="fu">nrow</span>(mtcars)<span class="sc">-</span><span class="dv">1</span>), .<span class="dv">025</span>) <span class="sc">*</span> <span class="fu">sd</span>(mtcars<span class="sc">$</span>mpg)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(mtcars))</span></code></pre></div>
 <pre><code>## [1] 17.91768</code></pre>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="推測統計学.html#cb111-1" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg) <span class="sc">+</span> <span class="fu">qt</span>(<span class="at">df =</span> (<span class="fu">nrow</span>(mtcars)<span class="sc">-</span><span class="dv">1</span>), .<span class="dv">975</span>) <span class="sc">*</span> <span class="fu">sd</span>(mtcars<span class="sc">$</span>mpg)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(mtcars))</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="推測統計学.html#cb106-1" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg) <span class="sc">+</span> <span class="fu">qt</span>(<span class="at">df =</span> (<span class="fu">nrow</span>(mtcars)<span class="sc">-</span><span class="dv">1</span>), .<span class="dv">975</span>) <span class="sc">*</span> <span class="fu">sd</span>(mtcars<span class="sc">$</span>mpg)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(mtcars))</span></code></pre></div>
 <pre><code>## [1] 22.26357</code></pre>
 <div class="infobox">
 <p><strong>不偏分散の不偏とは</strong>
@@ -674,10 +674,10 @@ s^2 = \frac{1}{n-1}S^2
 <h2><span class="header-section-number">4.8</span> ハンズオンセッション<a href="推測統計学.html#ハンズオンセッション-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="データの読み込み" class="section level3 hasAnchor" number="4.8.1">
 <h3><span class="header-section-number">4.8.1</span> データの読み込み<a href="推測統計学.html#データの読み込み" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="推測統計学.html#cb113-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/pokemon_data.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="推測統計学.html#cb108-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/pokemon_data.csv&quot;</span>)</span></code></pre></div>
 <div id="データの中身を確認" class="section level4 hasAnchor" number="4.8.1.1">
 <h4><span class="header-section-number">4.8.1.1</span> データの中身を確認<a href="推測統計学.html#データの中身を確認" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="推測統計学.html#cb114-1" tabindex="-1"></a><span class="fu">summary</span>(dat)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="推測統計学.html#cb109-1" tabindex="-1"></a><span class="fu">summary</span>(dat)</span></code></pre></div>
 <pre><code>##        id          名前             タイプ1               高さ       
 ##  Min.   :  1   Length:897         Length:897         Min.   : 0.100  
 ##  1st Qu.:225   Class :character   Class :character   1st Qu.: 0.500  
@@ -706,7 +706,7 @@ s^2 = \frac{1}{n-1}S^2
 ##  Mean   : 65.93   Mean   : 97.85   Mean   :1.418                     
 ##  3rd Qu.: 85.00   3rd Qu.:150.00   3rd Qu.:2.000                     
 ##  Max.   :200.00   Max.   :255.00   Max.   :3.000</code></pre>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="推測統計学.html#cb116-1" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="推測統計学.html#cb111-1" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
 <pre><code>##   id       名前 タイプ1 高さ  重さ 世代 ステータス HP こうげき ぼうぎょ
 ## 1  1 フシギダネ    くさ  0.7   6.9    1        318 45       49       49
 ## 2  2 フシギソウ    くさ  1.0  13.0    1        405 60       62       63
@@ -734,23 +734,23 @@ s^2 = \frac{1}{n-1}S^2
 <h3><span class="header-section-number">4.8.2</span> 確率分布を選ぶ<a href="推測統計学.html#確率分布を選ぶ" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="データの可視化-1" class="section level4 hasAnchor" number="4.8.2.1">
 <h4><span class="header-section-number">4.8.2.1</span> データの可視化<a href="推測統計学.html#データの可視化-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="推測統計学.html#cb118-1" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>こうげき)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="推測統計学.html#cb113-1" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>こうげき)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
 </div>
 <div id="正規分布をあてはめてみる" class="section level4 hasAnchor" number="4.8.2.2">
 <h4><span class="header-section-number">4.8.2.2</span> 正規分布をあてはめてみる<a href="推測統計学.html#正規分布をあてはめてみる" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="推測統計学.html#cb119-1" tabindex="-1"></a><span class="co"># x軸の範囲を決定</span></span>
-<span id="cb119-2"><a href="推測統計学.html#cb119-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(dat<span class="sc">$</span>こうげき), <span class="fu">max</span>(dat<span class="sc">$</span>こうげき), <span class="at">length.out =</span> <span class="fu">nrow</span>(dat)) </span>
-<span id="cb119-3"><a href="推測統計学.html#cb119-3" tabindex="-1"></a><span class="co">#min(dat$こうげき) から max(dat$こうげき) まで、データの数 (nrow(dat)) だけ 等間隔 に区切った値を x に入れる。これを使って、なめらかな曲線を描画するための基準点を作る</span></span>
-<span id="cb119-4"><a href="推測統計学.html#cb119-4" tabindex="-1"></a></span>
-<span id="cb119-5"><a href="推測統計学.html#cb119-5" tabindex="-1"></a><span class="co"># ヒストグラムを確率密度で描画</span></span>
-<span id="cb119-6"><a href="推測統計学.html#cb119-6" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>こうげき, <span class="at">probability =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb119-7"><a href="推測統計学.html#cb119-7" tabindex="-1"></a><span class="co">#probability = TRUE を指定すると、ヒストグラムの y軸が「確率密度」になる。分布をあてはめるときは、この設定をしないと当てはまらない。デフォルト（probability = FALSE）では「度数」（データの数）になる</span></span>
-<span id="cb119-8"><a href="推測統計学.html#cb119-8" tabindex="-1"></a></span>
-<span id="cb119-9"><a href="推測統計学.html#cb119-9" tabindex="-1"></a><span class="co"># 正規分布の確率密度関数を描画</span></span>
-<span id="cb119-10"><a href="推測統計学.html#cb119-10" tabindex="-1"></a><span class="fu">lines</span>(x, <span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="fu">mean</span>(dat<span class="sc">$</span>こうげき), <span class="at">sd =</span> <span class="fu">sd</span>(dat<span class="sc">$</span>こうげき)), <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="推測統計学.html#cb114-1" tabindex="-1"></a><span class="co"># x軸の範囲を決定</span></span>
+<span id="cb114-2"><a href="推測統計学.html#cb114-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(dat<span class="sc">$</span>こうげき), <span class="fu">max</span>(dat<span class="sc">$</span>こうげき), <span class="at">length.out =</span> <span class="fu">nrow</span>(dat)) </span>
+<span id="cb114-3"><a href="推測統計学.html#cb114-3" tabindex="-1"></a><span class="co">#min(dat$こうげき) から max(dat$こうげき) まで、データの数 (nrow(dat)) だけ 等間隔 に区切った値を x に入れる。これを使って、なめらかな曲線を描画するための基準点を作る</span></span>
+<span id="cb114-4"><a href="推測統計学.html#cb114-4" tabindex="-1"></a></span>
+<span id="cb114-5"><a href="推測統計学.html#cb114-5" tabindex="-1"></a><span class="co"># ヒストグラムを確率密度で描画</span></span>
+<span id="cb114-6"><a href="推測統計学.html#cb114-6" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>こうげき, <span class="at">probability =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb114-7"><a href="推測統計学.html#cb114-7" tabindex="-1"></a><span class="co">#probability = TRUE を指定すると、ヒストグラムの y軸が「確率密度」になる。分布をあてはめるときは、この設定をしないと当てはまらない。デフォルト（probability = FALSE）では「度数」（データの数）になる</span></span>
+<span id="cb114-8"><a href="推測統計学.html#cb114-8" tabindex="-1"></a></span>
+<span id="cb114-9"><a href="推測統計学.html#cb114-9" tabindex="-1"></a><span class="co"># 正規分布の確率密度関数を描画</span></span>
+<span id="cb114-10"><a href="推測統計学.html#cb114-10" tabindex="-1"></a><span class="fu">lines</span>(x, <span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="fu">mean</span>(dat<span class="sc">$</span>こうげき), <span class="at">sd =</span> <span class="fu">sd</span>(dat<span class="sc">$</span>こうげき)), <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="推測統計学.html#cb120-1" tabindex="-1"></a><span class="co">#「データの分布が もし正規分布に従っていたら どんな形になるか？」を、ヒストグラムの上に描く。dnorm() は 正規分布 の確率密度関数を計算する。平均 (mean(dat$こうげき)) と 標準偏差 (sd(dat$こうげき)) を使って 「理想的な正規分布」 の形を作る。lwd = 2で線の太さを少し太くする</span></span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="推測統計学.html#cb115-1" tabindex="-1"></a><span class="co">#「データの分布が もし正規分布に従っていたら どんな形になるか？」を、ヒストグラムの上に描く。dnorm() は 正規分布 の確率密度関数を計算する。平均 (mean(dat$こうげき)) と 標準偏差 (sd(dat$こうげき)) を使って 「理想的な正規分布」 の形を作る。lwd = 2で線の太さを少し太くする</span></span></code></pre></div>
 </div>
 </div>
 <div id="母分散未知の母平均の95信頼区間を求める" class="section level3 hasAnchor" number="4.8.3">
@@ -770,10 +770,10 @@ s^2 = \frac{1}{n-1}S^2
 <ul>
 <li>今回の警告メッセージは無視してOK（<a href="https://stackoverflow.com/questions/64507040/calculating-confidence-interval-using-ci-function">参考</a>）</li>
 </ul>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="推測統計学.html#cb121-1" tabindex="-1"></a><span class="co">#install.packages(&quot;gmodels&quot;)</span></span>
-<span id="cb121-2"><a href="推測統計学.html#cb121-2" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="推測統計学.html#cb116-1" tabindex="-1"></a><span class="co">#install.packages(&quot;gmodels&quot;)</span></span>
+<span id="cb116-2"><a href="推測統計学.html#cb116-2" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span></code></pre></div>
 <pre><code>## Warning: package &#39;gmodels&#39; was built under R version 4.3.3</code></pre>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="推測統計学.html#cb123-1" tabindex="-1"></a><span class="fu">ci</span>(dat<span class="sc">$</span>こうげき)</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="推測統計学.html#cb118-1" tabindex="-1"></a><span class="fu">ci</span>(dat<span class="sc">$</span>こうげき)</span></code></pre></div>
 <pre><code>## Warning in ci.numeric(dat$こうげき): No class or unkown class.  Using default
 ## calcuation.</code></pre>
 <pre><code>##   Estimate   CI lower   CI upper Std. Error 
@@ -787,25 +787,25 @@ s^2 = \frac{1}{n-1}S^2
 <li>sd関数は、標準偏差を算出する関数だが、分母をn-1した値を返している（= 不偏標準偏差）</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="推測統計学.html#cb126-1" tabindex="-1"></a>n <span class="ot">&lt;-</span>  <span class="fu">nrow</span>(dat) <span class="co">#サンプル数</span></span>
-<span id="cb126-2"><a href="推測統計学.html#cb126-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">mean</span>(dat<span class="sc">$</span>こうげき) <span class="co">#平均値</span></span>
-<span id="cb126-3"><a href="推測統計学.html#cb126-3" tabindex="-1"></a>t_value <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>, .<span class="dv">975</span>) <span class="co">#t値</span></span>
-<span id="cb126-4"><a href="推測統計学.html#cb126-4" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(dat<span class="sc">$</span>こうげき)<span class="co">#標本標準偏差</span></span>
-<span id="cb126-5"><a href="推測統計学.html#cb126-5" tabindex="-1"></a></span>
-<span id="cb126-6"><a href="推測統計学.html#cb126-6" tabindex="-1"></a>lower <span class="ot">&lt;-</span> m <span class="sc">-</span> t_value <span class="sc">*</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n) <span class="co">#下限</span></span>
-<span id="cb126-7"><a href="推測統計学.html#cb126-7" tabindex="-1"></a>upper <span class="ot">&lt;-</span> m <span class="sc">+</span> t_value <span class="sc">*</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n) <span class="co">#上限</span></span>
-<span id="cb126-8"><a href="推測統計学.html#cb126-8" tabindex="-1"></a></span>
-<span id="cb126-9"><a href="推測統計学.html#cb126-9" tabindex="-1"></a>lower</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="推測統計学.html#cb121-1" tabindex="-1"></a>n <span class="ot">&lt;-</span>  <span class="fu">nrow</span>(dat) <span class="co">#サンプル数</span></span>
+<span id="cb121-2"><a href="推測統計学.html#cb121-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">mean</span>(dat<span class="sc">$</span>こうげき) <span class="co">#平均値</span></span>
+<span id="cb121-3"><a href="推測統計学.html#cb121-3" tabindex="-1"></a>t_value <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>, .<span class="dv">975</span>) <span class="co">#t値</span></span>
+<span id="cb121-4"><a href="推測統計学.html#cb121-4" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(dat<span class="sc">$</span>こうげき)<span class="co">#標本標準偏差</span></span>
+<span id="cb121-5"><a href="推測統計学.html#cb121-5" tabindex="-1"></a></span>
+<span id="cb121-6"><a href="推測統計学.html#cb121-6" tabindex="-1"></a>lower <span class="ot">&lt;-</span> m <span class="sc">-</span> t_value <span class="sc">*</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n) <span class="co">#下限</span></span>
+<span id="cb121-7"><a href="推測統計学.html#cb121-7" tabindex="-1"></a>upper <span class="ot">&lt;-</span> m <span class="sc">+</span> t_value <span class="sc">*</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n) <span class="co">#上限</span></span>
+<span id="cb121-8"><a href="推測統計学.html#cb121-8" tabindex="-1"></a></span>
+<span id="cb121-9"><a href="推測統計学.html#cb121-9" tabindex="-1"></a>lower</span></code></pre></div>
 <pre><code>## [1] 74.59564</code></pre>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="推測統計学.html#cb128-1" tabindex="-1"></a>upper</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="推測統計学.html#cb123-1" tabindex="-1"></a>upper</span></code></pre></div>
 <pre><code>## [1] 78.48574</code></pre>
 <ul>
 <li>下限はこっちでも同じ値になる</li>
 </ul>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="推測統計学.html#cb130-1" tabindex="-1"></a>t_value_low <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="at">df =</span> n <span class="sc">-</span><span class="dv">1</span>, .<span class="dv">025</span>)</span>
-<span id="cb130-2"><a href="推測統計学.html#cb130-2" tabindex="-1"></a>lower2 <span class="ot">&lt;-</span> m <span class="sc">+</span> t_value_low <span class="sc">*</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
-<span id="cb130-3"><a href="推測統計学.html#cb130-3" tabindex="-1"></a></span>
-<span id="cb130-4"><a href="推測統計学.html#cb130-4" tabindex="-1"></a>lower2</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="推測統計学.html#cb125-1" tabindex="-1"></a>t_value_low <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="at">df =</span> n <span class="sc">-</span><span class="dv">1</span>, .<span class="dv">025</span>)</span>
+<span id="cb125-2"><a href="推測統計学.html#cb125-2" tabindex="-1"></a>lower2 <span class="ot">&lt;-</span> m <span class="sc">+</span> t_value_low <span class="sc">*</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb125-3"><a href="推測統計学.html#cb125-3" tabindex="-1"></a></span>
+<span id="cb125-4"><a href="推測統計学.html#cb125-4" tabindex="-1"></a>lower2</span></code></pre></div>
 <pre><code>## [1] 74.59564</code></pre>
 </div>
 </div>
