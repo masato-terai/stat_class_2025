@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 12 Week11: 階層モデル | 言語統計処理（春学期）</title>
-  <meta name="description" content="Chapter 12 Week11: 階層モデル | 言語統計処理（春学期）" />
+  <title>Chapter 4 Week 3：推測統計学 | 言語統計処理（春学期）</title>
+  <meta name="description" content="Chapter 4 Week 3：推測統計学 | 言語統計処理（春学期）" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 12 Week11: 階層モデル | 言語統計処理（春学期）" />
+  <meta property="og:title" content="Chapter 4 Week 3：推測統計学 | 言語統計処理（春学期）" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 12 Week11: 階層モデル | 言語統計処理（春学期）" />
+  <meta name="twitter:title" content="Chapter 4 Week 3：推測統計学 | 言語統計処理（春学期）" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="week10-一般化線形モデルロジスティック回帰分析.html"/>
-<link rel="next" href="week-12-効果量と検定力分析.html"/>
+<link rel="prev" href="week-2要約統計量.html"/>
+<link rel="next" href="統計的検定.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -361,10 +361,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="week11-階層モデル" class="section level1 hasAnchor" number="12">
-<h1><span class="header-section-number">Chapter 12</span> Week11: 階層モデル<a href="week11-階層モデル.html#week11-階層モデル" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="事前の確認-9" class="section level2 hasAnchor" number="12.1">
-<h2><span class="header-section-number">12.1</span> 事前の確認<a href="week11-階層モデル.html#事前の確認-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="week-3推測統計学" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Week 3：推測統計学<a href="week-3推測統計学.html#week-3推測統計学" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="事前の確認-1" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> 事前の確認<a href="week-3推測統計学.html#事前の確認-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><p>この講義のRプロジェクトを開いていますか？</p></li>
 <li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
@@ -373,346 +373,487 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </div>
-<div id="今日の目標-9" class="section level2 hasAnchor" number="12.2">
-<h2><span class="header-section-number">12.2</span> 今日の目標<a href="week11-階層モデル.html#今日の目標-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="今日の目標-1" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> 今日の目標<a href="week-3推測統計学.html#今日の目標-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
-<li></li>
-<li></li>
+<li>母集団と標本の違いや確率分布が理解できる</li>
+<li>区間推定の考え方が理解できる</li>
 </ol>
 </div>
-<div id="一般化線形モデルからの発展" class="section level2 hasAnchor" number="12.3">
-<h2><span class="header-section-number">12.3</span> 一般化線形モデルからの発展<a href="week11-階層モデル.html#一般化線形モデルからの発展" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="母集団と標本" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> 母集団と標本<a href="week-3推測統計学.html#母集団と標本" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li><p>一般線形モデル：従属変数が正規分布に従う（e.g., <em>t</em> 検定、分散分析、回帰分析）</p>
+<li>推測統計学は、<strong>母集団</strong>から<strong>標本</strong>を得て、母集団の特徴を推測する手法</li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<div id="母集団population" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> 母集団（population）<a href="week-3推測統計学.html#母集団population" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>Week 4 - Week 9</li>
+<li><p>調べたい対象の集団のこと</p>
+<ul>
+<li><p>例</p>
+<ul>
+<li><p>研究課題：英語を第二言語として学ぶ人は母語の影響を必ず受ける。</p></li>
+<li><p>母集団：世界中の英語を第二言語として学ぶ人</p></li>
 </ul></li>
-<li><p>一般<strong>化</strong>線形モデル：正規分布以外の分布を扱う</p>
-<ul>
-<li>Week 10</li>
-</ul></li>
-<li><p>一般化線形混合効果モデル（Genealized Linewr <strong>Mixed</strong> Model: GLMM）：一般化線形モデルを拡張。実験計画などではコントロールできない要因（ランダム効果）をモデルに組み込む =&gt; 本日</p>
-<ul>
-<li><p>混合効果：これまでの講義で扱ってきた独立変数（固定効果）とランダム効果を1つのモデルで表す</p></li>
-<li><p>得られたデータには、研究目的とは関係のないノイズが含まれる</p>
-<ul>
-<li><p>項目を提示する順番の影響</p></li>
-<li><p>項目や参加者が持つ特性</p></li>
-</ul></li>
-<li><p>マルチレベルモデル（multilevel model）、階層線形モデル（hierarchical linear model）、混合効果モデル（mixed-effects model）などとも呼ばれる</p></li>
-<li><p>最尤推定法を用いるモデルを指すが、推定法がマルコフ連鎖モンテカルロ法（MCMC）の場合は、階層ベイズモデルと呼ばれる。階層ベイズモデルは、最尤推定法によるGLMMに比べ、よりデータに合わせた柔軟なモデリングが可能である。</p></li>
 </ul></li>
 </ul>
-<p class="comment">
-どのように高度な手法を使う場合でも、分析の前に平均や分散などの記述統計・図示をもとに、立てた仮説や予測と一致しているかなどの確認が必要です。また、分析に入れる変数も、理論や仮説などから妥当なものを原則入れるべきです。
-</p>
 </div>
-<div id="ランダム効果とは" class="section level2 hasAnchor" number="12.4">
-<h2><span class="header-section-number">12.4</span> ランダム効果とは<a href="week11-階層モデル.html#ランダム効果とは" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="標本sample" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> 標本（Sample）<a href="week-3推測統計学.html#標本sample" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li><p>ランダム効果を考慮する場合、しない場合</p>
+<li><p>実験や調査のために母集団の中から選ばれたもの</p>
 <ul>
-<li>Brysbaert (2025)</li>
+<li>選ぶことを標本抽出（sampling）と呼ぶ</li>
 </ul></li>
-<li><p>ランダム切片モデル</p></li>
-<li><p>ランダム係数モデル</p></li>
-</ul>
-</div>
-<div id="glmmを行うときの留意点" class="section level2 hasAnchor" number="12.5">
-<h2><span class="header-section-number">12.5</span> GLMMを行うときの留意点<a href="week11-階層モデル.html#glmmを行うときの留意点" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="データセットの構造に注意" class="section level3 hasAnchor" number="12.5.1">
-<h3><span class="header-section-number">12.5.1</span> データセットの構造に注意<a href="week11-階層モデル.html#データセットの構造に注意" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p>これまでに使用してきたデータセットが必ずしもGLMMの分析に合うものではない。</p></li>
-<li><p>各行には、一人の参加者の各項目が含まれているべきである</p>
-<ul>
-<li>この形式にしておけば、どのような分析にも対応できる</li>
-</ul></li>
-</ul>
-<p>（データセットの例を示す）</p>
-</div>
-<div id="計算の負荷が大きい" class="section level3 hasAnchor" number="12.5.2">
-<h3><span class="header-section-number">12.5.2</span> 計算の負荷が大きい<a href="week11-階層モデル.html#計算の負荷が大きい" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li>これまでに紹介した分析とは異なり、結果が出力されるまでに時間がかかります。モデルの変数が多く、ランダム効果にも複数の変数を含む場合、数日かかることもあります。</li>
 </ul>
 </div>
 </div>
-<div id="ハンズオンセッション-9" class="section level2 hasAnchor" number="12.6">
-<h2><span class="header-section-number">12.6</span> ハンズオンセッション<a href="week11-階層モデル.html#ハンズオンセッション-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>(SOP for using mixed effects modelsに従う)</p>
-<div id="データの読み込み-4" class="section level3 hasAnchor" number="12.6.1">
-<h3><span class="header-section-number">12.6.1</span> データの読み込み<a href="week11-階層モデル.html#データの読み込み-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="確率と確率変数" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> 確率と確率変数<a href="week-3推測統計学.html#確率と確率変数" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>推測統計学では確率が非常に重要な概念。</li>
+</ul>
+<div id="確率" class="section level3 hasAnchor" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> 確率<a href="week-3推測統計学.html#確率" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
-<div id="パッケージのインストール" class="section level3 hasAnchor" number="12.6.2">
-<h3><span class="header-section-number">12.6.2</span> パッケージのインストール<a href="week11-階層モデル.html#パッケージのインストール" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="確率変数と確率分布" class="section level3 hasAnchor" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> 確率変数と確率分布<a href="week-3推測統計学.html#確率変数と確率分布" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="確率変数random-variable" class="section level4 hasAnchor" number="4.4.2.1">
+<h4><span class="header-section-number">4.4.2.1</span> 確率変数（random variable）<a href="week-3推測統計学.html#確率変数random-variable" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
-<li><code>lme4</code>パッケージを使用します</li>
+<li><p>確率的に生じる事象に数値を割り当てたもの</p>
+<ul>
+<li>実際に得られた値のことを確率変数の<strong>実現値</strong>という</li>
+</ul></li>
+<li><p>確率変数はスロットマシーンが回っている状態。実現値はスロットマシーンが止まって値が定まった状態をイメージするとよい</p></li>
 </ul>
-<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="week11-階層モデル.html#cb483-1" tabindex="-1"></a><span class="co">#install.packages(&quot;lme4&quot;, dependencies = T)</span></span>
-<span id="cb483-2"><a href="week11-階層モデル.html#cb483-2" tabindex="-1"></a><span class="fu">library</span>(lme4)</span></code></pre></div>
+</div>
+<div id="確率分布probability-distribution" class="section level4 hasAnchor" number="4.4.2.2">
+<h4><span class="header-section-number">4.4.2.2</span> 確率分布（probability distribution）<a href="week-3推測統計学.html#確率分布probability-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
-<li>処理にかかる時間を計測するため、<code>tictoc</code>パッケージを使います。</li>
-</ul>
-<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="week11-階層モデル.html#cb484-1" tabindex="-1"></a><span class="co">#install.packages(&quot;tictoc&quot;)</span></span>
-<span id="cb484-2"><a href="week11-階層モデル.html#cb484-2" tabindex="-1"></a><span class="fu">library</span>(tictoc)</span></code></pre></div>
+<li><p>確率変数の実現値それぞれの生じやすさを確率で表したもの。統計学では、確率変数の実現値を与えると確率を返す関数のことを確率分布という</p></li>
+<li><p>事象を確率変数として扱うことで、母集団を人の集団ではなく、確率変数の実現値の集合として考えることができる。</p>
 <ul>
-<li>Terai et al. (2024)のデータを使用します。</li>
-</ul>
-<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="week11-階層モデル.html#cb485-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/AJ.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="week11-階層モデル.html#cb486-1" tabindex="-1"></a>dat<span class="sc">$</span>Itemtype <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Itemtype, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Baseline&quot;</span>, <span class="st">&quot;JE&quot;</span>, <span class="st">&quot;Eonly&quot;</span>))</span>
-<span id="cb486-2"><a href="week11-階層モデル.html#cb486-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Itemtype) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">3</span>)</span>
-<span id="cb486-3"><a href="week11-階層モデル.html#cb486-3" tabindex="-1"></a></span>
-<span id="cb486-4"><a href="week11-階層モデル.html#cb486-4" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Itemtype)</span></code></pre></div>
-<pre><code>##          2 3
-## Baseline 0 0
-## JE       1 0
-## Eonly    0 1</code></pre>
+<li>1万人の学生の集団という母集団が、数値が1万個ある集団と仮定でき、数学的な枠組みとして考えやすくなる（数学の世界に現実世界を映す）。</li>
+</ul></li>
+<li><p>この場合、母集団の性質を標本に正確に反映させるために、<strong>単純無作為抽出（simple random sampling）</strong>を行う必要がある。</p>
 <ul>
-<li>連続値の場合中心化します</li>
-</ul>
-<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="week11-階層モデル.html#cb488-1" tabindex="-1"></a><span class="co">#install.packages(&quot;tidyverse&quot;)</span></span>
-<span id="cb488-2"><a href="week11-階層モデル.html#cb488-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb488-3"><a href="week11-階層モデル.html#cb488-3" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
-<span id="cb488-4"><a href="week11-階層モデル.html#cb488-4" tabindex="-1"></a>  <span class="fu">group_by</span>(subject) <span class="sc">%&gt;%</span></span>
-<span id="cb488-5"><a href="week11-階層モデル.html#cb488-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(<span class="st">&quot;pres.order&quot;</span>, <span class="st">&quot;Length&quot;</span>), <span class="sc">~</span><span class="fu">scale</span>(.x)[,<span class="dv">1</span>],<span class="at">.names =</span> <span class="st">&quot;z.{col}&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb488-6"><a href="week11-階層モデル.html#cb488-6" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div>
-<ul>
-<li>切片のみのモデル</li>
-</ul>
-<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="week11-階層モデル.html#cb489-1" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb489-2"><a href="week11-階層モデル.html#cb489-2" tabindex="-1"></a>res<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">glmer</span>(</span>
-<span id="cb489-3"><a href="week11-階層モデル.html#cb489-3" tabindex="-1"></a>  res <span class="sc">~</span> Itemtype <span class="sc">+</span></span>
-<span id="cb489-4"><a href="week11-階層モデル.html#cb489-4" tabindex="-1"></a>  (<span class="dv">1</span><span class="sc">|</span>subject) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>itemID),</span>
-<span id="cb489-5"><a href="week11-階層モデル.html#cb489-5" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
-<span id="cb489-6"><a href="week11-階層モデル.html#cb489-6" tabindex="-1"></a>  <span class="at">data =</span> dat2,</span>
-<span id="cb489-7"><a href="week11-階層モデル.html#cb489-7" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">glmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>)</span>
-<span id="cb489-8"><a href="week11-階層モデル.html#cb489-8" tabindex="-1"></a>               )</span>
-<span id="cb489-9"><a href="week11-階層モデル.html#cb489-9" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>## 0.76 sec elapsed</code></pre>
-<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="week11-階層モデル.html#cb491-1" tabindex="-1"></a><span class="fu">summary</span>(res<span class="fl">.1</span>)</span></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: binomial  ( logit )
-## Formula: res ~ Itemtype + (1 | subject) + (1 | itemID)
-##    Data: dat2
-## Control: glmerControl(optimizer = &quot;bobyqa&quot;)
-## 
-##       AIC       BIC    logLik -2*log(L)  df.resid 
-##    3601.5    3632.6   -1795.7    3591.5      3707 
-## 
-## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -5.1739 -0.4177  0.3423  0.5275  2.9380 
-## 
-## Random effects:
-##  Groups  Name        Variance Std.Dev.
-##  itemID  (Intercept) 1.0063   1.0032  
-##  subject (Intercept) 0.1647   0.4059  
-## Number of obs: 3712, groups:  itemID, 116; subject, 32
-## 
-## Fixed effects:
-##             Estimate Std. Error z value             Pr(&gt;|z|)    
-## (Intercept)   1.4468     0.1517   9.536 &lt; 0.0000000000000002 ***
-## Itemtype2     1.0938     0.2879   3.799             0.000145 ***
-## Itemtype3    -1.3669     0.2618  -5.222          0.000000177 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Correlation of Fixed Effects:
-##           (Intr) Itmty2
-## Itemtype2 -0.397       
-## Itemtype3 -0.450  0.230</code></pre>
-<ul>
-<li><p>切片と係数のモデル</p></li>
-<li><p>モデルが上手く収束していない</p></li>
-</ul>
-<div class="sourceCode" id="cb493"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb493-1"><a href="week11-階層モデル.html#cb493-1" tabindex="-1"></a>tic()</span>
-<span id="cb493-2"><a href="week11-階層モデル.html#cb493-2" tabindex="-1"></a>res.2 &lt;- glmer(</span>
-<span id="cb493-3"><a href="week11-階層モデル.html#cb493-3" tabindex="-1"></a>  res ~ Itemtype +</span>
-<span id="cb493-4"><a href="week11-階層モデル.html#cb493-4" tabindex="-1"></a>  (1 + pres.order|subject) + (1|itemID),</span>
-<span id="cb493-5"><a href="week11-階層モデル.html#cb493-5" tabindex="-1"></a>  family = binomial(link = &quot;logit&quot;),</span>
-<span id="cb493-6"><a href="week11-階層モデル.html#cb493-6" tabindex="-1"></a>  data = dat2,</span>
-<span id="cb493-7"><a href="week11-階層モデル.html#cb493-7" tabindex="-1"></a>  control = glmerControl(optimizer = &quot;bobyqa&quot;)</span>
-<span id="cb493-8"><a href="week11-階層モデル.html#cb493-8" tabindex="-1"></a>               )</span>
-<span id="cb493-9"><a href="week11-階層モデル.html#cb493-9" tabindex="-1"></a>toc()</span></code></pre></div>
-<ul>
-<li>中心化した変数だとうまくいった</li>
-</ul>
-<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="week11-階層モデル.html#cb494-1" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb494-2"><a href="week11-階層モデル.html#cb494-2" tabindex="-1"></a>res<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">glmer</span>(</span>
-<span id="cb494-3"><a href="week11-階層モデル.html#cb494-3" tabindex="-1"></a>  res <span class="sc">~</span> Itemtype <span class="sc">+</span></span>
-<span id="cb494-4"><a href="week11-階層モデル.html#cb494-4" tabindex="-1"></a>  (<span class="dv">1</span> <span class="sc">+</span> z.pres.order<span class="sc">|</span>subject) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>itemID),</span>
-<span id="cb494-5"><a href="week11-階層モデル.html#cb494-5" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
-<span id="cb494-6"><a href="week11-階層モデル.html#cb494-6" tabindex="-1"></a>  <span class="at">data =</span> dat2,</span>
-<span id="cb494-7"><a href="week11-階層モデル.html#cb494-7" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">glmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>) <span class="co">#スムーズに推定を行うためにこれを設定します</span></span>
-<span id="cb494-8"><a href="week11-階層モデル.html#cb494-8" tabindex="-1"></a>               )</span>
-<span id="cb494-9"><a href="week11-階層モデル.html#cb494-9" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>## 1.6 sec elapsed</code></pre>
-<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="week11-階層モデル.html#cb496-1" tabindex="-1"></a><span class="fu">summary</span>(res<span class="fl">.3</span>)</span></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: binomial  ( logit )
-## Formula: res ~ Itemtype + (1 + z.pres.order | subject) + (1 | itemID)
-##    Data: dat2
-## Control: glmerControl(optimizer = &quot;bobyqa&quot;)
-## 
-##       AIC       BIC    logLik -2*log(L)  df.resid 
-##    3595.6    3639.1   -1790.8    3581.6      3705 
-## 
-## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -5.2004 -0.4170  0.3360  0.5232  3.6998 
-## 
-## Random effects:
-##  Groups  Name         Variance Std.Dev. Corr 
-##  itemID  (Intercept)  1.02492  1.0124        
-##  subject (Intercept)  0.16874  0.4108        
-##          z.pres.order 0.06019  0.2453   -0.17
-## Number of obs: 3712, groups:  itemID, 116; subject, 32
-## 
-## Fixed effects:
-##             Estimate Std. Error z value             Pr(&gt;|z|)    
-## (Intercept)   1.4707     0.1535   9.580 &lt; 0.0000000000000002 ***
-## Itemtype2     1.1154     0.2900   3.846              0.00012 ***
-## Itemtype3    -1.3865     0.2642  -5.247          0.000000154 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Correlation of Fixed Effects:
-##           (Intr) Itmty2
-## Itemtype2 -0.395       
-## Itemtype3 -0.449  0.230</code></pre>
-<ul>
-<li>95% CI</li>
-</ul>
-<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="week11-階層モデル.html#cb498-1" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(res<span class="fl">.3</span>)))</span>
-<span id="cb498-2"><a href="week11-階層モデル.html#cb498-2" tabindex="-1"></a></span>
-<span id="cb498-3"><a href="week11-階層モデル.html#cb498-3" tabindex="-1"></a><span class="co"># table of estimates with 95% CI</span></span>
-<span id="cb498-4"><a href="week11-階層モデル.html#cb498-4" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
-<span id="cb498-5"><a href="week11-階層モデル.html#cb498-5" tabindex="-1"></a>  <span class="at">Est =</span> <span class="fu">fixef</span>(res<span class="fl">.3</span>),</span>
-<span id="cb498-6"><a href="week11-階層モデル.html#cb498-6" tabindex="-1"></a>  <span class="at">LL =</span> <span class="fu">fixef</span>(res<span class="fl">.3</span>) <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se,</span>
-<span id="cb498-7"><a href="week11-階層モデル.html#cb498-7" tabindex="-1"></a>  <span class="at">UL =</span> <span class="fu">fixef</span>(res<span class="fl">.3</span>) <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
-<span id="cb498-8"><a href="week11-階層モデル.html#cb498-8" tabindex="-1"></a>  )</span>
-<span id="cb498-9"><a href="week11-階層モデル.html#cb498-9" tabindex="-1"></a></span>
-<span id="cb498-10"><a href="week11-階層モデル.html#cb498-10" tabindex="-1"></a>tab</span></code></pre></div>
-<pre><code>##                   Est         LL         UL
-## (Intercept)  1.470673  1.1697749  1.7715711
-## Itemtype2    1.115433  0.5469471  1.6839180
-## Itemtype3   -1.386501 -1.9043996 -0.8686026</code></pre>
-<ul>
-<li><p><code>confint()</code>でも算出可能</p>
-<ul>
-<li>こちらは推定法の関係で時間がかかる</li>
+<li>母集団のすべての対象が偏りなく選ばれること（= 無作為に選ぶ）</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb500"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb500-1"><a href="week11-階層モデル.html#cb500-1" tabindex="-1"></a>confint(res.3)</span></code></pre></div>
+</div>
+<div id="確率分布の種類" class="section level4 hasAnchor" number="4.4.2.3">
+<h4><span class="header-section-number">4.4.2.3</span> 確率分布の種類<a href="week-3推測統計学.html#確率分布の種類" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
-<li>オッズ比</li>
-</ul>
-<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="week11-階層モデル.html#cb501-1" tabindex="-1"></a><span class="fu">exp</span>(tab)</span></code></pre></div>
-<pre><code>##                   Est       LL        UL
-## (Intercept) 4.3521632 3.221267 5.8800845
-## Itemtype2   3.0508876 1.727970 5.3866193
-## Itemtype3   0.2499483 0.148912 0.4195374</code></pre>
+<li>離散型確率分布：確率質量関数
 <ul>
-<li><p>モデル比較</p>
-<ul>
-<li>尤度比検定の結果、係数を考慮したモデルの方がよりAICが有意に低かった</li>
+<li>とびとびの値をとる（e.g., 裏、表）</li>
+<li>ベルヌーイ分布、二項分布、ポアソン分布</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="week11-階層モデル.html#cb503-1" tabindex="-1"></a><span class="fu">anova</span>(res<span class="fl">.1</span>, res<span class="fl">.3</span>)</span></code></pre></div>
-<pre><code>## Data: dat2
-## Models:
-## res.1: res ~ Itemtype + (1 | subject) + (1 | itemID)
-## res.3: res ~ Itemtype + (1 + z.pres.order | subject) + (1 | itemID)
-##       npar    AIC    BIC  logLik -2*log(L)  Chisq Df Pr(&gt;Chisq)   
-## res.1    5 3601.5 3632.6 -1795.7    3591.5                        
-## res.3    7 3595.6 3639.1 -1790.8    3581.6 9.9044  2   0.007068 **
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
 <ul>
-<li><code>performance</code>パッケージでモデルの当てはまり度合いを確認</li>
-</ul>
-<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="week11-階層モデル.html#cb505-1" tabindex="-1"></a><span class="co">#install.packages(&quot;performance&quot;)</span></span>
-<span id="cb505-2"><a href="week11-階層モデル.html#cb505-2" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
-<span id="cb505-3"><a href="week11-階層モデル.html#cb505-3" tabindex="-1"></a><span class="fu">compare_performance</span>(res<span class="fl">.1</span>, res<span class="fl">.3</span>, <span class="at">rank =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<pre><code>## # Comparison of Model Performance Indices
-## 
-## Name  |    Model | R2 (cond.) | R2 (marg.) |   ICC |  RMSE | Sigma | Log_loss
-## -----------------------------------------------------------------------------
-## res.1 | glmerMod |      0.351 |      0.119 | 0.263 | 0.376 | 1.000 |    0.437
-## res.3 | glmerMod |      0.356 |      0.122 | 0.266 | 0.372 | 1.000 |    0.431
-## 
-## Name  | Score_log | Score_spherical | AIC weights | AICc weights | BIC weights | Performance-Score
-## --------------------------------------------------------------------------------------------------
-## res.1 |      -Inf |       2.694e-04 |       0.050 |        0.050 |       0.963 |             -Inf%
-## res.3 |      -Inf |       2.694e-04 |       0.950 |        0.950 |       0.037 |             -Inf%</code></pre>
-<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="week11-階層モデル.html#cb507-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">compare_performance</span>(res<span class="fl">.1</span>, res<span class="fl">.3</span>, <span class="at">rank =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>))</span></code></pre></div>
-<pre><code>## Some of the nested models seem to be identical and probably only vary in
-##   their random effects.</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-313-1.png" width="672" /></p>
+<li>連続確率分布：確率密度関数
 <ul>
-<li>図示</li>
-</ul>
-<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="week11-階層モデル.html#cb509-1" tabindex="-1"></a><span class="co">#install.packages(&quot;ggeffects&quot;)</span></span>
-<span id="cb509-2"><a href="week11-階層モデル.html#cb509-2" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
-<span id="cb509-3"><a href="week11-階層モデル.html#cb509-3" tabindex="-1"></a>eff <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(res<span class="fl">.3</span>, <span class="at">terms =</span> <span class="st">&quot;Itemtype&quot;</span>)</span>
-<span id="cb509-4"><a href="week11-階層モデル.html#cb509-4" tabindex="-1"></a><span class="fu">plot</span>(eff)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-314-1.png" width="672" /></p>
-<ul>
-<li><p>モデル診断</p>
-<ul>
-<li><p><code>performance</code>パッケージが便利</p></li>
-<li><p>VIF</p>
-<ul>
-<li>今回は1変数しかないので確認の必要はない</li>
-</ul></li>
+<li>連続した値をとる（e.g., 身長）</li>
+<li>正規分布、<em>t</em> 分布、カイ二乗分布</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb510"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb510-1"><a href="week11-階層モデル.html#cb510-1" tabindex="-1"></a>check_collinearity(モデルの結果を格納した変数名)</span></code></pre></div>
-<ul>
-<li>Outliers</li>
-</ul>
-<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="week11-階層モデル.html#cb511-1" tabindex="-1"></a><span class="fu">check_residuals</span>(res<span class="fl">.3</span>)</span></code></pre></div>
-<pre><code>## OK: Simulated residuals appear as uniformly distributed (p = 0.149).</code></pre>
-<ul>
-<li>自己相関（Auto-correlation）</li>
-</ul>
-<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="week11-階層モデル.html#cb513-1" tabindex="-1"></a><span class="fu">check_autocorrelation</span>(res<span class="fl">.3</span>)</span></code></pre></div>
-<pre><code>## Warning: Autocorrelated residuals detected (p &lt; .001).</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
 </div>
 </div>
-<div id="次週までの課題-10" class="section level2 hasAnchor" number="12.7">
-<h2><span class="header-section-number">12.7</span> 次週までの課題<a href="week11-階層モデル.html#次週までの課題-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="課題内容-10" class="section level3 hasAnchor" number="12.7.1">
-<h3><span class="header-section-number">12.7.1</span> 課題内容<a href="week11-階層モデル.html#課題内容-10" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="推測統計学の考え方" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> 推測統計学の考え方<a href="week-3推測統計学.html#推測統計学の考え方" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="標本統計量" class="section level3 hasAnchor" number="4.5.1">
+<h3><span class="header-section-number">4.5.1</span> 標本統計量<a href="week-3推測統計学.html#標本統計量" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>標本から計算される記述統計量のこと</p></li>
+<li><p><strong>標本平均</strong>：母集団から得た標本のデータの平均値</p>
+<ul>
+<li><strong>母平均</strong>：母集団の平均値</li>
+</ul></li>
+</ul>
+</div>
+<div id="標本分布" class="section level3 hasAnchor" number="4.5.2">
+<h3><span class="header-section-number">4.5.2</span> 標本分布<a href="week-3推測統計学.html#標本分布" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>標本統計量が確率的に変動することを表した確率分布のこと</p>
+<ul>
+<li>標本を沢山抽出した場合であって、1つのデータの分布ではない</li>
+</ul></li>
+<li><p>標本サイズ（ <em>k</em> ）が大きくなるにつれ、標本分布の散らばりはどんどん小さくなる</p>
+<ul>
+<li><p>以下の図では100ほどのデータがあれば母平均（0.7）の ± 0.1にほとんどのデータが集まることが分かる</p></li>
+<li><p>しかし、これは母平均を事前に把握している場合を例であり、事前に母平均を知っていることは基本的にない。</p></li>
+</ul></li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+</div>
+</div>
+<div id="区間推定の考え方" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> 区間推定の考え方<a href="week-3推測統計学.html#区間推定の考え方" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="母集団分布に確率分布を仮定する" class="section level3 hasAnchor" number="4.6.1">
+<h3><span class="header-section-number">4.6.1</span> 母集団分布に確率分布を仮定する<a href="week-3推測統計学.html#母集団分布に確率分布を仮定する" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>母集団分布が未知の場合、母集団からある値が標本として選ばれる事象の確率が。よく知られた確率分布に従うと仮定する。</p>
+<ul>
+<li><p>統計モデル（statistical model）や確率モデル（probabilistic model）と呼ぶ</p></li>
+<li><p>よく知られたモデルとして、<strong>正規分布（normal distribution）</strong>が挙げられる</p></li>
+</ul></li>
+<li><p>適切な確率モデルを設定しなければ、そこから算出したデータは正確ではない。</p>
+<ul>
+<li><p>ある程度大きいデータを取り、そのヒストグラムを描画して形状を確認する</p></li>
+<li><p>データの発生メカニズムから選ぶ</p>
+<ul>
+<li>例. 反応速度は対数正規分布で近似する、発生確率の低い出来事はポワソン分布に近似する</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="正規分布の性質" class="section level3 hasAnchor" number="4.6.2">
+<h3><span class="header-section-number">4.6.2</span> 正規分布の性質<a href="week-3推測統計学.html#正規分布の性質" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>確率分布は形状を決めるパラメータがある。</p></li>
+<li><p>正規分布のパラメータ：平均（確率分布の位置） + 分散（確率分布の広がり）</p>
+<ul>
+<li>期待値（Expected value）：確率分布の平均値のこと</li>
+</ul></li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<ul>
+<li><p>確率変数が離散的な値をとる場合、確率変数の実現値と確率は一対一対応している（例 1か0のデータ）。</p>
+<ul>
+<li><p>例）下記図のように10回繰り返した場合、</p>
+<ul>
+<li><p>成功数（5回） =&gt; 確率10%</p></li>
+<li><p>成功数（6回） =&gt; 確率20%</p></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<ul>
+<li>確率変数が連続的な値をとる場合、実現値の値ではなく、その<strong>範囲と確率</strong>が対応する。つまり、確率分布の<strong>面積が確率と対応する</strong>（数値積分をして求めないといけない）。</li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<ul>
+<li>積分する関数<code>integrate</code>を用いて、平均0、分散1の正規分布の実現値が0から1の範囲を求める。その結果はおよそ34.1%になる。</li>
+</ul>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="week-3推測統計学.html#cb90-1" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">integrate</span>(<span class="at">f =</span> dnorm, <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## 0.3413447 with absolute error &lt; 3.8e-15</code></pre>
+<div class="infobox">
+<p>absolute errorは、計算における誤差です。<code>integrate</code>関数は<strong>数値積分</strong>を行いますが、この方法で積分された結果は理論上正しい結果とズレ（誤差）があります。このズレが正負無視してどれくらいあるかの数値です。</p>
+</div>
+<ul>
+<li><p>平均値 ± <strong>1.96</strong> × 標準偏差で、標本分布の95%の範囲になる。</p></li>
+<li><p>白い部分は二か所合わせてデータの5%</p></li>
+</ul>
+<pre><code>## [1] 2.055362</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-50-1.png" width="672" />
+- <code>mean(density_data$x) ± 1.96</code>となっているのは、標準偏差が1であるため。</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="week-3推測統計学.html#cb93-1" tabindex="-1"></a><span class="fu">integrate</span>(<span class="at">f =</span> dnorm, <span class="at">lower =</span> <span class="fu">mean</span>(density_data<span class="sc">$</span>x) <span class="sc">-</span> <span class="fl">1.96</span>, <span class="at">upper =</span> <span class="fu">mean</span>(density_data<span class="sc">$</span>x) <span class="sc">+</span> <span class="fl">1.96</span>)</span></code></pre></div>
+<pre><code>## 0.9489619 with absolute error &lt; 9.2e-12</code></pre>
+</div>
+<div id="確率モデルを用いた推定" class="section level3 hasAnchor" number="4.6.3">
+<h3><span class="header-section-number">4.6.3</span> 確率モデルを用いた推定<a href="week-3推測統計学.html#確率モデルを用いた推定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>適切な確率モデルが設定されているとき</strong>、母数を推定することは、確率モデルのパラメータがどのような値であるかを推測することと同じ。</li>
+</ul>
+</div>
+<div id="正規分布モデルにおける標本平均の標本分布" class="section level3 hasAnchor" number="4.6.4">
+<h3><span class="header-section-number">4.6.4</span> 正規分布モデルにおける標本平均の標本分布<a href="week-3推測統計学.html#正規分布モデルにおける標本平均の標本分布" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p><strong>標準誤差（Standard Error: <em>SE</em>）</strong></p>
+<ul>
+<li>標本分布の標準偏差</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+SE = \frac{\sigma}{\sqrt{n}}
+\]</span></p>
+<ul>
+<li><p><em>n</em> = 標本サイズ</p>
+<ul>
+<li>標本サイズが大きいほど標準誤差は小さくなり、標本平均は母平均に近づく（分母に標本サイズ）</li>
+</ul></li>
+</ul>
+</div>
+<div id="区間推定" class="section level3 hasAnchor" number="4.6.5">
+<h3><span class="header-section-number">4.6.5</span> 区間推定<a href="week-3推測統計学.html#区間推定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p><strong>点推定（point estimation）</strong>：平均値のように1つの値によって母数（母平均など）を推定すること</p>
+<ul>
+<li>標本サイズがどれだけ大きくても、標本平均は確率的に変動するため、ずばり母数を当てることは難しい</li>
+</ul></li>
+</ul>
+<div id="信頼区間" class="section level4 hasAnchor" number="4.6.5.1">
+<h4><span class="header-section-number">4.6.5.1</span> 信頼区間<a href="week-3推測統計学.html#信頼区間" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p><strong>区間推定（interval estimation）</strong>：区間による推定を行うこと</p>
+<ul>
+<li><p>必ずこの区間に当てはまることは主張できない。そのため、区間推定では、<strong>信頼度（degree of confidence）</strong>を設定する。これを<strong>信頼区間（confidence interval）</strong>という。</p>
+<ul>
+<li>言語研究の分野では95%が一般的</li>
+</ul></li>
+</ul></li>
+</ul>
+<div id="母分散を事前に知っている場合" class="section level5 hasAnchor" number="4.6.5.1.1">
+<h5><span class="header-section-number">4.6.5.1.1</span> 母分散を事前に知っている場合<a href="week-3推測統計学.html#母分散を事前に知っている場合" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<ul>
+<li><p>標本サイズは25、標本平均99.46、母分散は4を例とする。よって標準誤差は0.4。</p>
+<ul>
+<li><p>「得られた標本統計量が95%の信頼度で否定されない母数の範囲」を考える =&gt; 標本平均99.46が95%上限ぎりぎりになるような母数と、95%下限ぎりぎりになるような母数の範囲。上記で扱ったように、面積の95%を塗りつぶすには、平均値から ± 1.96 × 標準偏差すればよい。</p></li>
+<li><p>下限：99.46 - 1.96 × 0.4 = 98.68</p></li>
+<li><p>上限：99.46 + 1.96 × 0.4 = 100.24</p>
+<ul>
+<li>下記の図の赤い点線の内側の範囲が95%信頼区間
+<img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="672" /></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="母分散を知らない場合" class="section level5 hasAnchor" number="4.6.5.1.2">
+<h5><span class="header-section-number">4.6.5.1.2</span> 母分散を知らない場合<a href="week-3推測統計学.html#母分散を知らない場合" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<ul>
+<li><p>母分散が分からない場合の母平均の推定方法を扱う。現実的に、母分散が分かっていることはほとんどない。</p></li>
+<li><p>母分散が分からない場合、上記の算出法では母平均の区間推定はできない。従って、母分散に依存しない統計量の計算が必要となる</p></li>
+</ul>
+<div id="t-値を用いた信頼区間の計算" class="section level6 hasAnchor" number="4.6.5.1.2.1">
+<h6><span class="header-section-number">4.6.5.1.2.1</span> <em>t</em> 値を用いた信頼区間の計算<a href="week-3推測統計学.html#t-値を用いた信頼区間の計算" class="anchor-section" aria-label="Anchor link to header"></a></h6>
+<ul>
+<li><strong><em>t</em> 値</strong>：下記の式から算出できる値。<em>t</em>分布に従う。</li>
+</ul>
+<p><span class="math display">\[
+t = \frac{\bar{x} - \mu}{\frac{u^2}{\sqrt{n}}}
+\]</span></p>
+<ul>
+<li><p><em>t</em>分布には、<strong>自由度（degree of freedom）</strong>と呼ばれるパラメータがある。<em>t</em>分布の自由度は、標本サイズによって変わる。自由度は、 <em>n</em> - 1で計算できる。</p></li>
+<li><p>自由度が100くらいになると、標準正規分布（平均0, 標準偏差1の正規分布）と同じような形になる。</p></li>
+<li><p>母平均が分からない場合、上記の<em>t</em>値を計算することはできない。しかし、母平均の信頼区間を求める場合、<em>t</em>分布の95%の面積にああるような範囲を考えればいい。自由度25の時、上側と下側それぞれ2.5%（5% ÷ 2）となるような<em>t</em>値を求める（表から値を探したりして値を見つける）。</p></li>
+<li><p>Rの標準的な関数で求めることも可能</p></li>
+</ul>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="week-3推測統計学.html#cb95-1" tabindex="-1"></a><span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> <span class="dv">24</span>)</span></code></pre></div>
+<pre><code>## [1] 2.063899</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="week-3推測統計学.html#cb97-1" tabindex="-1"></a><span class="fu">qt</span>(.<span class="dv">025</span>, <span class="at">df =</span> <span class="dv">24</span>)</span></code></pre></div>
+<pre><code>## [1] -2.063899</code></pre>
+<p>以下の式をもとに算出する</p>
+<p><span class="math display">\[
+\left( \bar{x} - t_{\alpha/2, \, n-1} \cdot \frac{u^2}{\sqrt{n}}, \quad \bar{x} + t_{\alpha/2, \, n-1} \cdot \frac{u^2}{\sqrt{n}} \right)
+\]</span></p>
+<ul>
+<li><em>u^2</em>は不偏分散であり、以下の式で求められる。自由度25、標準偏差が2.24の場合、<em>n</em>に25、<em>S</em>に2.24を代入する。しかし、標本サイズが大きいときはほとんど同じ値になるため、実用上標本分散を用いることもある。</li>
+</ul>
+<p><span class="math display">\[
+s^2 = \frac{1}{n-1}S^2
+\]</span></p>
+<ul>
+<li><p>上限：99.46 + 2.06 * sqrt{}</p></li>
+<li><p>下限：99.46 - 2.06 * sqrt{}</p>
+<ul>
+<li>98.52 - 100.40の間に母平均があると推定された</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="rの関数で95信頼区間を求める" class="section level2 hasAnchor" number="4.7">
+<h2><span class="header-section-number">4.7</span> Rの関数で95%信頼区間を求める<a href="week-3推測統計学.html#rの関数で95信頼区間を求める" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="week-3推測統計学.html#cb99-1" tabindex="-1"></a>gmodels<span class="sc">::</span><span class="fu">ci</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<pre><code>## Warning in ci.numeric(mtcars$mpg): No class or unkown class.  Using default
+## calcuation.</code></pre>
+<pre><code>##   Estimate   CI lower   CI upper Std. Error 
+##  20.090625  17.917679  22.263571   1.065424</code></pre>
+<ul>
+<li>ci関数と一致した</li>
+</ul>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="week-3推測統計学.html#cb102-1" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg) <span class="sc">+</span> <span class="fu">qt</span>(<span class="at">df =</span> (<span class="fu">nrow</span>(mtcars)<span class="sc">-</span><span class="dv">1</span>), .<span class="dv">025</span>) <span class="sc">*</span> <span class="fu">sd</span>(mtcars<span class="sc">$</span>mpg)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(mtcars))</span></code></pre></div>
+<pre><code>## [1] 17.91768</code></pre>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="week-3推測統計学.html#cb104-1" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg) <span class="sc">+</span> <span class="fu">qt</span>(<span class="at">df =</span> (<span class="fu">nrow</span>(mtcars)<span class="sc">-</span><span class="dv">1</span>), .<span class="dv">975</span>) <span class="sc">*</span> <span class="fu">sd</span>(mtcars<span class="sc">$</span>mpg)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">nrow</span>(mtcars))</span></code></pre></div>
+<pre><code>## [1] 22.26357</code></pre>
+<div class="infobox">
+<p><strong>不偏分散の不偏とは</strong>
+　推測統計学では<strong>一致性（consistency）</strong>、<strong>不偏性（unbiasedness）</strong>、<strong>有効性（efficiency）</strong>という概念が重要となります。詳しい説明は別の機会に行いますが、不偏分散は不偏性をもつ推定量のことを表します。不偏性とは推定量の期待値が母数と一致する性質になります。標本平均は不偏推定量ですが、標本分散、標本標準偏差は不偏推定量ではありません。つまり、母分散と標本分散にはズレが存在します。このズレを調節するため、n - 1で偏差二乗和を割っています（割る数が-1だけ減るので、標本分散より少し大きくなる）。</p>
+</div>
+</div>
+<div id="ハンズオンセッション-1" class="section level2 hasAnchor" number="4.8">
+<h2><span class="header-section-number">4.8</span> ハンズオンセッション<a href="week-3推測統計学.html#ハンズオンセッション-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="データの読み込み" class="section level3 hasAnchor" number="4.8.1">
+<h3><span class="header-section-number">4.8.1</span> データの読み込み<a href="week-3推測統計学.html#データの読み込み" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>先週の講義で配布。</li>
+</ul>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="week-3推測統計学.html#cb106-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/pokemon_data.csv&quot;</span>)</span></code></pre></div>
+<div id="データの中身を確認" class="section level4 hasAnchor" number="4.8.1.1">
+<h4><span class="header-section-number">4.8.1.1</span> データの中身を確認<a href="week-3推測統計学.html#データの中身を確認" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="week-3推測統計学.html#cb107-1" tabindex="-1"></a><span class="fu">summary</span>(dat)</span></code></pre></div>
+<pre><code>##        id          名前             タイプ1               高さ       
+##  Min.   :  1   Length:897         Length:897         Min.   : 0.100  
+##  1st Qu.:225   Class :character   Class :character   1st Qu.: 0.500  
+##  Median :449   Mode  :character   Mode  :character   Median : 1.000  
+##  Mean   :449                                         Mean   : 1.186  
+##  3rd Qu.:673                                         3rd Qu.: 1.500  
+##  Max.   :897                                         Max.   :20.000  
+##       重さ             世代         ステータス          HP     
+##  Min.   :  0.10   Min.   :1.000   Min.   :175.0   Min.   :  1  
+##  1st Qu.:  8.50   1st Qu.:2.000   1st Qu.:320.0   1st Qu.: 50  
+##  Median : 27.00   Median :4.000   Median :440.0   Median : 65  
+##  Mean   : 64.03   Mean   :4.143   Mean   :422.9   Mean   : 69  
+##  3rd Qu.: 65.00   3rd Qu.:6.000   3rd Qu.:500.0   3rd Qu.: 80  
+##  Max.   :999.90   Max.   :8.000   Max.   :720.0   Max.   :255  
+##     こうげき         ぼうぎょ         とくこう         とくぼう     
+##  Min.   :  5.00   Min.   :  5.00   Min.   : 10.00   Min.   : 20.00  
+##  1st Qu.: 55.00   1st Qu.: 50.00   1st Qu.: 46.00   1st Qu.: 50.00  
+##  Median : 75.00   Median : 67.00   Median : 65.00   Median : 65.00  
+##  Mean   : 76.54   Mean   : 71.88   Mean   : 69.67   Mean   : 69.87  
+##  3rd Qu.: 95.00   3rd Qu.: 90.00   3rd Qu.: 90.00   3rd Qu.: 85.00  
+##  Max.   :181.00   Max.   :230.00   Max.   :173.00   Max.   :230.00  
+##     すばやさ       捕まえやすさ         進化         画像URL         
+##  Min.   :  5.00   Min.   :  3.00   Min.   :0.000   Length:897        
+##  1st Qu.: 45.00   1st Qu.: 45.00   1st Qu.:1.000   Class :character  
+##  Median : 65.00   Median : 60.00   Median :1.000   Mode  :character  
+##  Mean   : 65.93   Mean   : 97.85   Mean   :1.418                     
+##  3rd Qu.: 85.00   3rd Qu.:150.00   3rd Qu.:2.000                     
+##  Max.   :200.00   Max.   :255.00   Max.   :3.000</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="week-3推測統計学.html#cb109-1" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
+<pre><code>##   id       名前 タイプ1 高さ  重さ 世代 ステータス HP こうげき ぼうぎょ
+## 1  1 フシギダネ    くさ  0.7   6.9    1        318 45       49       49
+## 2  2 フシギソウ    くさ  1.0  13.0    1        405 60       62       63
+## 3  3 フシギバナ    くさ  2.0 100.0    1        525 80       82       83
+## 4  4   ヒトカゲ  ほのお  0.6   8.5    1        309 39       52       43
+## 5  5   リザード  ほのお  1.1  19.0    1        405 58       64       58
+## 6  6 リザードン  ほのお  1.7  90.5    1        534 78       84       78
+##   とくこう とくぼう すばやさ 捕まえやすさ 進化
+## 1       65       65       45           45    1
+## 2       80       80       60           45    2
+## 3      100      100       80           45    3
+## 4       60       50       65           45    1
+## 5       80       65       80           45    2
+## 6      109       85      100           45    3
+##                                                                                                 画像URL
+## 1 https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png
+## 2 https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png
+## 3 https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png
+## 4 https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png
+## 5 https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/5.png
+## 6 https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png</code></pre>
+</div>
+</div>
+<div id="確率分布を選ぶ" class="section level3 hasAnchor" number="4.8.2">
+<h3><span class="header-section-number">4.8.2</span> 確率分布を選ぶ<a href="week-3推測統計学.html#確率分布を選ぶ" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="データの可視化-1" class="section level4 hasAnchor" number="4.8.2.1">
+<h4><span class="header-section-number">4.8.2.1</span> データの可視化<a href="week-3推測統計学.html#データの可視化-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="week-3推測統計学.html#cb111-1" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>こうげき)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
+</div>
+<div id="正規分布をあてはめてみる" class="section level4 hasAnchor" number="4.8.2.2">
+<h4><span class="header-section-number">4.8.2.2</span> 正規分布をあてはめてみる<a href="week-3推測統計学.html#正規分布をあてはめてみる" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="week-3推測統計学.html#cb112-1" tabindex="-1"></a><span class="co"># x軸の範囲を決定</span></span>
+<span id="cb112-2"><a href="week-3推測統計学.html#cb112-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(dat<span class="sc">$</span>こうげき), <span class="fu">max</span>(dat<span class="sc">$</span>こうげき), <span class="at">length.out =</span> <span class="fu">nrow</span>(dat)) </span>
+<span id="cb112-3"><a href="week-3推測統計学.html#cb112-3" tabindex="-1"></a><span class="co">#min(dat$こうげき) から max(dat$こうげき) まで、データの数 (nrow(dat)) だけ 等間隔 に区切った値を x に入れる。これを使って、なめらかな曲線を描画するための基準点を作る</span></span>
+<span id="cb112-4"><a href="week-3推測統計学.html#cb112-4" tabindex="-1"></a></span>
+<span id="cb112-5"><a href="week-3推測統計学.html#cb112-5" tabindex="-1"></a><span class="co"># ヒストグラムを確率密度で描画</span></span>
+<span id="cb112-6"><a href="week-3推測統計学.html#cb112-6" tabindex="-1"></a><span class="fu">hist</span>(dat<span class="sc">$</span>こうげき, <span class="at">probability =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb112-7"><a href="week-3推測統計学.html#cb112-7" tabindex="-1"></a><span class="co">#probability = TRUE を指定すると、ヒストグラムの y軸が「確率密度」になる。分布をあてはめるときは、この設定をしないと当てはまらない。デフォルト（probability = FALSE）では「度数」（データの数）になる</span></span>
+<span id="cb112-8"><a href="week-3推測統計学.html#cb112-8" tabindex="-1"></a></span>
+<span id="cb112-9"><a href="week-3推測統計学.html#cb112-9" tabindex="-1"></a><span class="co"># 正規分布の確率密度関数を描画</span></span>
+<span id="cb112-10"><a href="week-3推測統計学.html#cb112-10" tabindex="-1"></a><span class="co">#「データの分布が もし正規分布に従っていたら どんな形になるか？」を、ヒストグラムの上に描く。</span></span>
+<span id="cb112-11"><a href="week-3推測統計学.html#cb112-11" tabindex="-1"></a><span class="co">#dnorm() は 正規分布 の確率密度関数を計算する。</span></span>
+<span id="cb112-12"><a href="week-3推測統計学.html#cb112-12" tabindex="-1"></a><span class="co">#平均 (mean(dat$こうげき)) と 標準偏差 (sd(dat$こうげき)) を使って 「理想的な正規分布」 の形を作る。lwd = 2で線の太さを少し太くする</span></span>
+<span id="cb112-13"><a href="week-3推測統計学.html#cb112-13" tabindex="-1"></a><span class="fu">lines</span>(x, <span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="fu">mean</span>(dat<span class="sc">$</span>こうげき), <span class="at">sd =</span> <span class="fu">sd</span>(dat<span class="sc">$</span>こうげき)), <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
+</div>
+</div>
+<div id="母分散未知の母平均の95信頼区間を求める" class="section level3 hasAnchor" number="4.8.3">
+<h3><span class="header-section-number">4.8.3</span> 母分散未知の母平均の95%信頼区間を求める<a href="week-3推測統計学.html#母分散未知の母平均の95信頼区間を求める" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>母平均を得られたデータから推定しよう</p>
+<ul>
+<li><p>ポケモンのデータを読み込み、ci関数とqt関数で95%信頼区間求めてみよう。</p>
+<ul>
+<li>qt関数では、<em>t</em>値を使い、式を作って計算する必要があります</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="ci関数" class="section level3 hasAnchor" number="4.8.4">
+<h3><span class="header-section-number">4.8.4</span> ci関数<a href="week-3推測統計学.html#ci関数" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>今回の警告メッセージは無視してOK（<a href="https://stackoverflow.com/questions/64507040/calculating-confidence-interval-using-ci-function">参考</a>）</li>
+</ul>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="week-3推測統計学.html#cb113-1" tabindex="-1"></a><span class="co">#install.packages(&quot;gmodels&quot;)</span></span>
+<span id="cb113-2"><a href="week-3推測統計学.html#cb113-2" tabindex="-1"></a><span class="fu">library</span>(gmodels)</span></code></pre></div>
+<pre><code>## Warning: package &#39;gmodels&#39; was built under R version 4.3.3</code></pre>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="week-3推測統計学.html#cb115-1" tabindex="-1"></a><span class="fu">ci</span>(dat<span class="sc">$</span>こうげき)</span></code></pre></div>
+<pre><code>## Warning in ci.numeric(dat$こうげき): No class or unkown class.  Using default
+## calcuation.</code></pre>
+<pre><code>##   Estimate   CI lower   CI upper Std. Error 
+## 76.5406912 74.5956429 78.4857395  0.9910493</code></pre>
+</div>
+<div id="qt関数" class="section level3 hasAnchor" number="4.8.5">
+<h3><span class="header-section-number">4.8.5</span> qt関数<a href="week-3推測統計学.html#qt関数" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>必要なパーツ：平均値、<em>t</em>値、標本標準偏差（本当は<span class="math inline">\(\sqrt{\text{不偏分散}}\)</span> = 不偏標準偏差）、サンプル数</p>
+<ul>
+<li>sd関数は、標準偏差を算出する関数だが、分母をn-1した値を返している（= 不偏標準偏差）</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="week-3推測統計学.html#cb118-1" tabindex="-1"></a>n <span class="ot">&lt;-</span>  <span class="fu">nrow</span>(dat) <span class="co">#サンプル数</span></span>
+<span id="cb118-2"><a href="week-3推測統計学.html#cb118-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">mean</span>(dat<span class="sc">$</span>こうげき) <span class="co">#平均値</span></span>
+<span id="cb118-3"><a href="week-3推測統計学.html#cb118-3" tabindex="-1"></a>t_value <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>, .<span class="dv">975</span>) <span class="co">#t値</span></span>
+<span id="cb118-4"><a href="week-3推測統計学.html#cb118-4" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(dat<span class="sc">$</span>こうげき)<span class="co">#標本標準偏差</span></span>
+<span id="cb118-5"><a href="week-3推測統計学.html#cb118-5" tabindex="-1"></a></span>
+<span id="cb118-6"><a href="week-3推測統計学.html#cb118-6" tabindex="-1"></a>lower <span class="ot">&lt;-</span> m <span class="sc">-</span> t_value <span class="sc">*</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n) <span class="co">#下限</span></span>
+<span id="cb118-7"><a href="week-3推測統計学.html#cb118-7" tabindex="-1"></a>upper <span class="ot">&lt;-</span> m <span class="sc">+</span> t_value <span class="sc">*</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n) <span class="co">#上限</span></span>
+<span id="cb118-8"><a href="week-3推測統計学.html#cb118-8" tabindex="-1"></a></span>
+<span id="cb118-9"><a href="week-3推測統計学.html#cb118-9" tabindex="-1"></a>lower</span></code></pre></div>
+<pre><code>## [1] 74.59564</code></pre>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="week-3推測統計学.html#cb120-1" tabindex="-1"></a>upper</span></code></pre></div>
+<pre><code>## [1] 78.48574</code></pre>
+<ul>
+<li>下限はこっちでも同じ値になる</li>
+</ul>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="week-3推測統計学.html#cb122-1" tabindex="-1"></a>t_value_low <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="at">df =</span> n <span class="sc">-</span><span class="dv">1</span>, .<span class="dv">025</span>)</span>
+<span id="cb122-2"><a href="week-3推測統計学.html#cb122-2" tabindex="-1"></a>lower2 <span class="ot">&lt;-</span> m <span class="sc">+</span> t_value_low <span class="sc">*</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb122-3"><a href="week-3推測統計学.html#cb122-3" tabindex="-1"></a></span>
+<span id="cb122-4"><a href="week-3推測統計学.html#cb122-4" tabindex="-1"></a>lower2</span></code></pre></div>
+<pre><code>## [1] 74.59564</code></pre>
+</div>
+</div>
+<div id="次週までの課題-2" class="section level2 hasAnchor" number="4.9">
+<h2><span class="header-section-number">4.9</span> 次週までの課題<a href="week-3推測統計学.html#次週までの課題-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="課題内容-2" class="section level3 hasAnchor" number="4.9.1">
+<h3><span class="header-section-number">4.9.1</span> 課題内容<a href="week-3推測統計学.html#課題内容-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
 <li><p>小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。</p></li>
-<li><p>（宿題を考える）</p></li>
+<li><p>下記のデータをもとに、どの指標でもよいので、以下の内容を含めること。ただし、データには連続と離散のデータがあることに注意。また、ポケモンidの箱ひげ図を求めても意味がないなど、データの特徴を踏まえて分析すること。</p></li>
 </ol>
 <ul>
-<li><p>ハンズオンセッションで使用したデータを基にサムコントラストで分析をしてみましょう</p></li>
-<li><p><strong>Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。</strong></p></li>
+<li><p>データ内のどの変数（こうげき、ぼうぎょなど）でもよいので、箱ひげ図とヒストグラムでデータを可視化する</p></li>
+<li><p>ヒストグラムに正規分布をあてはめた図を描画する</p></li>
+<li><p>ci関数とqt関数でこうげき以外の変数の95%信頼区間を算出する</p>
+<ul>
+<li>どちらの関数も値は一致します</li>
+</ul></li>
+<li><p><strong>データの詳細は前の章の「次週までの課題」セクションを参照</strong></p></li>
 </ul>
 </div>
-<div id="提出方法-9" class="section level3 hasAnchor" number="12.7.2">
-<h3><span class="header-section-number">12.7.2</span> 提出方法<a href="week11-階層モデル.html#提出方法-9" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="提出方法-1" class="section level3 hasAnchor" number="4.9.2">
+<h3><span class="header-section-number">4.9.2</span> 提出方法<a href="week-3推測統計学.html#提出方法-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>メールにファイルを添付して送信。</li>
-<li>締め切りは今週の木曜日まで</li>
+<li>R Markdownファイルで作成し、HTMLファイルに変換しTACTへ提出</li>
+<li>締め切りは今週の木曜日23:59まで</li>
 </ul>
 </div>
 </div>
-<div id="参考文献-10" class="section level2 hasAnchor" number="12.8">
-<h2><span class="header-section-number">12.8</span> 参考文献<a href="week11-階層モデル.html#参考文献-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="参考文献-2" class="section level2 hasAnchor" number="4.10">
+<h2><span class="header-section-number">4.10</span> 参考文献<a href="week-3推測統計学.html#参考文献-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>外国語教育ハンドブック</li>
-<li>Brysbaert, M. (2025). Applying Mixed-Effects Models in Research on Second Language Acquisition: A Tutorial for Beginners. Languages, 10(2), 20.</li>
-<li>山口剛. (2018). [心理学系] 混合効果モデルの利用: 刺激の変量効果への対処. バイオフィードバック研究, 45(2), 93-98.</li>
-<li><a href="https://qiita.com/ocean_f/items/9de4c6bc60616e5a3cf2" class="uri">https://qiita.com/ocean_f/items/9de4c6bc60616e5a3cf2</a></li>
-<li><a href="https://stats.oarc.ucla.edu/r/dae/mixed-effects-logistic-regression/" class="uri">https://stats.oarc.ucla.edu/r/dae/mixed-effects-logistic-regression/</a></li>
-<li>Terai, M., Fukuta, J., &amp; Tamura, Y. (2024). Learnability of L2 collocations and L1 influence on L2 collocational representations of Japanese learners of English. International Review of Applied Linguistics in Language Teaching, 62(4), 1959-1983.</li>
+<li>📚清水（2021）『心理学統計法 (放送大学教材 1638)』放送大学教育振興会</li>
+<li>📚平井・岡・草薙（編著）（2022） 『教育・心理系研究のためのＲによるデータ分析―論文作成への理論と実践集』東京図書</li>
+<li>💻<a href="https://smart-hint.com/poke-data/introduction/#%E3%83%9D%E3%82%B1%E3%83%A2%E3%83%B3%E3%83%87%E3%83%BC%E3%82%BF%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%83%87%E3%83%BC%E3%82%BF%E5%88%86%E6%9E%90%E3%82%92%E5%AD%A6%E3%81%B6">ポケモンで学ぶデータ分析｜データの中身を知ろう</a></li>
 </ul>
 <style>
 .infobox {
@@ -728,16 +869,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 .caution {
   background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
-
-p.comment {
-background-color: #DBDBDB;
-padding: 10px;
-border: 1px solid black;
-margin-left: 25px;
-border-radius: 5px;
-font-style: italic;
-}
-
+  
 </style>
 
 </div>
@@ -747,8 +879,8 @@ font-style: italic;
           </div>
         </div>
       </div>
-<a href="week10-一般化線形モデルロジスティック回帰分析.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="week-12-効果量と検定力分析.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="week-2要約統計量.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="統計的検定.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -779,7 +911,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/11-Week11_GLMM.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-week3.Rmd",
 "text": "Edit"
 },
 "history": {

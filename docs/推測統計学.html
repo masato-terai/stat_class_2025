@@ -520,39 +520,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>期待値（Expected value）：確率分布の平均値のこと</li>
 </ul></li>
 </ul>
-<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-## ℹ Please use `linewidth` instead.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
 <ul>
-<li>確率変数が離散的な値をとる場合、確率変数の実現値ろと確率は一対一対応している（例 1か0のデータ）。</li>
+<li><p>確率変数が離散的な値をとる場合、確率変数の実現値と確率は一対一対応している（例 1か0のデータ）。</p>
+<ul>
+<li><p>例）下記図のように10回繰り返した場合、</p>
+<ul>
+<li><p>成功数（5回） =&gt; 確率10%</p></li>
+<li><p>成功数（6回） =&gt; 確率20%</p></li>
+</ul></li>
+</ul></li>
 </ul>
-<pre><code>## Warning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.
-## ℹ Please use `after_stat(density)` instead.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
 <ul>
-<li>確率変数が連続的な値をとる場合、実現値の値ではなく、その<strong>範囲と確率</strong>が対応する。つまり、確率分布の面積が確率と対応する（数値積分をして求めないといけない）。</li>
+<li>確率変数が連続的な値をとる場合、実現値の値ではなく、その<strong>範囲と確率</strong>が対応する。つまり、確率分布の<strong>面積が確率と対応する</strong>（数値積分をして求めないといけない）。</li>
 </ul>
 <p><img src="_main_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="推測統計学.html#cb92-1" tabindex="-1"></a><span class="fu">integrate</span>(<span class="at">f =</span> dnorm, <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>)</span></code></pre></div>
-<pre><code>## 0.3413447 with absolute error &lt; 3.8e-15</code></pre>
 <ul>
-<li>平均値 ± <strong>1.96</strong> × 標準偏差で、標本分布の95%の範囲になる。</li>
-<li>白い部分は二か所合わせてデータの5%</li>
+<li>積分する関数<code>integrate</code>を用いて、平均0、分散1の正規分布の実現値が0から1の範囲を求める。その結果はおよそ34.1%になる。</li>
 </ul>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="推測統計学.html#cb90-1" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">integrate</span>(<span class="at">f =</span> dnorm, <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## 0.3413447 with absolute error &lt; 3.8e-15</code></pre>
+<div class="infobox">
+<p>absolute errorは、計算における誤差です。<code>integrate</code>関数は<strong>数値積分</strong>を行いますが、この方法で積分された結果は理論上正しい結果とズレ（誤差）があります。このズレが正負無視してどれくらいあるかの数値です。</p>
+</div>
+<ul>
+<li><p>平均値 ± <strong>1.96</strong> × 標準偏差で、標本分布の95%の範囲になる。</p></li>
+<li><p>白い部分は二か所合わせてデータの5%</p></li>
+</ul>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="推測統計学.html#cb92-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb92-2"><a href="推測統計学.html#cb92-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100000</span>  <span class="co"># 乱数の個数</span></span>
+<span id="cb92-3"><a href="推測統計学.html#cb92-3" tabindex="-1"></a></span>
+<span id="cb92-4"><a href="推測統計学.html#cb92-4" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">value =</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>))</span>
+<span id="cb92-5"><a href="推測統計学.html#cb92-5" tabindex="-1"></a></span>
+<span id="cb92-6"><a href="推測統計学.html#cb92-6" tabindex="-1"></a><span class="co"># 密度推定</span></span>
+<span id="cb92-7"><a href="推測統計学.html#cb92-7" tabindex="-1"></a>density_data <span class="ot">&lt;-</span> <span class="fu">density</span>(data<span class="sc">$</span>value)</span>
+<span id="cb92-8"><a href="推測統計学.html#cb92-8" tabindex="-1"></a>density_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> density_data<span class="sc">$</span>x, <span class="at">y =</span> density_data<span class="sc">$</span>y)</span>
+<span id="cb92-9"><a href="推測統計学.html#cb92-9" tabindex="-1"></a></span>
+<span id="cb92-10"><a href="推測統計学.html#cb92-10" tabindex="-1"></a><span class="fu">mean</span>(density_data<span class="sc">$</span>x) <span class="sc">+</span> <span class="fl">1.96</span></span></code></pre></div>
 <pre><code>## [1] 2.055362</code></pre>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="推測統計学.html#cb94-1" tabindex="-1"></a><span class="co"># ggplotで描画</span></span>
+<span id="cb94-2"><a href="推測統計学.html#cb94-2" tabindex="-1"></a><span class="fu">ggplot</span>(density_df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb94-3"><a href="推測統計学.html#cb94-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span>  <span class="co"># 密度曲線</span></span>
+<span id="cb94-4"><a href="推測統計学.html#cb94-4" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> <span class="fu">subset</span>(density_df, x <span class="sc">&gt;=</span> <span class="fu">mean</span>(density_data<span class="sc">$</span>x) <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">&amp;</span> x <span class="sc">&lt;=</span> <span class="fu">mean</span>(density_data<span class="sc">$</span>x) <span class="sc">+</span> <span class="fl">1.96</span>), </span>
+<span id="cb94-5"><a href="推測統計学.html#cb94-5" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> y), </span>
+<span id="cb94-6"><a href="推測統計学.html#cb94-6" tabindex="-1"></a>              <span class="at">fill =</span> <span class="st">&quot;skyblue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span>  <span class="co"># xが0から1の範囲を塗りつぶし</span></span>
+<span id="cb94-7"><a href="推測統計学.html#cb94-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;青で塗られているのは分布の95%&quot;</span>,</span>
+<span id="cb94-8"><a href="推測統計学.html#cb94-8" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Value&quot;</span>,</span>
+<span id="cb94-9"><a href="推測統計学.html#cb94-9" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>) <span class="sc">+</span></span>
+<span id="cb94-10"><a href="推測統計学.html#cb94-10" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-50-1.png" width="672" />
-- mean(density_data$x) ± 1.96となっているのは、標準偏差が1であるため。</p>
+- <code>mean(density_data$x) ± 1.96</code>となっているのは、標準偏差が1であるため。</p>
 <div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="推測統計学.html#cb95-1" tabindex="-1"></a><span class="fu">integrate</span>(<span class="at">f =</span> dnorm, <span class="at">lower =</span> <span class="fu">mean</span>(density_data<span class="sc">$</span>x) <span class="sc">-</span> <span class="fl">1.96</span>, <span class="at">upper =</span> <span class="fu">mean</span>(density_data<span class="sc">$</span>x) <span class="sc">+</span> <span class="fl">1.96</span>)</span></code></pre></div>
 <pre><code>## 0.9489619 with absolute error &lt; 9.2e-12</code></pre>
 </div>
 <div id="確率モデルを用いた推定" class="section level3 hasAnchor" number="4.6.3">
 <h3><span class="header-section-number">4.6.3</span> 確率モデルを用いた推定<a href="推測統計学.html#確率モデルを用いた推定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>適切な確率モデルが設定されているとき、母数を推定することは、確率モデルのパラメータがどのような値であるかを推測することと同じ。</li>
+<li><strong>適切な確率モデルが設定されているとき</strong>、母数を推定することは、確率モデルのパラメータがどのような値であるかを推測することと同じ。</li>
 </ul>
 </div>
 <div id="正規分布モデルにおける標本平均の標本分布" class="section level3 hasAnchor" number="4.6.4">
@@ -563,7 +588,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>標本分布の標準偏差</li>
 </ul></li>
 </ul>
-<p>SE=</p>
+<p><span class="math display">\[
+SE = \frac{\sigma}{\sqrt{n}}
+\]</span></p>
 <ul>
 <li><p><em>n</em> = 標本サイズ</p>
 <ul>
