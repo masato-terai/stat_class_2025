@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Week 1: オリエンテーション、R(Studio)のインストールと操作、R Markdown | 言語統計処理（春学期）</title>
-  <meta name="description" content="Chapter 2 Week 1: オリエンテーション、R(Studio)のインストールと操作、R Markdown | 言語統計処理（春学期）" />
+  <title>Chapter 5 Week 4: 統計的検定 | 言語統計処理（春学期）</title>
+  <meta name="description" content="Chapter 5 Week 4: 統計的検定 | 言語統計処理（春学期）" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Week 1: オリエンテーション、R(Studio)のインストールと操作、R Markdown | 言語統計処理（春学期）" />
+  <meta property="og:title" content="Chapter 5 Week 4: 統計的検定 | 言語統計処理（春学期）" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Week 1: オリエンテーション、R(Studio)のインストールと操作、R Markdown | 言語統計処理（春学期）" />
+  <meta name="twitter:title" content="Chapter 5 Week 4: 統計的検定 | 言語統計処理（春学期）" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="week-2要約統計量.html"/>
+<link rel="prev" href="week-3推測統計学.html"/>
+<link rel="next" href="week5-相関分析.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -364,8 +364,524 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="week-1-オリエンテーションrstudioのインストールと操作r-markdown" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">Chapter 2</span> Week 1: オリエンテーション、R(Studio)のインストールと操作、R Markdown<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#week-1-オリエンテーションrstudioのインストールと操作r-markdown" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="week-4-統計的検定" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Week 4: 統計的検定<a href="week-4-統計的検定.html#week-4-統計的検定" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="事前の確認-2" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> 事前の確認<a href="week-4-統計的検定.html#事前の確認-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>この講義のRプロジェクトを開いていますか？</p></li>
+<li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
+<ul>
+<li>.Rでも.Rmdでもどちらでも大丈夫です。</li>
+</ul></li>
+</ul>
+</div>
+<div id="今日の目標-2" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> 今日の目標<a href="week-4-統計的検定.html#今日の目標-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>統計的検定の論理や手順を理解できる</li>
+<li><em>t</em> 検定をRで実装し、分析結果を報告することができる</li>
+</ol>
+</div>
+<div id="統計的検定statistical-test" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> 統計的検定（statistical test）<a href="week-4-統計的検定.html#統計的検定statistical-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>母数についての推定（例「日本人の男子の平均身長は170 cmだ」）が合っているかを、統計学的に検定する</p>
+<ul>
+<li>使用する標本は、母集団から無作為抽出していることを前提にしている = 標本は母集団を代表している</li>
+</ul></li>
+<li><p>大別して2種類ある</p>
+<ul>
+<li><strong>パラメトリック検定</strong>： 母数（パラメータ）に特定の確率分布の仮定を設ける検定（例 <em>t</em> 検定、分散分析）
+<ul>
+<li>注：確率分布の形状を決める値（正規分布の平均と標準偏差など）もパラメータと呼ぶ。本講義ではパラメータは母数ではなく、確率分布を規定する値を指す。</li>
+</ul></li>
+<li><strong>ノンパラメトリック検定</strong>：母集団に特定の確率分布を仮定しない検定（例 カイ二乗検定）</li>
+</ul></li>
+</ul>
+<div id="統計的検定の論理" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> 統計的検定の論理<a href="week-4-統計的検定.html#統計的検定の論理" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>母集団からサンプリングした標本から、母数についての推定が合っているかを議論できない。しかし、確率的な範囲であれば、推定が間違っているかを確かめることができる。</p>
+<ul>
+<li>標本から計算した95%信頼区間が160 cmから167cmだった場合、母数は170cmよりも小さい（推定は誤り）</li>
+<li>標本から計算した95%信頼区間が167 cmから175cmだった場合、推定が合っているか誤りなのか分からない（信頼区間が170 cmを含んでいるから）</li>
+</ul></li>
+<li><p>推測統計学における統計的検定の論理では、「母数についての等号（ = ）の仮説」が偽であることは言えるが、正しいとは言えない。</p></li>
+<li><p>「母数の等号についての仮説」を<strong>帰無仮説（null hypothesis）</strong>と呼ぶ</p>
+<ul>
+<li><p>帰無仮説は以下のように表す（<em>H</em>はhypothesisの頭文字）<span class="math display">\[H_0: u = 170\]</span></p></li>
+<li><p>統計的検定では、帰無仮説が偽であるかを検定する。</p>
+<ul>
+<li><p><strong>背理法</strong>に似た方法であり、証明したい主張の否定の仮説を立て、得られた結果から主張できる結論が「矛盾」であることを示すことで、主張が正しいことを証明する。</p>
+<ul>
+<li>例：「世界には白いカラスがいる」と主張したい</li>
+<li>「全てのカラスは黒い」という仮説を立てる（<strong>帰無仮説</strong>）</li>
+<li>1羽でも白いカラスが見つかれば、帰無仮説は偽であり、「世界には白いカラスがいる」と主張できる。
+<ul>
+<li>仮説が偽と主張する（否定する）方が簡単</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p><strong>対立仮説</strong>：帰無仮説の否定</p></li>
+</ul>
+<p><span class="math display">\[H_1: u ≠ 170\]</span></p>
+<ul>
+<li><p>帰無仮説が否定されれば、対立仮説が真となる</p></li>
+<li><p>帰無仮説が偽であると判断できない場合、帰無仮説は保留になる（= 分からない）。</p>
+<ul>
+<li>帰無仮説は真であるということはできない。</li>
+</ul></li>
+</ul>
+</div>
+<div id="統計検定の具体的な考え方" class="section level3 hasAnchor" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> 統計検定の具体的な考え方<a href="week-4-統計的検定.html#統計検定の具体的な考え方" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>帰無仮説が正しいと仮定する。標本から計算された統計量の実現値が、標本分布から考えて<strong>十分低い</strong>確率でしか生じないような値であれば、帰無仮説が偽であると判断する</p>
+<ul>
+<li>注意点として、選んだ確率モデル（確率分布）が妥当でない場合、検定の結果も妥当ではなくなる。以下の例では、母集団からの標本抽出が正規分布で近似できるという仮定のもと行う。</li>
+</ul></li>
+<li><p>例：
+2025年度にT先生のクラス（40人）で実施された英語テストの平均点は60点であった。昨年度の平均点は55点であり、2025年度の平均点は、昨年度の平均点に比べ十分に高い得点であるかを検定する。</p>
+<ul>
+<li>帰無仮説 <em>u</em> = 55の下で、得点が平均パラメータ <em>u</em> = 50の正規分布に従うと仮定。</li>
+<li>クラス平均は60点、標準偏差は3であると分かった。</li>
+<li>母分散が分からない場合、<em>t</em> 統計量を用いる。</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[t = \frac{\overline{x} - \mu_0}{\frac{u}{\sqrt{n}}}\]</span></p>
+<ul>
+<li>上記の値を代入し、</li>
+</ul>
+<p><span class="math display">\[t = \frac{\overline{60} - 55}{\frac{3}{\sqrt{40}}}\]</span></p>
+<ul>
+<li>計算すると、 <em>t</em> = 10.54となる。このような検定のための統計量を<strong>検定統計量</strong>という。</li>
+</ul>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="week-4-統計的検定.html#cb124-1" tabindex="-1"></a>(<span class="dv">60-55</span>)<span class="sc">/</span>(<span class="dv">3</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">40</span>))</span></code></pre></div>
+<pre><code>## [1] 10.54093</code></pre>
+<ul>
+<li>自由度が39（40-1）で95%の範囲は0±2.02であるため、得られた<em>t</em>値がこの絶対値より大きいと棄却域に（青く塗られた箇所）に入ることになる。帰無仮説が真であると仮定したときの検定統計量の標本分布のことを<strong>帰無分布（null distribution）</strong>という。</li>
+<li>棄却域が占める割合を<strong>有意水準（significance level）</strong>と言い、<em>α</em>と表記する。慣例的に、両側合わせて0.05が用いられる。</li>
+</ul>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="week-4-統計的検定.html#cb126-1" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> (<span class="dv">40-1</span>))</span></code></pre></div>
+<pre><code>## [1] 2.022691</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<ul>
+<li><p>得られた<em>t</em>値は2.02よりも大きく、棄却域に入る。従って、帰無仮説が真であると考えると、非常に小さい確率でしか起きない結果が得られたという帰無仮説が真であるという仮定と矛盾した結果となっている。この場合、<strong>統計的に有意</strong>であると表現する。</p>
+<ul>
+<li>つまり、「2025年度の平均点60点は、昨年度よりも統計的に高い得点である。」と主張できる。</li>
+</ul></li>
+</ul>
+<div class="infobox">
+<p>2025年度の得点が昨年度よりも統計的有意に高いことは、<strong>全員の得点が昨年度よりも高いことを必ずしも意味しない</strong>ということに注意。比較しているのはあくまでも<strong>平均点</strong>。以下のどちらのデータでも統計的有意差が得られる。</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="week-4-統計的検定.html#cb128-1" tabindex="-1"></a><span class="fu">summary</span>(data1)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   55.00   58.33   60.27   60.16   62.08   65.36</code></pre>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="week-4-統計的検定.html#cb130-1" tabindex="-1"></a><span class="fu">summary</span>(data2)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   52.88   54.14   57.34   58.11   61.45   66.51</code></pre>
+<ul>
+<li>黒い点線は平均値55点
+<img src="_main_files/figure-html/unnamed-chunk-70-1.png" width="672" /></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="統計的検定の手順" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> 統計的検定の手順<a href="week-4-統計的検定.html#統計的検定の手順" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>確率モデルの設定</li>
+</ol>
+<ul>
+<li><p>母数について仮説を立てる。この母数は確率モデル（確率分布）のパラメータと対応しているという仮定が必要。</p>
+<ul>
+<li>先行研究の結果、得られたデータの分布などから適切な確率モデルを選ぶ必要がある</li>
+</ul></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>帰無仮説の設定</li>
+</ol>
+<ul>
+<li><p>例えば、映画を見ると英単語の学習に効果的だということを調べる場合、映画を見る群と、映画を見ない群を用意する。二つの群の平均値の差が0でなければ、映画を見ることに何らかな効果があると主張できる。この場合、以下のような帰無仮説を立てる。</p>
+<ul>
+<li>帰無仮説：二つの群の平均値差は0</li>
+</ul></li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><p>検定統計量の設定</p></li>
+<li><p>有意水準（ <em>α</em> ）の設定</p></li>
+</ol>
+<ul>
+<li><p>慣例的に言語研究の分野では5%が用いられる。</p></li>
+<li><p>帰無仮説を偽とする場合でも、最大5%程度はそれが間違えている可能性を表す。</p>
+<ul>
+<li>分析の前に決定し、結果を見て有意水準を大きくするのは、研究倫理に反するとみられる可能性が大いにある。
+<ul>
+<li>分析の前に0.05よりも大きくすることはよい。</li>
+</ul></li>
+</ul></li>
+</ul>
+<ol start="5" style="list-style-type: decimal">
+<li>検定統計量の実現値の計算</li>
+</ol>
+</div>
+<div id="統計的検定で必要な知識" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> 統計的検定で必要な知識<a href="week-4-統計的検定.html#統計的検定で必要な知識" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="p-値" class="section level3 hasAnchor" number="5.5.1">
+<h3><span class="header-section-number">5.5.1</span> <em>p</em> 値<a href="week-4-統計的検定.html#p-値" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>帰無仮説が正しいと仮定したときに、現在観察されたデータと同じか、より稀にしか起こらないようなデータが観察される確率</p>
+<ul>
+<li><em>P</em> 値はデータが観測されて初めて計算される値であり、検定を行う前に設定される有意水準とは明確に異なる概念。ただし、p 値の計算に用いられる分布は、有意水準に基づく<strong>棄却域（臨界値）</strong>の設定にも使われるため、<em>p</em> 値が有意水準を下回れば、「帰無仮説は棄却される」と判断される。</li>
+</ul></li>
+<li><p>検定統計量を変換し、有意水準と比較しやすくしたもの</p>
+<ul>
+<li>検定統計量の実現値が大きいほど<em>p</em>値は小さくなる</li>
+</ul></li>
+<li><p>上記の手順では、検定統計量の実現値と棄却域の範囲を確認して、帰無仮説が棄却されるかを判断していた。しかし、コンピュータソフトウェアでは、<em>p</em>値が表示され、この値が事前に設定した有意水準よりも大きいかもしくは小さいかを確認して棄却の有無を判断する。</p></li>
+</ul>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="week-4-統計的検定.html#cb132-1" tabindex="-1"></a><span class="fu">t.test</span>(df<span class="sc">$</span>Data1, <span class="at">mu =</span> <span class="dv">55</span>)</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  df$Data1
+## t = 12.351, df = 39, p-value = 4.691e-15
+## alternative hypothesis: true mean is not equal to 55
+## 95 percent confidence interval:
+##  59.31461 61.00448
+## sample estimates:
+## mean of x 
+##  60.15955</code></pre>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="week-4-統計的検定.html#cb134-1" tabindex="-1"></a><span class="fu">t.test</span>(df<span class="sc">$</span>Data2, <span class="at">mu =</span> <span class="dv">55</span>)</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  df$Data2
+## t = 4.4932, df = 39, p-value = 6.106e-05
+## alternative hypothesis: true mean is not equal to 55
+## 95 percent confidence interval:
+##  56.70752 59.50353
+## sample estimates:
+## mean of x 
+##  58.10553</code></pre>
+<div class="infobox">
+<p>e-やe+は指数的記法です。6.106e-05であれば、6.106 × 10^(-5)なので、0.を合わせて0が5つ6の前につきます。逆に6.106e+05であれば6.106 × 10^5です。Rでは<code>options</code>関数で通常の値に戻して表示できます。</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="week-4-統計的検定.html#cb136-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
+<span id="cb136-2"><a href="week-4-統計的検定.html#cb136-2" tabindex="-1"></a><span class="fu">t.test</span>(df<span class="sc">$</span>Data2, <span class="at">mu =</span> <span class="dv">55</span>)</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  df$Data2
+## t = 4.4932, df = 39, p-value = 0.00006106
+## alternative hypothesis: true mean is not equal to 55
+## 95 percent confidence interval:
+##  56.70752 59.50353
+## sample estimates:
+## mean of x 
+##  58.10553</code></pre>
+</div>
+</div>
+<div id="統計的検定の誤りと検出力" class="section level3 hasAnchor" number="5.5.2">
+<h3><span class="header-section-number">5.5.2</span> 統計的検定の誤りと検出力<a href="week-4-統計的検定.html#統計的検定の誤りと検出力" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>第一種の誤り（type Ⅰ error）</p>
+<ul>
+<li><p>帰無仮説が真なのに、誤って偽だと主張すること（本当は差がないのに差があると判断する）</p></li>
+<li><p>有意水準 <em>α</em> の値と一致</p>
+<ul>
+<li>統計的検定では、限界点として、100%正しいことは保証されない。有意水準が5%であれば、5%の誤った主張を許すことになる。</li>
+</ul></li>
+</ul></li>
+<li><p>第二種の誤り（type Ⅱ error）</p>
+<ul>
+<li><p>帰無仮説が偽なのに、それを偽であると言えない（保留）すること（本当は差があるのに差がないと判断する）</p></li>
+<li><p><em>β</em> で表す</p></li>
+</ul></li>
+</ul>
+<div class="float">
+<img src="https://www.statisticssolutions.com/wp-content/uploads/2017/12/rachnovblog-1024x413.jpg" alt="image source: https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/" />
+<div class="figcaption">image source: <a href="https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/" class="uri">https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/</a></div>
+</div>
+<ul>
+<li><p>検出力（power）</p>
+<ul>
+<li><p>帰無仮説が偽であるとき、正しく帰無仮説を棄却できる確率</p></li>
+<li><p>1 - <em>β</em> で表す</p></li>
+<li><p><strong>統計的検定では、<em>α</em> を維持しながら検出力を高くするのが望ましい</strong></p></li>
+<li><p>大きい効果ほど、大きい標本サイズほど、統計的有意を検出しやすくなる</p>
+<ul>
+<li><p>有意水準を小さくすると、第二種の誤りが大きくなる = <em>α</em> を小さくすると、<em>β</em> は大きくなる</p></li>
+<li><p>帰無分布と真の母数の標本分布が離れるため、検出力は、帰無仮説と母平均の差が大きいほど、標本サイズが大きいほど大きくなる。</p></li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="infobox">
+<p>サンプルサイズ・検定力・有意水準に加え、<strong>効果量（effect size）</strong>も連動している。効果量は後の講義で詳しく扱うが、簡単に説明すると、関心を持つ事柄の大きさである。4つのうち、3つが分かれば、自動的に残りの1つの値を特定できる。これを利用したのが<strong>検定力分析（power analysis）</strong>である。これを<strong>実験前に</strong>使うことで、どれくらいの標本を収集すべきかを検討できる。近年の研究では、参加者の数を検定力分析で決めているかを重視する（査読で！）動きがある。</p>
+</div>
+</div>
+<div id="有意性検定-統計的検定の問題点" class="section level3 hasAnchor" number="5.5.3">
+<h3><span class="header-section-number">5.5.3</span> 有意性検定（≒ 統計的検定）の問題点<a href="week-4-統計的検定.html#有意性検定-統計的検定の問題点" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>有意確率（ <em>p</em> &lt; 0.05）だけに結果を頼るのはよくない</p>
+<ul>
+<li><p>無作為抽出を前提としていても、必ず得られた結果に<strong>誤差</strong>が含まれている</p></li>
+<li><p>標本サイズに大きく左右される</p></li>
+</ul></li>
+<li><p>統計的検定における誤差と問題点の対処法</p></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>できるだけ母集団を代表するサンプルを得る</li>
+<li>信頼区間を報告する</li>
+<li>検定力分析で標本サイズを事前に決める</li>
+<li>効果量を報告する</li>
+</ol>
+<div class="infobox">
+<p>言語研究における効果量は、Neyman-Pearson流の理論に基づくことがほとんど。</p>
+</div>
+</div>
+<div id="頻度論的統計学とベイズ統計学" class="section level3 hasAnchor" number="5.5.4">
+<h3><span class="header-section-number">5.5.4</span> 頻度論的統計学とベイズ統計学<a href="week-4-統計的検定.html#頻度論的統計学とベイズ統計学" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>ここまで説明してきた話 + この講義のほとんどの説明における統計学は、頻度論的統計学（frequentist statistics）と呼ばれる枠組み。</p>
+<ul>
+<li><p>検定において用いる数学的手法が異なる。頻度 vs. ベイズのような「主義の違いによる対立構造」は避けた方がよい</p>
+<ul>
+<li><a href="https://statmodeling.stat.columbia.edu/2024/01/08/bayesians-are-frequentists-2/">参考: Bayesians are frequentists.</a></li>
+</ul></li>
+<li><p>母集団からサンプリングする（標本を抽出する）のは繰り返すことができる試行において起こる事象の相対頻度（frequency）をもとに行われる。例えば、サイコロを14回降って、1の目が3回出た場合、1が出る確率は <span class="math inline">\(\frac{3}{14}\)</span> になる。これを<strong>頻度論的確率</strong>と呼び、人間の主観や信念に依存しない客観的な確率である。</p>
+<ul>
+<li><p>確率とは無限回試行を行ったときの割合</p></li>
+<li><p>仮説の評価を <em>p</em> 値を用いて行う</p>
+<ul>
+<li>「帰無仮説のもとでデータが得られる確率」を計算する</li>
+</ul></li>
+<li><p>データを追加して再度分析する際、、適切な方法を用いないと、計算された<em>p</em> 値と有意水準が当初の値から変わってしまう（検定力分析が重要な理由）</p></li>
+</ul></li>
+</ul></li>
+<li><p><strong>ベイズ統計学</strong>では、<strong>主観確率</strong>（「明日は30%で晴れるだろう」）と客観確率（「10日3日晴れたから明日は晴れるだろう」）の両方を検定に使用する。</p>
+<ul>
+<li><p>ベイズ統計学では <em>p</em> 値は使わない</p></li>
+<li><p>ベイズ統計では、データを追加して再度分析することはOK（データの二度漬けをしない限り）</p></li>
+</ul></li>
+<li><p>頻度論的統計学、ベイズ統計学どちらにおいても、「無作為抽出により標本が母集団を代表している」「母集団からのサンプリングを近似していること」という前提が重要</p>
+<ul>
+<li>ベイズ統計学の方が道具的に使いやすいと考えることもできる</li>
+</ul></li>
+</ul>
+<div class="infobox">
+<p>フローチャート的な統計分析は推奨されません。分析の前に、分析するデータの母集団がどのような形状なのか、この分析方が正しいのかなど十分検討することが重要です。</p>
+</div>
+</div>
+</div>
+<div id="ハンズオンセッション-2" class="section level2 hasAnchor" number="5.6">
+<h2><span class="header-section-number">5.6</span> ハンズオンセッション<a href="week-4-統計的検定.html#ハンズオンセッション-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="t-検定" class="section level3 hasAnchor" number="5.6.1">
+<h3><span class="header-section-number">5.6.1</span> <em>t</em> 検定<a href="week-4-統計的検定.html#t-検定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p><em>t</em> 分布に照らし合わせて、2群の平均値の差を検証する場合に用いる。</p>
+<ul>
+<li>平均値だけでなく、分散（データのばらつき）も考慮される</li>
+</ul></li>
+</ul>
+</div>
+<div id="基本用語" class="section level3 hasAnchor" number="5.6.2">
+<h3><span class="header-section-number">5.6.2</span> 基本用語<a href="week-4-統計的検定.html#基本用語" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="対応のありなし" class="section level4 hasAnchor" number="5.6.2.1">
+<h4><span class="header-section-number">5.6.2.1</span> 対応のあり・なし<a href="week-4-統計的検定.html#対応のありなし" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p>対応あり（repeated measures）：同じ参加者からの2種類のデータ（例 同じ参加者の国語と英語の点数）</p></li>
+<li><p>対応なし（independent measures）：異なる参加者からなる2種類のデータ（例 1年生と2年生の英語の点数）</p>
+<ul>
+<li>実験群（experimental group）と統制群（control group）</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="t-検定を使用する前提" class="section level3 hasAnchor" number="5.6.3">
+<h3><span class="header-section-number">5.6.3</span> <em>t</em> 検定を使用する前提<a href="week-4-統計的検定.html#t-検定を使用する前提" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li>データの種類：間隔尺度または比例尺度</li>
+<li>サンプリング：母集団から無作為抽出され、母集団を十分代表していること</li>
+<li>正規性：標本平均の分布が正規分布に従うこと。少々外れている場合は正規性に対して頑健であるためOK。大きく外れている場合はノンパラメトリック版の<em>t</em>検定を検討することも考えれるが、ウェルチの<em>t</em>検定を用いることをできるだけ優先する方がいい場合が多い。ノンパラメトリック検定にも使用する前提がある。</li>
+<li>（対応なしの場合のみ）等分散性：比較する2群のデータの分散が等しいこと（= 母分散が等しい集団からデータがサンプリングされていること）。<em>t</em>検定は母分散の等質性に関しても頑健であるため、グループのサンプルサイズが等しい場合、分析結果が歪むことはほとんどない。</li>
+</ol>
+<ul>
+<li>ウェルチの<em>t</em>検定を使うのがよい = <em>t</em> 検定の場合基本ウェルチの<em>t</em> 検定を使う</li>
+</ul>
+<ol start="5" style="list-style-type: decimal">
+<li>（対応なしの場合のみ）観測値の独立性：データがお互いに影響し合い相関が高い場合、第一種の過誤が起こりやすくなる</li>
+</ol>
+<div class="alert alert-info">
+<p><strong>重要</strong> <br>
+正規性の検定や等分散性の検定を行うことを推奨されることがあるが、このような事前テストは第一種&amp;第二種の過誤の確率を高めることが報告されている（e.g., Rasch et al. [2011]）。そのため、そのような検定を行わず、ウェルチの<em>t</em> 検定を行う方がよい。</p>
+</div>
+</div>
+<div id="t-値の算出" class="section level3 hasAnchor" number="5.6.4">
+<h3><span class="header-section-number">5.6.4</span> <em>t</em> 値の算出<a href="week-4-統計的検定.html#t-値の算出" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>標本平均の標本誤差：差がどれだけ偶然の誤差によって起きるかを推定</p></li>
+<li><p>偶然起こる誤差おりどの程度大きいかを調べる検定</p></li>
+</ul>
+<p><span class="math display">\[t\ =\ \frac{観測された標本平均の差}{標本平均の差の標準誤差}\]</span></p>
+<div id="対応なし-t-検定サンプルサイズが等しい" class="section level4 hasAnchor" number="5.6.4.1">
+<h4><span class="header-section-number">5.6.4.1</span> 対応なし <em>t</em> 検定（サンプルサイズが等しい）<a href="week-4-統計的検定.html#対応なし-t-検定サンプルサイズが等しい" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><span class="math display">\[
+t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}} \hspace{3pc} (df = n_1 + n_2 - 2)
+\]</span></p>
+</div>
+<div id="対応なし-t-検定サンプルサイズが異なる" class="section level4 hasAnchor" number="5.6.4.2">
+<h4><span class="header-section-number">5.6.4.2</span> 対応なし <em>t</em> 検定（サンプルサイズが異なる）<a href="week-4-統計的検定.html#対応なし-t-検定サンプルサイズが異なる" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><span class="math display">\[
+s_p^2 = \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2}
+\]</span></p>
+<p><span class="math display">\[
+t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{s_p^2}{n_1} + \frac{s_p^2}{n_2}}}
+\]</span></p>
+</div>
+<div id="対応あり-t-検定" class="section level4 hasAnchor" number="5.6.4.3">
+<h4><span class="header-section-number">5.6.4.3</span> 対応あり <em>t</em> 検定<a href="week-4-統計的検定.html#対応あり-t-検定" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><span class="math display">\[
+t = \frac{\bar{x}_1 - \bar{x}_2}{S_D / \sqrt{n}} \hspace{3pc} (df = n - 1)
+\]</span></p>
+</div>
+</div>
+<div id="rでの実装" class="section level3 hasAnchor" number="5.6.5">
+<h3><span class="header-section-number">5.6.5</span> Rでの実装<a href="week-4-統計的検定.html#rでの実装" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="対応なし-t-検定" class="section level4 hasAnchor" number="5.6.5.1">
+<h4><span class="header-section-number">5.6.5.1</span> 対応なし <em>t</em> 検定<a href="week-4-統計的検定.html#対応なし-t-検定" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>データの読み込み</li>
+</ul>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="week-4-統計的検定.html#cb138-1" tabindex="-1"></a>dat_t_ind <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/ttest_inde.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="week-4-統計的検定.html#cb139-1" tabindex="-1"></a><span class="fu">head</span>(dat_t_ind)</span></code></pre></div>
+<pre><code>##   ID Class English
+## 1  1     A      85
+## 2  2     A      78
+## 3  3     A      90
+## 4  4     A      82
+## 5  5     A      88
+## 6  6     A      84</code></pre>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="week-4-統計的検定.html#cb141-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">table</span>(dat_t_ind<span class="sc">$</span>ID))</span></code></pre></div>
+<pre><code>## [1] 80</code></pre>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="week-4-統計的検定.html#cb143-1" tabindex="-1"></a><span class="fu">boxplot</span>(English <span class="sc">~</span> Class, <span class="at">data =</span> dat_t_ind)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="week-4-統計的検定.html#cb144-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb144-2"><a href="week-4-統計的検定.html#cb144-2" tabindex="-1"></a><span class="fu">describeBy</span>(dat_t_ind<span class="sc">$</span>English, <span class="at">group =</span> dat_t_ind<span class="sc">$</span>Class)</span></code></pre></div>
+<pre><code>## 
+##  Descriptive statistics by group 
+## group: A
+##    vars  n  mean  sd median trimmed  mad min max range skew kurtosis   se
+## X1    1 40 83.03 4.3     83      83 5.93  76  90    14 0.01    -1.25 0.68
+## ------------------------------------------------------------ 
+## group: B
+##    vars  n  mean   sd median trimmed  mad min max range skew kurtosis   se
+## X1    1 40 60.48 5.73     60   60.44 7.41  50  70    20 0.05    -1.25 0.91</code></pre>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="week-4-統計的検定.html#cb146-1" tabindex="-1"></a><span class="fu">t.test</span>(English <span class="sc">~</span> Class, <span class="at">data =</span> dat_t_ind)</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  English by Class
+## t = 19.911, df = 72.353, p-value &lt; 0.00000000000000022
+## alternative hypothesis: true difference in means between group A and group B is not equal to 0
+## 95 percent confidence interval:
+##  20.2925 24.8075
+## sample estimates:
+## mean in group A mean in group B 
+##          83.025          60.475</code></pre>
+<ul>
+<li><p><strong>論文記載例</strong></p></li>
+<li><p>* 本来であれば、効果量も報告する必要があるが、今回は省略している。</p>
+<ul>
+<li><p>異なる指導法を実施したクラス A とクラス B の英語テストの平均点は、83.03 (<em>SD</em> = 4.3)と 60.48 (<em>SD</em> = 5.73 でクラス A の平均の方が高かった。 <em>t</em> 検定を使って比較した結果、<em>t</em>(72.353) = 19.911, <em>p</em> &lt; .001、 <em>d</em> = xxx [95%CI = xxx, xxx] で、クラスAのほうが統計的に有意に英語テストの成績が高いことがわかった。</p>
+<ul>
+<li><em>p</em> 値は原則実数値報告である（ <em>p</em> = .046）。しかし、値が0.01よりも小さい場合は、<em>p</em> &lt; .001のように報告する。</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="対応あり" class="section level4 hasAnchor" number="5.6.5.2">
+<h4><span class="header-section-number">5.6.5.2</span> 対応あり<a href="week-4-統計的検定.html#対応あり" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>データの読み込み</li>
+</ul>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="week-4-統計的検定.html#cb148-1" tabindex="-1"></a>dat_t_rep <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/ttest_rep.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="week-4-統計的検定.html#cb149-1" tabindex="-1"></a><span class="fu">head</span>(dat_t_rep)</span></code></pre></div>
+<pre><code>##   ID English Math
+## 1  1      85   78
+## 2  2      88   82
+## 3  3      90   85
+## 4  4      92   89
+## 5  5      87   83
+## 6  6      91   86</code></pre>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="week-4-統計的検定.html#cb151-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">table</span>(dat_t_rep<span class="sc">$</span>ID))</span></code></pre></div>
+<pre><code>## [1] 40</code></pre>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="week-4-統計的検定.html#cb153-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat_t_rep<span class="sc">$</span>English, dat_t_rep<span class="sc">$</span>Math, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;English&quot;</span>, <span class="st">&quot;Math&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="week-4-統計的検定.html#cb154-1" tabindex="-1"></a><span class="fu">describe</span>(dat_t_rep<span class="sc">$</span>English)</span></code></pre></div>
+<pre><code>##    vars  n  mean   sd median trimmed   mad min max range skew kurtosis   se
+## X1    1 40 82.22 8.65     82   82.16 11.86  70  96    26 0.04    -1.67 1.37</code></pre>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="week-4-統計的検定.html#cb156-1" tabindex="-1"></a><span class="fu">describe</span>(dat_t_rep<span class="sc">$</span>Math)</span></code></pre></div>
+<pre><code>##    vars  n  mean    sd median trimmed   mad min max range skew kurtosis   se
+## X1    1 40 75.85 10.02   75.5   75.56 13.34  61  94    33 0.15    -1.47 1.59</code></pre>
+<ul>
+<li><code>paired = T</code>を設定する</li>
+</ul>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="week-4-統計的検定.html#cb158-1" tabindex="-1"></a><span class="fu">t.test</span>(dat_t_rep<span class="sc">$</span>English, dat_t_rep<span class="sc">$</span>Math,</span>
+<span id="cb158-2"><a href="week-4-統計的検定.html#cb158-2" tabindex="-1"></a>      <span class="at">paired =</span> T</span>
+<span id="cb158-3"><a href="week-4-統計的検定.html#cb158-3" tabindex="-1"></a>       )</span></code></pre></div>
+<pre><code>## 
+##  Paired t-test
+## 
+## data:  dat_t_rep$English and dat_t_rep$Math
+## t = 21.641, df = 39, p-value &lt; 0.00000000000000022
+## alternative hypothesis: true mean difference is not equal to 0
+## 95 percent confidence interval:
+##  5.779151 6.970849
+## sample estimates:
+## mean difference 
+##           6.375</code></pre>
+<ul>
+<li><p><strong>論文記載例</strong></p></li>
+<li><p>* 本来であれば、効果量も報告する必要があるが、今回は省略している。</p>
+<ul>
+<li>Aクラスの40名の学生を対象に、英語と数学のテストの得点を比較した。英語の平均点は、82.22 (<em>SD</em> = 8.65)と 75.85 (<em>SD</em> = 10.02)で英語の平均の方が高かった。対応ありの <em>t</em> 検定を使って比較した結果、<em>t</em>(39) = 21.641, <em>p</em> &lt; .001、 <em>d</em> = xxx [95%CI = xxx, xxx] で、英語のほうが統計的に有意に得点が高いことがわかった。</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="次週までの課題-3" class="section level2 hasAnchor" number="5.7">
+<h2><span class="header-section-number">5.7</span> 次週までの課題<a href="week-4-統計的検定.html#次週までの課題-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="課題内容-3" class="section level3 hasAnchor" number="5.7.1">
+<h3><span class="header-section-number">5.7.1</span> 課題内容<a href="week-4-統計的検定.html#課題内容-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。</p></li>
+<li><p>配布されたデータセット（<code>pokemon_data_ttest.csv</code>）をもとに、任意のデータに対して<em>t</em> 検定を行い、その解釈を本講義内で確認した書き方報告する。また、データの中身の確認や記述統計、データの可視化なども含めること。</p></li>
+</ol>
+</div>
+<div id="提出方法-2" class="section level3 hasAnchor" number="5.7.2">
+<h3><span class="header-section-number">5.7.2</span> 提出方法<a href="week-4-統計的検定.html#提出方法-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>メールにファイルを添付してTACT上で提出。</li>
+<li>締め切りは今週の木曜日まで</li>
+</ul>
+</div>
+</div>
+<div id="参考文献-3" class="section level2 hasAnchor" number="5.8">
+<h2><span class="header-section-number">5.8</span> 参考文献<a href="week-4-統計的検定.html#参考文献-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>📚清水（2021）『心理学統計法 (放送大学教材 1638)』放送大学教育振興会</li>
+<li>📚中村（2025）『心理学・教育学研究のための効果量入門―Rを用いた実践的理解』北大路書房</li>
+<li>📚南風原（2002）『心理統計学の基礎―統合的理解のために』有斐閣アルマ</li>
+<li>📚日本統計学会（2020）『日本統計学会公式認定　統計検定準１級対応　統計学実践ワークブック』学術図書出版社</li>
+<li>📚平井・岡・草薙（編著）（2022） 『教育・心理系研究のためのＲによるデータ分析―論文作成への理論と実践集』東京図書</li>
+<li>📄Rasch, D., Kubinger, K. D., &amp; Moder, K. (2011). The two-sample t test: pre-testing its assumptions does not pay off. <em>Statistical papers, 52</em>, 219-231.</li>
+<li>💻<a href="https://norimune.net/3339">「研究仮説が正しい確率」について</a></li>
+<li>💻<a href="https://www.isc.meiji.ac.jp/~hirukawa/randomevent/test1.htm">統計的仮説検定の考えかた</a></li>
+<li>💻<a href="https://www.note.kanekoshobo.co.jp/n/nf836d37b7f10#61a8e679-85a4-411c-96dd-5a1a37335572">ベイズ統計学と再現性の危機（テンプル大学統計科学部助教授：マクリン謙一郎）</a></li>
+<li>💻<a href="https://statmodeling.stat.columbia.edu/2024/01/08/bayesians-are-frequentists-2/">Bayesians are frequentists.</a></li>
+</ul>
 <style>
 .infobox {
   padding: 1em 1em 1em 4em;
@@ -382,323 +898,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
   
 </style>
-<div id="統計処理とは" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> 「統計処理」とは<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#統計処理とは" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="量的研究質的研究" class="section level3 hasAnchor" number="2.1.1">
-<h3><span class="header-section-number">2.1.1</span> 量的研究、質的研究<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#量的研究質的研究" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p>本講義のタイトルにある「統計処理」は、<u>研究の目的などに応じて得られたデータをまとめたり、可視化したり解析する行為</u>を指す。言語に関する研究の手法は大きく分けて以下の2つがある。</p>
-<ol style="list-style-type: decimal">
-<li>量的研究（ quantitative research ）</li>
-</ol>
-<ul>
-<li>数量を用いて分析。一般化が目的。「仮説検証型」。</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li>質的研究（ qualitative research ）</li>
-</ol>
-<ul>
-<li>数量化せずに分析。一般化は目的ではない。「仮説生成型」。</li>
-</ul></li>
-</ul>
-<p>　寺井は量的な研究しか経験がないため、本講義では量的な研究を行うことを念頭に統計処理の方法について講義を行う。しかし、それらが質的研究と全く関連がないわけではない（もし質的な研究に関心がある受講生の方がいたら、関連すると思う点を教えてください）。</p>
-<ul>
-<li><p>量的研究では数量を扱うため、統計手法を用いて分析を行うことが多い。よって、量的研究を行う場合、統計に関する知識が必要不可欠。</p></li>
-<li><p>データ収集の前に分析手法をある程度決めておく必要がある（Garbage in, garbage out. ）。使用する統計手法だけでなく、以下のことも十分に考えておくことが必要。</p>
-<ul>
-<li>どんなデータが必要？(What)</li>
-<li>どのようにデータを取ればいい？ (How)</li>
-<li>どれくらいのデータが必要？ (How many)</li>
-<li>誰に対してデータを取る？(Who)</li>
-</ul></li>
-</ul>
-</div>
-</div>
-<div id="rとは" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Rとは<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rとは" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li><p>Rはプログラム言語の一種で、統計解析向けの言語。統計解析以外にもWebアプリを作ったり資料を作成したりすることも可能（この資料もRを使って作成しています）。Rは無料でインストール・使用することができる。</p></li>
-<li><p>Rに備わっている機能だけで分析を行うことができるが、世界中のRユーザーが開発した機能（<strong>パッケージ</strong>）を無料でインストールすることができる。これにより、様々な分析を行うことができるが、それらのアップデートが行われるため注意が必要である（アップデートにより以前と同じように動かないということも起こりうるため）。</p>
-<ul>
-<li>RをiPhone本体、パッケージをXやInstagramなどのアプリとイメージするとよい</li>
-</ul></li>
-<li><p>Excelなどコードを書かなくても統計解析を行うことができるソフトウェアは多い。しかし、ソフトウェアは無料のものばかりではなく、また実行したい分析を機能として持っていない可能性がある。近年では生成AIなどによって、プログラミングのハードルが以前よりも低くなったと考えられる。ソフトウェアで実行するよりも、プログラミング言語を駆使して分析を行う方が、統計以外の知識にもつながる。最初は「二階から目薬」のような気持ちになるかもしれないが、根気強く、授業者、友人、先輩、そしてAIさん達に頼りながら取り組んでほしい。</p></li>
-</ul>
-</div>
-<div id="rのインストール" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> Rのインストール<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rのインストール" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="infobox">
-<p>🔊　Windowsを使用している人で、DocumentsのパスにOne Driveが関係している人は教えてください。</p>
-</div>
-<ol style="list-style-type: decimal">
-<li>Rの公式サイトにアクセス（ <a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a> ）</li>
-<li>CRANをクリック</li>
-<li>Japanのリンクをクリック（Yamagata University）</li>
-<li>自分のパソコンのOSを選択</li>
-<li>“install R for the first time”をクリック。全部NextでOK!</li>
-</ol>
-<ul>
-<li>インストールが完了したら、Rを立ち上げて以下のコードを入力する。Enterを押すと命令が実行される。</li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb1-1" tabindex="-1"></a><span class="dv">20</span> <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div>
-<pre><code>## [1] 21</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb3-1" tabindex="-1"></a><span class="dv">20</span> <span class="sc">-</span> <span class="dv">1</span></span></code></pre></div>
-<pre><code>## [1] 19</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb5-1" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> <span class="dv">4</span></span></code></pre></div>
-<pre><code>## [1] 12</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb7-1" tabindex="-1"></a><span class="dv">4</span> <span class="sc">/</span> <span class="dv">2</span></span></code></pre></div>
-<pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb9-1" tabindex="-1"></a><span class="dv">2</span> <span class="sc">^</span> <span class="dv">2</span></span></code></pre></div>
-<pre><code>## [1] 4</code></pre>
-</div>
-<div id="rstudioとは" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> RStudioとは<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioとは" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>Rだけでも分析は可能だが、Rだけの解析は難しい。そこで、よりRでの解析を行いやすくする統合開発環境（RStudio）の中でRを使用する。</li>
-<li>注意点として、Rのインストールも必ず行う必要がある。</li>
-<li>RStudioはWeb版とローカル版があり、前者はオンライン上で使用するが、後者は各個人のパソコンで使用する。Web版の使用には、サーバーが必要であるため（基本有料）、ローカル版（RStudio Desktop）での使用に慣れる方がよい。</li>
-</ul>
-</div>
-<div id="rstudioのインストール" class="section level2 hasAnchor" number="2.5">
-<h2><span class="header-section-number">2.5</span> RStudioのインストール<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioのインストール" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ol style="list-style-type: decimal">
-<li>RStudioのサイトへ行く（ <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a> ）</li>
-<li>All Installers and Tarballsで自分自身のパソコンのOSを選び、ダウンロード</li>
-</ol>
-</div>
-<div id="rstudioの機能" class="section level2 hasAnchor" number="2.6">
-<h2><span class="header-section-number">2.6</span> RStudioの機能<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioの機能" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li><p>4つのペイン：</p>
-<ul>
-<li><p>ソース</p>
-<ul>
-<li>実行するコードのメモ帳</li>
-</ul></li>
-<li><p>環境・履歴</p>
-<ul>
-<li>読み込んだデータを表示したりや過去に実行したコマンドを記録できる</li>
-</ul></li>
-<li><p>コンソール</p>
-<ul>
-<li>R。ソースペインを実行する場所</li>
-</ul></li>
-<li><p>ファイル・作図・パッケージ・ヘルプ</p>
-<ul>
-<li>ワーキングディレクトリにあるファイルを表示したり、作成した図を確認したり、インストールされているパッケージを確認したり、パッケージの使い方を確認する</li>
-</ul></li>
-</ul></li>
-</ul>
-</div>
-<div id="プロジェクト機能" class="section level2 hasAnchor" number="2.7">
-<h2><span class="header-section-number">2.7</span> プロジェクト機能<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#プロジェクト機能" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>プロジェクト = ディレクトリ
-<ul>
-<li>ファイルや操作履歴を保存できる</li>
-</ul></li>
-</ul>
-<div class="infobox">
-<p>ディレクトリ（📁）とは、場所のこと。Rは一か所にしか滞在できない、移動する際も、命令してあげないと自分で勝手に移動してくれない。📁ごとが異なる場所であるため、ファイルを読み込んだりする場合も、Rがいる場所と、ファイルがある場所が異なる場合、Rを移動させるか、ファイルをRがいる箇所まで移動させないと読み込むことはできない。</p>
-</div>
-<ul>
-<li>プロジェクトを作成する利点
-<ul>
-<li>研究ごとに分析に必要なファイルをまとめることができる</li>
-</ul></li>
-</ul>
-<div id="プロジェクトの作成" class="section level3 hasAnchor" number="2.7.1">
-<h3><span class="header-section-number">2.7.1</span> プロジェクトの作成<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#プロジェクトの作成" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li>ドキュメントディレクトリに新しいフォルダーを作成
-<ul>
-<li><p><strong>名前は、絶対英数字のみ！（Rが関係しそうな場合、ファイル名、フォルダ名に日本語を使わない方が安心です）</strong></p></li>
-<li><p>作り方を解説しているサイト（<a href="https://www.jaysong.net/RBook/project.html">私たちのR</a>）</p></li>
-</ul></li>
-</ul>
-<ol style="list-style-type: decimal">
-<li>RStudioを開き、右上の[Project:]ボタンをクリック。</li>
-<li>[New Project]をクリックし、[Existing Directory]から、先ほど作成した名前のディレクトリを選択</li>
-</ol>
-<ul>
-<li><u>今後、この講義で配布されたファイルや、作成したファイルは全てそのディレクトリ内に入れるようにしてください</li>
-<li>今後、この講義でRStudioを使用する場合は必ずこのプロジェクトを開いてください</u></li>
-</ul>
-</div>
-</div>
-<div id="rstudioのカスタマイズ" class="section level2 hasAnchor" number="2.8">
-<h2><span class="header-section-number">2.8</span> RStudioのカスタマイズ<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioのカスタマイズ" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li><p><a href="https://qiita.com/masato-terai/items/4200f3817972fede2dd2">RStudioの設定変更【見た目】</a></p>
-<ul>
-<li>文字のサイズを大きくしたり、背景の色を変更することが可能</li>
-<li>その他にも、()の色分けをしてくれたりなど分析の補助になる機能もある</li>
-</ul></li>
-</ul>
-</div>
-<div id="r-markdown入門" class="section level2 hasAnchor" number="2.9">
-<h2><span class="header-section-number">2.9</span> R Markdown入門<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#r-markdown入門" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li><p>Rの出力結果を文字や写真、リンクなどと一緒に出力できるもの。</p></li>
-<li><p>左上の紙のマークを押して、R Markdownを開く</p></li>
-<li><p>【パーツ１】YAML（YAML　Ain’t Markup Language）ヘッダー：文章全体の体裁や情報を操作する</p>
-<ul>
-<li>タイトル、サブタイトル</li>
-<li>作成者</li>
-<li>作成した日時、更新日時も設定可能</li>
-<li>どのような形式で作成するか</li>
-</ul></li>
-</ul>
-<div class="infobox caution">
-<p><strong>注意</strong><br>
-・ YAMLヘッダーは、RでもMarkdownでもないプログラム言語で記述</p>
-</div>
-<ul>
-<li><p>【パーツ２】コードチャンク：Rのコードを記述するところ</p></li>
-<li><p>【パーツ３】ドキュメントチャンク：<a href="https://www.jaysong.net/RBook/rmarkdown.html#rmarkdown-intro">Markdownと呼ばれるプログラム言語</a>で記述するところ</p>
-<ul>
-<li>見出し、表、箇条書き、強調、斜体など、Wordのリボン部分にある機能をMarkdownで書く</li>
-</ul></li>
-</ul>
-<div id="knitを押して出力" class="section level3 hasAnchor" number="2.9.1">
-<h3><span class="header-section-number">2.9.1</span> Knit🧶を押して出力！<a href="#knitを押して出力" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li>初期設定はHTMLファイル出力</li>
-</ul>
-</div>
-</div>
-<div id="ドキュメントチャンクmarkdown記法" class="section level2 hasAnchor" number="2.10">
-<h2><span class="header-section-number">2.10</span> ドキュメントチャンク：Markdown記法<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#ドキュメントチャンクmarkdown記法" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="覚えるのはマストではないその都度調べてよく使うものを覚えていく" class="section level3 hasAnchor" number="2.10.1">
-<h3><span class="header-section-number">2.10.1</span> 覚えるのはマストではない。その都度調べてよく使うものを覚えていく<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#覚えるのはマストではないその都度調べてよく使うものを覚えていく" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li>Markdownなら生成AIはほぼ完ぺきに正解を教えてくれる</li>
-<li><a href="https://qiita.com/tbpgr/items/989c6badefff69377da7">必要最低限で覚えておくとよい記法</a>
-<ul>
-<li>見出し → これはマスト！
-<ul>
-<li>#の数で指定。文字との間を半角あけるのを忘れない。</li>
-</ul></li>
-<li>箇条書き
-<ul>
-<li><code>*</code>, <code>+</code>, <code>-</code>のいずれかを入れる。文字との間を半角あけるのを忘れない。</li>
-<li>半角スペースを2つ前（もしくはtab）に入れると、レベル２を作れる。さらに2ついれると、、、</li>
-</ul></li>
-<li>強調
-<ul>
-<li>*で挟むと斜体</li>
-<li>**で挟むとBold体</li>
-<li>***で挟むとどうなるでしょう</li>
-</ul></li>
-</ul></li>
-</ul>
-</div>
-</div>
-<div id="lets-実践" class="section level2 hasAnchor" number="2.11">
-<h2><span class="header-section-number">2.11</span> Let’s 実践<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#lets-実践" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>以下の文章をR Markdownを使って再現してください。</li>
-</ul>
-<div class="infobox">
-<p># 名古屋飯といえば</p>
-<p>## ひつまぶし：<em>Hitsumabushi</em></p>
-<p>おすすめは以下のお店です。</p>
-<ul>
-<li><strong>ひつまぶし花岡</strong>
-<ul>
-<li>場所：栄</li>
-</ul></li>
-</ul>
-</div>
-</div>
-<div id="答え合わせ" class="section level2 hasAnchor" number="2.12">
-<h2><span class="header-section-number">2.12</span> 答え合わせ<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#答え合わせ" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb11"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb11-1"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb11-1" tabindex="-1"></a><span class="fu"># 名古屋飯といえば</span></span>
-<span id="cb11-2"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb11-2" tabindex="-1"></a><span class="fu">## ひつまぶし：*Hitsumabushi*</span></span>
-<span id="cb11-3"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb11-3" tabindex="-1"></a>おすすめは以下のお店です。</span>
-<span id="cb11-4"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb11-4" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb11-5" tabindex="-1"></a><span class="ss">- </span>**ひつまぶし花岡**</span>
-<span id="cb11-6"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb11-6" tabindex="-1"></a><span class="ss">  - </span>場所：栄</span></code></pre></div>
-</div>
-<div id="コードチャンクの挿入" class="section level2 hasAnchor" number="2.13">
-<h2><span class="header-section-number">2.13</span> コードチャンクの挿入<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#コードチャンクの挿入" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="ショートカットキーが便利ctrl-alt-iwindowscommand-option-imac" class="section level3 hasAnchor" number="2.13.1">
-<h3><span class="header-section-number">2.13.1</span> ショートカットキーが便利：[Ctrl] + [Alt] + [I]（Windows）、[Command] + [Option] + [I]（Mac）<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#ショートカットキーが便利ctrl-alt-iwindowscommand-option-imac" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li>このコードの中はR。Rで使う関数などを自由に指定できる</li>
-<li>以下のチャンク内でないと、動かない = Rの命令として実行してもらえない</li>
-</ul>
-<p>```{r}<br />
-```</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb12-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">6</span>)</span>
-<span id="cb12-2"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb12-2" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb12-3" tabindex="-1"></a><span class="fu">mean</span>(dat)</span></code></pre></div>
-<pre><code>## [1] 3.666667</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb14-1" tabindex="-1"></a><span class="fu">plot</span>(dat)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-</div>
-</div>
-<div id="lets-実践-1" class="section level2 hasAnchor" number="2.14">
-<h2><span class="header-section-number">2.14</span> Let’s 実践<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#lets-実践-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>以下をドキュメントチャンクとコードチャンクを使って再現してください。</li>
-</ul>
-<div class="infobox">
-<p>## 食費の合計</p>
-<ul>
-<li><p>以下は、名古屋旅行で使った食費の合計である。</p>
-<ul>
-<li><strong>注!</strong> <em>hitsu</em>はひつまぶし、<em>miso</em>は味噌カツを表す。</li>
-</ul></li>
-</ul>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb15-1" tabindex="-1"></a>hitsu <span class="ot">&lt;-</span> <span class="dv">1300</span> <span class="sc">*</span> <span class="dv">2</span></span>
-<span id="cb15-2"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb15-2" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb15-3" tabindex="-1"></a>miso <span class="ot">&lt;-</span> <span class="dv">1000</span> <span class="sc">*</span> <span class="dv">2</span></span>
-<span id="cb15-4"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb15-4" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb15-5" tabindex="-1"></a>total <span class="ot">&lt;-</span> <span class="fu">sum</span>(hitsu, miso)</span></code></pre></div>
-</div>
-</div>
-<div id="答え合わせ-1" class="section level2 hasAnchor" number="2.15">
-<h2><span class="header-section-number">2.15</span> 答え合わせ<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#答え合わせ-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb16"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb16-1"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb16-1" tabindex="-1"></a><span class="fu">## 食費の合計</span></span>
-<span id="cb16-2"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb16-2" tabindex="-1"></a><span class="ss">- </span>以下は、名古屋旅行で使った食費の合計である。</span>
-<span id="cb16-3"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb16-3" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb16-4" tabindex="-1"></a><span class="ss">  - </span>**注!** *hitsu*はひつまぶし、*miso*は味噌カツを表す</span>
-<span id="cb16-5"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb16-5" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb16-6" tabindex="-1"></a><span class="sc">\`</span>``{r}</span>
-<span id="cb16-7"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb16-7" tabindex="-1"></a>hitsu &lt;- 1300 * 2</span>
-<span id="cb16-8"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb16-8" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb16-9" tabindex="-1"></a>miso &lt;- 1000 * 2</span>
-<span id="cb16-10"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb16-10" tabindex="-1"></a></span>
-<span id="cb16-11"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb16-11" tabindex="-1"></a>total &lt;- sum(hitsu, miso)</span>
-<span id="cb16-12"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#cb16-12" tabindex="-1"></a><span class="sc">\`</span>``</span></code></pre></div>
-</div>
-<div id="次週までの課題" class="section level2 hasAnchor" number="2.16">
-<h2><span class="header-section-number">2.16</span> 次週までの課題<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#次週までの課題" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="課題内容" class="section level3 hasAnchor" number="2.16.1">
-<h3><span class="header-section-number">2.16.1</span> 課題内容<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#課題内容" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p>本講義の内容に関する簡単な小テストを行います。配布した資料を見返しておいてください。</p></li>
-<li><p>自己紹介の文をR Markdownで作成し、出力したHTMLファイルをTACTへ提出してください。以下の2項目を必ず入れてください。クラスメートと公開してもいい情報だけを入れてください！</p></li>
-<li><p>名前、出身、研究科、自分の研究したいことを二文くらいでまとめる。</p>
-<ul>
-<li>レベル分け、箇条書き、強調（e.g., 下線、太字、イタリック）</li>
-</ul></li>
-<li><p>締め切りは<strong>今週の木曜日まで</strong></p></li>
-</ul>
-<div class="infobox">
-<p>質問等はTACTにお願いします。</p>
-</div>
-</div>
-</div>
-<div id="参考文献" class="section level2 hasAnchor" number="2.17">
-<h2><span class="header-section-number">2.17</span> 参考文献<a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#参考文献" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>📚竹内・水本（2023）『外国語教育研究ハンドブック【増補版】―研究手法のより良い理解のために』松柏社</li>
-<li>📚松村・湯谷・紀ノ定・前田（2021）『改訂2版 RユーザのためのRStudio[実践]入門―tidyverseによるモダンな分析フローの世界』技術評論社</li>
-<li>💻<a href="https://qiita.com/masato-terai/items/4200f3817972fede2dd2">RStudioの設定変更【見た目】</a></li>
-<li>💻<a href="https://www.jaysong.net/RBook/project.html">私たちのR</a></li>
-</ul>
 
 </div>
 </div>
@@ -707,8 +906,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="week-2要約統計量.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="week-3推測統計学.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="week5-相関分析.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -739,7 +938,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/01-week1.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/04-week4.Rmd",
 "text": "Edit"
 },
 "history": {

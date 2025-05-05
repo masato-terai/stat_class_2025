@@ -37,17 +37,19 @@ options(mc.cores = parallel::detectCores())
   
 - 一般化線形混合効果モデル（Genealized Linewr **Mixed** Model: GLMM）：一般化線形モデルを拡張。実験計画などではコントロールできない要因（ランダム効果）をモデルに組み込む => 本日
 
+  - マルチレベルモデル（multilevel model）、階層線形モデル（hierarchical linear model）、混合効果モデル（mixed-effects model）などとも呼ばれる
+
   - 混合効果：これまでの講義で扱ってきた独立変数（固定効果）とランダム効果を1つのモデルで表す
 
   - 得られたデータには、研究目的とは関係のないノイズが含まれる
+  
+  - 例.
   
     - 項目を提示する順番の影響
     
     - 項目や参加者が持つ特性
 
-  - マルチレベルモデル（multilevel model）、階層線形モデル（hierarchical linear model）、混合効果モデル（mixed-effects model）などとも呼ばれる
-
-  - 最尤推定法を用いるモデルを指すが、推定法がマルコフ連鎖モンテカルロ法（MCMC）の場合は、階層ベイズモデルと呼ばれる。階層ベイズモデルは、最尤推定法によるGLMMに比べ、よりデータに合わせた柔軟なモデリングが可能である。
+  - 基本的に最尤推定法を用いるモデルを指すが、推定法がマルコフ連鎖モンテカルロ法（MCMC）の場合は、階層ベイズモデルと呼ばれる。階層ベイズモデルは、最尤推定法によるGLMMに比べ、よりデータに合わせた柔軟なモデリングが可能である。
 
 <p class="comment">
 どのように高度な手法を使う場合でも、分析の前に平均や分散などの記述統計・図示をもとに、立てた仮説や予測と一致しているかなどの確認が必要です。また、分析に入れる変数も、理論や仮説などから妥当なものを原則入れるべきです。
@@ -55,13 +57,110 @@ options(mc.cores = parallel::detectCores())
 
 ## ランダム効果とは
 
+- データにばらつきをもたらす、人間が測定できない・測定しなかった（または原因不明の）個体差の効果
+
+<!-- - GLMMでは個体差を表すパラメータが何かしらの確率分布に従うと仮定する。 -->
+
+<!--   - この個体差を表すパラメータは平均ゼロの正規分布に従うと仮定される。これには明確な根拠がある訳ではなく、観測できない個体差はどのような確率分布に従うか分からないため、とりあえず便利だから正規分布を仮定している。 -->
+
+- ランダム効果を設定するべきか否かの判断は、**「同じ個体（参加者）や場所から何度もサンプリングしているか」**
+
+  - 例
+  
+    - 各参加者に対し、複数の問題を解かせる
+    
+    - 4つの学校の複数の学生からデータを取得する
+
+- 「個体から複数のデータを取る」という実験操作を疑似反復という
+
+  - 「疑似」がつく理由：個体差を消すほどの反復にはなっていないため。個体差などを打ち消すような実験操作ができている場合「反復」とみなせる（個体差や場所差を打ち消すために反復を行う）。
+
 - ランダム効果を考慮する場合、しない場合
 
   - Brysbaert (2025)
-  
-- ランダム切片モデル
 
-- ランダム係数モデル
+## ランダム切片モデル
+
+- 切片の値が個体差（e.g., 参加者）によって異なることを仮定したモデル
+
+  - 例. 指導法Aと指導法Bの効果を比較検証したい（事後テストの得点を目的変数として分析）。この場合、テスト得点は指導法の効果による影響だけでなく、生徒の個人差によって異なると仮定
+
+```{r, include=FALSE}
+library(tidyverse)
+library(lme4)
+library(patchwork)
+
+# データ作成
+set.seed(123)
+n_students <- 10
+n_obs <- 5
+
+students <- tibble(
+  student_id = factor(1:n_students),
+  intercept = rnorm(n_students, mean = 50, sd = 5),
+  slope = rnorm(n_students, mean = 2, sd = 0.5)
+)
+
+data <- students %>%
+  group_by(student_id) %>%
+  do({
+    study_time = runif(n_obs, 0, 10)
+    score = .$intercept + .$slope * study_time + rnorm(n_obs, 0, 3)
+    tibble(study_time, score)
+  }) %>%
+  ungroup()
+
+# 各モデルをフィット
+model_intercept <- lmer(score ~ study_time + (1 | student_id), data = data)
+model_slope     <- lmer(score ~ study_time + (0 + study_time | student_id), data = data)
+model_both      <- lmer(score ~ study_time + (study_time | student_id), data = data)
+
+# 予測値を追加
+data$pred_intercept <- predict(model_intercept)
+data$pred_slope     <- predict(model_slope)
+data$pred_both      <- predict(model_both)
+
+# 固定効果の係数取得
+fixef_intercept <- fixef(model_intercept)
+fixef_slope     <- fixef(model_slope)
+fixef_both      <- fixef(model_both)
+
+# ランダム切片モデルの描画
+p1 <- ggplot(data, aes(x = study_time, color = student_id)) +
+  geom_line(aes(y = pred_intercept)) +
+  geom_abline(intercept = fixef_intercept[1], slope = fixef_intercept[2], color = "black", linetype = "dashed", linewidth = 1) +
+  labs(title = "ランダム切片モデル", x = "勉強時間", y = "英語のテスト得点")
+
+# # ランダム係数モデル（切片なし）の描画
+# p2 <- ggplot(data, aes(x = study_time, color = student_id)) +
+#   geom_line(aes(y = pred_slope)) +
+#   geom_abline(intercept = 0, slope = fixef_slope[1], color = "black", linetype = "dashed", linewidth = 1) +
+#   labs(title = "ランダム係数モデル（切片なし）", x = "勉強時間", y = "英語のテスト得点")
+
+# ランダム切片 + 係数モデルの描画
+p3 <- ggplot(data, aes(x = study_time, color = student_id)) +
+  geom_line(aes(y = pred_both)) +
+  geom_abline(intercept = fixef_both[1], slope = fixef_both[2], color = "black", linetype = "dashed", linewidth = 1) +
+  labs(title = "ランダム切片＋係数モデル", x = "勉強時間", y = "英語のテスト得点")
+```
+
+```{r, echo=FALSE}
+p1
+```
+
+
+## ランダム係数モデル
+
+- モデル内の独立変数の係数が個体差によって異なることを仮定したモデル
+
+  - 例. 指導法Aと指導法Bの効果を比較検証したい（事後テストの得点を目的変数として分析）。この場合、指導法の効果は生徒の個人差によって異なる仮定
+
+```{r, echo=FALSE}
+(p1 | p3) + plot_layout(guides = "collect") & theme(legend.position = "bottom")
+```
+
+
+## Nestedの話
 
 ## GLMMを行うときの留意点
 
@@ -268,6 +367,8 @@ check_autocorrelation(res.3)
 - 締め切りは今週の木曜日まで
 
 ## 参考文献
+- 久保　データ解析のための統計モデリング入門
+- 馬場　RとStanではじめるベイズ統計モデリングによるデータ分析入門
 - 外国語教育ハンドブック
 - Brysbaert, M. (2025). Applying Mixed-Effects Models in Research on Second Language Acquisition: A Tutorial for Beginners. Languages, 10(2), 20.
 - 山口剛. (2018). [心理学系] 混合効果モデルの利用: 刺激の変量効果への対処. バイオフィードバック研究, 45(2), 93-98.

@@ -1,4 +1,4 @@
-# 統計的検定
+# Week 4: 統計的検定
 
 ```{r, include=FALSE}
 library(tidyverse)
@@ -195,6 +195,10 @@ a + b
 ## 統計的検定で必要な知識
 
 ### *p* 値
+- 帰無仮説が正しいと仮定したときに、現在観察されたデータと同じか、より稀にしか起こらないようなデータが観察される確率
+
+  - *P* 値はデータが観測されて初めて計算される値であり、検定を行う前に設定される有意水準とは明確に異なる概念。ただし、p 値の計算に用いられる分布は、有意水準に基づく**棄却域（臨界値）**の設定にも使われるため、*p* 値が有意水準を下回れば、「帰無仮説は棄却される」と判断される。
+
 - 検定統計量を変換し、有意水準と比較しやすくしたもの
 
   - 検定統計量の実現値が大きいほど*p*値は小さくなる
@@ -217,7 +221,6 @@ t.test(df$Data2, mu = 55)
 
 ### 統計的検定の誤りと検出力
 
-  
 - 第一種の誤り（type Ⅰ error）
 
   - 帰無仮説が真なのに、誤って偽だと主張すること（本当は差がないのに差があると判断する）
@@ -253,8 +256,6 @@ t.test(df$Data2, mu = 55)
 
 :::
 
-
-
 ### 有意性検定（≒ 統計的検定）の問題点
 
 - 有意確率（ *p* < 0.05）だけに結果を頼るのはよくない
@@ -281,7 +282,7 @@ t.test(df$Data2, mu = 55)
   
     - [参考: Bayesians are frequentists.](https://statmodeling.stat.columbia.edu/2024/01/08/bayesians-are-frequentists-2/)
 
-  - 母集団からサンプリングする（標本を抽出する）のは繰り返すことができる試行において起こる事象の相対頻度（frequency）をもとに行われる。例えば、サイコロを14回降って、1の目が3回出た場合、1が出る確率は \frac{3}{4} になる。これを**頻度論的確率**と呼び、人間の主観や信念に依存しない客観的な確率である。
+  - 母集団からサンプリングする（標本を抽出する）のは繰り返すことができる試行において起こる事象の相対頻度（frequency）をもとに行われる。例えば、サイコロを14回降って、1の目が3回出た場合、1が出る確率は $\frac{3}{14}$ になる。これを**頻度論的確率**と呼び、人間の主観や信念に依存しない客観的な確率である。
     
     - 確率とは無限回試行を行ったときの割合
 
@@ -323,7 +324,7 @@ t.test(df$Data2, mu = 55)
 
   - 実験群（experimental group）と統制群（control group）
 
-### *t*検定を使用する前提
+### *t* 検定を使用する前提
 
 1. データの種類：間隔尺度または比例尺度
 2. サンプリング：母集団から無作為抽出され、母集団を十分代表していること
@@ -335,10 +336,9 @@ t.test(df$Data2, mu = 55)
 
 
 <div class="alert alert-info">
-  <strong>重要</strong>正規性の検定や等分散性の検定を行うことを推奨されることがあるが、このような事前テストは第一種&第二種の過誤の確率を高めることが報告されている（e.g., Rasch et al. [2011]）。そのため、そのような検定を行わず、ウェルチの*t* 検定を行う方がよい。
+  <strong>重要</strong> <br>
+  正規性の検定や等分散性の検定を行うことを推奨されることがあるが、このような事前テストは第一種&第二種の過誤の確率を高めることが報告されている（e.g., Rasch et al. [2011]）。そのため、そのような検定を行わず、ウェルチの*t* 検定を行う方がよい。
 </div>
-
-
 
 ### *t* 値の算出
 
@@ -398,8 +398,6 @@ library(psych)
 describeBy(dat_t_ind$English, group = dat_t_ind$Class)
 ```
 
-
-
 ```{r}
 t.test(English ~ Class, data = dat_t_ind)
 ```
@@ -453,26 +451,24 @@ t.test(dat_t_rep$English, dat_t_rep$Math,
 
 1. 小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。
 
-2. （宿題を考える）
-
-- **Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。**
+2. 配布されたデータセット（```pokemon_data_ttest.csv```）をもとに、任意のデータに対して*t* 検定を行い、その解釈を本講義内で確認した書き方報告する。また、データの中身の確認や記述統計、データの可視化なども含めること。
 
 ### 提出方法
-- メールにファイルを添付して送信。
+- メールにファイルを添付してTACT上で提出。
 - 締め切りは今週の木曜日まで
 
 ## 参考文献
 
-- 心理学統計法　放送大学
-- https://www.isc.meiji.ac.jp/~hirukawa/randomevent/test1.htm
-- 中村 心理学・教育学研究のための効果量入門
-- 平井 et al. 
-- 心理学統計の基礎
-- https://www.note.kanekoshobo.co.jp/n/nf836d37b7f10#61a8e679-85a4-411c-96dd-5a1a37335572
-- https://x.com/genkuroki/status/1227224899875295234
-- https://norimune.net/3339
-- https://statmodeling.stat.columbia.edu/2024/01/08/bayesians-are-frequentists-2/
-- Rasch, D., Kubinger, K. D., & Moder, K. (2011). The two-sample t test: pre-testing its assumptions does not pay off. Statistical papers, 52, 219-231.
+- 📚清水（2021）『心理学統計法 (放送大学教材 1638)』放送大学教育振興会
+- 📚中村（2025）『心理学・教育学研究のための効果量入門―Rを用いた実践的理解』北大路書房
+- 📚南風原（2002）『心理統計学の基礎―統合的理解のために』有斐閣アルマ
+- 📚日本統計学会（2020）『日本統計学会公式認定　統計検定準１級対応　統計学実践ワークブック』学術図書出版社
+- 📚平井・岡・草薙（編著）（2022） 『教育・心理系研究のためのＲによるデータ分析―論文作成への理論と実践集』東京図書
+- 📄Rasch, D., Kubinger, K. D., & Moder, K. (2011). The two-sample t test: pre-testing its assumptions does not pay off. *Statistical papers, 52*, 219-231.
+- 💻[「研究仮説が正しい確率」について](https://norimune.net/3339)
+- 💻[統計的仮説検定の考えかた](https://www.isc.meiji.ac.jp/~hirukawa/randomevent/test1.htm)
+- 💻[ベイズ統計学と再現性の危機（テンプル大学統計科学部助教授：マクリン謙一郎）](https://www.note.kanekoshobo.co.jp/n/nf836d37b7f10#61a8e679-85a4-411c-96dd-5a1a37335572)
+- 💻[Bayesians are frequentists.](https://statmodeling.stat.columbia.edu/2024/01/08/bayesians-are-frequentists-2/)
 
 ```{=html}
 <style>
