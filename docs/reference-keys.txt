@@ -415,3 +415,7 @@ rのバージョン-使用したrのパッケージのバージョン
 まとめ-1
 参考文献-資料
 書籍ウェブサイトの記事
+url-your-book-url-like-httpsbookdown.orgyihuibookdown
+ランダム切片-係数モデル
+階層の種類nested-vs.-crossed
+推定方法

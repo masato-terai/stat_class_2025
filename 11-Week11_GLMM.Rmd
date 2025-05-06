@@ -6,6 +6,8 @@ library(brms)
 library(gt)
 library(tidyverse)
 library(kableExtra)
+library(lme4)
+library(patchwork)
 
 rstan_options(auto_write = T)
 options(mc.cores = parallel::detectCores())
@@ -20,8 +22,8 @@ options(mc.cores = parallel::detectCores())
 
 ## 今日の目標
 
-1. 
-2. 
+1. 階層モデルについて理論的背景やその仮定について理解する
+2. 階層モデルをRで実装し、分析の結果を報告することができる
 
 
 
@@ -71,13 +73,34 @@ options(mc.cores = parallel::detectCores())
     
     - 4つの学校の複数の学生からデータを取得する
 
+::: .infobox
 - 「個体から複数のデータを取る」という実験操作を疑似反復という
 
   - 「疑似」がつく理由：個体差を消すほどの反復にはなっていないため。個体差などを打ち消すような実験操作ができている場合「反復」とみなせる（個体差や場所差を打ち消すために反復を行う）。
+  
+:::
 
-- ランダム効果を考慮する場合、しない場合
+<!-- ### 階層の種類：Nested vs. Crossed -->
+<!-- （ややこしいから入れるか検討） -->
+<!-- - 階層のパターンは大別して以下の二種類ある。分析をする際にはこの二つを書き分けなければならないため、データの構造をきちんと把握しておく必要がある。言語系の研究では、入れ子構造が多いため、この講義では入れ子構造のランダム効果の分析法を行う。 -->
 
-  - Brysbaert (2025)
+<!-- - 入れ子構造（Nested Random Effects） -->
+
+<!--   - レベル1の階層のあるデータは、レベル2の階層のあるデータのみに属し、別のレベル2のデータには属していない。 -->
+
+<!--     - e.g., 参加者がそれぞれ複数の項目を提示される、学校単位の学力調査 -->
+
+<!-- （図を挿入） -->
+
+<!-- - 交差構造（Crossed Random Effects） -->
+
+<!--   - レベル1の階層のあるデータは、レベル2の階層のあるデータのみに属し、別のレベル2のデータにも属す。 -->
+
+<!--     - e.g., 3人の生徒が3人の教師それぞれに教わる -->
+
+
+<!-- （図を挿入） -->
+
 
 ## ランダム切片モデル
 
@@ -86,10 +109,6 @@ options(mc.cores = parallel::detectCores())
   - 例. 指導法Aと指導法Bの効果を比較検証したい（事後テストの得点を目的変数として分析）。この場合、テスト得点は指導法の効果による影響だけでなく、生徒の個人差によって異なると仮定
 
 ```{r, include=FALSE}
-library(tidyverse)
-library(lme4)
-library(patchwork)
-
 # データ作成
 set.seed(123)
 n_students <- 10
@@ -101,10 +120,12 @@ students <- tibble(
   slope = rnorm(n_students, mean = 2, sd = 0.5)
 )
 
+study_time_seq <- seq(0, 10, length.out = n_obs)
+
 data <- students %>%
   group_by(student_id) %>%
   do({
-    study_time = runif(n_obs, 0, 10)
+    study_time = study_time_seq
     score = .$intercept + .$slope * study_time + rnorm(n_obs, 0, 3)
     tibble(study_time, score)
   }) %>%
@@ -129,25 +150,24 @@ fixef_both      <- fixef(model_both)
 p1 <- ggplot(data, aes(x = study_time, color = student_id)) +
   geom_line(aes(y = pred_intercept)) +
   geom_abline(intercept = fixef_intercept[1], slope = fixef_intercept[2], color = "black", linetype = "dashed", linewidth = 1) +
-  labs(title = "ランダム切片モデル", x = "勉強時間", y = "英語のテスト得点")
+  labs(title = "ランダム切片モデル", x = "勉強時間", y = "英語のテスト得点") + ylim(30, 100)
 
-# # ランダム係数モデル（切片なし）の描画
-# p2 <- ggplot(data, aes(x = study_time, color = student_id)) +
-#   geom_line(aes(y = pred_slope)) +
-#   geom_abline(intercept = 0, slope = fixef_slope[1], color = "black", linetype = "dashed", linewidth = 1) +
-#   labs(title = "ランダム係数モデル（切片なし）", x = "勉強時間", y = "英語のテスト得点")
+# ランダム係数モデル（切片は固定）の描画
+p2 <- ggplot(data, aes(x = study_time, color = student_id)) +
+  geom_line(aes(y = pred_slope)) +
+  geom_abline(intercept = fixef_slope[1], slope = fixef_slope[2], color = "black", linetype = "dashed", linewidth = 1) +
+  labs(title = "ランダム係数モデル（切片は固定）", x = "勉強時間", y = "英語のテスト得点") + ylim(30, 100)
 
 # ランダム切片 + 係数モデルの描画
 p3 <- ggplot(data, aes(x = study_time, color = student_id)) +
   geom_line(aes(y = pred_both)) +
   geom_abline(intercept = fixef_both[1], slope = fixef_both[2], color = "black", linetype = "dashed", linewidth = 1) +
-  labs(title = "ランダム切片＋係数モデル", x = "勉強時間", y = "英語のテスト得点")
+  labs(title = "ランダム切片＋係数モデル", x = "勉強時間", y = "英語のテスト得点") + ylim(30, 100)
 ```
 
 ```{r, echo=FALSE}
-p1
+p1 + plot_layout(guides = "collect") & theme(legend.position = "bottom")
 ```
-
 
 ## ランダム係数モデル
 
@@ -156,22 +176,37 @@ p1
   - 例. 指導法Aと指導法Bの効果を比較検証したい（事後テストの得点を目的変数として分析）。この場合、指導法の効果は生徒の個人差によって異なる仮定
 
 ```{r, echo=FALSE}
-(p1 | p3) + plot_layout(guides = "collect") & theme(legend.position = "bottom")
+(p1 | p2) + plot_layout(guides = "collect") & theme(legend.position = "bottom")
 ```
 
 
-## Nestedの話
+## ランダム切片 & 係数モデル
+```{r, echo=FALSE, fig.dim=c(8,10)}
+(p1 | p2 | p3) + plot_layout(guides = "collect") & theme(legend.position = "bottom")
+```
+
 
 ## GLMMを行うときの留意点
+
+### 推定方法
+- 頻度統計の場合のマルチモデルの推定には最尤法が使われる（Maximum Likelihood）。目安として50人程度のサンプルサイズが最低限必要（変量効果の分散成分が過小推定される）。しかし、サンプルサイズがどうしても少なくなる場合もある。そこで、制限つき最尤法が開発され、ソフトウェアではこちらが採用されている場合が多い。サンプルサイズが十分に多い場合、最尤法の方が制限つき最尤法よりも推定精度がいい（標準誤差が小さい）。また制限つき最尤法では固定効果について尤度を計算しないため、情報量基準を用いたモデル比較を行うことができない。
+
+- 最尤法、制限つき最尤法も従属変数の正規性と分散均一性の仮定がある。サンプルサイズが十分に大きい場合、切片や回帰係数の推定値は分布が歪んでいることによるバイアスを受けにくい。しかし、標準誤差は正しく推定されなくなるため、標準誤差を使って算出される有意性検定や信頼区間の推定にバイアスが発生することに注意が必要。
 
 ### データセットの構造に注意
 - これまでに使用してきたデータセットが必ずしもGLMMの分析に合うものではない。
 
 - 各行には、一人の参加者の各項目が含まれているべきである
 
-  - この形式にしておけば、どのような分析にも対応できる
+  - この形式にしておけば、どのような分析にも対応できる（Tidy dataとも呼ばれる）
 
-（データセットの例を示す）
+- Tidy dataの例
+```{r, echo=FALSE, tab.cap= "Tidy dataの例"}
+dat.demo <- read.csv("sample_data/AJ.csv")[,c(1:2, 9)]
+
+head(dat.demo, 5)
+```
+
 
 ### 計算の負荷が大きい
 - これまでに紹介した分析とは異なり、結果が出力されるまでに時間がかかります。モデルの変数が多く、ランダム効果にも複数の変数を含む場合、数日かかることもあります。
@@ -187,7 +222,6 @@ p1
 - ```lme4```パッケージを使用します
 
 ```{r, warning=FALSE, message=FALSE}
-#install.packages("lme4", dependencies = T)
 library(lme4)
 ```
 
@@ -368,6 +402,7 @@ check_autocorrelation(res.3)
 
 ## 参考文献
 - 久保　データ解析のための統計モデリング入門
+- 清水　個人と集団のマルチレベル分析
 - 馬場　RとStanではじめるベイズ統計モデリングによるデータ分析入門
 - 外国語教育ハンドブック
 - Brysbaert, M. (2025). Applying Mixed-Effects Models in Research on Second Language Acquisition: A Tutorial for Beginners. Languages, 10(2), 20.
@@ -375,6 +410,8 @@ check_autocorrelation(res.3)
 - https://qiita.com/ocean_f/items/9de4c6bc60616e5a3cf2
 - https://stats.oarc.ucla.edu/r/dae/mixed-effects-logistic-regression/
 - Terai, M., Fukuta, J., & Tamura, Y. (2024). Learnability of L2 collocations and L1 influence on L2 collocational representations of Japanese learners of English. International Review of Applied Linguistics in Language Teaching, 62(4), 1959-1983.
+- ref: https://stats.stackexchange.com/questions/228800/crossed-vs-nested-random-effects-how-do-they-differ-and-how-are-they-specified
+- 村山航. (2018). 刺激の効果を侮るなかれ―ランダム刺激効果を含んだ線形混合モデルの重要性と落とし穴―. 基礎心理学研究, 36(2), 236-242.
 
 ```{=html}
 <style>
