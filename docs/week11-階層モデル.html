@@ -51,6 +51,10 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 
 
 <style type="text/css">
@@ -139,7 +143,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">言語統計処理_春学期</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> url: your book url like https://bookdown.org/yihui/bookdown</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#講義概要"><i class="fa fa-check"></i><b>1.1</b> 講義概要</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#講義スケジュール"><i class="fa fa-check"></i><b>1.2</b> 講義スケジュール</a></li>
@@ -432,36 +436,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </div>
-<div id="階層の種類nested-vs.-crossed" class="section level3 hasAnchor" number="12.4.1">
-<h3><span class="header-section-number">12.4.1</span> 階層の種類：Nested vs. Crossed<a href="week11-階層モデル.html#階層の種類nested-vs.-crossed" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p>階層のパターンは大別して以下の二種類ある。分析をする際にはこの二つを書き分けなければならないため、データの構造をきちんと把握しておく必要がある。言語系の研究では、入れ子構造が多いため、この講義では入れ子構造のランダム効果の分析法を行う。</p></li>
-<li><p>入れ子構造（Nested Random Effects）</p>
-<ul>
-<li><p>レベル1の階層のあるデータは、レベル2の階層のあるデータのみに属し、別のレベル2のデータには属していない。</p>
-<ul>
-<li>e.g., 参加者がそれぞれ複数の項目を提示される、学校単位の学力調査</li>
-</ul></li>
-</ul></li>
-</ul>
-<p>（図を挿入）</p>
-<ul>
-<li><p>交差構造（Crossed Random Effects）</p>
-<ul>
-<li><p>レベル1の階層のあるデータは、レベル2の階層のあるデータのみに属し、別のレベル2のデータにも属す。</p>
-<ul>
-<li>e.g., 3人の生徒が3人の教師それぞれに教わる</li>
-</ul></li>
-</ul></li>
-</ul>
-<p>（図を挿入）</p>
-<ul>
-<li><p>ランダム効果を考慮する場合、しない場合</p>
-<ul>
-<li>Brysbaert (2025)</li>
-</ul></li>
-</ul>
-</div>
+<!-- ### 階層の種類：Nested vs. Crossed -->
+<!-- （ややこしいから入れるか検討） -->
+<!-- - 階層のパターンは大別して以下の二種類ある。分析をする際にはこの二つを書き分けなければならないため、データの構造をきちんと把握しておく必要がある。言語系の研究では、入れ子構造が多いため、この講義では入れ子構造のランダム効果の分析法を行う。 -->
+<!-- - 入れ子構造（Nested Random Effects） -->
+<!--   - レベル1の階層のあるデータは、レベル2の階層のあるデータのみに属し、別のレベル2のデータには属していない。 -->
+<!--     - e.g., 参加者がそれぞれ複数の項目を提示される、学校単位の学力調査 -->
+<!-- （図を挿入） -->
+<!-- - 交差構造（Crossed Random Effects） -->
+<!--   - レベル1の階層のあるデータは、レベル2の階層のあるデータのみに属し、別のレベル2のデータにも属す。 -->
+<!--     - e.g., 3人の生徒が3人の教師それぞれに教わる -->
+<!-- （図を挿入） -->
 </div>
 <div id="ランダム切片モデル" class="section level2 hasAnchor" number="12.5">
 <h2><span class="header-section-number">12.5</span> ランダム切片モデル<a href="week11-階層モデル.html#ランダム切片モデル" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -471,7 +456,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>例. 指導法Aと指導法Bの効果を比較検証したい（事後テストの得点を目的変数として分析）。この場合、テスト得点は指導法の効果による影響だけでなく、生徒の個人差によって異なると仮定</li>
 </ul></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-299-1.png" width="672" /></p>
 </div>
 <div id="ランダム係数モデル" class="section level2 hasAnchor" number="12.6">
 <h2><span class="header-section-number">12.6</span> ランダム係数モデル<a href="week11-階層モデル.html#ランダム係数モデル" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -481,11 +466,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>例. 指導法Aと指導法Bの効果を比較検証したい（事後テストの得点を目的変数として分析）。この場合、指導法の効果は生徒の個人差によって異なる仮定</li>
 </ul></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-300-1.png" width="672" /></p>
 </div>
 <div id="ランダム切片-係数モデル" class="section level2 hasAnchor" number="12.7">
 <h2><span class="header-section-number">12.7</span> ランダム切片 &amp; 係数モデル<a href="week11-階層モデル.html#ランダム切片-係数モデル" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><img src="_main_files/figure-html/unnamed-chunk-5-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-301-1.png" width="768" /></p>
 </div>
 <div id="glmmを行うときの留意点" class="section level2 hasAnchor" number="12.8">
 <h2><span class="header-section-number">12.8</span> GLMMを行うときの留意点<a href="week11-階層モデル.html#glmmを行うときの留意点" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -504,13 +489,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>この形式にしておけば、どのような分析にも対応できる（Tidy dataとも呼ばれる）</li>
 </ul></li>
+<li><p>Tidy dataの例</p></li>
 </ul>
-<pre><code>##   subject itemID pres.order        Item Itemtype Length ColFreq answer res   RT
-## 1       2      1         87   thick fog       JE      9     145   TRUE   1 1273
-## 2       2      2         61 stupid idea       JE     11     112   TRUE   1 1012
-## 3       2      3         31  thin lips        JE      9     266   TRUE   1 1265
-## 4       2      4        121   deep love       JE      9     140   TRUE   1  930
-## 5       2      5         43  small room       JE     10    1010   TRUE   1 1016</code></pre>
+<pre><code>##   subject itemID res
+## 1       2      1   1
+## 2       2      2   1
+## 3       2      3   1
+## 4       2      4   1
+## 5       2      5   1</code></pre>
 </div>
 <div id="計算の負荷が大きい" class="section level3 hasAnchor" number="12.8.3">
 <h3><span class="header-section-number">12.8.3</span> 計算の負荷が大きい<a href="week11-階層モデル.html#計算の負荷が大きい" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -530,20 +516,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><code>lme4</code>パッケージを使用します</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="week11-階層モデル.html#cb2-1" tabindex="-1"></a><span class="fu">library</span>(lme4)</span></code></pre></div>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="week11-階層モデル.html#cb484-1" tabindex="-1"></a><span class="fu">library</span>(lme4)</span></code></pre></div>
 <ul>
 <li>処理にかかる時間を計測するため、<code>tictoc</code>パッケージを使います。</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="week11-階層モデル.html#cb3-1" tabindex="-1"></a><span class="co">#install.packages(&quot;tictoc&quot;)</span></span>
-<span id="cb3-2"><a href="week11-階層モデル.html#cb3-2" tabindex="-1"></a><span class="fu">library</span>(tictoc)</span></code></pre></div>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="week11-階層モデル.html#cb485-1" tabindex="-1"></a><span class="co">#install.packages(&quot;tictoc&quot;)</span></span>
+<span id="cb485-2"><a href="week11-階層モデル.html#cb485-2" tabindex="-1"></a><span class="fu">library</span>(tictoc)</span></code></pre></div>
 <ul>
 <li>Terai et al. (2024)のデータを使用します。</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="week11-階層モデル.html#cb4-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/AJ.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="week11-階層モデル.html#cb5-1" tabindex="-1"></a>dat<span class="sc">$</span>Itemtype <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Itemtype, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Baseline&quot;</span>, <span class="st">&quot;JE&quot;</span>, <span class="st">&quot;Eonly&quot;</span>))</span>
-<span id="cb5-2"><a href="week11-階層モデル.html#cb5-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Itemtype) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">3</span>)</span>
-<span id="cb5-3"><a href="week11-階層モデル.html#cb5-3" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="week11-階層モデル.html#cb5-4" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Itemtype)</span></code></pre></div>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="week11-階層モデル.html#cb486-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/AJ.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="week11-階層モデル.html#cb487-1" tabindex="-1"></a>dat<span class="sc">$</span>Itemtype <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Itemtype, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Baseline&quot;</span>, <span class="st">&quot;JE&quot;</span>, <span class="st">&quot;Eonly&quot;</span>))</span>
+<span id="cb487-2"><a href="week11-階層モデル.html#cb487-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Itemtype) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">3</span>)</span>
+<span id="cb487-3"><a href="week11-階層モデル.html#cb487-3" tabindex="-1"></a></span>
+<span id="cb487-4"><a href="week11-階層モデル.html#cb487-4" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Itemtype)</span></code></pre></div>
 <pre><code>##          2 3
 ## Baseline 0 0
 ## JE       1 0
@@ -551,26 +537,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>連続値の場合中心化します</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="week11-階層モデル.html#cb7-1" tabindex="-1"></a><span class="co">#install.packages(&quot;tidyverse&quot;)</span></span>
-<span id="cb7-2"><a href="week11-階層モデル.html#cb7-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb7-3"><a href="week11-階層モデル.html#cb7-3" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
-<span id="cb7-4"><a href="week11-階層モデル.html#cb7-4" tabindex="-1"></a>  <span class="fu">group_by</span>(subject) <span class="sc">%&gt;%</span></span>
-<span id="cb7-5"><a href="week11-階層モデル.html#cb7-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(<span class="st">&quot;pres.order&quot;</span>, <span class="st">&quot;Length&quot;</span>), <span class="sc">~</span><span class="fu">scale</span>(.x)[,<span class="dv">1</span>],<span class="at">.names =</span> <span class="st">&quot;z.{col}&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb7-6"><a href="week11-階層モデル.html#cb7-6" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="week11-階層モデル.html#cb489-1" tabindex="-1"></a><span class="co">#install.packages(&quot;tidyverse&quot;)</span></span>
+<span id="cb489-2"><a href="week11-階層モデル.html#cb489-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb489-3"><a href="week11-階層モデル.html#cb489-3" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb489-4"><a href="week11-階層モデル.html#cb489-4" tabindex="-1"></a>  <span class="fu">group_by</span>(subject) <span class="sc">%&gt;%</span></span>
+<span id="cb489-5"><a href="week11-階層モデル.html#cb489-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(<span class="st">&quot;pres.order&quot;</span>, <span class="st">&quot;Length&quot;</span>), <span class="sc">~</span><span class="fu">scale</span>(.x)[,<span class="dv">1</span>],<span class="at">.names =</span> <span class="st">&quot;z.{col}&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb489-6"><a href="week11-階層モデル.html#cb489-6" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div>
 <ul>
 <li>切片のみのモデル</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="week11-階層モデル.html#cb8-1" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb8-2"><a href="week11-階層モデル.html#cb8-2" tabindex="-1"></a>res<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">glmer</span>(</span>
-<span id="cb8-3"><a href="week11-階層モデル.html#cb8-3" tabindex="-1"></a>  res <span class="sc">~</span> Itemtype <span class="sc">+</span></span>
-<span id="cb8-4"><a href="week11-階層モデル.html#cb8-4" tabindex="-1"></a>  (<span class="dv">1</span><span class="sc">|</span>subject) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>itemID),</span>
-<span id="cb8-5"><a href="week11-階層モデル.html#cb8-5" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
-<span id="cb8-6"><a href="week11-階層モデル.html#cb8-6" tabindex="-1"></a>  <span class="at">data =</span> dat2,</span>
-<span id="cb8-7"><a href="week11-階層モデル.html#cb8-7" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">glmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>)</span>
-<span id="cb8-8"><a href="week11-階層モデル.html#cb8-8" tabindex="-1"></a>               )</span>
-<span id="cb8-9"><a href="week11-階層モデル.html#cb8-9" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>## 0.94 sec elapsed</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="week11-階層モデル.html#cb10-1" tabindex="-1"></a><span class="fu">summary</span>(res<span class="fl">.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="week11-階層モデル.html#cb490-1" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb490-2"><a href="week11-階層モデル.html#cb490-2" tabindex="-1"></a>res<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">glmer</span>(</span>
+<span id="cb490-3"><a href="week11-階層モデル.html#cb490-3" tabindex="-1"></a>  res <span class="sc">~</span> Itemtype <span class="sc">+</span></span>
+<span id="cb490-4"><a href="week11-階層モデル.html#cb490-4" tabindex="-1"></a>  (<span class="dv">1</span><span class="sc">|</span>subject) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>itemID),</span>
+<span id="cb490-5"><a href="week11-階層モデル.html#cb490-5" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
+<span id="cb490-6"><a href="week11-階層モデル.html#cb490-6" tabindex="-1"></a>  <span class="at">data =</span> dat2,</span>
+<span id="cb490-7"><a href="week11-階層モデル.html#cb490-7" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">glmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>)</span>
+<span id="cb490-8"><a href="week11-階層モデル.html#cb490-8" tabindex="-1"></a>               )</span>
+<span id="cb490-9"><a href="week11-階層モデル.html#cb490-9" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
+<pre><code>## 0.78 sec elapsed</code></pre>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="week11-階層モデル.html#cb492-1" tabindex="-1"></a><span class="fu">summary</span>(res<span class="fl">.1</span>)</span></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: binomial  ( logit )
@@ -592,10 +578,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Number of obs: 3712, groups:  itemID, 116; subject, 32
 ## 
 ## Fixed effects:
-##             Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)   1.4468     0.1517   9.536  &lt; 2e-16 ***
-## Itemtype2     1.0938     0.2879   3.799 0.000145 ***
-## Itemtype3    -1.3669     0.2618  -5.222 1.77e-07 ***
+##             Estimate Std. Error z value             Pr(&gt;|z|)    
+## (Intercept)   1.4468     0.1517   9.536 &lt; 0.0000000000000002 ***
+## Itemtype2     1.0938     0.2879   3.799             0.000145 ***
+## Itemtype3    -1.3669     0.2618  -5.222          0.000000177 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -607,29 +593,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>切片と係数のモデル</p></li>
 <li><p>モデルが上手く収束していない</p></li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb12-1"><a href="week11-階層モデル.html#cb12-1" tabindex="-1"></a>tic()</span>
-<span id="cb12-2"><a href="week11-階層モデル.html#cb12-2" tabindex="-1"></a>res.2 &lt;- glmer(</span>
-<span id="cb12-3"><a href="week11-階層モデル.html#cb12-3" tabindex="-1"></a>  res ~ Itemtype +</span>
-<span id="cb12-4"><a href="week11-階層モデル.html#cb12-4" tabindex="-1"></a>  (1 + pres.order|subject) + (1|itemID),</span>
-<span id="cb12-5"><a href="week11-階層モデル.html#cb12-5" tabindex="-1"></a>  family = binomial(link = &quot;logit&quot;),</span>
-<span id="cb12-6"><a href="week11-階層モデル.html#cb12-6" tabindex="-1"></a>  data = dat2,</span>
-<span id="cb12-7"><a href="week11-階層モデル.html#cb12-7" tabindex="-1"></a>  control = glmerControl(optimizer = &quot;bobyqa&quot;)</span>
-<span id="cb12-8"><a href="week11-階層モデル.html#cb12-8" tabindex="-1"></a>               )</span>
-<span id="cb12-9"><a href="week11-階層モデル.html#cb12-9" tabindex="-1"></a>toc()</span></code></pre></div>
+<div class="sourceCode" id="cb494"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb494-1"><a href="week11-階層モデル.html#cb494-1" tabindex="-1"></a>tic()</span>
+<span id="cb494-2"><a href="week11-階層モデル.html#cb494-2" tabindex="-1"></a>res.2 &lt;- glmer(</span>
+<span id="cb494-3"><a href="week11-階層モデル.html#cb494-3" tabindex="-1"></a>  res ~ Itemtype +</span>
+<span id="cb494-4"><a href="week11-階層モデル.html#cb494-4" tabindex="-1"></a>  (1 + pres.order|subject) + (1|itemID),</span>
+<span id="cb494-5"><a href="week11-階層モデル.html#cb494-5" tabindex="-1"></a>  family = binomial(link = &quot;logit&quot;),</span>
+<span id="cb494-6"><a href="week11-階層モデル.html#cb494-6" tabindex="-1"></a>  data = dat2,</span>
+<span id="cb494-7"><a href="week11-階層モデル.html#cb494-7" tabindex="-1"></a>  control = glmerControl(optimizer = &quot;bobyqa&quot;)</span>
+<span id="cb494-8"><a href="week11-階層モデル.html#cb494-8" tabindex="-1"></a>               )</span>
+<span id="cb494-9"><a href="week11-階層モデル.html#cb494-9" tabindex="-1"></a>toc()</span></code></pre></div>
 <ul>
 <li>中心化した変数だとうまくいった</li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="week11-階層モデル.html#cb13-1" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb13-2"><a href="week11-階層モデル.html#cb13-2" tabindex="-1"></a>res<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">glmer</span>(</span>
-<span id="cb13-3"><a href="week11-階層モデル.html#cb13-3" tabindex="-1"></a>  res <span class="sc">~</span> Itemtype <span class="sc">+</span></span>
-<span id="cb13-4"><a href="week11-階層モデル.html#cb13-4" tabindex="-1"></a>  (<span class="dv">1</span> <span class="sc">+</span> z.pres.order<span class="sc">|</span>subject) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>itemID),</span>
-<span id="cb13-5"><a href="week11-階層モデル.html#cb13-5" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
-<span id="cb13-6"><a href="week11-階層モデル.html#cb13-6" tabindex="-1"></a>  <span class="at">data =</span> dat2,</span>
-<span id="cb13-7"><a href="week11-階層モデル.html#cb13-7" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">glmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>) <span class="co">#スムーズに推定を行うためにこれを設定します</span></span>
-<span id="cb13-8"><a href="week11-階層モデル.html#cb13-8" tabindex="-1"></a>               )</span>
-<span id="cb13-9"><a href="week11-階層モデル.html#cb13-9" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
-<pre><code>## 1.62 sec elapsed</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="week11-階層モデル.html#cb15-1" tabindex="-1"></a><span class="fu">summary</span>(res<span class="fl">.3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="week11-階層モデル.html#cb495-1" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb495-2"><a href="week11-階層モデル.html#cb495-2" tabindex="-1"></a>res<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">glmer</span>(</span>
+<span id="cb495-3"><a href="week11-階層モデル.html#cb495-3" tabindex="-1"></a>  res <span class="sc">~</span> Itemtype <span class="sc">+</span></span>
+<span id="cb495-4"><a href="week11-階層モデル.html#cb495-4" tabindex="-1"></a>  (<span class="dv">1</span> <span class="sc">+</span> z.pres.order<span class="sc">|</span>subject) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>itemID),</span>
+<span id="cb495-5"><a href="week11-階層モデル.html#cb495-5" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
+<span id="cb495-6"><a href="week11-階層モデル.html#cb495-6" tabindex="-1"></a>  <span class="at">data =</span> dat2,</span>
+<span id="cb495-7"><a href="week11-階層モデル.html#cb495-7" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">glmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>) <span class="co">#スムーズに推定を行うためにこれを設定します</span></span>
+<span id="cb495-8"><a href="week11-階層モデル.html#cb495-8" tabindex="-1"></a>               )</span>
+<span id="cb495-9"><a href="week11-階層モデル.html#cb495-9" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
+<pre><code>## 1.69 sec elapsed</code></pre>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="week11-階層モデル.html#cb497-1" tabindex="-1"></a><span class="fu">summary</span>(res<span class="fl">.3</span>)</span></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: binomial  ( logit )
@@ -652,10 +638,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Number of obs: 3712, groups:  itemID, 116; subject, 32
 ## 
 ## Fixed effects:
-##             Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)   1.4707     0.1535   9.580  &lt; 2e-16 ***
-## Itemtype2     1.1154     0.2900   3.846  0.00012 ***
-## Itemtype3    -1.3865     0.2642  -5.247 1.54e-07 ***
+##             Estimate Std. Error z value             Pr(&gt;|z|)    
+## (Intercept)   1.4707     0.1535   9.580 &lt; 0.0000000000000002 ***
+## Itemtype2     1.1154     0.2900   3.846              0.00012 ***
+## Itemtype3    -1.3865     0.2642  -5.247          0.000000154 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -666,16 +652,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>95% CI</li>
 </ul>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="week11-階層モデル.html#cb17-1" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(res<span class="fl">.3</span>)))</span>
-<span id="cb17-2"><a href="week11-階層モデル.html#cb17-2" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="week11-階層モデル.html#cb17-3" tabindex="-1"></a><span class="co"># table of estimates with 95% CI</span></span>
-<span id="cb17-4"><a href="week11-階層モデル.html#cb17-4" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
-<span id="cb17-5"><a href="week11-階層モデル.html#cb17-5" tabindex="-1"></a>  <span class="at">Est =</span> <span class="fu">fixef</span>(res<span class="fl">.3</span>),</span>
-<span id="cb17-6"><a href="week11-階層モデル.html#cb17-6" tabindex="-1"></a>  <span class="at">LL =</span> <span class="fu">fixef</span>(res<span class="fl">.3</span>) <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se,</span>
-<span id="cb17-7"><a href="week11-階層モデル.html#cb17-7" tabindex="-1"></a>  <span class="at">UL =</span> <span class="fu">fixef</span>(res<span class="fl">.3</span>) <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
-<span id="cb17-8"><a href="week11-階層モデル.html#cb17-8" tabindex="-1"></a>  )</span>
-<span id="cb17-9"><a href="week11-階層モデル.html#cb17-9" tabindex="-1"></a></span>
-<span id="cb17-10"><a href="week11-階層モデル.html#cb17-10" tabindex="-1"></a>tab</span></code></pre></div>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="week11-階層モデル.html#cb499-1" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(res<span class="fl">.3</span>)))</span>
+<span id="cb499-2"><a href="week11-階層モデル.html#cb499-2" tabindex="-1"></a></span>
+<span id="cb499-3"><a href="week11-階層モデル.html#cb499-3" tabindex="-1"></a><span class="co"># table of estimates with 95% CI</span></span>
+<span id="cb499-4"><a href="week11-階層モデル.html#cb499-4" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
+<span id="cb499-5"><a href="week11-階層モデル.html#cb499-5" tabindex="-1"></a>  <span class="at">Est =</span> <span class="fu">fixef</span>(res<span class="fl">.3</span>),</span>
+<span id="cb499-6"><a href="week11-階層モデル.html#cb499-6" tabindex="-1"></a>  <span class="at">LL =</span> <span class="fu">fixef</span>(res<span class="fl">.3</span>) <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se,</span>
+<span id="cb499-7"><a href="week11-階層モデル.html#cb499-7" tabindex="-1"></a>  <span class="at">UL =</span> <span class="fu">fixef</span>(res<span class="fl">.3</span>) <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
+<span id="cb499-8"><a href="week11-階層モデル.html#cb499-8" tabindex="-1"></a>  )</span>
+<span id="cb499-9"><a href="week11-階層モデル.html#cb499-9" tabindex="-1"></a></span>
+<span id="cb499-10"><a href="week11-階層モデル.html#cb499-10" tabindex="-1"></a>tab</span></code></pre></div>
 <pre><code>##                   Est         LL         UL
 ## (Intercept)  1.470673  1.1697749  1.7715711
 ## Itemtype2    1.115433  0.5469471  1.6839180
@@ -686,11 +672,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>こちらは推定法の関係で時間がかかる</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb19"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb19-1"><a href="week11-階層モデル.html#cb19-1" tabindex="-1"></a>confint(res.3)</span></code></pre></div>
+<div class="sourceCode" id="cb501"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb501-1"><a href="week11-階層モデル.html#cb501-1" tabindex="-1"></a>confint(res.3)</span></code></pre></div>
 <ul>
 <li>オッズ比</li>
 </ul>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="week11-階層モデル.html#cb20-1" tabindex="-1"></a><span class="fu">exp</span>(tab)</span></code></pre></div>
+<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="week11-階層モデル.html#cb502-1" tabindex="-1"></a><span class="fu">exp</span>(tab)</span></code></pre></div>
 <pre><code>##                   Est       LL        UL
 ## (Intercept) 4.3521632 3.221267 5.8800845
 ## Itemtype2   3.0508876 1.727970 5.3866193
@@ -701,7 +687,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>尤度比検定の結果、係数を考慮したモデルの方がよりAICが有意に低かった</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="week11-階層モデル.html#cb22-1" tabindex="-1"></a><span class="fu">anova</span>(res<span class="fl">.1</span>, res<span class="fl">.3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="week11-階層モデル.html#cb504-1" tabindex="-1"></a><span class="fu">anova</span>(res<span class="fl">.1</span>, res<span class="fl">.3</span>)</span></code></pre></div>
 <pre><code>## Data: dat2
 ## Models:
 ## res.1: res ~ Itemtype + (1 | subject) + (1 | itemID)
@@ -714,9 +700,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><code>performance</code>パッケージでモデルの当てはまり度合いを確認</li>
 </ul>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="week11-階層モデル.html#cb24-1" tabindex="-1"></a><span class="co">#install.packages(&quot;performance&quot;)</span></span>
-<span id="cb24-2"><a href="week11-階層モデル.html#cb24-2" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
-<span id="cb24-3"><a href="week11-階層モデル.html#cb24-3" tabindex="-1"></a><span class="fu">compare_performance</span>(res<span class="fl">.1</span>, res<span class="fl">.3</span>, <span class="at">rank =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="week11-階層モデル.html#cb506-1" tabindex="-1"></a><span class="co">#install.packages(&quot;performance&quot;)</span></span>
+<span id="cb506-2"><a href="week11-階層モデル.html#cb506-2" tabindex="-1"></a><span class="fu">library</span>(performance)</span>
+<span id="cb506-3"><a href="week11-階層モデル.html#cb506-3" tabindex="-1"></a><span class="fu">compare_performance</span>(res<span class="fl">.1</span>, res<span class="fl">.3</span>, <span class="at">rank =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## # Comparison of Model Performance Indices
 ## 
 ## Name  |    Model | R2 (cond.) | R2 (marg.) |   ICC |  RMSE | Sigma | Log_loss
@@ -728,18 +714,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## --------------------------------------------------------------------------------------------------
 ## res.1 |      -Inf |       2.694e-04 |       0.050 |        0.050 |       0.963 |             -Inf%
 ## res.3 |      -Inf |       2.694e-04 |       0.950 |        0.950 |       0.037 |             -Inf%</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="week11-階層モデル.html#cb26-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">compare_performance</span>(res<span class="fl">.1</span>, res<span class="fl">.3</span>, <span class="at">rank =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="week11-階層モデル.html#cb508-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">compare_performance</span>(res<span class="fl">.1</span>, res<span class="fl">.3</span>, <span class="at">rank =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>))</span></code></pre></div>
 <pre><code>## Some of the nested models seem to be identical and probably only vary in
 ##   their random effects.</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-318-1.png" width="672" /></p>
 <ul>
 <li>図示</li>
 </ul>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="week11-階層モデル.html#cb28-1" tabindex="-1"></a><span class="co">#install.packages(&quot;ggeffects&quot;)</span></span>
-<span id="cb28-2"><a href="week11-階層モデル.html#cb28-2" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
-<span id="cb28-3"><a href="week11-階層モデル.html#cb28-3" tabindex="-1"></a>eff <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(res<span class="fl">.3</span>, <span class="at">terms =</span> <span class="st">&quot;Itemtype&quot;</span>)</span>
-<span id="cb28-4"><a href="week11-階層モデル.html#cb28-4" tabindex="-1"></a><span class="fu">plot</span>(eff)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="week11-階層モデル.html#cb510-1" tabindex="-1"></a><span class="co">#install.packages(&quot;ggeffects&quot;)</span></span>
+<span id="cb510-2"><a href="week11-階層モデル.html#cb510-2" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
+<span id="cb510-3"><a href="week11-階層モデル.html#cb510-3" tabindex="-1"></a>eff <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(res<span class="fl">.3</span>, <span class="at">terms =</span> <span class="st">&quot;Itemtype&quot;</span>)</span>
+<span id="cb510-4"><a href="week11-階層モデル.html#cb510-4" tabindex="-1"></a><span class="fu">plot</span>(eff)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-319-1.png" width="672" /></p>
 <ul>
 <li><p>モデル診断</p>
 <ul>
@@ -750,16 +736,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb29"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb29-1"><a href="week11-階層モデル.html#cb29-1" tabindex="-1"></a>check_collinearity(モデルの結果を格納した変数名)</span></code></pre></div>
+<div class="sourceCode" id="cb511"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb511-1"><a href="week11-階層モデル.html#cb511-1" tabindex="-1"></a>check_collinearity(モデルの結果を格納した変数名)</span></code></pre></div>
 <ul>
 <li>Outliers</li>
 </ul>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="week11-階層モデル.html#cb30-1" tabindex="-1"></a><span class="fu">check_residuals</span>(res<span class="fl">.3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="week11-階層モデル.html#cb512-1" tabindex="-1"></a><span class="fu">check_residuals</span>(res<span class="fl">.3</span>)</span></code></pre></div>
 <pre><code>## OK: Simulated residuals appear as uniformly distributed (p = 0.149).</code></pre>
 <ul>
 <li>自己相関（Auto-correlation）</li>
 </ul>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="week11-階層モデル.html#cb32-1" tabindex="-1"></a><span class="fu">check_autocorrelation</span>(res<span class="fl">.3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="week11-階層モデル.html#cb514-1" tabindex="-1"></a><span class="fu">check_autocorrelation</span>(res<span class="fl">.3</span>)</span></code></pre></div>
 <pre><code>## Warning: Autocorrelated residuals detected (p &lt; .001).</code></pre>
 </div>
 </div>
@@ -887,6 +873,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
