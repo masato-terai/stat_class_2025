@@ -470,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>得られた<em>t</em>値は2.02よりも大きく、棄却域に入る。従って、帰無仮説が真であると考えると、非常に小さい確率でしか起きない結果が得られたという帰無仮説が真であるという仮定と矛盾した結果となっている。この場合、<strong>統計的に有意</strong>であると表現する。</p>
 <ul>
-<li>つまり、「2025年度の平均点60点は、昨年度よりも統計的に高い得点である。」と主張できる。</li>
+<li>つまり、「2025年度の平均点60点は、昨年度よりも統計的有意に高い得点である。」と主張できる。</li>
 </ul></li>
 </ul>
 <div class="infobox">
@@ -509,14 +509,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
-<li><p>検定統計量の設定</p></li>
-<li><p>有意水準（ <em>α</em> ）の設定</p></li>
+<li>検定統計量の設定</li>
+</ol>
+<ul>
+<li>母分散が分からないため、<em>t</em> 統計量を用いるなど</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li>有意水準（ <em>α</em> ）の設定</li>
 </ol>
 <ul>
 <li><p>慣例的に言語研究の分野では5%が用いられる。</p></li>
 <li><p>帰無仮説を偽とする場合でも、最大5%程度はそれが間違えている可能性を表す。</p>
 <ul>
-<li>分析の前に決定し、結果を見て有意水準を大きくするのは、研究倫理に反するとみられる可能性が大いにある。
+<li>結果を見て有意水準を大きくするのは、研究倫理に反するとみられる可能性が大いにある。
 <ul>
 <li>分析の前に0.05よりも大きくすることはよい。</li>
 </ul></li>
@@ -533,13 +538,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><p>帰無仮説が正しいと仮定したときに、現在観察されたデータと同じか、より稀にしか起こらないようなデータが観察される確率</p>
 <ul>
-<li><em>P</em> 値はデータが観測されて初めて計算される値であり、検定を行う前に設定される有意水準とは明確に異なる概念。ただし、p 値の計算に用いられる分布は、有意水準に基づく<strong>棄却域（臨界値）</strong>の設定にも使われるため、<em>p</em> 値が有意水準を下回れば、「帰無仮説は棄却される」と判断される。</li>
+<li><em>P</em> 値はデータが観測されて初めて計算される値であり、検定を行う前に設定される有意水準とは明確に異なる概念。ただし、<em>p</em> 値の計算に用いられる分布は、有意水準に基づく<strong>棄却域（臨界値）</strong>の設定にも使われるため、<em>p</em> 値が有意水準を下回れば、「帰無仮説は棄却される」と判断される。</li>
 </ul></li>
 <li><p>検定統計量を変換し、有意水準と比較しやすくしたもの</p>
 <ul>
-<li>検定統計量の実現値が大きいほど<em>p</em>値は小さくなる</li>
+<li>検定統計量の実現値が大きいほど <em>p</em> 値は小さくなる</li>
 </ul></li>
-<li><p>上記の手順では、検定統計量の実現値と棄却域の範囲を確認して、帰無仮説が棄却されるかを判断していた。しかし、コンピュータソフトウェアでは、<em>p</em>値が表示され、この値が事前に設定した有意水準よりも大きいかもしくは小さいかを確認して棄却の有無を判断する。</p></li>
+<li><p>上記の手順では、検定統計量の実現値と棄却域の範囲を確認して、帰無仮説が棄却されるかを判断していた。しかし、コンピュータソフトウェアでは、<em>p</em> 値が表示され、この値が事前に設定した有意水準よりも大きいかもしくは小さいかを確認して棄却の有無を判断する。</p></li>
 </ul>
 <div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="week-4-統計的検定.html#cb132-1" tabindex="-1"></a><span class="fu">t.test</span>(df<span class="sc">$</span>Data1, <span class="at">mu =</span> <span class="dv">55</span>)</span></code></pre></div>
 <pre><code>## 
@@ -566,7 +571,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## mean of x 
 ##  58.10553</code></pre>
 <div class="infobox">
-<p>e-やe+は指数的記法です。6.106e-05であれば、6.106 × 10^(-5)なので、0.を合わせて0が5つ6の前につきます。逆に6.106e+05であれば6.106 × 10^5です。Rでは<code>options</code>関数で通常の値に戻して表示できます。</p>
+<p>e-やe+は指数的記法。6.106e-05であれば、6.106 × 10^(-5)なので、0.を合わせて0が5つ6の前につく。6.106e+05であれば6.106 × 10^5。Rでは<code>options</code>関数で通常の値に戻して表示可能。</p>
 <div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="week-4-統計的検定.html#cb136-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
 <span id="cb136-2"><a href="week-4-統計的検定.html#cb136-2" tabindex="-1"></a><span class="fu">t.test</span>(df<span class="sc">$</span>Data2, <span class="at">mu =</span> <span class="dv">55</span>)</span></code></pre></div>
 <pre><code>## 
@@ -623,7 +628,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="有意性検定-統計的検定の問題点" class="section level3 hasAnchor" number="5.5.3">
 <h3><span class="header-section-number">5.5.3</span> 有意性検定（≒ 統計的検定）の問題点<a href="week-4-統計的検定.html#有意性検定-統計的検定の問題点" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li><p>有意確率（ <em>p</em> &lt; 0.05）だけに結果を頼るのはよくない</p>
+<li><p>有意確率（ <em>p</em> &lt; 0.05）だけに結果の解釈を頼るのはよくない</p>
 <ul>
 <li><p>無作為抽出を前提としていても、必ず得られた結果に<strong>誤差</strong>が含まれている</p></li>
 <li><p>標本サイズに大きく左右される</p></li>
@@ -636,9 +641,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>検定力分析で標本サイズを事前に決める</li>
 <li>効果量を報告する</li>
 </ol>
-<div class="infobox">
-<p>言語研究における効果量は、Neyman-Pearson流の理論に基づくことがほとんど。</p>
-</div>
+<!-- ::: infobox -->
+<!-- 言語研究における効果量は、Neyman-Pearson流の理論に基づくことがほとんど。 -->
+<!-- ::: -->
 </div>
 <div id="頻度論的統計学とベイズ統計学" class="section level3 hasAnchor" number="5.5.4">
 <h3><span class="header-section-number">5.5.4</span> 頻度論的統計学とベイズ統計学<a href="week-4-統計的検定.html#頻度論的統計学とベイズ統計学" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -669,9 +674,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>ベイズ統計学の方が道具的に使いやすいと考えることもできる</li>
 </ul></li>
 </ul>
-<div class="infobox">
-<p>フローチャート的な統計分析は推奨されません。分析の前に、分析するデータの母集団がどのような形状なのか、この分析方が正しいのかなど十分検討することが重要です。</p>
-</div>
+<!-- ::: infobox -->
+<!-- フローチャート的な統計分析は推奨されません。分析の前に、分析するデータの母集団がどのような形状なのか、この分析方が正しいのかなど十分検討することが重要です。 -->
+<!-- ::: -->
 </div>
 </div>
 <div id="ハンズオンセッション-2" class="section level2 hasAnchor" number="5.6">
@@ -703,11 +708,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: decimal">
 <li>データの種類：間隔尺度または比例尺度</li>
 <li>サンプリング：母集団から無作為抽出され、母集団を十分代表していること</li>
-<li>正規性：標本平均の分布が正規分布に従うこと。少々外れている場合は正規性に対して頑健であるためOK。大きく外れている場合はノンパラメトリック版の<em>t</em>検定を検討することも考えれるが、ウェルチの<em>t</em>検定を用いることをできるだけ優先する方がいい場合が多い。ノンパラメトリック検定にも使用する前提がある。</li>
-<li>（対応なしの場合のみ）等分散性：比較する2群のデータの分散が等しいこと（= 母分散が等しい集団からデータがサンプリングされていること）。<em>t</em>検定は母分散の等質性に関しても頑健であるため、グループのサンプルサイズが等しい場合、分析結果が歪むことはほとんどない。</li>
+<li>正規性：標本平均の分布が正規分布に従うこと。少々外れている場合は正規性に対して頑健であるためOK。大きく外れている場合はノンパラメトリック版の <em>t</em> 検定を検討することも考えれるが、ウェルチの <em>t</em> 検定を用いることをできるだけ優先する方がいい場合が多い。ノンパラメトリック検定にも使用する前提がある。</li>
+<li>（対応なしの場合のみ）等分散性：比較する2群のデータの分散が等しいこと（= 母分散が等しい集団からデータがサンプリングされていること）。 <em>t</em> 検定は母分散の等質性に関しても頑健であるため、グループのサンプルサイズが等しい場合、分析結果が歪むことはほとんどない。</li>
 </ol>
 <ul>
-<li>ウェルチの<em>t</em>検定を使うのがよい = <em>t</em> 検定の場合基本ウェルチの<em>t</em> 検定を使う</li>
+<li>ウェルチの <em>t</em> 検定を使うのがよい = <em>t</em> 検定の場合、基本ウェルチの<em>t</em> 検定を使う</li>
 </ul>
 <ol start="5" style="list-style-type: decimal">
 <li>（対応なしの場合のみ）観測値の独立性：データがお互いに影響し合い相関が高い場合、第一種の過誤が起こりやすくなる</li>
@@ -720,8 +725,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="t-値の算出" class="section level3 hasAnchor" number="5.6.4">
 <h3><span class="header-section-number">5.6.4</span> <em>t</em> 値の算出<a href="week-4-統計的検定.html#t-値の算出" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
+<li><p><em>t</em> 検定は、その誤差が偶然にしてはどの程度大きいかを調べる検定</p></li>
 <li><p>標本平均の標本誤差：差がどれだけ偶然の誤差によって起きるかを推定</p></li>
-<li><p>偶然起こる誤差おりどの程度大きいかを調べる検定</p></li>
+<li><p><em>t</em> 値を求めて、設定した有意水準と自由度（ <em>df</em> : Degree of Freedom）から、 <em>t</em> 値の棄却域を求める。求めた値より <em>t</em> 値が大きければ、帰無仮説を棄却する。</p></li>
 </ul>
 <p><span class="math display">\[t\ =\ \frac{観測された標本平均の差}{標本平均の差の標準誤差}\]</span></p>
 <div id="対応なし-t-検定サンプルサイズが等しい" class="section level4 hasAnchor" number="5.6.4.1">
@@ -729,6 +735,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math display">\[
 t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}} \hspace{3pc} (df = n_1 + n_2 - 2)
 \]</span></p>
+<ul>
+<li><span class="math inline">\(\bar{x}_1, \bar{x}_2\)</span>：グループ1および2の標本平均<br />
+</li>
+<li><span class="math inline">\(S_1^2, S_2^2\)</span>：グループ1および2の標本分散<br />
+</li>
+<li><span class="math inline">\(n_1, n_2\)</span>：グループ1および2のサンプルサイズ</li>
+</ul>
 </div>
 <div id="対応なし-t-検定サンプルサイズが異なる" class="section level4 hasAnchor" number="5.6.4.2">
 <h4><span class="header-section-number">5.6.4.2</span> 対応なし <em>t</em> 検定（サンプルサイズが異なる）<a href="week-4-統計的検定.html#対応なし-t-検定サンプルサイズが異なる" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -738,12 +751,28 @@ s_p^2 = \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2}
 <p><span class="math display">\[
 t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{s_p^2}{n_1} + \frac{s_p^2}{n_2}}}
 \]</span></p>
+<ul>
+<li><span class="math inline">\(s_p^2\)</span>：プールされた（まとめた）分散の推定値<br />
+</li>
+<li><span class="math inline">\(s_1^2, s_2^2\)</span>：グループ1および2の標本分散<br />
+</li>
+<li><span class="math inline">\(n_1, n_2\)</span>：グループ1および2のサンプルサイズ<br />
+</li>
+<li><span class="math inline">\(\bar{x}_1, \bar{x}_2\)</span>：グループ1および2の標本平均</li>
+</ul>
 </div>
 <div id="対応あり-t-検定" class="section level4 hasAnchor" number="5.6.4.3">
 <h4><span class="header-section-number">5.6.4.3</span> 対応あり <em>t</em> 検定<a href="week-4-統計的検定.html#対応あり-t-検定" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><span class="math display">\[
 t = \frac{\bar{x}_1 - \bar{x}_2}{S_D / \sqrt{n}} \hspace{3pc} (df = n - 1)
 \]</span></p>
+<ul>
+<li><span class="math inline">\(\bar{x}_1 - \bar{x}_2\)</span>：ペアごとの差の平均<br />
+</li>
+<li><span class="math inline">\(S_D\)</span>：差分の標準偏差（差のばらつき）<br />
+</li>
+<li><span class="math inline">\(n\)</span>：ペアの数（例：被験者数）</li>
+</ul>
 </div>
 </div>
 <div id="rでの実装" class="section level3 hasAnchor" number="5.6.5">
@@ -793,12 +822,12 @@ t = \frac{\bar{x}_1 - \bar{x}_2}{S_D / \sqrt{n}} \hspace{3pc} (df = n - 1)
 <li><p><strong>論文記載例</strong></p></li>
 <li><p>* 本来であれば、効果量も報告する必要があるが、今回は省略している。</p>
 <ul>
-<li><p>異なる指導法を実施したクラス A とクラス B の英語テストの平均点は、83.03 (<em>SD</em> = 4.3)と 60.48 (<em>SD</em> = 5.73 でクラス A の平均の方が高かった。 <em>t</em> 検定を使って比較した結果、<em>t</em>(72.353) = 19.911, <em>p</em> &lt; .001、 <em>d</em> = xxx [95%CI = xxx, xxx] で、クラスAのほうが統計的に有意に英語テストの成績が高いことがわかった。</p>
-<ul>
-<li><em>p</em> 値は原則実数値報告である（ <em>p</em> = .046）。しかし、値が0.01よりも小さい場合は、<em>p</em> &lt; .001のように報告する。</li>
-</ul></li>
+<li>異なる指導法を実施したクラス A とクラス B の英語テストの平均点は、83.03 (<em>SD</em> = 4.3)と 60.48 (<em>SD</em> = 5.73 でクラス A の平均の方が高かった。 <em>t</em> 検定を使って比較した結果、<em>t</em>(72.353) = 19.911, <em>p</em> &lt; .001、 <em>d</em> = xxx [95%CI = xxx, xxx] で、クラスAのほうが統計的有意に英語テストの成績が高いことがわかった。</li>
 </ul></li>
 </ul>
+<div class="infobox">
+<p><em>p</em> 値は原則実数値報告である（ <em>p</em> = .046）。しかし、値が0.01よりも小さい場合は、<em>p</em> &lt; .001のように報告する。</p>
+</div>
 </div>
 <div id="対応あり" class="section level4 hasAnchor" number="5.6.5.2">
 <h4><span class="header-section-number">5.6.5.2</span> 対応あり<a href="week-4-統計的検定.html#対応あり" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -845,7 +874,7 @@ t = \frac{\bar{x}_1 - \bar{x}_2}{S_D / \sqrt{n}} \hspace{3pc} (df = n - 1)
 <li><p><strong>論文記載例</strong></p></li>
 <li><p>* 本来であれば、効果量も報告する必要があるが、今回は省略している。</p>
 <ul>
-<li>Aクラスの40名の学生を対象に、英語と数学のテストの得点を比較した。英語の平均点は、82.22 (<em>SD</em> = 8.65)と 75.85 (<em>SD</em> = 10.02)で英語の平均の方が高かった。対応ありの <em>t</em> 検定を使って比較した結果、<em>t</em>(39) = 21.641, <em>p</em> &lt; .001、 <em>d</em> = xxx [95%CI = xxx, xxx] で、英語のほうが統計的に有意に得点が高いことがわかった。</li>
+<li>Aクラスの40名の学生を対象に、英語と数学のテストの得点を比較した。英語の平均点は、82.22 (<em>SD</em> = 8.65)と 75.85 (<em>SD</em> = 10.02)で英語の平均の方が高かった。対応ありの <em>t</em> 検定を使って比較した結果、<em>t</em>(39) = 21.641, <em>p</em> &lt; .001、 <em>d</em> = xxx [95%CI = xxx, xxx] で、英語のほうが統計的有意に得点が高いことがわかった。</li>
 </ul></li>
 </ul>
 </div>
