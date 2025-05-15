@@ -251,6 +251,8 @@ cor.test(dat$English, dat$Math, method = "pearson")
   2. 原因 *X* と結果 *Y* に共変関係がある
   
   3. 他の因果的説明が排除されている
+  
+  - つまり、時間的に先行する変数 *X* が他の変数からの影響を除外したうえで、変数 *Y* に関連があることを示す必要がある。
 
 ### 論文への記載
 
@@ -282,27 +284,51 @@ sjPlot::tab_corr(data = dat, corr.method = "pearson")
 ## 次週までの課題
 ### 課題内容
 
-1. 小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。
+1. 小テストに向けて今回の内容を復習する。
 
-2. （宿題を考える）
+2. 配布されたデータセット（```pokemon_data.csv```）をもとに、任意のデータに対して相関分析を行い、その解釈を本講義内で確認した書き方報告する。データの中身の確認や記述統計、データの可視化なども含めること。相関分析の結果をまとめた表は、必ずしも記載しなくてもよい。
 
-- **Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。**
+3. （再来週までに提出でOK）現時点での研究計画をまとめる。自分の研究に重要な先行研究でもOK。**2の宿題とは別のR Markdownファイルにまとめて提出。**
 
+  - 研究のキーワード3つ
+  
+  - 研究の背景（簡単な先行研究のまとめなど）
+  
+    - 日本語200字-400字程度でまとめる
+  
+  - 研究課題
+  
+    - 最大でも2つまで
+  
+  - 研究の方法
+  
+    - どのようなデータをとるか（変数の説明、参加者の属性）
+    
+      - e.g., Group：Aはビデオを見ながら単語を学んだグループ、Bは単語リストで学んだグループ
+      
+      - e.g., 参加者：日本人大学生
+      
+    - 何を検証したいか
+    
+      - e.g., Group Bの方がAに比べ、統計的有意にテストの点数が高い
+  
+  - 関連する研究の書誌情報を最低3つ挙げる
+
+    - e.g., Plonsky, L., & Oswald, F. L. (2014). How big is “big”? Interpreting effect sizes in L2 research. *Language Learning, 64*(4), 878-912.
+    
 ### 提出方法
-- メールにファイルを添付して送信。
+- TACT上で提出。
 - 締め切りは今週の木曜日まで
 
 ## 参考文献
-
-- 心理学統計法　放送大学
-- 心理学・教育学研究のための効果量入門
-- 平井 et al. 
-
-- 外国語教育ハンドブック
-- 心理統計
-- Plonsky, L., & Oswald, F. L. (2014). How big is “big”? Interpreting effect sizes in L2 research. Language learning, 64(4), 878-912.
-- Messerli, F. H. (2012). Chocolate consumption, cognitive function, and Nobel laureates. N Engl J Med, 367(16), 1562-1564.
-- https://www.pref.yamaguchi.lg.jp/soshiki/22/101008.html
+- 📚清水（編著）（2021）『心理学統計法 (放送大学教材 1638)』放送大学教育振興会
+- 📚竹内・水本（編著）（2023）『外国語教育研究ハンドブック【増補版】―研究手法のより良い理解のために』松柏社
+- 📚中村（2025）『心理学・教育学研究のための効果量入門―Rを用いた実践的理解』北大路書房
+- 📚南風原（2002）『心理統計学の基礎―統合的理解のために』有斐閣アルマ
+- 📚平井・岡・草薙（編著）（2022） 『教育・心理系研究のためのＲによるデータ分析―論文作成への理論と実践集』東京図書 
+- 📄Messerli, F. H. (2012). Chocolate consumption, cognitive function, and Nobel laureates. *N Engl J Med, 367*(16), 1562-1564.
+- 📄Plonsky, L., & Oswald, F. L. (2014). How big is “big”? Interpreting effect sizes in L2 research. *Language Learning, 64*(4), 878-912.
+- 💻[おもしろ統計・120　疑似相関って知っていますか?](https://www.pref.yamaguchi.lg.jp/soshiki/22/101008.html)
 
 ```{=html}
 <style>

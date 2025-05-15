@@ -288,7 +288,7 @@ total <- sum(hitsu, miso)
 :::
 
 ## 参考文献
-- 📚竹内・水本（2023）『外国語教育研究ハンドブック【増補版】―研究手法のより良い理解のために』松柏社
+- 📚竹内・水本（編著）（2023）『外国語教育研究ハンドブック【増補版】―研究手法のより良い理解のために』松柏社
 - 📚松村・湯谷・紀ノ定・前田（2021）『改訂2版 RユーザのためのRStudio[実践]入門―tidyverseによるモダンな分析フローの世界』技術評論社
 - 💻[RStudioの設定変更【見た目】](https://qiita.com/masato-terai/items/4200f3817972fede2dd2)
 - 💻[私たちのR](https://www.jaysong.net/RBook/project.html)

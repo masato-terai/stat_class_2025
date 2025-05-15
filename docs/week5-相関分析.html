@@ -589,7 +589,10 @@ t = \frac{r}{\sqrt{1-r^2}}\sqrt{n-2}
 <li><p>原因 <em>X</em> が結果 <em>Y</em> よりも時間的に先行している</p></li>
 <li><p>原因 <em>X</em> と結果 <em>Y</em> に共変関係がある</p></li>
 <li><p>他の因果的説明が排除されている</p></li>
-</ol></li>
+</ol>
+<ul>
+<li>つまり、時間的に先行する変数 <em>X</em> が他の変数からの影響を除外したうえで、変数 <em>Y</em> に関連があることを示す必要がある。</li>
+</ul></li>
 </ul>
 </div>
 </div>
@@ -646,17 +649,42 @@ t = \frac{r}{\sqrt{1-r^2}}\sqrt{n-2}
 <div id="課題内容-4" class="section level3 hasAnchor" number="6.5.1">
 <h3><span class="header-section-number">6.5.1</span> 課題内容<a href="week5-相関分析.html#課題内容-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
-<li><p>小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。</p></li>
-<li><p>（宿題を考える）</p></li>
+<li><p>小テストに向けて今回の内容を復習する。</p></li>
+<li><p>配布されたデータセット（<code>pokemon_data.csv</code>）をもとに、任意のデータに対して相関分析を行い、その解釈を本講義内で確認した書き方報告する。データの中身の確認や記述統計、データの可視化なども含めること。相関分析の結果をまとめた表は、必ずしも記載しなくてもよい。</p></li>
+<li><p>（再来週までに提出でOK）現時点での研究計画をまとめる。自分の研究に重要な先行研究でもOK。<strong>2の宿題とは別のR Markdownファイルにまとめて提出。</strong></p></li>
 </ol>
 <ul>
-<li><strong>Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。</strong></li>
+<li><p>研究のキーワード3つ</p></li>
+<li><p>研究の背景（簡単な先行研究のまとめなど）</p>
+<ul>
+<li>日本語200字-400字程度でまとめる</li>
+</ul></li>
+<li><p>研究課題</p>
+<ul>
+<li>最大でも2つまで</li>
+</ul></li>
+<li><p>研究の方法</p>
+<ul>
+<li><p>どのようなデータをとるか（変数の説明、参加者の属性）</p>
+<ul>
+<li><p>e.g., Group：Aはビデオを見ながら単語を学んだグループ、Bは単語リストで学んだグループ</p></li>
+<li><p>e.g., 参加者：日本人大学生</p></li>
+</ul></li>
+<li><p>何を検証したいか</p>
+<ul>
+<li>e.g., Group Bの方がAに比べ、統計的有意にテストの点数が高い</li>
+</ul></li>
+</ul></li>
+<li><p>関連する研究の書誌情報を最低3つ挙げる</p>
+<ul>
+<li>e.g., Plonsky, L., &amp; Oswald, F. L. (2014). How big is “big”? Interpreting effect sizes in L2 research. <em>Language Learning, 64</em>(4), 878-912.</li>
+</ul></li>
 </ul>
 </div>
 <div id="提出方法-3" class="section level3 hasAnchor" number="6.5.2">
 <h3><span class="header-section-number">6.5.2</span> 提出方法<a href="week5-相関分析.html#提出方法-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>メールにファイルを添付して送信。</li>
+<li>TACT上で提出。</li>
 <li>締め切りは今週の木曜日まで</li>
 </ul>
 </div>
@@ -664,14 +692,14 @@ t = \frac{r}{\sqrt{1-r^2}}\sqrt{n-2}
 <div id="参考文献-4" class="section level2 hasAnchor" number="6.6">
 <h2><span class="header-section-number">6.6</span> 参考文献<a href="week5-相関分析.html#参考文献-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li><p>心理学統計法　放送大学</p></li>
-<li><p>心理学・教育学研究のための効果量入門</p></li>
-<li><p>平井 et al. </p></li>
-<li><p>外国語教育ハンドブック</p></li>
-<li><p>心理統計</p></li>
-<li><p>Plonsky, L., &amp; Oswald, F. L. (2014). How big is “big”? Interpreting effect sizes in L2 research. Language learning, 64(4), 878-912.</p></li>
-<li><p>Messerli, F. H. (2012). Chocolate consumption, cognitive function, and Nobel laureates. N Engl J Med, 367(16), 1562-1564.</p></li>
-<li><p><a href="https://www.pref.yamaguchi.lg.jp/soshiki/22/101008.html" class="uri">https://www.pref.yamaguchi.lg.jp/soshiki/22/101008.html</a></p></li>
+<li>📚清水（編著）（2021）『心理学統計法 (放送大学教材 1638)』放送大学教育振興会</li>
+<li>📚竹内・水本（編著）（2023）『外国語教育研究ハンドブック【増補版】―研究手法のより良い理解のために』松柏社</li>
+<li>📚中村（2025）『心理学・教育学研究のための効果量入門―Rを用いた実践的理解』北大路書房</li>
+<li>📚南風原（2002）『心理統計学の基礎―統合的理解のために』有斐閣アルマ</li>
+<li>📚平井・岡・草薙（編著）（2022） 『教育・心理系研究のためのＲによるデータ分析―論文作成への理論と実践集』東京図書</li>
+<li>📄Messerli, F. H. (2012). Chocolate consumption, cognitive function, and Nobel laureates. <em>N Engl J Med, 367</em>(16), 1562-1564.</li>
+<li>📄Plonsky, L., &amp; Oswald, F. L. (2014). How big is “big”? Interpreting effect sizes in L2 research. <em>Language Learning, 64</em>(4), 878-912.</li>
+<li>💻<a href="https://www.pref.yamaguchi.lg.jp/soshiki/22/101008.html">おもしろ統計・120　疑似相関って知っていますか?</a></li>
 </ul>
 <style>
 .infobox {
