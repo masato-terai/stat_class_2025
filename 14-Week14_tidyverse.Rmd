@@ -12,6 +12,9 @@ options(mc.cores = parallel::detectCores())
 ```
 
 
+## 🚧🚧🚧🚧
+
+
 ## 事前の確認
 
 - この講義のRプロジェクトを開いていますか？

@@ -6,6 +6,8 @@ library(tidyverse)
 library(kableExtra)
 ```
 
+## 🚧🚧🚧🚧
+
 ## ハンズオンと説明セッションを明確に分けずに行う
 
 ## 事前の確認
