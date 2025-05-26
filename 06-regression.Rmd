@@ -115,7 +115,7 @@ stats::glm(mtcars$mpg ~ mtcars$cyl)
 
 - マルコフ連鎖モンテカルロ法（MCMC）によって得られた乱数のサンプルを使って推定する。
 
-```{r, echo=FALSE}
+```{r}
 res <- rstanarm::stan_glm(
         mpg ~ cyl, 
          seed = 123,
@@ -125,6 +125,7 @@ res <- rstanarm::stan_glm(
 
 summary(res)
 ```
+
 ```{r, echo=FALSE}
 posterior_samples <- as.matrix(res, pars = "cyl")# "am" の事後分布サンプルを取得
 hist(posterior_samples)
@@ -208,7 +209,7 @@ ggplot(df_combined, aes(x = cyl, fill = type)) +
 #### デモ
 - HPを従属変数、こうげきを独立変数として単回帰分析を実行し、resという変数に格納する
 ```{r}
-res <- lm(dat$HP ~ dat$こうげき)
+res <- stats::lm(dat$HP ~ dat$こうげき)
 ```
 
 ```{r, echo=FALSE}
@@ -391,7 +392,7 @@ head(dat, 5)
 - 記録されていないデータ（セルにNA）がないかを確認する
 
 ```{r}
-complete.cases(dat)
+stats::complete.cases(dat)
 
 subset(dat, complete.cases(dat) == FALSE)
 ```
@@ -399,7 +400,7 @@ subset(dat, complete.cases(dat) == FALSE)
 - NAが入っている行を削除
 
 ```{r}
-dat.2 <- na.omit(dat)
+dat.2 <- stats::na.omit(dat)
 ```
 
 - 削除されているか再度確認
@@ -429,7 +430,7 @@ plot(dat.2$mid, dat.2$end,
   - 何を外れ値とするかは研究の目的やデータ収集の状況による。今回はマハラノビスの距離を用いて、行う例を紹介する。
 
 ```{r}
-d <- mahalanobis(dat.2[,2:3], apply(dat.2[,2:3], 2, mean), cov(dat.2[, 2:3]))
+d <- stats::mahalanobis(dat.2[,2:3], apply(dat.2[,2:3], 2, mean), stats::cov(dat.2[, 2:3]))
 ```
 
 ```{r}
@@ -473,14 +474,14 @@ plot(dat.3[, 2:3],
 ### 変数間の相関の確認
 
 ```{r}
-cor(x = dat.3$mid, y = dat.3$end)
+stats::cor(x = dat.3$mid, y = dat.3$end)
 ```
 
 ### 回帰分析の実施
 - 最小二乗法
 
 ```{r}
-model.ls <- lm(end ~ mid, data = dat.3)
+model.ls <- stats::lm(end ~ mid, data = dat.3)
 ```
 
 ```{r}
@@ -489,7 +490,7 @@ summary(model.ls)
 
 - 最尤推定法
 ```{r}
-model.mlm <- glm(end ~ mid, data = dat.3)
+model.mlm <- stats::glm(end ~ mid, data = dat.3)
 ```
 
 ```{r}
@@ -502,6 +503,7 @@ r_2 <- 1 - model.mlm$deviance/model.mlm$null.deviance
 
 r_2
 
+#install.packages("performance")
 performance::r2(model.mlm)
 ```
 
@@ -520,7 +522,7 @@ p <- length(coef(model.mlm)) -1 # 切片を抜いた変数の数
 - ベイズ推定
 
 ```{r}
-model.b <- stan_glm(end ~ mid, data = dat.3, refresh = 0, seed = 123)
+model.b <- rstanarm::stan_glm(end ~ mid, data = dat.3, refresh = 0, seed = 123)
 ```
 
 ```{r}
