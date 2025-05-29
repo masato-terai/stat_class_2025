@@ -14,8 +14,8 @@
 
 ## 今日の目標
 
-1. 
-2. 
+1. **重**回帰分析の統計理論を数学的・概念的に理解できる
+2. **重**回帰分析（独立変数が連続値）をRで実装し、その結果を可視化などを通して説明できる
 
 ## 重回帰分析とは
 - 単回帰分析：変数が1つ
@@ -278,22 +278,26 @@ summary(output_step)
 
 1. 小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。
 
-2. （宿題を考える）
+2. （```pokemon_data.csv```）をもとに、任意のデータに対して重回帰分析を行い、その解釈を本講義内で確認した書き方報告する。ハンズオンセッションで行った流れに従って分析をする。
 
-- **Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。**
+- 注. 従属変数、独立変数ともに**連続値**の変数を選んでください
 
 ### 提出方法
-- メールにファイルを添付して送信。
+- TACT上で提出。
 - 締め切りは今週の木曜日まで
+
 
 ## 参考文献
 
-- 平井 et al. 
+- 📚竹内・水本（編著）（2023）『外国語教育研究ハンドブック【増補版】―研究手法のより良い理解のために』松柏社
 
-- 外国語教育ハンドブック
-- 南風原
-- https://bellcurve.jp/statistics/course/24461.html?srsltid=AfmBOoq5YejCPBlcGOIawwi-sCV98ib6WvQKuCNEhshmn1IzwdR7JhyV
-- Gelman et al., 2021. regression and Other Stories
+- 📚南風原（2002）『心理統計学の基礎―統合的理解のために』有斐閣アルマ
+
+- 📚平井・岡・草薙（編著）（2022） 『教育・心理系研究のためのＲによるデータ分析―論文作成への理論と実践集』東京図書 
+
+- 💻[回帰の有意性の検定](https://bellcurve.jp/statistics/course/24461.html?srsltid=AfmBOoq5YejCPBlcGOIawwi-sCV98ib6WvQKuCNEhshmn1IzwdR7JhyV)
+
+- 📚Gelman, Hill, & Vehtari (2020) *Regression and Other Stories*, Cambridge University Press
 
 ```{=html}
 <style>

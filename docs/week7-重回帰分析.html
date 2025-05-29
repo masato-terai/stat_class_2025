@@ -396,8 +396,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="今日の目標-5" class="section level2 hasAnchor" number="8.4">
 <h2><span class="header-section-number">8.4</span> 今日の目標<a href="week7-重回帰分析.html#今日の目標-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
-<li></li>
-<li></li>
+<li><strong>重</strong>回帰分析の統計理論を数学的・概念的に理解できる</li>
+<li><strong>重</strong>回帰分析（独立変数が連続値）をRで実装し、その結果を可視化などを通して説明できる</li>
 </ol>
 </div>
 <div id="重回帰分析とは" class="section level2 hasAnchor" number="8.5">
@@ -564,7 +564,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="week7-重回帰分析.html#cb253-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb253-2"><a href="week7-重回帰分析.html#cb253-2" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/regression_data.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 120 Columns: 8
-## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────
+## ── Column specification ───────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## dbl (8): ID, Placement, FirstT, MidT, LastT, EndT, Class, Course
 ## 
@@ -834,16 +834,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">8.9.1</span> 課題内容<a href="week7-重回帰分析.html#課題内容-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
 <li><p>小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。</p></li>
-<li><p>（宿題を考える）</p></li>
+<li><p>（<code>pokemon_data.csv</code>）をもとに、任意のデータに対して重回帰分析を行い、その解釈を本講義内で確認した書き方報告する。ハンズオンセッションで行った流れに従って分析をする。</p></li>
 </ol>
 <ul>
-<li><strong>Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。</strong></li>
+<li>注. 従属変数、独立変数ともに<strong>連続値</strong>の変数を選んでください</li>
 </ul>
 </div>
 <div id="提出方法-5" class="section level3 hasAnchor" number="8.9.2">
 <h3><span class="header-section-number">8.9.2</span> 提出方法<a href="week7-重回帰分析.html#提出方法-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>メールにファイルを添付して送信。</li>
+<li>TACT上で提出。</li>
 <li>締め切りは今週の木曜日まで</li>
 </ul>
 </div>
@@ -851,11 +851,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="参考文献-6" class="section level2 hasAnchor" number="8.10">
 <h2><span class="header-section-number">8.10</span> 参考文献<a href="week7-重回帰分析.html#参考文献-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li><p>平井 et al. </p></li>
-<li><p>外国語教育ハンドブック</p></li>
-<li><p>南風原</p></li>
-<li><p><a href="https://bellcurve.jp/statistics/course/24461.html?srsltid=AfmBOoq5YejCPBlcGOIawwi-sCV98ib6WvQKuCNEhshmn1IzwdR7JhyV" class="uri">https://bellcurve.jp/statistics/course/24461.html?srsltid=AfmBOoq5YejCPBlcGOIawwi-sCV98ib6WvQKuCNEhshmn1IzwdR7JhyV</a></p></li>
-<li><p>Gelman et al., 2021. regression and Other Stories</p></li>
+<li><p>📚竹内・水本（編著）（2023）『外国語教育研究ハンドブック【増補版】―研究手法のより良い理解のために』松柏社</p></li>
+<li><p>📚南風原（2002）『心理統計学の基礎―統合的理解のために』有斐閣アルマ</p></li>
+<li><p>📚平井・岡・草薙（編著）（2022） 『教育・心理系研究のためのＲによるデータ分析―論文作成への理論と実践集』東京図書</p></li>
+<li><p>💻<a href="https://bellcurve.jp/statistics/course/24461.html?srsltid=AfmBOoq5YejCPBlcGOIawwi-sCV98ib6WvQKuCNEhshmn1IzwdR7JhyV">回帰の有意性の検定</a></p></li>
+<li><p>📚Gelman, Hill, &amp; Vehtari (2020) <em>Regression and Other Stories</em>, Cambridge University Press</p></li>
 </ul>
 <style>
 .infobox {
