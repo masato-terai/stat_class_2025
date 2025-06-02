@@ -563,8 +563,9 @@ F = \frac{R^2 / k}{(1 - R^2) / (n - k - 1)}
 </ul>
 <div id="データの読み込み-3" class="section level3 hasAnchor" number="8.6.1">
 <h3><span class="header-section-number">8.6.1</span> データの読み込み<a href="week7-重回帰分析.html#データの読み込み-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="week7-重回帰分析.html#cb253-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb253-2"><a href="week7-重回帰分析.html#cb253-2" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/regression_data.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="week7-重回帰分析.html#cb253-1" tabindex="-1"></a><span class="co">#install.packages(&quot;readr&quot;)</span></span>
+<span id="cb253-2"><a href="week7-重回帰分析.html#cb253-2" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb253-3"><a href="week7-重回帰分析.html#cb253-3" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/regression_data.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 120 Columns: 8
 ## ── Column specification ───────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
@@ -714,8 +715,10 @@ F = \frac{R^2 / k}{(1 - R^2) / (n - k - 1)}
 <span id="cb268-2"><a href="week7-重回帰分析.html#cb268-2" tabindex="-1"></a></span>
 <span id="cb268-3"><a href="week7-重回帰分析.html#cb268-3" tabindex="-1"></a>z.res <span class="ot">&lt;-</span> <span class="fu">scale</span>(res)</span></code></pre></div>
 <div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="week7-重回帰分析.html#cb269-1" tabindex="-1"></a><span class="fu">boxplot</span>(z.res)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-160-1.png" width="672" />
-- 最大値、最小値の2つが外れ値の可能性あり</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-160-1.png" width="672" /></p>
+<ul>
+<li>最大値、最小値の2つが外れ値の可能性あり</li>
+</ul>
 <div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="week7-重回帰分析.html#cb270-1" tabindex="-1"></a><span class="fu">describe</span>(z.res)</span></code></pre></div>
 <pre><code>##    vars   n mean sd median trimmed  mad   min  max range  skew kurtosis   se
 ## X1    1 120    0  1   0.03    0.01 0.95 -2.56 3.33   5.9 -0.03     0.45 0.09</code></pre>
@@ -798,10 +801,7 @@ F = \frac{R^2 / k}{(1 - R^2) / (n - k - 1)}
 ## - LastT   1    2613.6 18997 613.75
 ## - MidT    1   29590.9 45974 719.80</code></pre>
 <ul>
-<li><p>Placementを抜いたモデルの結果</p>
-<ul>
-<li>中間試験のみで約71%のデータを説明している（0.71 × 100）</li>
-</ul></li>
+<li>Placementを抜いたモデルの結果</li>
 </ul>
 <div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="week7-重回帰分析.html#cb281-1" tabindex="-1"></a><span class="fu">summary</span>(output_step)</span></code></pre></div>
 <pre><code>## 
@@ -827,7 +827,7 @@ F = \frac{R^2 / k}{(1 - R^2) / (n - k - 1)}
 </div>
 <div id="結果の報告の仕方" class="section level3 hasAnchor" number="8.6.9">
 <h3><span class="header-section-number">8.6.9</span> 結果の報告の仕方<a href="week7-重回帰分析.html#結果の報告の仕方" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>プレイスメントテスト、前期試験、中間模試、および後期試験の得点から年度末試験の得点を予測するために、ステップワイズ法による重回帰分析を行った。その結果、中間模試、後期試験、および前期試験の得点が予測に有意で、この3つの変数のモデルは従属変数の分散の78% ( <span class="math inline">\(R^2\)</span> = .783.調整 <span class="math inline">\(R^2\)</span> = .777)を説明しており、かなり予測率が高いといえる。なかでも、中問試験のみによって分散の71%を説明していた。</p>
+<p>プレイスメントテスト、前期試験、中間模試、および後期試験の得点から年度末試験の得点を予測するために、ステップワイズ法による重回帰分析を行った。その結果、中間模試、後期試験、および前期試験の得点が予測に有意で、この3つの変数のモデルは従属変数の分散の78% ( <span class="math inline">\(R^2\)</span> = .783.調整 <span class="math inline">\(R^2\)</span> = .777)を説明しており、かなり予測率が高いといえる。</p>
 </div>
 </div>
 <div id="次週までの課題-6" class="section level2 hasAnchor" number="8.7">
