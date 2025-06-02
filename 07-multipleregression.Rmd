@@ -1,9 +1,5 @@
 # Week7: 重回帰分析
 
-## 🚧🚧🚧🚧🚧
-
-## メモ
-- 重回帰分析の係数の解釈にきを付ける。ある変数の影響を0にした際の影響であることを示す
 
 ## 事前の確認
 
@@ -15,7 +11,7 @@
 ## 今日の目標
 
 1. **重**回帰分析の統計理論を数学的・概念的に理解できる
-2. **重**回帰分析（独立変数が連続値）をRで実装し、その結果を可視化などを通して説明できる
+2. **重**回帰分析（複数の連続値の独立変数と連続値の従属変数）をRで実装し、その結果を可視化などを通して説明できる
 
 ## 重回帰分析とは
 - 単回帰分析：変数が1つ
@@ -33,12 +29,16 @@
 ### 偏回帰係数
 - 重回帰式における回帰係数：偏回帰係数（partial regression coefficient）
 
-  - **他の独立変数の影響を取り除いた（一定にした）**、ある独立変数の従属変数への影響力
+  - **他の独立変数の影響を取り除いた残差変数によって**、従属変数（もしくは従属変数から他の独立変数の影響を抜いた残差変数）を予測する場合の回帰係数のこと
   
     - **平均化された 1 単位の比較**
 
     - e.g., "When comparing two children whose mother have the same level of education, the child whose mother is *x* IQ points higher is predicted to have a test score is 6*x* higher, **on average.** (Gelman et al., 2020, pp. 134)
-  
+
+::: infobox
+偏回帰係数は、単回帰のような、当該の独立変数と従属変数の関係を表していない。2つの独立変数の重回帰分析を例に挙げると、$x_2$の係数は、$x_2$から$x_1$の影響を除いた残差変数との関係を表す。従って、単なる$x_2$の影響ではなく、$x_1$から予測される$x_2$に対して、実際の$x_2$がどれだけ大きいかもしくは小さかったかを表す（$x_1$の値のわりにどの程度$x_2$の値が大きいか）。つまり、モデル内の他の変数との関係を踏まえて係数を解釈する必要がある。
+:::
+
 - 変数間で単位が異なる場合、従属変数、独立変数をすべて標準化することで、**標準化偏回帰係数（standardized partial regression coefficient）**を算出し、変数間の影響力を比較する
 
 - （標準化）偏回帰係数は、従属変数と独立変数の**因果関係**を示すわけではないことに注意
@@ -63,7 +63,13 @@
 ### 回帰式の有意性（ *F* 検定）
 - **すべての**偏回帰係数は0であるという帰無仮説を立て、 *F* 値をもとに検定を行う
 
-  - *F* 値（分散比）：モデルの分散を自由度で割った値（平均平方和）÷ モデルの誤差分散を自由度で割った値（平均誤差分散）
+  - *F* 値（分散比）：モデルの分散を自由度で割った値（平均平方和）÷ モデルの誤差分散を自由度で割った値（平均誤差分散）。\( R^2 \) は決定係数（coefficient of determination）、\( k \) は説明変数（独立変数）の数、\( n \) はサンプルサイズ（観測数）を表す。
+  
+
+$$
+F = \frac{R^2 / k}{(1 - R^2) / (n - k - 1)}
+$$
+
 
 - *F* 検定が有意でない場合、モデルからの予測値は実際の値と大きく異なることを示す
 
@@ -78,7 +84,11 @@
 
 - 独立変数間の相関関係が高いと、偏回帰係数を正しく推定することができない
 
-  注意点 (Multicollinearity should not be confused with a raw strong correlation between predictors. What matters is the association between one or more predictor variables, conditional on the other variables in the model.) From (https://rdrr.io/cran/performance/man/check_collinearity.html)
+::: infobox
+**注** "Multicollinearity should not be confused with a raw strong correlation between predictors. What matters is the association between one or more predictor variables, conditional on the other variables in the model."<br>
+(From: https://rdrr.io/cran/performance/man/check_collinearity.html)
+
+:::
 
 - 多重共線性の問題がないかを確認するための3指標。分析前に閾値を設定し、論文内でも多重共線性の判断をどのようにするか明記しておくとよい
 
@@ -111,12 +121,9 @@
 
 - 残差の線形性：残差と予測値には線形関係がある必要がある。散布図などで確認
 
-- https://www.note.kanekoshobo.co.jp/n/n9624e14dda8e#733dd8a6-e3c2-4767-8e8b-7a50ae6eeaf4
-- https://www.jstage.jst.go.jp/article/jjpsy/92/3/92_92.19226/_pdf
-
 
 ## 投入方
-- 重回帰分析の場合、独立変数を入れる順序で書く独立変数の有意性や偏回帰係数が変化する。
+- 重回帰分析の場合、独立変数を入れる順序でそれぞれの独立変数の有意性や偏回帰係数が変化する。
 - どの方法を用いるのかは研究の目的によっても異なる。基本的に、分析の前に決めておく方がよい。
 
 ### 強制投入法
@@ -295,9 +302,12 @@ summary(output_step)
 
 - 📚平井・岡・草薙（編著）（2022） 『教育・心理系研究のためのＲによるデータ分析―論文作成への理論と実践集』東京図書 
 
+- 📚Gelman, Hill, & Vehtari (2020) *Regression and Other Stories*, Cambridge University Press
+
+- 📄[吉田・村井 (2021) 心理学的研究における重回帰分析の適用に関わる諸問題， 心理学研究, 92(3), 178-187.](https://www.jstage.jst.go.jp/article/jjpsy/advpub/0/advpub_92.19226/_pdf/-char/ja)
+
 - 💻[回帰の有意性の検定](https://bellcurve.jp/statistics/course/24461.html?srsltid=AfmBOoq5YejCPBlcGOIawwi-sCV98ib6WvQKuCNEhshmn1IzwdR7JhyV)
 
-- 📚Gelman, Hill, & Vehtari (2020) *Regression and Other Stories*, Cambridge University Press
 
 ```{=html}
 <style>
