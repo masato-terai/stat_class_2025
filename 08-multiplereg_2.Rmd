@@ -1,6 +1,4 @@
-# Week8: 重回帰分析 (2)
-
-## 🚧🚧🚧🚧
+# Week8: 重回帰分析：質的変数のコーディング
 
 ## 事前の確認
 
@@ -11,8 +9,8 @@
 
 ## 今日の目標
 
-1. 
-2. 
+1. 検定を繰り返すことが分析結果に与える影響について理解できる
+2. 独立変数が質的な変数の**重**回帰分析をRで実装し、その結果を説明できる
 
 ## 分散分析
 
@@ -542,29 +540,31 @@ summary(results_sum_bayes)
 
 1. 小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。
 
-2. Week 7の内容も踏まえ、以下のデータを基に重回帰分析を行いましょう
-
-  - 外れ値のデータが入っていることに注意です
-
-- **Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。**
+2. ```week8_data.csv```のデータを用いて今回の講義のハンズオンセッションの内容を再度自分のRプログラム上で実行する。**2水準のコーディングは、反復コントラストで行うこと。また3水準のコーディングはトリートメント・コントラストコーディングで行うこと。**
 
 ### 提出方法
-- メールにファイルを添付して送信。
+- TACT上で提出。
 - 締め切りは今週の木曜日まで
-
 
 ## 参考文献
 
-- 平井 et al. 
+- 📚竹内・水本（編著）（2023）『外国語教育研究ハンドブック【増補版】―研究手法のより良い理解のために』松柏社
 
-- 外国語教育ハンドブック
-- 南風原
-- https://bellcurve.jp/statistics/course/24461.html?srsltid=AfmBOoq5YejCPBlcGOIawwi-sCV98ib6WvQKuCNEhshmn1IzwdR7JhyV
-- https://home.hirosaki-u.ac.jp/pteiki/r/3pecification/multiplecomp/
-- Plonsky, L., & Oswald, F. L. (2017). Multiple regression as a flexible alternative to ANOVA in L2 research. Studies in Second Language Acquisition, 39(3), 579-592.
-- 水本篤. (2009). 複数の項目やテストにおける検定の多重性: モンテカルロ・シミュレーションによる検証. 外国語教育メディア学会機関誌, 46, 1-19.
-- https://yukiyanai.github.io/jp/classes/econometrics1/contents/R/multiple-comparison.html#%E5%A4%9A%E9%87%8D%E6%AF%94%E8%BC%83%E8%A3%9C%E6%AD%A3%E3%81%AE%E8%A8%88%E7%AE%97%E6%B3%95
-- 小島ますみ（2022）. 外国語教育研究における（一般化）線形混合モデル：仮説に適したコーディング・モデリングを中心に The 2021 Annual Conference on Vocabulary Acquisition
+- 📚南風原（2002）『心理統計学の基礎―統合的理解のために』有斐閣アルマ
+
+- 📚平井・岡・草薙（編著）（2022） 『教育・心理系研究のためのＲによるデータ分析―論文作成への理論と実践集』東京図書
+
+- 📄[Plonsky, L., & Oswald, F. L. (2017). Multiple regression as a flexible alternative to ANOVA in L2 research. *Studies in Second Language Acquisition, 39*(3), 579-592.](https://www.cambridge.org/core/journals/studies-in-second-language-acquisition/article/multiple-regression-as-a-flexible-alternative-to-anova-in-l2-research/61C0249F51E200C712D2DDF7D489C835)
+
+- 📄[水本篤. (2009). 複数の項目やテストにおける検定の多重性: モンテカルロ・シミュレーションによる検証. 外国語教育メディア学会機関誌, 46, 1-19.](https://www.jstage.jst.go.jp/article/let/46/0/46_KJ00007022273/_article/-char/ja/)
+
+- 🗣小島ますみ（2022）. 外国語教育研究における（一般化）線形混合モデル：仮説に適したコーディング・モデリングを中心に The 2021 Annual Conference on Vocabulary Acquisition
+
+- 💻[回帰の有意性の検定](https://bellcurve.jp/statistics/course/24461.html?srsltid=AfmBOoq5YejCPBlcGOIawwi-sCV98ib6WvQKuCNEhshmn1IzwdR7JhyV)
+
+- 💻[計量経済学　多重比較法](https://yukiyanai.github.io/jp/classes/econometrics1/contents/R/multiple-comparison.html#%E5%A4%9A%E9%87%8D%E6%AF%94%E8%BC%83%E8%A3%9C%E6%AD%A3%E3%81%AE%E8%A8%88%E7%AE%97%E6%B3%95)
+
+- 💻[多重決定問題](https://home.hirosaki-u.ac.jp/pteiki/r/3pecification/multiplecomp/)
 
 ```{=html}
 <style>
