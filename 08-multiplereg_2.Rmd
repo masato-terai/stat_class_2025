@@ -197,7 +197,7 @@ results$coefficients
 
 ```{r}
 # 各指導法の平均を確認
-aggregate(Score ~ Method, data = df, FUN = mean)
+stats::aggregate(Score ~ Method, data = df, FUN = mean)
 ```
 
   - サム・コントラスト（sum contrasts）
@@ -232,7 +232,7 @@ results_sum$coefficients
 ```
 
 ```{r}
-tmp <- aggregate(Score ~ Method, data = df, FUN = mean)
+tmp <- stats::aggregate(Score ~ Method, data = df, FUN = mean)
 
 GM <- mean(tmp$Score)
 
@@ -247,7 +247,7 @@ GM
 
     - ```contr.sdif(水準数)```関数（```MASS```パッケージ）
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(MASS)
 ```
 
@@ -283,7 +283,7 @@ results_rep$coefficients
 
 - 全体のコーディングの比較
 
-```{r, echo=FALSE}
+```{r}
 sjPlot::tab_model(results, results_sum, results_rep, show.ci = F, dv.labels = c("Treatment", "Sum","Repeat"))
 ```
 
@@ -343,7 +343,7 @@ boxplot(dat$重さ~ dat$タイプ1)
 ```
 
 ```{r}
-aggregate(重さ ~ タイプ1, data = dat, FUN = mean)
+stats::aggregate(重さ ~ タイプ1, data = dat, FUN = mean)
 ```
 
 ```{r}
@@ -355,7 +355,7 @@ boxplot(dat$重さ~ dat$世代)
 ```
 
 ```{r}
-aggregate(重さ ~ 世代, data = dat, FUN = mean)
+stats::aggregate(重さ ~ 世代, data = dat, FUN = mean)
 ```
 
 
@@ -517,7 +517,7 @@ summary(results_sum)[["coefficients"]][,4]
 contrasts(dat$タイプ1) <- contr.sum(2)
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 #install.packages("brms")
 library(brms)
 ```
