@@ -259,9 +259,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.3" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#今日の目標-7"><i class="fa fa-check"></i><b>10.3</b> 今日の目標</a></li>
 <li class="chapter" data-level="10.4" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#交互作用"><i class="fa fa-check"></i><b>10.4</b> 交互作用</a></li>
 <li class="chapter" data-level="10.5" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#ハンズオンセッション-7"><i class="fa fa-check"></i><b>10.5</b> ハンズオンセッション</a></li>
-<li class="chapter" data-level="10.6" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#最後に"><i class="fa fa-check"></i><b>10.6</b> 最後に</a></li>
-<li class="chapter" data-level="10.7" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#次週までの課題-8"><i class="fa fa-check"></i><b>10.7</b> 次週までの課題</a></li>
-<li class="chapter" data-level="10.8" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#参考文献-8"><i class="fa fa-check"></i><b>10.8</b> 参考文献</a></li>
+<li class="chapter" data-level="10.6" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#次週までの課題-8"><i class="fa fa-check"></i><b>10.6</b> 次週までの課題</a></li>
+<li class="chapter" data-level="10.7" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#参考文献-8"><i class="fa fa-check"></i><b>10.7</b> 参考文献</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html"><i class="fa fa-check"></i><b>11</b> Week10: 一般化線形モデル：ロジスティック回帰分析</a>
 <ul>
@@ -920,13 +919,19 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <pre><code>## New names:
 ## Rows: 46 Columns: 17
 ## ── Column specification
-## ───────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot; chr (3): 名前, タイプ1, 画像URL dbl (14): ...1, id, 高さ, 重さ,
-## 世代, ステータス, HP, こうげき, ぼうぎょ, とくこう, とくぼう, すばやさ,
+## ────── Delimiter: &quot;,&quot;
+## chr (3): 名前, タイプ1,
+## 画像URL dbl (14): ...1, id,
+## 高さ, 重さ, 世代, ステータス,
+## HP, こうげき, ぼうぎょ,
+## とくこう, とくぼう, すばやさ,
 ## 捕まえ...
-## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
-## Specify the column types or set `show_col_types = FALSE` to quiet this
-## message.
+## ℹ Use `spec()` to retrieve
+## the full column specification
+## for this data. ℹ Specify the
+## column types or set
+## `show_col_types = FALSE` to
+## quiet this message.
 ## • `` -&gt; `...1`</code></pre>
 <div id="データの概要" class="section level3 hasAnchor" number="9.7.1">
 <h3><span class="header-section-number">9.7.1</span> データの概要<a href="week8-重回帰分析質的変数のコーディング.html#データの概要" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1043,7 +1048,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <ul>
 <li>報告の例</li>
 </ul>
-<p>ポケモンの重さを、ポケモンのタイプでどの程度予測できるかを調査するため、回帰分析を行った。その結果、ポケモンのタイプは重さを統計的有意に予測していた。しかし、決定係数の値は8.8%、調整済決定係数は6.7%と予測力は大きくなかった。トリートメントコントラストコーディングでノーマルタイプを基準に（ノーマル = 0、みず = 1）比較すると、みずタイプのポケモンはノーマルタイプのポケモンよりも42.56 kg平均して重いことが予想される。</p>
+<p>ポケモンの重さを、ポケモンのタイプでどの程度予測できるかを調査するため、回帰分析を行った。その結果、ポケモンのタイプは重さを統計的有意に予測していた（<em>b</em> = 42.56, <em>SE</em> = 20.72, <em>t</em> = 2.05, <em>p</em> = .025）。しかし、決定係数の値は8.8%、調整済決定係数は6.7%と予測力は大きくなかった。トリートメントコントラストコーディングでノーマルタイプを基準に（ノーマル = 0、みず = 1）比較すると、みずタイプのポケモンはノーマルタイプのポケモンよりも42.56 kg平均して重いことが予想される。</p>
 </div>
 <div id="水準のコーディング-1" class="section level3 hasAnchor" number="9.7.3">
 <h3><span class="header-section-number">9.7.3</span> 3水準のコーディング<a href="week8-重回帰分析質的変数のコーディング.html#水準のコーディング-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1120,7 +1125,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <ul>
 <li>報告の例</li>
 </ul>
-<p>ポケモンの重さを、ポケモンの世代でどの程度予測できるかを調査するため、回帰分析を行った。その結果、ポケモンの世代は重さを統計的有意に予測していなかった。しかし、決定係数の値は0.42%、調整済決定係数はマイナスの値を示していた。さらに、<em>F</em> 検定に有意差は見られなかった。世代間の比較においても、有意差がみられるペアはなかった。</p>
+<p>ポケモンの重さを、ポケモンの世代でどの程度予測できるかを調査するため、回帰分析を行った。その結果、ポケモンの世代は重さを統計的有意に予測していなかった。決定係数の値は0.42%、調整済決定係数はマイナスの値を示していた。さらに、<em>F</em> 検定に有意差は見られなかった（<em>p</em> = .913）。世代間の比較においても、有意差がみられるペアはなかった（世代2-1: <em>b</em> = -10.75, <em>SE</em> = 25.43, <em>t</em> = -0.42, <em>p</em> = .674; 世代3-2: <em>b</em> = 6.64, <em>SE</em> = 27.96, <em>t</em> = 0.23, <em>p</em> = .813）。</p>
 </div>
 </div>
 <div id="検定の繰り返し問題アゲイン" class="section level2 hasAnchor" number="9.8">
@@ -1259,7 +1264,7 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <li><p>📚平井・岡・草薙（編著）（2022） 『教育・心理系研究のためのＲによるデータ分析―論文作成への理論と実践集』東京図書</p></li>
 <li><p>📄<a href="https://www.cambridge.org/core/journals/studies-in-second-language-acquisition/article/multiple-regression-as-a-flexible-alternative-to-anova-in-l2-research/61C0249F51E200C712D2DDF7D489C835">Plonsky, L., &amp; Oswald, F. L. (2017). Multiple regression as a flexible alternative to ANOVA in L2 research. <em>Studies in Second Language Acquisition, 39</em>(3), 579-592.</a></p></li>
 <li><p>📄<a href="https://www.jstage.jst.go.jp/article/let/46/0/46_KJ00007022273/_article/-char/ja/">水本篤. (2009). 複数の項目やテストにおける検定の多重性: モンテカルロ・シミュレーションによる検証. 外国語教育メディア学会機関誌, 46, 1-19.</a></p></li>
-<li><p>🗣小島ますみ（2022）. 外国語教育研究における（一般化）線形混合モデル：仮説に適したコーディング・モデリングを中心に The 2021 Annual Conference on Vocabulary Acquisition</p></li>
+<li><p>🗣小島ますみ（2022）外国語教育研究における（一般化）線形混合モデル：仮説に適したコーディング・モデリングを中心に The 2021 Annual Conference on Vocabulary Acquisition</p></li>
 <li><p>💻<a href="https://bellcurve.jp/statistics/course/24461.html?srsltid=AfmBOoq5YejCPBlcGOIawwi-sCV98ib6WvQKuCNEhshmn1IzwdR7JhyV">回帰の有意性の検定</a></p></li>
 <li><p>💻<a href="https://yukiyanai.github.io/jp/classes/econometrics1/contents/R/multiple-comparison.html#%E5%A4%9A%E9%87%8D%E6%AF%94%E8%BC%83%E8%A3%9C%E6%AD%A3%E3%81%AE%E8%A8%88%E7%AE%97%E6%B3%95">計量経済学　多重比較法</a></p></li>
 <li><p>💻<a href="https://home.hirosaki-u.ac.jp/pteiki/r/3pecification/multiplecomp/">多重決定問題</a></p></li>

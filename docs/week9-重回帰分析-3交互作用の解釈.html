@@ -259,9 +259,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.3" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#今日の目標-7"><i class="fa fa-check"></i><b>10.3</b> 今日の目標</a></li>
 <li class="chapter" data-level="10.4" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#交互作用"><i class="fa fa-check"></i><b>10.4</b> 交互作用</a></li>
 <li class="chapter" data-level="10.5" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#ハンズオンセッション-7"><i class="fa fa-check"></i><b>10.5</b> ハンズオンセッション</a></li>
-<li class="chapter" data-level="10.6" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#最後に"><i class="fa fa-check"></i><b>10.6</b> 最後に</a></li>
-<li class="chapter" data-level="10.7" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#次週までの課題-8"><i class="fa fa-check"></i><b>10.7</b> 次週までの課題</a></li>
-<li class="chapter" data-level="10.8" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#参考文献-8"><i class="fa fa-check"></i><b>10.8</b> 参考文献</a></li>
+<li class="chapter" data-level="10.6" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#次週までの課題-8"><i class="fa fa-check"></i><b>10.6</b> 次週までの課題</a></li>
+<li class="chapter" data-level="10.7" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#参考文献-8"><i class="fa fa-check"></i><b>10.7</b> 参考文献</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html"><i class="fa fa-check"></i><b>11</b> Week10: 一般化線形モデル：ロジスティック回帰分析</a>
 <ul>
@@ -387,8 +386,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="今日の目標-7" class="section level2 hasAnchor" number="10.3">
 <h2><span class="header-section-number">10.3</span> 今日の目標<a href="week9-重回帰分析-3交互作用の解釈.html#今日の目標-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
-<li></li>
-<li></li>
+<li>重回帰分析の交互作用項について概念的に理解できる</li>
+<li>交互作用を含む重回帰分析を実装しその結果を適切に報告できる</li>
 </ol>
 </div>
 <div id="交互作用" class="section level2 hasAnchor" number="10.4">
@@ -984,7 +983,6 @@ R<sup>2</sup> Bayes
   
 </table>
 </div>
-<p>tab: <a href="https://gedevan-aleksizde.github.io/rmarkdown-cookbook/html-tabs.html" class="uri">https://gedevan-aleksizde.github.io/rmarkdown-cookbook/html-tabs.html</a></p>
 </div>
 <div id="量的変数-質的変数" class="section level3 hasAnchor" number="10.4.2">
 <h3><span class="header-section-number">10.4.2</span> 量的変数 × 質的変数<a href="week9-重回帰分析-3交互作用の解釈.html#量的変数-質的変数" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -2173,17 +2171,6 @@ R<sup>2</sup> Bayes
 <li>宣伝も安売りもあった場合、二つの主効果に加え、交互作用の影響が加算される</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb382-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb382-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb382-2" tabindex="-1"></a>  宣伝 <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;なし&quot;</span>, <span class="st">&quot;あり&quot;</span>, <span class="st">&quot;なし&quot;</span>, <span class="st">&quot;あり&quot;</span>),</span>
-<span id="cb382-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb382-3" tabindex="-1"></a>  安売り <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;なし&quot;</span>, <span class="st">&quot;なし&quot;</span>, <span class="st">&quot;あり&quot;</span>, <span class="st">&quot;あり&quot;</span>),</span>
-<span id="cb382-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb382-4" tabindex="-1"></a>  <span class="st">`</span><span class="at">売り上げの予測値</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;103.32&quot;</span>, <span class="st">&quot;103.32 + 10.05&quot;</span>, <span class="st">&quot;103.32 + 27.35&quot;</span>, <span class="st">&quot;103.32 + 10.05 + 27.35 + 20.72&quot;</span>)</span>
-<span id="cb382-5"><a href="week9-重回帰分析-3交互作用の解釈.html#cb382-5" tabindex="-1"></a>)</span>
-<span id="cb382-6"><a href="week9-重回帰分析-3交互作用の解釈.html#cb382-6" tabindex="-1"></a></span>
-<span id="cb382-7"><a href="week9-重回帰分析-3交互作用の解釈.html#cb382-7" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb382-8"><a href="week9-重回帰分析-3交互作用の解釈.html#cb382-8" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb382-9"><a href="week9-重回帰分析-3交互作用の解釈.html#cb382-9" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">&quot;質的 × 質的の交互作用&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb382-10"><a href="week9-重回帰分析-3交互作用の解釈.html#cb382-10" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="at">align =</span> <span class="st">&quot;center&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb382-11"><a href="week9-重回帰分析-3交互作用の解釈.html#cb382-11" tabindex="-1"></a>  <span class="fu">tab_options</span>(<span class="at">table.width =</span> <span class="fu">pct</span>(<span class="dv">100</span>))</span></code></pre></div>
 <div id="axcnalqeqf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#axcnalqeqf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -3163,7 +3150,7 @@ R<sup>2</sup> Bayes
 <th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
 <p> </p>
 </th>
-<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+<th colspan="5" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
 <p>sales</p>
 </th>
 </tr>
@@ -3175,7 +3162,13 @@ R<sup>2</sup> Bayes
 <p>Estimates</p>
 </td>
 <td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+<p>std. Error</p>
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
 <p>CI</p>
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+<p>Statistic</p>
 </td>
 <td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
 <p>p</p>
@@ -3189,7 +3182,13 @@ R<sup>2</sup> Bayes
 <p>103.38</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<p>3.64</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
 <p>96.15 – 110.60</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<p>28.39</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
 <p><strong>&lt;0.001</strong></p>
@@ -3203,7 +3202,13 @@ R<sup>2</sup> Bayes
 <p>9.94</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<p>5.15</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
 <p>-0.28 – 20.16</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<p>1.93</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
 <p>0.057</p>
@@ -3217,7 +3222,13 @@ R<sup>2</sup> Bayes
 <p>27.27</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<p>5.15</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
 <p>17.05 – 37.49</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<p>5.30</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
 <p><strong>&lt;0.001</strong></p>
@@ -3231,7 +3242,13 @@ R<sup>2</sup> Bayes
 <p>20.80</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<p>7.28</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
 <p>6.34 – 35.25</p>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<p>2.86</p>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
 <p><strong>0.005</strong></p>
@@ -3241,7 +3258,7 @@ R<sup>2</sup> Bayes
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
 <p>Observations</p>
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="5">
 <p>100</p>
 </td>
 </tr>
@@ -3249,7 +3266,7 @@ R<sup>2</sup> Bayes
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
 <p>R<sup>2</sup> / R<sup>2</sup> adjusted</p>
 </td>
-<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="5">
 <p>0.604 / 0.592</p>
 </td>
 </tr></li>
@@ -3257,16 +3274,17 @@ R<sup>2</sup> Bayes
 </table>
 <p><img src="_main_files/figure-html/unnamed-chunk-238-1.png" width="672" />
 - <code>emmeans()</code>関数を使って、下位検定を行う</p>
-<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb383-1" tabindex="-1"></a><span class="co">#install.packages(&quot;emmeans&quot;)</span></span>
-<span id="cb383-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb383-2" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span></code></pre></div>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb382-1" tabindex="-1"></a><span class="co">#install.packages(&quot;emmeans&quot;)</span></span>
+<span id="cb382-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb382-2" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span></code></pre></div>
 <ul>
 <li><p>bargenの単純主効果（publicityの各水準ごとにbargenの効果を調べる）</p></li>
-<li><p>bargen by publicity</p></li>
+<li><p>bargen by publicity（縦の比較）</p></li>
+<li><p>publicityがnotの場合もto_implementの場合も条件間の差は有意</p></li>
 </ul>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-1" tabindex="-1"></a><span class="fu">contrast</span>(</span>
-<span id="cb384-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-2" tabindex="-1"></a>  <span class="fu">emmeans</span>(model4, pairwise <span class="sc">~</span> bargen <span class="sc">|</span> publicity), </span>
-<span id="cb384-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-3" tabindex="-1"></a>  <span class="at">adjust =</span> <span class="st">&quot;bonferroni&quot;</span></span>
-<span id="cb384-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb384-4" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb383-1" tabindex="-1"></a>emmeans<span class="sc">::</span><span class="fu">contrast</span>(</span>
+<span id="cb383-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb383-2" tabindex="-1"></a>  <span class="fu">emmeans</span>(model4, pairwise <span class="sc">~</span> bargen <span class="sc">|</span> publicity), </span>
+<span id="cb383-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb383-3" tabindex="-1"></a>  <span class="at">adjust =</span> <span class="st">&quot;bonferroni&quot;</span></span>
+<span id="cb383-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb383-4" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## publicity = not:
 ##  contrast            estimate   SE df t.ratio p.value
 ##  not effect             -13.6 2.57 96  -5.297  &lt;.0001
@@ -3281,11 +3299,12 @@ R<sup>2</sup> Bayes
 <ul>
 <li><p>publicityの単純主効果（bargenの各水準ごとにpublicityの効果を調べる）</p></li>
 <li><p>publicity by bargen</p></li>
+<li><p>bargenがto_implementの場合のみ条件間の差は有意</p></li>
 </ul>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb386-1" tabindex="-1"></a><span class="fu">contrast</span>(</span>
-<span id="cb386-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb386-2" tabindex="-1"></a>  <span class="fu">emmeans</span>(model4, pairwise <span class="sc">~</span> publicity <span class="sc">|</span> bargen), </span>
-<span id="cb386-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb386-3" tabindex="-1"></a>  <span class="at">adjust =</span> <span class="st">&quot;bonferroni&quot;</span></span>
-<span id="cb386-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb386-4" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb385-1" tabindex="-1"></a>emmeans<span class="sc">::</span><span class="fu">contrast</span>(</span>
+<span id="cb385-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb385-2" tabindex="-1"></a>  <span class="fu">emmeans</span>(model4, pairwise <span class="sc">~</span> publicity <span class="sc">|</span> bargen), </span>
+<span id="cb385-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb385-3" tabindex="-1"></a>  <span class="at">adjust =</span> <span class="st">&quot;bonferroni&quot;</span></span>
+<span id="cb385-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb385-4" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## bargen = not:
 ##  contrast            estimate   SE df t.ratio p.value
 ##  not effect             -4.97 2.57 96  -1.930  0.1132
@@ -3297,6 +3316,12 @@ R<sup>2</sup> Bayes
 ##  to_implement effect    15.37 2.57 96   5.968  &lt;.0001
 ## 
 ## P value adjustment: bonferroni method for 2 tests</code></pre>
+<ul>
+<li>報告の例</li>
+</ul>
+<p>宣伝と安売りの有無、そしてそれらの交互作用が売り上げに与える影響を調べるため、回帰分析を行った。宣伝と安売りはトリートメント・コントラストでコーディングし、いずれも「なし」を0、「あり」を1とした。分析の結果、安売りおよび宣伝×安売りの交互作用の係数が有意であった（安売り: <em>b</em> = 27.27, 95% CI [17.05, 37.49], <em>SE</em> = 5.15, <em>t</em> = 5.30, <em>p</em> &lt; .001；交互作用: <em>b</em> = 20.80, 95% CI [6.34, 35.25], <em>SE</em> = 7.28, <em>t</em> = 2.86, <em>p</em> = .005）。</p>
+<p>交互作用が有意であったため、単純主効果の検定を行った。その結果、安売りがある条件では、宣伝の効果が有意であった（<em>b</em> = 15.37, <em>SE</em> = 2.57, <em>t</em> = 5.96, <em>p</em> &lt; .001）。一方、安売りがない条件では、宣伝の効果は有意ではなかった（<em>b</em> = 4.97, <em>SE</em> = 2.57, <em>t</em> = 1.93, <em>p</em> = .113）。</p>
+<p>また、安売りの単純主効果は、宣伝の有無にかかわらず有意であった（宣伝なし: <em>b</em> = 13.60, <em>SE</em> = 2.57, <em>t</em> = 5.29, <em>p</em> &lt; .001；宣伝あり: <em>b</em> = 24.00, <em>SE</em> = 2.57, <em>t</em> = 9.33, <em>p</em> &lt; .001）。これにより、宣伝の有無にかかわらず、安売りは売上向上に寄与する可能性が示唆された。</p>
 </div>
 </div>
 </div>
@@ -3304,38 +3329,38 @@ R<sup>2</sup> Bayes
 <h2><span class="header-section-number">10.5</span> ハンズオンセッション<a href="week9-重回帰分析-3交互作用の解釈.html#ハンズオンセッション-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="質的-質的サムコントラスト" class="section level3 hasAnchor" number="10.5.1">
 <h3><span class="header-section-number">10.5.1</span> 質的 × 質的（サムコントラスト）<a href="week9-重回帰分析-3交互作用の解釈.html#質的-質的サムコントラスト" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb388-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/Example4.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb389-1" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb387-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/Example4.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb388-1" tabindex="-1"></a><span class="fu">head</span>(dat, <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>##   Grade Learning id Post
 ## 1 First     List  1   73
 ## 2 First     List  2   59
 ## 3 First     List  3   63
 ## 4 First     List  4   59
 ## 5 First     List  5   46</code></pre>
-<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb391-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>Grade)</span></code></pre></div>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb390-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>Grade)</span></code></pre></div>
 <pre><code>## 
 ##  First Second 
 ##     15     15</code></pre>
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb393-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>Learning)</span></code></pre></div>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb392-1" tabindex="-1"></a><span class="fu">table</span>(dat<span class="sc">$</span>Learning)</span></code></pre></div>
 <pre><code>## 
 ## Context KeyWord    List 
 ##      10      10      10</code></pre>
-<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb395-1" tabindex="-1"></a>dat<span class="sc">$</span>Grade <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Grade)</span>
-<span id="cb395-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb395-2" tabindex="-1"></a>dat<span class="sc">$</span>Learning <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Learning, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;List&quot;</span>, <span class="st">&quot;Context&quot;</span>, <span class="st">&quot;KeyWord&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb394-1" tabindex="-1"></a>dat<span class="sc">$</span>Grade <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Grade)</span>
+<span id="cb394-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb394-2" tabindex="-1"></a>dat<span class="sc">$</span>Learning <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Learning, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;List&quot;</span>, <span class="st">&quot;Context&quot;</span>, <span class="st">&quot;KeyWord&quot;</span>))</span></code></pre></div>
 <ul>
 <li>各群ごとの平均</li>
 </ul>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb396-1" tabindex="-1"></a><span class="fu">aggregate</span>(Post <span class="sc">~</span> Grade, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span></code></pre></div>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb395-1" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">aggregate</span>(Post <span class="sc">~</span> Grade, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span></code></pre></div>
 <pre><code>##    Grade     Post
 ## 1  First 39.93333
 ## 2 Second 55.06667</code></pre>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb398-1" tabindex="-1"></a><span class="fu">aggregate</span>(Post <span class="sc">~</span> Learning, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span></code></pre></div>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb397-1" tabindex="-1"></a>stats<span class="sc">::</span><span class="fu">aggregate</span>(Post <span class="sc">~</span> Learning, <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span></code></pre></div>
 <pre><code>##   Learning Post
 ## 1     List 65.1
 ## 2  Context 32.5
 ## 3  KeyWord 44.9</code></pre>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Post <span class="sc">~</span> Grade<span class="sc">*</span>Learning , <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span>
-<span id="cb400-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb400-2" tabindex="-1"></a>res</span></code></pre></div>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb399-1" tabindex="-1"></a>res <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">aggregate</span>(Post <span class="sc">~</span> Grade<span class="sc">*</span>Learning , <span class="at">data =</span> dat, <span class="at">FUN =</span> mean)</span>
+<span id="cb399-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb399-2" tabindex="-1"></a>res</span></code></pre></div>
 <pre><code>##    Grade Learning Post
 ## 1  First     List 60.0
 ## 2 Second     List 70.2
@@ -3346,21 +3371,21 @@ R<sup>2</sup> Bayes
 <ul>
 <li>Ground Mean</li>
 </ul>
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb402-1" tabindex="-1"></a><span class="fu">mean</span>(res<span class="sc">$</span>Post)</span></code></pre></div>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb401-1" tabindex="-1"></a><span class="fu">mean</span>(res<span class="sc">$</span>Post)</span></code></pre></div>
 <pre><code>## [1] 47.5</code></pre>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb404-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">2</span>)</span>
-<span id="cb404-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb404-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade)</span></code></pre></div>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb403-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">2</span>)</span>
+<span id="cb403-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb403-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade)</span></code></pre></div>
 <pre><code>##        [,1]
 ## First     1
 ## Second   -1</code></pre>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb406-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">3</span>)</span>
-<span id="cb406-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb406-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning)</span></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb405-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning) <span class="ot">&lt;-</span> <span class="fu">contr.sum</span>(<span class="dv">3</span>)</span>
+<span id="cb405-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb405-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning)</span></code></pre></div>
 <pre><code>##         [,1] [,2]
 ## List       1    0
 ## Context    0    1
 ## KeyWord   -1   -1</code></pre>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb408-1" tabindex="-1"></a>model_sum <span class="ot">&lt;-</span> <span class="fu">lm</span>(Post <span class="sc">~</span> Grade <span class="sc">*</span> Learning, <span class="at">data =</span> dat)</span></code></pre></div>
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb409-1" tabindex="-1"></a><span class="fu">summary</span>(model_sum)</span></code></pre></div>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb407-1" tabindex="-1"></a>model_sum <span class="ot">&lt;-</span> <span class="fu">lm</span>(Post <span class="sc">~</span> Grade <span class="sc">*</span> Learning, <span class="at">data =</span> dat)</span></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb408-1" tabindex="-1"></a><span class="fu">summary</span>(model_sum)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Post ~ Grade * Learning, data = dat)
@@ -3386,19 +3411,19 @@ R<sup>2</sup> Bayes
 <ul>
 <li>以下のような作図を行う場合、コーディングによって図中のパターンが変わることはない</li>
 </ul>
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb411-1" tabindex="-1"></a><span class="co">#install.packages(&quot;sjPlot&quot;)</span></span>
-<span id="cb411-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb411-2" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span>
-<span id="cb411-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb411-3" tabindex="-1"></a><span class="fu">plot_model</span>(</span>
-<span id="cb411-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb411-4" tabindex="-1"></a>  model_sum, </span>
-<span id="cb411-5"><a href="week9-重回帰分析-3交互作用の解釈.html#cb411-5" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;pred&quot;</span>,</span>
-<span id="cb411-6"><a href="week9-重回帰分析-3交互作用の解釈.html#cb411-6" tabindex="-1"></a>  <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">&quot;Grade&quot;</span>, <span class="st">&quot;Learning&quot;</span>)</span>
-<span id="cb411-7"><a href="week9-重回帰分析-3交互作用の解釈.html#cb411-7" tabindex="-1"></a>           )</span></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb410-1" tabindex="-1"></a><span class="co">#install.packages(&quot;sjPlot&quot;)</span></span>
+<span id="cb410-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb410-2" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span>
+<span id="cb410-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb410-3" tabindex="-1"></a><span class="fu">plot_model</span>(</span>
+<span id="cb410-4"><a href="week9-重回帰分析-3交互作用の解釈.html#cb410-4" tabindex="-1"></a>  model_sum, </span>
+<span id="cb410-5"><a href="week9-重回帰分析-3交互作用の解釈.html#cb410-5" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;pred&quot;</span>,</span>
+<span id="cb410-6"><a href="week9-重回帰分析-3交互作用の解釈.html#cb410-6" tabindex="-1"></a>  <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">&quot;Grade&quot;</span>, <span class="st">&quot;Learning&quot;</span>)</span>
+<span id="cb410-7"><a href="week9-重回帰分析-3交互作用の解釈.html#cb410-7" tabindex="-1"></a>           )</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-255-1.png" width="672" /></p>
 </div>
 <div id="係数の解釈" class="section level3 hasAnchor" number="10.5.2">
 <h3><span class="header-section-number">10.5.2</span> 係数の解釈<a href="week9-重回帰分析-3交互作用の解釈.html#係数の解釈" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>記述統計の値を参照した考えると分かりやすい
+<li>記述統計の値を参照して考えると分かりやすい
 <ul>
 <li>Intercept: grand mean (47.5)</li>
 <li>GradeSecond: First - grand mean (39.93333 - 47.5)</li>
@@ -3419,20 +3444,20 @@ R<sup>2</sup> Bayes
 </div>
 <div id="質的-質的反復コントラスト" class="section level3 hasAnchor" number="10.5.3">
 <h3><span class="header-section-number">10.5.3</span> 質的 × 質的（反復コントラスト）<a href="week9-重回帰分析-3交互作用の解釈.html#質的-質的反復コントラスト" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb412-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb412-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb412-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">2</span>))</span>
-<span id="cb412-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb412-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade)</span></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb411-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb411-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb411-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">2</span>))</span>
+<span id="cb411-3"><a href="week9-重回帰分析-3交互作用の解釈.html#cb411-3" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Grade)</span></code></pre></div>
 <pre><code>##        2-1 
 ## First  -1/2
 ## Second  1/2</code></pre>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb414-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">3</span>))</span>
-<span id="cb414-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb414-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning)</span></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb413-1" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning) <span class="ot">&lt;-</span> <span class="fu">fractions</span>(<span class="fu">contr.sdif</span>(<span class="dv">3</span>))</span>
+<span id="cb413-2"><a href="week9-重回帰分析-3交互作用の解釈.html#cb413-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Learning)</span></code></pre></div>
 <pre><code>##         2-1  3-2 
 ## List    -2/3 -1/3
 ## Context  1/3 -1/3
 ## KeyWord  1/3  2/3</code></pre>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb416-1" tabindex="-1"></a>model_rep <span class="ot">&lt;-</span> <span class="fu">lm</span>(Post <span class="sc">~</span> Grade <span class="sc">*</span> Learning, <span class="at">data =</span> dat)</span></code></pre></div>
-<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb417-1" tabindex="-1"></a><span class="fu">summary</span>(model_rep)</span></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb415-1" tabindex="-1"></a>model_rep <span class="ot">&lt;-</span> <span class="fu">lm</span>(Post <span class="sc">~</span> Grade <span class="sc">*</span> Learning, <span class="at">data =</span> dat)</span></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="week9-重回帰分析-3交互作用の解釈.html#cb416-1" tabindex="-1"></a><span class="fu">summary</span>(model_rep)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Post ~ Grade * Learning, data = dat)
@@ -3459,7 +3484,7 @@ R<sup>2</sup> Bayes
 <div id="係数の解釈-1" class="section level3 hasAnchor" number="10.5.4">
 <h3><span class="header-section-number">10.5.4</span> 係数の解釈<a href="week9-重回帰分析-3交互作用の解釈.html#係数の解釈-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>記述統計の値を参照した考えると分かりやすい
+<li>記述統計の値を参照して考えると分かりやすい
 <ul>
 <li>Intercept: grand mean</li>
 <li>Grade2-1: Second - First</li>
@@ -3472,45 +3497,35 @@ R<sup>2</sup> Bayes
 </ul>
 <div class="infobox">
 <ul>
-<li>ここまで見てきたように、どのようなコーディングを適用したかで係数の値は異なります。また、何と何を比較しているのかによって係数の正負も変わります。必ず、どの変数にどのようなコーディングを適用したのか、どの水準とどの水準を比較したのかを第三者から見て分かるように記載しましょう。</li>
 <li>2水準 × 3水準の交互作用でも係数の解釈は結構複雑になります。デザインはシンプルな方が解釈する側も分析をしやすいです。</li>
 </ul>
 </div>
 </div>
 </div>
-<div id="最後に" class="section level2 hasAnchor" number="10.6">
-<h2><span class="header-section-number">10.6</span> 最後に<a href="week9-重回帰分析-3交互作用の解釈.html#最後に" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>清水先生の「心理学における重回帰分析の使い所を考える」に関してのコラムをいれる」</li>
-</ul>
-</div>
-<div id="次週までの課題-8" class="section level2 hasAnchor" number="10.7">
-<h2><span class="header-section-number">10.7</span> 次週までの課題<a href="week9-重回帰分析-3交互作用の解釈.html#次週までの課題-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="課題内容-8" class="section level3 hasAnchor" number="10.7.1">
-<h3><span class="header-section-number">10.7.1</span> 課題内容<a href="week9-重回帰分析-3交互作用の解釈.html#課題内容-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="次週までの課題-8" class="section level2 hasAnchor" number="10.6">
+<h2><span class="header-section-number">10.6</span> 次週までの課題<a href="week9-重回帰分析-3交互作用の解釈.html#次週までの課題-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="課題内容-8" class="section level3 hasAnchor" number="10.6.1">
+<h3><span class="header-section-number">10.6.1</span> 課題内容<a href="week9-重回帰分析-3交互作用の解釈.html#課題内容-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
 <li><p>小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。</p></li>
-<li><p>（宿題を考える）- 外れ値を考えてやる</p></li>
+<li><p><code>week8_data.csv</code>のデータを用いて質的変数 * 量的変数、質的変数 * 質的変数、もしくは量的変数 * 量的変数のいずれかの交互作用を含む回帰分析を行う。記述統計や図示、結果の報告を行うこと。</p></li>
 </ol>
-<ul>
-<li><strong>Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。</strong></li>
-</ul>
 </div>
-<div id="提出方法-7" class="section level3 hasAnchor" number="10.7.2">
-<h3><span class="header-section-number">10.7.2</span> 提出方法<a href="week9-重回帰分析-3交互作用の解釈.html#提出方法-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="提出方法-7" class="section level3 hasAnchor" number="10.6.2">
+<h3><span class="header-section-number">10.6.2</span> 提出方法<a href="week9-重回帰分析-3交互作用の解釈.html#提出方法-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>メールにファイルを添付して送信。</li>
+<li>TACT上で提出。</li>
 <li>締め切りは今週の木曜日まで</li>
 </ul>
 </div>
 </div>
-<div id="参考文献-8" class="section level2 hasAnchor" number="10.8">
-<h2><span class="header-section-number">10.8</span> 参考文献<a href="week9-重回帰分析-3交互作用の解釈.html#参考文献-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="参考文献-8" class="section level2 hasAnchor" number="10.7">
+<h2><span class="header-section-number">10.7</span> 参考文献<a href="week9-重回帰分析-3交互作用の解釈.html#参考文献-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>南風原</li>
-<li>馬場 RとStanではじめるベイズ統計モデリングによるデータ分析</li>
-<li>小島ますみ（2022）. 外国語教育研究における（一般化）線形混合モデル：仮説に適したコーディング・モデリングを中心に The 2021 Annual Conference on Vocabulary Acquisition</li>
-<li><a href="https://debruine.github.io/faux/articles/contrasts.html#x3-design" class="uri">https://debruine.github.io/faux/articles/contrasts.html#x3-design</a></li>
+<li><p>📚南風原（2002）『心理統計学の基礎―統合的理解のために』有斐閣アルマ</p></li>
+<li><p>📚馬場（2019）『RとStanではじめる　ベイズ統計モデリングによるデータ分析入門』講談社</p></li>
+<li><p>🗣小島ますみ（2022） 外国語教育研究における（一般化）線形混合モデル：仮説に適したコーディング・モデリングを中心に The 2021 Annual Conference on Vocabulary Acquisition</p></li>
+<li><p>💻<a href="https://debruine.github.io/faux/articles/contrasts.html#x3-design">Contrasts</a></p></li>
 </ul>
 <style>
 .infobox {

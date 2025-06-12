@@ -21,8 +21,8 @@ options(mc.cores = parallel::detectCores())
 
 ## 今日の目標
 
-1. 
-2. 
+1. 重回帰分析の交互作用項について概念的に理解できる
+2. 交互作用を含む重回帰分析を実装しその結果を適切に報告できる
 
 ## 交互作用
 - 2つ以上の独立変数の組み合わせが従属変数にもたらす影響
@@ -75,8 +75,6 @@ cbind(new_data, res) %>%
   cols_align(align = "center") %>%
   tab_options(table.width = pct(100))
 ```
-
-tab: https://gedevan-aleksizde.github.io/rmarkdown-cookbook/html-tabs.html
 
 ### 量的変数 × 質的変数
 - データの読み込み
@@ -188,7 +186,7 @@ sjPlot::tab_model(model3)
 
   - 宣伝も安売りもあった場合、二つの主効果に加え、交互作用の影響が加算される
   
-```{r}
+```{r, echo=FALSE}
 df <- data.frame(
   宣伝 = c("なし", "あり", "なし", "あり"),
   安売り = c("なし", "なし", "あり", "あり"),
@@ -235,7 +233,7 @@ cbind(new_data_3, res3) %>%
 - 交互作用が有意
 ```{r, echo=FALSE}
 model4 <- lm(sales ~ publicity * bargen, data = dat)
-sjPlot::tab_model(model4)
+sjPlot::tab_model(model4,show.se = T, show.stat = T)
 ```
 
 ```{r, echo=FALSE}
@@ -253,25 +251,38 @@ library(emmeans)
 
 -  bargenの単純主効果（publicityの各水準ごとにbargenの効果を調べる）
 
-  - bargen by publicity
+  - bargen by publicity（縦の比較）
 
+  - publicityがnotの場合もto_implementの場合も条件間の差は有意
 ```{r}
-contrast(
+emmeans::contrast(
   emmeans(model4, pairwise ~ bargen | publicity), 
   adjust = "bonferroni"
   )
 ```
 
+
 -  publicityの単純主効果（bargenの各水準ごとにpublicityの効果を調べる）
 
   - publicity by bargen 
 
+  - bargenがto_implementの場合のみ条件間の差は有意
+
 ```{r}
-contrast(
+emmeans::contrast(
   emmeans(model4, pairwise ~ publicity | bargen), 
   adjust = "bonferroni"
   )
 ```
+
+
+- 報告の例
+
+宣伝と安売りの有無、そしてそれらの交互作用が売り上げに与える影響を調べるため、回帰分析を行った。宣伝と安売りはトリートメント・コントラストでコーディングし、いずれも「なし」を0、「あり」を1とした。分析の結果、安売りおよび宣伝×安売りの交互作用の係数が有意であった（安売り: *b* = 27.27, 95% CI [17.05, 37.49], *SE* = 5.15, *t* = 5.30, *p* < .001；交互作用: *b* = 20.80, 95% CI [6.34, 35.25], *SE* = 7.28, *t* = 2.86, *p* = .005）。
+
+交互作用が有意であったため、単純主効果の検定を行った。その結果、安売りがある条件では、宣伝の効果が有意であった（*b* = 15.37, *SE* = 2.57, *t* = 5.96, *p* < .001）。一方、安売りがない条件では、宣伝の効果は有意ではなかった（*b* = 4.97, *SE* = 2.57, *t* = 1.93, *p* = .113）。
+
+また、安売りの単純主効果は、宣伝の有無にかかわらず有意であった（宣伝なし: *b* = 13.60, *SE* = 2.57, *t* = 5.29, *p* < .001；宣伝あり: *b* = 24.00, *SE* = 2.57, *t* = 9.33, *p* < .001）。これにより、宣伝の有無にかかわらず、安売りは売上向上に寄与する可能性が示唆された。
 
 ## ハンズオンセッション
 
@@ -300,15 +311,15 @@ dat$Learning <- factor(dat$Learning, levels = c("List", "Context", "KeyWord"))
 
 - 各群ごとの平均
 ```{r}
-aggregate(Post ~ Grade, data = dat, FUN = mean)
+stats::aggregate(Post ~ Grade, data = dat, FUN = mean)
 ```
 
 ```{r}
-aggregate(Post ~ Learning, data = dat, FUN = mean)
+stats::aggregate(Post ~ Learning, data = dat, FUN = mean)
 ```
 
 ```{r}
-res <- aggregate(Post ~ Grade*Learning , data = dat, FUN = mean)
+res <- stats::aggregate(Post ~ Grade*Learning , data = dat, FUN = mean)
 res
 ```
 
@@ -347,7 +358,7 @@ plot_model(
 ```
 
 ### 係数の解釈
-- 記述統計の値を参照した考えると分かりやすい
+- 記述統計の値を参照して考えると分かりやすい
   - Intercept: grand mean (47.5)
   - GradeSecond: First - grand mean (39.93333 - 47.5)
   - Learning1: List - grand mean (65.1 - 47.5)
@@ -386,7 +397,7 @@ summary(model_rep)
 ```
 
 ### 係数の解釈
-- 記述統計の値を参照した考えると分かりやすい
+- 記述統計の値を参照して考えると分かりやすい
   - Intercept: grand mean
   - Grade2-1: Second - First
   - Learning2-1: Context - List
@@ -438,35 +449,29 @@ contrast(
 
 
 ::: infobox
-- ここまで見てきたように、どのようなコーディングを適用したかで係数の値は異なります。また、何と何を比較しているのかによって係数の正負も変わります。必ず、どの変数にどのようなコーディングを適用したのか、どの水準とどの水準を比較したのかを第三者から見て分かるように記載しましょう。
 - 2水準 × 3水準の交互作用でも係数の解釈は結構複雑になります。デザインはシンプルな方が解釈する側も分析をしやすいです。
 :::
-
-## 最後に
-
-- 清水先生の「心理学における重回帰分析の使い所を考える」に関してのコラムをいれる」
-
 
 ## 次週までの課題
 ### 課題内容
 
 1. 小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。
 
-2. （宿題を考える）- 外れ値を考えてやる
-
-- **Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。**
+2. ```week8_data.csv```のデータを用いて質的変数 * 量的変数、質的変数 * 質的変数、もしくは量的変数 * 量的変数のいずれかの交互作用を含む回帰分析を行う。記述統計や図示、結果の報告を行うこと。
 
 ### 提出方法
-- メールにファイルを添付して送信。
+- TACT上で提出。
 - 締め切りは今週の木曜日まで
-
 
 ## 参考文献
 
-- 南風原
-- 馬場 RとStanではじめるベイズ統計モデリングによるデータ分析
-- 小島ますみ（2022）. 外国語教育研究における（一般化）線形混合モデル：仮説に適したコーディング・モデリングを中心に The 2021 Annual Conference on Vocabulary Acquisition
-- https://debruine.github.io/faux/articles/contrasts.html#x3-design
+- 📚南風原（2002）『心理統計学の基礎―統合的理解のために』有斐閣アルマ
+
+- 📚馬場（2019）『RとStanではじめる　ベイズ統計モデリングによるデータ分析入門』講談社
+
+- 🗣小島ますみ（2022） 外国語教育研究における（一般化）線形混合モデル：仮説に適したコーディング・モデリングを中心に The 2021 Annual Conference on Vocabulary Acquisition
+
+- 💻[Contrasts](https://debruine.github.io/faux/articles/contrasts.html#x3-design)
 
 ```{=html}
 <style>
