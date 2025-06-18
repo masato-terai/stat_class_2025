@@ -1,14 +1,9 @@
 # Week 14: tidyverseパッケージによるデータの加工と可視化
 
 ```{r, include=FALSE}
-library(rstan)
-library(brms)
 library(gt)
 library(tidyverse)
 library(kableExtra)
-
-rstan_options(auto_write = T)
-options(mc.cores = parallel::detectCores())
 ```
 
 
@@ -27,7 +22,259 @@ options(mc.cores = parallel::detectCores())
 1. 
 2. 
 
+## データの加工
+- 宇宙本の第3章を参考に
 
+### tidy data
+
+- Rが処理しやすいデータ形式のこと
+
+- Hadley Wickhamが提唱した考えで以下の三つの定義がある
+
+  1. 1つの列が1つの変数を表す
+  
+  2. 1つの行が1つの観測を表す
+  
+  3. 1つのテーブルが1つのデータセットだけを含む
+
+- tidyでないデータ
+```{r}
+untidy_data <- data.frame(
+  Name = c("Alice", "Bob", "Carol"),
+  Japanese = c(80, 90, 85),
+  Math = c(75, 88, 92)
+)
+
+gt::gt(untidy_data)
+```
+
+
+- tidyデータ
+```{r, echo=FALSE}
+tidy_data <- pivot_longer(
+  untidy_data,
+  cols = c(Japanese, Math),
+  names_to = "Subject",
+  values_to = "Score"
+)
+gt(tidy_data)
+```
+
+### tidyverseパッケージ
+（説明を入れる）
+
+### データの変形（縦長 🔄 横長）
+- 横長（tidyでない）を縦長に
+
+```{r}
+untidy_data
+```
+
+
+```{r}
+#install.packages("tidyverse")
+library(tidyverse)
+
+tidy <- pivot_longer(
+  untidy_data,               #データ
+  cols = c(Japanese, Math),　#変形する列
+  names_to = "Subject",      #キーの列の名前
+  values_to = "Score"        #値の列の名前
+)
+
+tidy
+```
+
+- 横長に戻す
+
+  - 縦長のデータでは行えない分析もあります
+  
+```{r}
+untidy <- pivot_wider(
+  tidy,                      #データ
+  names_from = "Subject",    #キーの列
+  values_from = "Score"      #値の列
+)
+
+untidy
+```
+
+### dplyrによるデータの操作
+- このパッケージは```tidyverse```パッケージをインストールしていれば使えます。
+
+- このパッケージを使用することで、毎回変数に保存せずデータを操作できたり、二つのデータを結合したできる。
+
+- ```%>%```パイプ演算子を使用する。```|>```など様々なパイプがあるが、とりあえずは```%>%```だけを覚えていればよい。
+
+- パイプ演算子を使ったデータ操作の例（エクセルのデータ処理をRのコードで行うイメージです）
+
+```{r}
+colnames(mpg)
+
+mpg %>%
+  # 列を絞る
+  dplyr::select(manufacturer, model, displ, year, cyl) %>%
+  # 行を絞る
+  dplyr::filter(manufacturer == "audi") %>%
+  # year列のデータを100で割ったデータを含むcenturyという新しいデータを作成
+  dplyr::mutate(century = year / 1000) %>%
+  # データの最初の5行を表示
+  head(,5)
+```
+
+#### filter
+- 条件を満たす行のみにデータを絞る
+
+- 指定した値と同じ
+
+  - 数値型の場合は""入れなくてよい
+
+```{r, eval=FALSE}
+mpg %>%
+  filter(manufacturer == "audi")
+```
+
+- 指定した値以外
+
+```{r, eval=FALSE}
+mpg %>%
+  filter(manufacturer != "audi")
+```
+
+- 指定した値より大きい（ > ）/小さい（ < ）
+
+  - 以下の例では、cyl列のデータで6よりも大きい値を取り出す命令
+  
+```{r}
+mpg %>%
+  filter(cyl > 6)
+```
+
+- ```=```を付けると以上（ >= ）/以下（ <= ）を表す
+
+```{r, eval=FALSE}
+mpg %>%
+  filter(cyl >= 6)
+```
+
+- NAのデータ以外
+
+  - ```filter(is.na(cyl))```だとNAのデータを絞り込む
+
+```{r, eval=FALSE}
+mpg %>%
+  filter(!is.na(cyl))
+```
+
+- 複数条件の指定もできる
+
+  - 以下では、audi以外の車**かつ**cylが6以上のデータに絞り込んでいる
+
+```{r, eval=FALSE}
+mpg %>%
+  filter(manufacturer != "audi" & cyl >= 6)
+```
+
+  - 以下では、audi以外の車**もしくは**cylが6以上のデータに絞り込んでいる
+
+```{r, eval=FALSE}
+mpg %>%
+  filter(manufacturer == "audi" | cyl >= 6)
+```
+  - 以下の例では、どちらの条件にも当てはまらないデータを絞り込む
+
+```{r, eval=FALSE}
+mpg %>%
+  filter(!(manufacturer == "audi" | cyl >= 6))
+```
+
+#### arrange
+
+- 行を並び替える関数
+
+- 昇順
+
+```{r, eval=FALSE}
+mpg %>%
+  arrange(cty)
+```
+
+- 複数列での昇順
+
+```{r, eval=FALSE}
+mpg %>%
+  arrange(cty, hwy)
+```
+
+- 降順
+  
+  - ```desc```関数を使用する。```arrange(-列名)```でも並び変えられるが、これは数値型にしか使用できない
+
+```{r, eval=FALSE}
+mpg %>%
+  arrange(desc(cty))
+```
+
+
+#### select
+- 列の絞り込みを行う
+
+  - 複数の列を絞り込める
+
+```{r, eval=FALSE}
+mpg %>%
+  select(model, trans)
+```
+
+  - 指定した列以外を絞り込む
+  
+```{markdown}
+mpg %>%
+  select(-year)
+
+mpg %>%
+  select(!year)
+```
+
+  - 列名を変えながら絞り込む
+
+```{r, eval=FALSE}
+mpg %>%
+  select(Changed_model = model, Changed_trans = trans)
+```
+
+- データの絞り込みを行わず、列名だけを変更したい場合、```rename```関数を使用する
+
+```{r, eval=FALSE}
+mpg %>%
+  rename(Changed_model = model, Changed_trans = trans)
+```
+
+#### mutate
+- 列を新しく追加する。同じ列名を指定すれば、既存のデータを上書きすることもできる。
+
+  - 既存のcylのデータを100で割った新しいデータをcyl_percentという新しい列を作成。
+
+```{r, eval=FALSE}
+mpg %>%
+  mutate(cyl_percent = cyl / 100)
+```
+
+  - ```if_else```関数を用いて条件指定を行い、cylが6以上なら「6以上」, それ以外なら「6未満」を含む新たな列を作成。さらに、```.after =```オプションを用い、列の位置を指定。標準地では、新しく作成された列は、一番最後に追加される。
+
+```{r, eval=FALSE}
+mpg %>%
+  mutate(cyl_6 = if_else(cyl >= 6, "6以上", "6未満"), .after = cyl)
+```
+
+#### summarize + group
+宇宙本 p.101からスタート
+
+## ggplot2によるデータの可視化
+- 宇宙本の第4章を参考に
+- 基本的な作図
+- ggplotlyなど
+- カラーパッド
 
 
 ## 次週までの課題
@@ -45,6 +292,8 @@ options(mc.cores = parallel::detectCores())
 - 締め切りは今週の木曜日まで
 
 ## 参考文献
+
+- 📚松村・湯谷・紀ノ定・前田（2021）『改訂2版 RユーザのためのRStudio[実践]入門―tidyverseによるモダンな分析フローの世界』技術評論社
 
 ```{=html}
 <style>
