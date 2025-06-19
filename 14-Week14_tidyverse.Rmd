@@ -1,13 +1,12 @@
-# Week 14: tidyverseパッケージによるデータの加工と可視化
+# Week 14: Tidyverseパッケージによるデータの加工と可視化
 
 ```{r, include=FALSE}
 library(gt)
 library(tidyverse)
-library(kableExtra)
 ```
 
 
-## 🚧🚧🚧🚧
+## 🚧🚧🚧🚧（宿題を考える）
 
 
 ## 事前の確認
@@ -19,11 +18,10 @@ library(kableExtra)
 
 ## 今日の目標
 
-1. 
-2. 
+1. ```tidyverse```パッケージを使い、データの加工が出来る
+2. ```ggplot2```パッケージを使い、データの描画をすることができる
 
 ## データの加工
-- 宇宙本の第3章を参考に
 
 ### tidy data
 
@@ -36,6 +34,11 @@ library(kableExtra)
   2. 1つの行が1つの観測を表す
   
   3. 1つのテーブルが1つのデータセットだけを含む
+
+::: infobox
+昨年、LINEヤフー本社で行われたJapan.Rに来日されてました！<br>
+- [Japan.R 2024が紀尾井町オフィスで開催されました!!](https://techblog.lycorp.co.jp/ja/20241224c)
+:::
 
 - tidyでないデータ
 ```{r}
@@ -60,8 +63,14 @@ tidy_data <- pivot_longer(
 gt(tidy_data)
 ```
 
-### tidyverseパッケージ
-（説明を入れる）
+### ```tidyverse```パッケージ
+
+- パッケージのウェブサイト（[https://www.tidyverse.org/](https://www.tidyverse.org/)）
+
+```{r, comment=NA}
+tidyverse_logo()
+```
+
 
 ### データの変形（縦長 🔄 横長）
 - 横長（tidyでない）を縦長に
@@ -99,7 +108,7 @@ untidy <- pivot_wider(
 untidy
 ```
 
-### dplyrによるデータの操作
+### ```dplyr```によるデータの操作
 - このパッケージは```tidyverse```パッケージをインストールしていれば使えます。
 
 - このパッケージを使用することで、毎回変数に保存せずデータを操作できたり、二つのデータを結合したできる。
@@ -122,7 +131,7 @@ mpg %>%
   head(,5)
 ```
 
-#### filter
+#### ```filter```関数
 - 条件を満たす行のみにデータを絞る
 
 - 指定した値と同じ
@@ -188,7 +197,7 @@ mpg %>%
   filter(!(manufacturer == "audi" | cyl >= 6))
 ```
 
-#### arrange
+#### ```arrange```関数
 
 - 行を並び替える関数
 
@@ -216,7 +225,7 @@ mpg %>%
 ```
 
 
-#### select
+#### ```select```関数
 - 列の絞り込みを行う
 
   - 複数の列を絞り込める
@@ -250,7 +259,20 @@ mpg %>%
   rename(Changed_model = model, Changed_trans = trans)
 ```
 
-#### mutate
+::: infobox
+データの絞り込みなどの加工を行った場合、それを保存したい場合、（新しい）変数に保存する必要がある。一般的に以下の二つの保存の方法があります。
+
+```{r, eval=FALSE}
+mpg_renamed <- mpg %>%
+  rename(Changed_model = model, Changed_trans = trans)
+
+mpg %>%
+  rename(Changed_model = model, Changed_trans = trans) -> mpg_renamed 
+```
+
+:::
+
+#### ```mutate```関数
 - 列を新しく追加する。同じ列名を指定すれば、既存のデータを上書きすることもできる。
 
   - 既存のcylのデータを100で割った新しいデータをcyl_percentという新しい列を作成。
@@ -267,14 +289,356 @@ mpg %>%
   mutate(cyl_6 = if_else(cyl >= 6, "6以上", "6未満"), .after = cyl)
 ```
 
-#### summarize + group
-宇宙本 p.101からスタート
+#### ```summarize``` + ```group_by```関数
 
-## ggplot2によるデータの可視化
-- 宇宙本の第4章を参考に
-- 基本的な作図
-- ggplotlyなど
-- カラーパッド
+- ```summarise```関数は平均値や分散を計算したりなどデータを集計する関数
+
+  - ```mutate```関数のように、計算したデータを新しい列に格納する
+
+```{r}
+mpg %>%
+  summarise(M = mean(displ))
+```
+
+```{r}
+mpg %>%
+  summarise(max = max(displ))
+```
+
+- ```group_by```関数というグループ化させる関数と組み合わせることがほとんど
+
+  - manufacturerごとの平均値を算出
+
+```{r}
+mpg %>%
+  group_by(manufacturer) %>%
+  summarise(M = mean(displ), .groups = "drop") %>%
+  head(5)
+```
+
+::: infobox
+```group_by```関数を使用したら、必ず```summarise```関数の中で```.groups = "drop"```を指定してグループ化を解除すること。そうしないと予期せぬエラーにつながったりもする。
+:::
+
+### ```dplyr```によるデータ結合
+- 二つのデータセットをそれぞれの共通のデータを基に結合する
+
+  - 英単語の反応速度の実験などで、後から頻度などの情報を付け加えたいなどかなり重宝します
+
+- 疑似データの作成
+```{r}
+students <- data.frame(
+  id = c(1, 2, 3, 4),
+  name = c("Alice", "Bob", "Charlie", "David")
+)
+
+scores <- data.frame(
+  id = c(1, 2, 3, 4),
+  score = c(80, 90, 85, 70)
+)
+```
+
+#### ```inner_join```関数
+
+- 二つのデータセットは同じ```id```というデータを持っている。このキーをもとにデータを結合します。そして```joined_data```という新しい変数に保存します。
+
+```{r}
+students
+
+scores
+```
+
+```{r}
+joined_data <- students %>%
+  dplyr::inner_join(scores, by = "id")
+
+joined_data
+```
+
+- 列名がそろっていない場合は、以下のように指定すればOK
+
+```{r}
+students <- data.frame(
+  id = c(1, 2, 3, 4),
+  name = c("Alice", "Bob", "Charlie", "David")
+)
+
+scores <- data.frame(
+  学籍番号 = c(1, 2, 3, 4),
+  score = c(80, 90, 85, 70)
+)
+```
+
+```{r}
+students
+scores
+```
+
+```{r}
+joined_data <- students %>%
+  dplyr::inner_join(scores, by = c("id" = "学籍番号"))
+
+joined_data
+```
+
+- ```inner_join```では共通していない変数は削除される
+
+```{r}
+# データフレームの作成
+students <- data.frame(
+  id = c(1, 2, 3, 4),
+  name = c("Alice", "Bob", "Charlie", "David")
+)
+
+scores <- data.frame(
+  id = c(2, 3, 4, 5),
+  score = c(80, 90, 85, 70)
+)
+```
+
+```{r}
+students
+scores
+```
+
+- 二つのデータセットに共通している```id```の2, 3, 4だけがデータとして残っている
+
+```{r}
+students %>%
+  dplyr::inner_join(scores, by = "id")
+
+```
+
+#### そのほかの```join```
+
+- ```left_join```、```right_join```関数はそれぞれ左側にあるデータ、右側にあるデータが残る
+
+  - 残ったデータには```NA```（欠損値）になる
+
+```{r}
+students %>%
+  dplyr::left_join(scores, by = "id")
+```
+
+```{r}
+students %>%
+  dplyr::right_join(scores, by = "id")
+```
+
+- ```full_join```だと全部が残る
+
+```{r}
+students %>%
+  dplyr::full_join(scores, by = "id")
+```
+
+::: infobox
+データの加工や結合を行い（新しい）変数に保存した後は必ずその中身を確認する必要があります。
+:::
+
+## ```ggplot2```によるデータの可視化
+
+- このパッケージも```tidyverse```パッケージに含まれる。従って、```library(tidyverse)```で```ggplot2```パッケージも使用できる。
+
+- **Grammar of Graphics**の思想に基づいている
+
+  - 可視化という作業を複数の工程に分けて考える
+  
+    - データセットの選別、グラフの選択、データをグラフに割り当てる
+    
+    - ステップ・バイ・ステップでパズルのようにグラフを作り上げていく
+  
+::: infobox
+慣れるととても使いやすいですが、その分覚える関数が多いので慣れるまでが少し大変です。使用する際にその都度調べたりすればよく、コードを暗記する必要はありません。
+:::
+
+- 例（ヒストグラム）
+  
+ - パイプ演算子（```%>%```）でデータを渡したら後は```+```でグラフを少しずつ作り上げていきます
+ 
+```{r}
+mpg %>%
+  ggplot() + 
+  #aesの中でx軸やy軸を指定。ヒストグラムはx軸の指定だけでよい
+  geom_histogram(mapping = aes(x = displ)) 
+```
+
+#### 散布図 + 直線
+
+  - 第一段階：散布図
+  
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = cty)) +
+  geom_point()
+
+# どちらでもOK
+#mpg %>%
+#  ggplot(mapping = aes(x = displ, y = cty)) +
+#  geom_point()
+```
+
+- 第二段階：直線を重ねる
+
+  - ```method = "lm"```で線形モデルで直線を推定
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = cty)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+- 第三段階：グループごとに色分け
+
+  - ```group =```と```color = ```で指定を行う。数値のデータはFactor型にすることが必要な場合もある
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = cty,
+                                 group = factor(cyl), color = factor(cyl))) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+- 第四段階：ファセット
+
+  - 水準ごとに図を分ける
+  
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = cty)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  facet_wrap( ~ cyl)
+```
+
+::: infobox
+```ggplot2```パッケージに限りませんが、いろいろな関数を試して、失敗してという遊びが必要になります。色々なでーたで様々な関数で作図をして遊んでください。
+:::
+
+#### 統計的処理
+
+  - 車のサイズごとに燃費の平均を計算する
+
+```{r}
+mpg %>%
+  group_by(class) %>%
+  summarise(M = mean(cty)) %>%
+  arrange(M)
+```
+
+  - 平均値を計算せず棒グラフを書くと平均値を描画できていない
+
+```{r}
+mpg %>%
+  ggplot(mapping = aes(x = class, y = cty)) +
+  geom_bar(stat = "identity")
+```
+
+  - ```stat_summary```関数で平均値を計算する
+
+```{r}
+mpg %>%
+  ggplot(mapping = aes(x = class, y = cty)) +
+  stat_summary(geom = "bar", fun = "mean") 
+```
+
+  - 事前に平均値を計算しておくのも一つのやり方
+  
+```{r}
+mean_mpg <- mpg %>%
+  group_by(class) %>%
+  summarise(mean_cty = mean(cty))
+
+mean_mpg %>%
+  ggplot(aes(x = class, y = mean_cty)) +
+  geom_bar(stat = "identity")
+```
+
+#### 箱ひげ図
+
+```{r}
+mpg %>%
+  ggplot(mapping = aes(x = class, y = cty)) +
+  geom_boxplot()
+```
+
+#### フォントサイズや向き
+
+- 図の文字サイズなどは```theme```
+
+- ```size = 数値```で指定。単位は```pt```
+
+- x軸の変数名が重なってよく見えない
+
+```{r}
+ggplot(mpg, aes(x = class, y = cty, group = class)) +
+  geom_boxplot() +
+  facet_wrap(~ drv) +  # 駆動方式でfacet（例: f, r, 4）
+  labs(title = "City Mileage by Class",
+       x = "Car Class",
+       y = "City MPG") +
+  theme(
+    plot.title = element_text(size = 20),        # タイトルのフォントサイズ
+    axis.title.x = element_text(size = 10),      # x軸ラベル
+    axis.title.y = element_text(size = 14),      # y軸ラベル
+    axis.text.x = element_text(size = 12),       # x軸目盛
+    axis.text.y = element_text(size = 6),       # y軸目盛
+    strip.text = element_text(size = 22)         # facetのラベル（ストリップ）
+  )
+```
+
+- 文字の角度を変更し、重複するのを防ぐ
+
+```{r}
+ggplot(mpg, aes(x = class, y = cty, group = class)) +
+  geom_boxplot() +
+  facet_wrap(~ drv) +  # 駆動方式でfacet（例: f, r, 4）
+  labs(title = "City Mileage by Class",
+       x = "Car Class",
+       y = "City MPG") +
+  theme(
+    plot.title = element_text(size = 20),        
+    axis.title.x = element_text(size = 10),      
+    axis.title.y = element_text(size = 14),      
+    axis.text.x = element_text(size = 10, angle = 45, hjust = 1),  # ★ ここで傾ける
+    axis.text.y = element_text(size = 6),       
+    strip.text = element_text(size = 22)         
+  )
+```
+
+- 表示させない場合は```element_blank()```
+
+  - x軸のメモリを非表示
+
+```{r}
+ggplot(mpg, aes(x = class, y = cty)) +
+  geom_boxplot() +
+  facet_wrap(~ drv) +
+  labs(title = "City Mileage by Class",
+       x = "Car Class",
+       y = "City MPG") +
+  theme(
+    plot.title = element_text(size = 20),
+    axis.title.x = element_text(size = 14),
+    axis.title.y = element_text(size = 14),
+    axis.text.x = element_blank(),            # ★ x軸のメモリを非表示に
+    axis.text.y = element_text(size = 10),
+    strip.text = element_text(size = 16)
+  )
+```
+
+#### ```ggplotly```でインタラクティブな図を作成
+
+- ```ggplot2```の図を作成し変数に保存し、```ggplotly```関数で描画する
+
+- 図の上にカーソルを置いてみてください
+
+```{r}
+#install.packages("plotly")
+gg_mpg <- mpg %>%
+  ggplot(mapping = aes(x = class, y = cty)) +
+  geom_boxplot() 
+
+plotly::ggplotly(gg_mpg)
+```
 
 
 ## 次週までの課題
@@ -282,18 +646,19 @@ mpg %>%
 
 1. 小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。
 
-2. （宿題を考える）
-- ハンズオンセッションで使用したデータを基にサムコントラストで分析をしてみましょう
+2. 以下の図を再現してください
 
-- **Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。**
 
 ### 提出方法
-- メールにファイルを添付して送信。
+
+- TACT上で提出。
 - 締め切りは今週の木曜日まで
 
 ## 参考文献
 
 - 📚松村・湯谷・紀ノ定・前田（2021）『改訂2版 RユーザのためのRStudio[実践]入門―tidyverseによるモダンな分析フローの世界』技術評論社
+
+- 💻[疫学のための R ハンドブック　39  動的な図の作成](https://epirhandbook.com/jp/new_pages/interactive_plots.jp.html)
 
 ```{=html}
 <style>
