@@ -467,7 +467,7 @@ contrast(
 
 - 📚馬場（2019）『RとStanではじめる　ベイズ統計モデリングによるデータ分析入門』講談社
 
-- 🗣小島ますみ（2022） 外国語教育研究における（一般化）線形混合モデル：仮説に適したコーディング・モデリングを中心に The 2021 Annual Conference on Vocabulary Acquisition
+- 🗣小島（2022）「外国語教育研究における（一般化）線形混合モデル：仮説に適したコーディング・モデリングを中心に」The 2021 Annual Conference on Vocabulary Acquisition
 
 - 💻[Contrasts](https://debruine.github.io/faux/articles/contrasts.html#x3-design)
 
