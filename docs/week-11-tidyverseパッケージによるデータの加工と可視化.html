@@ -1,0 +1,2118 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 12 Week 11: Tidyverseパッケージによるデータの加工と可視化 | 言語統計処理（春学期）</title>
+  <meta name="description" content="Chapter 12 Week 11: Tidyverseパッケージによるデータの加工と可視化 | 言語統計処理（春学期）" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 12 Week 11: Tidyverseパッケージによるデータの加工と可視化 | 言語統計処理（春学期）" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 12 Week 11: Tidyverseパッケージによるデータの加工と可視化 | 言語統計処理（春学期）" />
+  
+  
+  
+
+<meta name="author" content="寺井雅人（Masato Terai）" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="week10-一般化線形モデルロジスティック回帰分析.html"/>
+<link rel="next" href="week11-階層モデル.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">言語統計処理_春学期</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#講義概要"><i class="fa fa-check"></i><b>1.1</b> 講義概要</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#講義スケジュール"><i class="fa fa-check"></i><b>1.2</b> 講義スケジュール</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#成績評価について"><i class="fa fa-check"></i><b>1.3</b> 成績評価について</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#留意事項"><i class="fa fa-check"></i><b>1.4</b> 留意事項</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><i class="fa fa-check"></i><b>2</b> Week 1: オリエンテーション、R(Studio)のインストールと操作、R Markdown</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#統計処理とは"><i class="fa fa-check"></i><b>2.1</b> 「統計処理」とは</a></li>
+<li class="chapter" data-level="2.2" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rとは"><i class="fa fa-check"></i><b>2.2</b> Rとは</a></li>
+<li class="chapter" data-level="2.3" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rのインストール"><i class="fa fa-check"></i><b>2.3</b> Rのインストール</a></li>
+<li class="chapter" data-level="2.4" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioとは"><i class="fa fa-check"></i><b>2.4</b> RStudioとは</a></li>
+<li class="chapter" data-level="2.5" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioのインストール"><i class="fa fa-check"></i><b>2.5</b> RStudioのインストール</a></li>
+<li class="chapter" data-level="2.6" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioの機能"><i class="fa fa-check"></i><b>2.6</b> RStudioの機能</a></li>
+<li class="chapter" data-level="2.7" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#プロジェクト機能"><i class="fa fa-check"></i><b>2.7</b> プロジェクト機能</a></li>
+<li class="chapter" data-level="2.8" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#rstudioのカスタマイズ"><i class="fa fa-check"></i><b>2.8</b> RStudioのカスタマイズ</a></li>
+<li class="chapter" data-level="2.9" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#r-markdown入門"><i class="fa fa-check"></i><b>2.9</b> R Markdown入門</a></li>
+<li class="chapter" data-level="2.10" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#ドキュメントチャンクmarkdown記法"><i class="fa fa-check"></i><b>2.10</b> ドキュメントチャンク：Markdown記法</a></li>
+<li class="chapter" data-level="2.11" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#lets-実践"><i class="fa fa-check"></i><b>2.11</b> Let’s 実践</a></li>
+<li class="chapter" data-level="2.12" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#答え合わせ"><i class="fa fa-check"></i><b>2.12</b> 答え合わせ</a></li>
+<li class="chapter" data-level="2.13" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#コードチャンクの挿入"><i class="fa fa-check"></i><b>2.13</b> コードチャンクの挿入</a></li>
+<li class="chapter" data-level="2.14" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#lets-実践-1"><i class="fa fa-check"></i><b>2.14</b> Let’s 実践</a></li>
+<li class="chapter" data-level="2.15" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#答え合わせ-1"><i class="fa fa-check"></i><b>2.15</b> 答え合わせ</a></li>
+<li class="chapter" data-level="2.16" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#次週までの課題"><i class="fa fa-check"></i><b>2.16</b> 次週までの課題</a></li>
+<li class="chapter" data-level="2.17" data-path="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html"><a href="week-1-オリエンテーションrstudioのインストールと操作r-markdown.html#参考文献"><i class="fa fa-check"></i><b>2.17</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html"><i class="fa fa-check"></i><b>3</b> Week 2：要約統計量</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#事前の確認"><i class="fa fa-check"></i><b>3.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="3.2" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#今日の目標"><i class="fa fa-check"></i><b>3.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="3.3" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#今日の格言"><i class="fa fa-check"></i><b>3.3</b> 今日の格言</a></li>
+<li class="chapter" data-level="3.4" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#記述統計学と推測統計学"><i class="fa fa-check"></i><b>3.4</b> 記述統計学と推測統計学</a></li>
+<li class="chapter" data-level="3.5" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#データの尺度"><i class="fa fa-check"></i><b>3.5</b> データの尺度</a></li>
+<li class="chapter" data-level="3.6" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#とみなす"><i class="fa fa-check"></i><b>3.6</b> 「～とみなす」</a></li>
+<li class="chapter" data-level="3.7" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#要約統計量"><i class="fa fa-check"></i><b>3.7</b> 要約統計量</a></li>
+<li class="chapter" data-level="3.8" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#データの可視化"><i class="fa fa-check"></i><b>3.8</b> データの可視化</a></li>
+<li class="chapter" data-level="3.9" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#ハンズオンセッション"><i class="fa fa-check"></i><b>3.9</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="3.10" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#まとめ"><i class="fa fa-check"></i><b>3.10</b> まとめ</a></li>
+<li class="chapter" data-level="3.11" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#次週までの課題-1"><i class="fa fa-check"></i><b>3.11</b> 次週までの課題</a></li>
+<li class="chapter" data-level="3.12" data-path="week-2要約統計量.html"><a href="week-2要約統計量.html#参考文献-1"><i class="fa fa-check"></i><b>3.12</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="week-3推測統計学.html"><a href="week-3推測統計学.html"><i class="fa fa-check"></i><b>4</b> Week 3：推測統計学</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="week-3推測統計学.html"><a href="week-3推測統計学.html#事前の確認-1"><i class="fa fa-check"></i><b>4.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="4.2" data-path="week-3推測統計学.html"><a href="week-3推測統計学.html#今日の目標-1"><i class="fa fa-check"></i><b>4.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="4.3" data-path="week-3推測統計学.html"><a href="week-3推測統計学.html#母集団と標本"><i class="fa fa-check"></i><b>4.3</b> 母集団と標本</a></li>
+<li class="chapter" data-level="4.4" data-path="week-3推測統計学.html"><a href="week-3推測統計学.html#確率と確率変数"><i class="fa fa-check"></i><b>4.4</b> 確率と確率変数</a></li>
+<li class="chapter" data-level="4.5" data-path="week-3推測統計学.html"><a href="week-3推測統計学.html#推測統計学の考え方"><i class="fa fa-check"></i><b>4.5</b> 推測統計学の考え方</a></li>
+<li class="chapter" data-level="4.6" data-path="week-3推測統計学.html"><a href="week-3推測統計学.html#区間推定の考え方"><i class="fa fa-check"></i><b>4.6</b> 区間推定の考え方</a></li>
+<li class="chapter" data-level="4.7" data-path="week-3推測統計学.html"><a href="week-3推測統計学.html#rの関数で95信頼区間を求める"><i class="fa fa-check"></i><b>4.7</b> Rの関数で95%信頼区間を求める</a></li>
+<li class="chapter" data-level="4.8" data-path="week-3推測統計学.html"><a href="week-3推測統計学.html#ハンズオンセッション-1"><i class="fa fa-check"></i><b>4.8</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="4.9" data-path="week-3推測統計学.html"><a href="week-3推測統計学.html#次週までの課題-2"><i class="fa fa-check"></i><b>4.9</b> 次週までの課題</a></li>
+<li class="chapter" data-level="4.10" data-path="week-3推測統計学.html"><a href="week-3推測統計学.html#参考文献-2"><i class="fa fa-check"></i><b>4.10</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="week-4-統計的検定.html"><a href="week-4-統計的検定.html"><i class="fa fa-check"></i><b>5</b> Week 4: 統計的検定</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="week-4-統計的検定.html"><a href="week-4-統計的検定.html#事前の確認-2"><i class="fa fa-check"></i><b>5.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="5.2" data-path="week-4-統計的検定.html"><a href="week-4-統計的検定.html#今日の目標-2"><i class="fa fa-check"></i><b>5.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="5.3" data-path="week-4-統計的検定.html"><a href="week-4-統計的検定.html#統計的検定statistical-test"><i class="fa fa-check"></i><b>5.3</b> 統計的検定（statistical test）</a></li>
+<li class="chapter" data-level="5.4" data-path="week-4-統計的検定.html"><a href="week-4-統計的検定.html#統計的検定の手順"><i class="fa fa-check"></i><b>5.4</b> 統計的検定の手順</a></li>
+<li class="chapter" data-level="5.5" data-path="week-4-統計的検定.html"><a href="week-4-統計的検定.html#統計的検定で必要な知識"><i class="fa fa-check"></i><b>5.5</b> 統計的検定で必要な知識</a></li>
+<li class="chapter" data-level="5.6" data-path="week-4-統計的検定.html"><a href="week-4-統計的検定.html#ハンズオンセッション-2"><i class="fa fa-check"></i><b>5.6</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="5.7" data-path="week-4-統計的検定.html"><a href="week-4-統計的検定.html#次週までの課題-3"><i class="fa fa-check"></i><b>5.7</b> 次週までの課題</a></li>
+<li class="chapter" data-level="5.8" data-path="week-4-統計的検定.html"><a href="week-4-統計的検定.html#参考文献-3"><i class="fa fa-check"></i><b>5.8</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="week5-相関分析.html"><a href="week5-相関分析.html"><i class="fa fa-check"></i><b>6</b> Week5: 相関分析</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="week5-相関分析.html"><a href="week5-相関分析.html#事前の確認-3"><i class="fa fa-check"></i><b>6.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="6.2" data-path="week5-相関分析.html"><a href="week5-相関分析.html#今日の目標-3"><i class="fa fa-check"></i><b>6.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="6.3" data-path="week5-相関分析.html"><a href="week5-相関分析.html#相関分析correlation-analysisとは"><i class="fa fa-check"></i><b>6.3</b> 相関分析（Correlation analysis）とは</a></li>
+<li class="chapter" data-level="6.4" data-path="week5-相関分析.html"><a href="week5-相関分析.html#ハンズオンセッション-3"><i class="fa fa-check"></i><b>6.4</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="6.5" data-path="week5-相関分析.html"><a href="week5-相関分析.html#次週までの課題-4"><i class="fa fa-check"></i><b>6.5</b> 次週までの課題</a></li>
+<li class="chapter" data-level="6.6" data-path="week5-相関分析.html"><a href="week5-相関分析.html#参考文献-4"><i class="fa fa-check"></i><b>6.6</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="week6-単回帰分析連続型の説明変数.html"><a href="week6-単回帰分析連続型の説明変数.html"><i class="fa fa-check"></i><b>7</b> Week6: 単回帰分析（連続型の説明変数）</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="week6-単回帰分析連続型の説明変数.html"><a href="week6-単回帰分析連続型の説明変数.html#事前の確認-4"><i class="fa fa-check"></i><b>7.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="7.2" data-path="week6-単回帰分析連続型の説明変数.html"><a href="week6-単回帰分析連続型の説明変数.html#今日の目標-4"><i class="fa fa-check"></i><b>7.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="7.3" data-path="week6-単回帰分析連続型の説明変数.html"><a href="week6-単回帰分析連続型の説明変数.html#回帰分析regression-analysisとは"><i class="fa fa-check"></i><b>7.3</b> 回帰分析（regression analysis）とは</a></li>
+<li class="chapter" data-level="7.4" data-path="week6-単回帰分析連続型の説明変数.html"><a href="week6-単回帰分析連続型の説明変数.html#ハンズオンセッション-4"><i class="fa fa-check"></i><b>7.4</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="7.5" data-path="week6-単回帰分析連続型の説明変数.html"><a href="week6-単回帰分析連続型の説明変数.html#次週までの課題-5"><i class="fa fa-check"></i><b>7.5</b> 次週までの課題</a></li>
+<li class="chapter" data-level="7.6" data-path="week6-単回帰分析連続型の説明変数.html"><a href="week6-単回帰分析連続型の説明変数.html#参考文献-5"><i class="fa fa-check"></i><b>7.6</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html"><i class="fa fa-check"></i><b>8</b> Week7: 重回帰分析</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#事前の確認-5"><i class="fa fa-check"></i><b>8.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="8.2" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#今日の目標-5"><i class="fa fa-check"></i><b>8.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="8.3" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#重回帰分析とは"><i class="fa fa-check"></i><b>8.3</b> 重回帰分析とは</a></li>
+<li class="chapter" data-level="8.4" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#重回帰分析を行う上での注意点"><i class="fa fa-check"></i><b>8.4</b> 重回帰分析を行う上での注意点</a></li>
+<li class="chapter" data-level="8.5" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#投入方"><i class="fa fa-check"></i><b>8.5</b> 投入方</a></li>
+<li class="chapter" data-level="8.6" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#ハンズオンセッション-5"><i class="fa fa-check"></i><b>8.6</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="8.7" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#次週までの課題-6"><i class="fa fa-check"></i><b>8.7</b> 次週までの課題</a></li>
+<li class="chapter" data-level="8.8" data-path="week7-重回帰分析.html"><a href="week7-重回帰分析.html#参考文献-6"><i class="fa fa-check"></i><b>8.8</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="week8-重回帰分析質的変数のコーディング.html"><a href="week8-重回帰分析質的変数のコーディング.html"><i class="fa fa-check"></i><b>9</b> Week8: 重回帰分析：質的変数のコーディング</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="week8-重回帰分析質的変数のコーディング.html"><a href="week8-重回帰分析質的変数のコーディング.html#事前の確認-6"><i class="fa fa-check"></i><b>9.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="9.2" data-path="week8-重回帰分析質的変数のコーディング.html"><a href="week8-重回帰分析質的変数のコーディング.html#今日の目標-6"><i class="fa fa-check"></i><b>9.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="9.3" data-path="week8-重回帰分析質的変数のコーディング.html"><a href="week8-重回帰分析質的変数のコーディング.html#分散分析"><i class="fa fa-check"></i><b>9.3</b> 分散分析</a></li>
+<li class="chapter" data-level="9.4" data-path="week8-重回帰分析質的変数のコーディング.html"><a href="week8-重回帰分析質的変数のコーディング.html#分散分析と回帰分析の関係"><i class="fa fa-check"></i><b>9.4</b> 分散分析と回帰分析の関係</a></li>
+<li class="chapter" data-level="9.5" data-path="week8-重回帰分析質的変数のコーディング.html"><a href="week8-重回帰分析質的変数のコーディング.html#分散分析は今回扱いません"><i class="fa fa-check"></i><b>9.5</b> 分散分析は今回扱いません</a></li>
+<li class="chapter" data-level="9.6" data-path="week8-重回帰分析質的変数のコーディング.html"><a href="week8-重回帰分析質的変数のコーディング.html#重回帰分析での質的変数の扱い方"><i class="fa fa-check"></i><b>9.6</b> 重回帰分析での質的変数の扱い方</a></li>
+<li class="chapter" data-level="9.7" data-path="week8-重回帰分析質的変数のコーディング.html"><a href="week8-重回帰分析質的変数のコーディング.html#ハンズオンセッション-6"><i class="fa fa-check"></i><b>9.7</b> ハンズオン・セッション</a></li>
+<li class="chapter" data-level="9.8" data-path="week8-重回帰分析質的変数のコーディング.html"><a href="week8-重回帰分析質的変数のコーディング.html#検定の繰り返し問題アゲイン"><i class="fa fa-check"></i><b>9.8</b> 検定の繰り返し問題アゲイン</a></li>
+<li class="chapter" data-level="9.9" data-path="week8-重回帰分析質的変数のコーディング.html"><a href="week8-重回帰分析質的変数のコーディング.html#解決策"><i class="fa fa-check"></i><b>9.9</b> 解決策</a></li>
+<li class="chapter" data-level="9.10" data-path="week8-重回帰分析質的変数のコーディング.html"><a href="week8-重回帰分析質的変数のコーディング.html#次週までの課題-7"><i class="fa fa-check"></i><b>9.10</b> 次週までの課題</a></li>
+<li class="chapter" data-level="9.11" data-path="week8-重回帰分析質的変数のコーディング.html"><a href="week8-重回帰分析質的変数のコーディング.html#参考文献-7"><i class="fa fa-check"></i><b>9.11</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html"><i class="fa fa-check"></i><b>10</b> Week9: 重回帰分析 (3)：交互作用の解釈</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#事前の確認-7"><i class="fa fa-check"></i><b>10.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="10.2" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#今日の目標-7"><i class="fa fa-check"></i><b>10.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="10.3" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#交互作用"><i class="fa fa-check"></i><b>10.3</b> 交互作用</a></li>
+<li class="chapter" data-level="10.4" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#ハンズオンセッション-7"><i class="fa fa-check"></i><b>10.4</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="10.5" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#次週までの課題-8"><i class="fa fa-check"></i><b>10.5</b> 次週までの課題</a></li>
+<li class="chapter" data-level="10.6" data-path="week9-重回帰分析-3交互作用の解釈.html"><a href="week9-重回帰分析-3交互作用の解釈.html#参考文献-8"><i class="fa fa-check"></i><b>10.6</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html"><i class="fa fa-check"></i><b>11</b> Week10: 一般化線形モデル：ロジスティック回帰分析</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#事前の確認-8"><i class="fa fa-check"></i><b>11.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="11.2" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#今日の目標-8"><i class="fa fa-check"></i><b>11.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="11.3" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#一般化線形モデル"><i class="fa fa-check"></i><b>11.3</b> 一般化線形モデル</a></li>
+<li class="chapter" data-level="11.4" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#二項分布"><i class="fa fa-check"></i><b>11.4</b> 二項分布</a></li>
+<li class="chapter" data-level="11.5" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#ロジット関数"><i class="fa fa-check"></i><b>11.5</b> ロジット関数</a></li>
+<li class="chapter" data-level="11.6" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#ロジスティック関数"><i class="fa fa-check"></i><b>11.6</b> ロジスティック関数</a></li>
+<li class="chapter" data-level="11.7" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#ハンズオンセッション-8"><i class="fa fa-check"></i><b>11.7</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="11.8" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#質的変数の場合"><i class="fa fa-check"></i><b>11.8</b> 質的変数の場合</a></li>
+<li class="chapter" data-level="11.9" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#分類にも使えます"><i class="fa fa-check"></i><b>11.9</b> 分類にも使えます</a></li>
+<li class="chapter" data-level="11.10" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#次週までの課題-9"><i class="fa fa-check"></i><b>11.10</b> 次週までの課題</a></li>
+<li class="chapter" data-level="11.11" data-path="week10-一般化線形モデルロジスティック回帰分析.html"><a href="week10-一般化線形モデルロジスティック回帰分析.html#参考文献-9"><i class="fa fa-check"></i><b>11.11</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="week-11-tidyverseパッケージによるデータの加工と可視化.html"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html"><i class="fa fa-check"></i><b>12</b> Week 11: Tidyverseパッケージによるデータの加工と可視化</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="week-11-tidyverseパッケージによるデータの加工と可視化.html"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#メモ"><i class="fa fa-check"></i><b>12.1</b> メモ</a></li>
+<li class="chapter" data-level="12.2" data-path="week-11-tidyverseパッケージによるデータの加工と可視化.html"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#事前の確認-9"><i class="fa fa-check"></i><b>12.2</b> 事前の確認</a></li>
+<li class="chapter" data-level="12.3" data-path="week-11-tidyverseパッケージによるデータの加工と可視化.html"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#今日の目標-9"><i class="fa fa-check"></i><b>12.3</b> 今日の目標</a></li>
+<li class="chapter" data-level="12.4" data-path="week-11-tidyverseパッケージによるデータの加工と可視化.html"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#データの加工"><i class="fa fa-check"></i><b>12.4</b> データの加工</a></li>
+<li class="chapter" data-level="12.5" data-path="week-11-tidyverseパッケージによるデータの加工と可視化.html"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#ggplot2によるデータの可視化"><i class="fa fa-check"></i><b>12.5</b> <code>ggplot2</code>によるデータの可視化</a></li>
+<li class="chapter" data-level="12.6" data-path="week-11-tidyverseパッケージによるデータの加工と可視化.html"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#次週までの課題-10"><i class="fa fa-check"></i><b>12.6</b> 次週までの課題</a></li>
+<li class="chapter" data-level="12.7" data-path="week-11-tidyverseパッケージによるデータの加工と可視化.html"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#参考文献-10"><i class="fa fa-check"></i><b>12.7</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html"><i class="fa fa-check"></i><b>13</b> Week11: 階層モデル</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#section"><i class="fa fa-check"></i><b>13.1</b> 🚧🚧🚧🚧</a></li>
+<li class="chapter" data-level="13.2" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#事前の確認-10"><i class="fa fa-check"></i><b>13.2</b> 事前の確認</a></li>
+<li class="chapter" data-level="13.3" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#今日の目標-10"><i class="fa fa-check"></i><b>13.3</b> 今日の目標</a></li>
+<li class="chapter" data-level="13.4" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#一般化線形モデルからの発展"><i class="fa fa-check"></i><b>13.4</b> 一般化線形モデルからの発展</a></li>
+<li class="chapter" data-level="13.5" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#ランダム効果とは"><i class="fa fa-check"></i><b>13.5</b> ランダム効果とは</a></li>
+<li class="chapter" data-level="13.6" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#ランダム切片モデル"><i class="fa fa-check"></i><b>13.6</b> ランダム切片モデル</a></li>
+<li class="chapter" data-level="13.7" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#ランダム係数モデル"><i class="fa fa-check"></i><b>13.7</b> ランダム係数モデル</a></li>
+<li class="chapter" data-level="13.8" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#ランダム切片-係数モデル"><i class="fa fa-check"></i><b>13.8</b> ランダム切片 &amp; 係数モデル</a></li>
+<li class="chapter" data-level="13.9" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#glmmを行うときの留意点"><i class="fa fa-check"></i><b>13.9</b> GLMMを行うときの留意点</a></li>
+<li class="chapter" data-level="13.10" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#ハンズオンセッション-9"><i class="fa fa-check"></i><b>13.10</b> ハンズオンセッション</a></li>
+<li class="chapter" data-level="13.11" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#次週までの課題-11"><i class="fa fa-check"></i><b>13.11</b> 次週までの課題</a></li>
+<li class="chapter" data-level="13.12" data-path="week11-階層モデル.html"><a href="week11-階層モデル.html#参考文献-11"><i class="fa fa-check"></i><b>13.12</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="week-12-効果量と検定力分析.html"><a href="week-12-効果量と検定力分析.html"><i class="fa fa-check"></i><b>14</b> Week 12: 効果量と検定力分析</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="week-12-効果量と検定力分析.html"><a href="week-12-効果量と検定力分析.html#事前の確認-11"><i class="fa fa-check"></i><b>14.1</b> 事前の確認</a></li>
+<li class="chapter" data-level="14.2" data-path="week-12-効果量と検定力分析.html"><a href="week-12-効果量と検定力分析.html#今日の目標-11"><i class="fa fa-check"></i><b>14.2</b> 今日の目標</a></li>
+<li class="chapter" data-level="14.3" data-path="week-12-効果量と検定力分析.html"><a href="week-12-効果量と検定力分析.html#効果量"><i class="fa fa-check"></i><b>14.3</b> 効果量</a></li>
+<li class="chapter" data-level="14.4" data-path="week-12-効果量と検定力分析.html"><a href="week-12-効果量と検定力分析.html#検定力分析"><i class="fa fa-check"></i><b>14.4</b> 検定力分析</a></li>
+<li class="chapter" data-level="14.5" data-path="week-12-効果量と検定力分析.html"><a href="week-12-効果量と検定力分析.html#次週までの課題-12"><i class="fa fa-check"></i><b>14.5</b> 次週までの課題</a></li>
+<li class="chapter" data-level="14.6" data-path="week-12-効果量と検定力分析.html"><a href="week-12-効果量と検定力分析.html#参考文献-12"><i class="fa fa-check"></i><b>14.6</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html"><i class="fa fa-check"></i><b>15</b> Week 13: ノンパラメトリック検定</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#section-1"><i class="fa fa-check"></i><b>15.1</b> 🚧🚧🚧🚧</a></li>
+<li class="chapter" data-level="15.2" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#ハンズオンと説明セッションを明確に分けずに行う"><i class="fa fa-check"></i><b>15.2</b> ハンズオンと説明セッションを明確に分けずに行う</a></li>
+<li class="chapter" data-level="15.3" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#事前の確認-12"><i class="fa fa-check"></i><b>15.3</b> 事前の確認</a></li>
+<li class="chapter" data-level="15.4" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#今日の目標-12"><i class="fa fa-check"></i><b>15.4</b> 今日の目標</a></li>
+<li class="chapter" data-level="15.5" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#ノンパラメトリック検定"><i class="fa fa-check"></i><b>15.5</b> ノンパラメトリック検定</a></li>
+<li class="chapter" data-level="15.6" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#名義尺度データ"><i class="fa fa-check"></i><b>15.6</b> 名義尺度データ</a></li>
+<li class="chapter" data-level="15.7" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#リスク比とオッズ比"><i class="fa fa-check"></i><b>15.7</b> リスク比とオッズ比</a></li>
+<li class="chapter" data-level="15.8" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#対応のあるデータを比較する"><i class="fa fa-check"></i><b>15.8</b> 対応のあるデータを比較する</a></li>
+<li class="chapter" data-level="15.9" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#順序尺度データ"><i class="fa fa-check"></i><b>15.9</b> 順序尺度データ</a></li>
+<li class="chapter" data-level="15.10" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#次週までの課題-13"><i class="fa fa-check"></i><b>15.10</b> 次週までの課題</a></li>
+<li class="chapter" data-level="15.11" data-path="week-13-ノンパラメトリック検定.html"><a href="week-13-ノンパラメトリック検定.html#参考文献-13"><i class="fa fa-check"></i><b>15.11</b> 参考文献</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html"><i class="fa fa-check"></i><b>16</b> Week 15：言語研究とオープンサイエンス</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#section-2"><i class="fa fa-check"></i><b>16.1</b> 🚧🚧🚧🚧</a></li>
+<li class="chapter" data-level="16.2" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#事前の確認-13"><i class="fa fa-check"></i><b>16.2</b> 事前の確認</a></li>
+<li class="chapter" data-level="16.3" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#今日の目標-13"><i class="fa fa-check"></i><b>16.3</b> 今日の目標</a></li>
+<li class="chapter" data-level="16.4" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#はじめに"><i class="fa fa-check"></i><b>16.4</b> はじめに</a></li>
+<li class="chapter" data-level="16.5" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#r-markdownを使って分析結果をまとめることができる"><i class="fa fa-check"></i><b>16.5</b> 1. R Markdownを使って分析結果をまとめることができる</a></li>
+<li class="chapter" data-level="16.6" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#プロジェクト"><i class="fa fa-check"></i><b>16.6</b> プロジェクト</a></li>
+<li class="chapter" data-level="16.7" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#実際に作ってみましょう"><i class="fa fa-check"></i><b>16.7</b> 実際に作ってみましょう</a></li>
+<li class="chapter" data-level="16.8" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#ドキュメントチャンクmarkdown記法-1"><i class="fa fa-check"></i><b>16.8</b> ドキュメントチャンク：Markdown記法</a></li>
+<li class="chapter" data-level="16.9" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#lets-実践-2"><i class="fa fa-check"></i><b>16.9</b> Let’s 実践</a></li>
+<li class="chapter" data-level="16.10" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#答え合わせ-2"><i class="fa fa-check"></i><b>16.10</b> 答え合わせ</a></li>
+<li class="chapter" data-level="16.11" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#実はwordのように編集できます"><i class="fa fa-check"></i><b>16.11</b> 実は、Wordのように編集できます！</a></li>
+<li class="chapter" data-level="16.12" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#コードチャンクの挿入-1"><i class="fa fa-check"></i><b>16.12</b> コードチャンクの挿入</a></li>
+<li class="chapter" data-level="16.13" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#lets-実践-3"><i class="fa fa-check"></i><b>16.13</b> Let’s 実践</a></li>
+<li class="chapter" data-level="16.14" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#食費の合計"><i class="fa fa-check"></i><b>16.14</b> 食費の合計</a></li>
+<li class="chapter" data-level="16.15" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#答え合わせ-3"><i class="fa fa-check"></i><b>16.15</b> 答え合わせ</a></li>
+<li class="chapter" data-level="16.16" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#r-markdownでまとめた結果を共有することができる"><i class="fa fa-check"></i><b>16.16</b> 2. R Markdownでまとめた結果を共有することができる</a></li>
+<li class="chapter" data-level="16.17" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#html形式だと簡単にウェブサイトにできます"><i class="fa fa-check"></i><b>16.17</b> HTML形式だと、簡単にウェブサイトにできます</a></li>
+<li class="chapter" data-level="16.18" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#様々なパソコンで同じ分析環境を再現することができる"><i class="fa fa-check"></i><b>16.18</b> 3. 様々なパソコンで同じ分析環境を再現することができる</a></li>
+<li class="chapter" data-level="16.19" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#r自体のバージョン管理も可能です"><i class="fa fa-check"></i><b>16.19</b> R自体のバージョン管理も可能です</a></li>
+<li class="chapter" data-level="16.20" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#おまけ"><i class="fa fa-check"></i><b>16.20</b> おまけ</a></li>
+<li class="chapter" data-level="16.21" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#関数の呼び出し方"><i class="fa fa-check"></i><b>16.21</b> 関数の呼び出し方</a></li>
+<li class="chapter" data-level="16.22" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#まとめ-1"><i class="fa fa-check"></i><b>16.22</b> まとめ</a></li>
+<li class="chapter" data-level="16.23" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#参考文献-資料"><i class="fa fa-check"></i><b>16.23</b> 参考文献 &amp; 資料</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">言語統計処理（春学期）</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="week-11-tidyverseパッケージによるデータの加工と可視化" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">Chapter 12</span> Week 11: Tidyverseパッケージによるデータの加工と可視化<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#week-11-tidyverseパッケージによるデータの加工と可視化" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="メモ" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> メモ<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#メモ" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>補講（2025/7/5）</li>
+</ul>
+</div>
+<div id="事前の確認-9" class="section level2 hasAnchor" number="12.2">
+<h2><span class="header-section-number">12.2</span> 事前の確認<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#事前の確認-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>この講義のRプロジェクトを開いていますか？</p></li>
+<li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
+<ul>
+<li>.Rでも.Rmdでもどちらでも大丈夫です。</li>
+</ul></li>
+</ul>
+</div>
+<div id="今日の目標-9" class="section level2 hasAnchor" number="12.3">
+<h2><span class="header-section-number">12.3</span> 今日の目標<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#今日の目標-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li><code>tidyverse</code>パッケージを使い、データの加工が出来る</li>
+<li><code>ggplot2</code>パッケージを使い、データの描画をすることができる</li>
+</ol>
+</div>
+<div id="データの加工" class="section level2 hasAnchor" number="12.4">
+<h2><span class="header-section-number">12.4</span> データの加工<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#データの加工" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="tidy-data" class="section level3 hasAnchor" number="12.4.1">
+<h3><span class="header-section-number">12.4.1</span> tidy data<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#tidy-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>Rが処理しやすいデータ形式のこと</p></li>
+<li><p>Hadley Wickhamが提唱した考えで以下の三つの定義がある</p>
+<ol style="list-style-type: decimal">
+<li><p>1つの列が1つの変数を表す</p></li>
+<li><p>1つの行が1つの観測を表す</p></li>
+<li><p>1つのテーブルが1つのデータセットだけを含む</p></li>
+</ol></li>
+</ul>
+<div class="infobox">
+<p>昨年、LINEヤフー本社で行われたJapan.Rに来日されてました！<br>
+- <a href="https://techblog.lycorp.co.jp/ja/20241224c">Japan.R 2024が紀尾井町オフィスで開催されました!!</a></p>
+</div>
+<ul>
+<li>tidyでないデータ</li>
+</ul>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb472-1" tabindex="-1"></a>untidy_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb472-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb472-2" tabindex="-1"></a>  <span class="at">Name =</span> <span class="fu">c</span>(<span class="st">&quot;Alice&quot;</span>, <span class="st">&quot;Bob&quot;</span>, <span class="st">&quot;Carol&quot;</span>),</span>
+<span id="cb472-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb472-3" tabindex="-1"></a>  <span class="at">Japanese =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">85</span>),</span>
+<span id="cb472-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb472-4" tabindex="-1"></a>  <span class="at">Math =</span> <span class="fu">c</span>(<span class="dv">75</span>, <span class="dv">88</span>, <span class="dv">92</span>)</span>
+<span id="cb472-5"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb472-5" tabindex="-1"></a>)</span>
+<span id="cb472-6"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb472-6" tabindex="-1"></a></span>
+<span id="cb472-7"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb472-7" tabindex="-1"></a>gt<span class="sc">::</span><span class="fu">gt</span>(untidy_data)</span></code></pre></div>
+<div id="ltnqnvchns" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ltnqnvchns table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#ltnqnvchns thead, #ltnqnvchns tbody, #ltnqnvchns tfoot, #ltnqnvchns tr, #ltnqnvchns td, #ltnqnvchns th {
+  border-style: none;
+}
+
+#ltnqnvchns p {
+  margin: 0;
+  padding: 0;
+}
+
+#ltnqnvchns .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ltnqnvchns .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ltnqnvchns .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ltnqnvchns .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ltnqnvchns .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ltnqnvchns .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ltnqnvchns .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ltnqnvchns .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ltnqnvchns .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ltnqnvchns .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ltnqnvchns .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ltnqnvchns .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ltnqnvchns .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#ltnqnvchns .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#ltnqnvchns .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ltnqnvchns .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ltnqnvchns .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ltnqnvchns .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ltnqnvchns .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ltnqnvchns .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ltnqnvchns .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ltnqnvchns .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#ltnqnvchns .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ltnqnvchns .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ltnqnvchns .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ltnqnvchns .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ltnqnvchns .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ltnqnvchns .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ltnqnvchns .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ltnqnvchns .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ltnqnvchns .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ltnqnvchns .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ltnqnvchns .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ltnqnvchns .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ltnqnvchns .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ltnqnvchns .gt_left {
+  text-align: left;
+}
+
+#ltnqnvchns .gt_center {
+  text-align: center;
+}
+
+#ltnqnvchns .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ltnqnvchns .gt_font_normal {
+  font-weight: normal;
+}
+
+#ltnqnvchns .gt_font_bold {
+  font-weight: bold;
+}
+
+#ltnqnvchns .gt_font_italic {
+  font-style: italic;
+}
+
+#ltnqnvchns .gt_super {
+  font-size: 65%;
+}
+
+#ltnqnvchns .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#ltnqnvchns .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ltnqnvchns .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ltnqnvchns .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ltnqnvchns .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ltnqnvchns .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ltnqnvchns .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Name">Name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Japanese">Japanese</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Math">Math</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Name" class="gt_row gt_left">Alice</td>
+<td headers="Japanese" class="gt_row gt_right">80</td>
+<td headers="Math" class="gt_row gt_right">75</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left">Bob</td>
+<td headers="Japanese" class="gt_row gt_right">90</td>
+<td headers="Math" class="gt_row gt_right">88</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left">Carol</td>
+<td headers="Japanese" class="gt_row gt_right">85</td>
+<td headers="Math" class="gt_row gt_right">92</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+<ul>
+<li>tidyデータ</li>
+</ul>
+<div id="oxqwkgowzf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#oxqwkgowzf table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#oxqwkgowzf thead, #oxqwkgowzf tbody, #oxqwkgowzf tfoot, #oxqwkgowzf tr, #oxqwkgowzf td, #oxqwkgowzf th {
+  border-style: none;
+}
+
+#oxqwkgowzf p {
+  margin: 0;
+  padding: 0;
+}
+
+#oxqwkgowzf .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#oxqwkgowzf .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#oxqwkgowzf .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#oxqwkgowzf .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#oxqwkgowzf .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#oxqwkgowzf .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#oxqwkgowzf .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#oxqwkgowzf .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#oxqwkgowzf .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#oxqwkgowzf .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#oxqwkgowzf .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#oxqwkgowzf .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#oxqwkgowzf .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#oxqwkgowzf .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#oxqwkgowzf .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#oxqwkgowzf .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#oxqwkgowzf .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#oxqwkgowzf .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#oxqwkgowzf .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#oxqwkgowzf .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#oxqwkgowzf .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#oxqwkgowzf .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#oxqwkgowzf .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#oxqwkgowzf .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#oxqwkgowzf .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#oxqwkgowzf .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#oxqwkgowzf .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#oxqwkgowzf .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#oxqwkgowzf .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#oxqwkgowzf .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#oxqwkgowzf .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#oxqwkgowzf .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#oxqwkgowzf .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#oxqwkgowzf .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#oxqwkgowzf .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#oxqwkgowzf .gt_left {
+  text-align: left;
+}
+
+#oxqwkgowzf .gt_center {
+  text-align: center;
+}
+
+#oxqwkgowzf .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#oxqwkgowzf .gt_font_normal {
+  font-weight: normal;
+}
+
+#oxqwkgowzf .gt_font_bold {
+  font-weight: bold;
+}
+
+#oxqwkgowzf .gt_font_italic {
+  font-style: italic;
+}
+
+#oxqwkgowzf .gt_super {
+  font-size: 65%;
+}
+
+#oxqwkgowzf .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#oxqwkgowzf .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#oxqwkgowzf .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#oxqwkgowzf .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#oxqwkgowzf .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#oxqwkgowzf .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#oxqwkgowzf .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Name">Name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Subject">Subject</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Score">Score</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Name" class="gt_row gt_left">Alice</td>
+<td headers="Subject" class="gt_row gt_left">Japanese</td>
+<td headers="Score" class="gt_row gt_right">80</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left">Alice</td>
+<td headers="Subject" class="gt_row gt_left">Math</td>
+<td headers="Score" class="gt_row gt_right">75</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left">Bob</td>
+<td headers="Subject" class="gt_row gt_left">Japanese</td>
+<td headers="Score" class="gt_row gt_right">90</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left">Bob</td>
+<td headers="Subject" class="gt_row gt_left">Math</td>
+<td headers="Score" class="gt_row gt_right">88</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left">Carol</td>
+<td headers="Subject" class="gt_row gt_left">Japanese</td>
+<td headers="Score" class="gt_row gt_right">85</td></tr>
+    <tr><td headers="Name" class="gt_row gt_left">Carol</td>
+<td headers="Subject" class="gt_row gt_left">Math</td>
+<td headers="Score" class="gt_row gt_right">92</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+<div id="tidyverseパッケージ" class="section level3 hasAnchor" number="12.4.2">
+<h3><span class="header-section-number">12.4.2</span> <code>tidyverse</code>パッケージ<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#tidyverseパッケージ" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>パッケージのウェブサイト（<a href="https://www.tidyverse.org/">https://www.tidyverse.org/</a>）</li>
+</ul>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb473-1" tabindex="-1"></a><span class="fu">tidyverse_logo</span>()</span></code></pre></div>
+<pre><code>⬢ __  _    __   .    ⬡           ⬢  . 
+ / /_(_)__/ /_ ___  _____ _______ ___ 
+/ __/ / _  / // / |/ / -_) __(_-&lt;/ -_)
+\__/_/\_,_/\_, /|___/\__/_/ /___/\__/ 
+     ⬢  . /___/      ⬡      .       ⬢ </code></pre>
+</div>
+<div id="データの変形縦長-横長" class="section level3 hasAnchor" number="12.4.3">
+<h3><span class="header-section-number">12.4.3</span> データの変形（縦長 🔄 横長）<a href="#データの変形縦長-横長" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>横長（tidyでない）を縦長に</li>
+</ul>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb475-1" tabindex="-1"></a>untidy_data</span></code></pre></div>
+<pre><code>##    Name Japanese Math
+## 1 Alice       80   75
+## 2   Bob       90   88
+## 3 Carol       85   92</code></pre>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb477-1" tabindex="-1"></a><span class="co">#install.packages(&quot;tidyverse&quot;)</span></span>
+<span id="cb477-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb477-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb477-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb477-3" tabindex="-1"></a></span>
+<span id="cb477-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb477-4" tabindex="-1"></a>tidy <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(</span>
+<span id="cb477-5"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb477-5" tabindex="-1"></a>  untidy_data,               <span class="co">#データ</span></span>
+<span id="cb477-6"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb477-6" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">c</span>(Japanese, Math),　<span class="co">#変形する列</span></span>
+<span id="cb477-7"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb477-7" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">&quot;Subject&quot;</span>,      <span class="co">#キーの列の名前</span></span>
+<span id="cb477-8"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb477-8" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">&quot;Score&quot;</span>        <span class="co">#値の列の名前</span></span>
+<span id="cb477-9"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb477-9" tabindex="-1"></a>)</span>
+<span id="cb477-10"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb477-10" tabindex="-1"></a></span>
+<span id="cb477-11"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb477-11" tabindex="-1"></a>tidy</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##   Name  Subject  Score
+##   &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;
+## 1 Alice Japanese    80
+## 2 Alice Math        75
+## 3 Bob   Japanese    90
+## 4 Bob   Math        88
+## 5 Carol Japanese    85
+## 6 Carol Math        92</code></pre>
+<ul>
+<li><p>横長に戻す</p>
+<ul>
+<li>縦長のデータでは行えない分析もあります</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb479-1" tabindex="-1"></a>untidy <span class="ot">&lt;-</span> <span class="fu">pivot_wider</span>(</span>
+<span id="cb479-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb479-2" tabindex="-1"></a>  tidy,                      <span class="co">#データ</span></span>
+<span id="cb479-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb479-3" tabindex="-1"></a>  <span class="at">names_from =</span> <span class="st">&quot;Subject&quot;</span>,    <span class="co">#キーの列</span></span>
+<span id="cb479-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb479-4" tabindex="-1"></a>  <span class="at">values_from =</span> <span class="st">&quot;Score&quot;</span>      <span class="co">#値の列</span></span>
+<span id="cb479-5"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb479-5" tabindex="-1"></a>)</span>
+<span id="cb479-6"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb479-6" tabindex="-1"></a></span>
+<span id="cb479-7"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb479-7" tabindex="-1"></a>untidy</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 3
+##   Name  Japanese  Math
+##   &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;
+## 1 Alice       80    75
+## 2 Bob         90    88
+## 3 Carol       85    92</code></pre>
+</div>
+<div id="dplyrによるデータの操作" class="section level3 hasAnchor" number="12.4.4">
+<h3><span class="header-section-number">12.4.4</span> <code>dplyr</code>によるデータの操作<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#dplyrによるデータの操作" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>このパッケージは<code>tidyverse</code>パッケージをインストールしていれば使えます。</p></li>
+<li><p>このパッケージを使用することで、毎回変数に保存せずデータを操作できたり、二つのデータを結合したできる。</p></li>
+<li><p><code>%&gt;%</code>パイプ演算子を使用する。<code>|&gt;</code>など様々なパイプがあるが、とりあえずは<code>%&gt;%</code>だけを覚えていればよい。</p></li>
+<li><p>パイプ演算子を使ったデータ操作の例（エクセルのデータ処理をRのコードで行うイメージです）</p></li>
+</ul>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb481-1" tabindex="-1"></a><span class="fu">colnames</span>(mpg)</span></code></pre></div>
+<pre><code>##  [1] &quot;manufacturer&quot; &quot;model&quot;        &quot;displ&quot;        &quot;year&quot;         &quot;cyl&quot;         
+##  [6] &quot;trans&quot;        &quot;drv&quot;          &quot;cty&quot;          &quot;hwy&quot;          &quot;fl&quot;          
+## [11] &quot;class&quot;</code></pre>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb483-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb483-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb483-2" tabindex="-1"></a>  <span class="co"># 列を絞る</span></span>
+<span id="cb483-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb483-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(manufacturer, model, displ, year, cyl) <span class="sc">%&gt;%</span></span>
+<span id="cb483-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb483-4" tabindex="-1"></a>  <span class="co"># 行を絞る</span></span>
+<span id="cb483-5"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb483-5" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(manufacturer <span class="sc">==</span> <span class="st">&quot;audi&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb483-6"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb483-6" tabindex="-1"></a>  <span class="co"># year列のデータを100で割ったデータを含むcenturyという新しいデータを作成</span></span>
+<span id="cb483-7"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb483-7" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">century =</span> year <span class="sc">/</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb483-8"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb483-8" tabindex="-1"></a>  <span class="co"># データの最初の5行を表示</span></span>
+<span id="cb483-9"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb483-9" tabindex="-1"></a>  <span class="fu">head</span>(,<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 6
+##   manufacturer model displ  year   cyl century
+##   &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt;   &lt;dbl&gt;
+## 1 audi         a4      1.8  1999     4    2.00
+## 2 audi         a4      1.8  1999     4    2.00
+## 3 audi         a4      2    2008     4    2.01
+## 4 audi         a4      2    2008     4    2.01
+## 5 audi         a4      2.8  1999     6    2.00
+## 6 audi         a4      2.8  1999     6    2.00</code></pre>
+<div id="filter関数" class="section level4 hasAnchor" number="12.4.4.1">
+<h4><span class="header-section-number">12.4.4.1</span> <code>filter</code>関数<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#filter関数" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p>条件を満たす行のみにデータを絞る</p></li>
+<li><p>指定した値と同じ</p>
+<ul>
+<li>数値型の場合は”“入れなくてよい</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb485-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb485-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb485-2" tabindex="-1"></a>  <span class="fu">filter</span>(manufacturer <span class="sc">==</span> <span class="st">&quot;audi&quot;</span>)</span></code></pre></div>
+<ul>
+<li>指定した値以外</li>
+</ul>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb486-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb486-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb486-2" tabindex="-1"></a>  <span class="fu">filter</span>(manufacturer <span class="sc">!=</span> <span class="st">&quot;audi&quot;</span>)</span></code></pre></div>
+<ul>
+<li><p>指定した値より大きい（ &gt; ）/小さい（ &lt; ）</p>
+<ul>
+<li>以下の例では、cyl列のデータで6よりも大きい値を取り出す命令</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb487-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb487-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb487-2" tabindex="-1"></a>  <span class="fu">filter</span>(cyl <span class="sc">&gt;</span> <span class="dv">6</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 70 × 11
+##    manufacturer model      displ  year   cyl trans drv     cty   hwy fl    class
+##    &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
+##  1 audi         a6 quattro   4.2  2008     8 auto… 4        16    23 p     mids…
+##  2 chevrolet    c1500 sub…   5.3  2008     8 auto… r        14    20 r     suv  
+##  3 chevrolet    c1500 sub…   5.3  2008     8 auto… r        11    15 e     suv  
+##  4 chevrolet    c1500 sub…   5.3  2008     8 auto… r        14    20 r     suv  
+##  5 chevrolet    c1500 sub…   5.7  1999     8 auto… r        13    17 r     suv  
+##  6 chevrolet    c1500 sub…   6    2008     8 auto… r        12    17 r     suv  
+##  7 chevrolet    corvette     5.7  1999     8 manu… r        16    26 p     2sea…
+##  8 chevrolet    corvette     5.7  1999     8 auto… r        15    23 p     2sea…
+##  9 chevrolet    corvette     6.2  2008     8 manu… r        16    26 p     2sea…
+## 10 chevrolet    corvette     6.2  2008     8 auto… r        15    25 p     2sea…
+## # ℹ 60 more rows</code></pre>
+<ul>
+<li><code>=</code>を付けると以上（ &gt;= ）/以下（ &lt;= ）を表す</li>
+</ul>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb489-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb489-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb489-2" tabindex="-1"></a>  <span class="fu">filter</span>(cyl <span class="sc">&gt;=</span> <span class="dv">6</span>)</span></code></pre></div>
+<ul>
+<li><p>NAのデータ以外</p>
+<ul>
+<li><code>filter(is.na(cyl))</code>だとNAのデータを絞り込む</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb490-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb490-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb490-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(cyl))</span></code></pre></div>
+<ul>
+<li><p>複数条件の指定もできる</p>
+<ul>
+<li>以下では、audi以外の車<strong>かつ</strong>cylが6以上のデータに絞り込んでいる</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb491-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb491-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb491-2" tabindex="-1"></a>  <span class="fu">filter</span>(manufacturer <span class="sc">!=</span> <span class="st">&quot;audi&quot;</span> <span class="sc">&amp;</span> cyl <span class="sc">&gt;=</span> <span class="dv">6</span>)</span></code></pre></div>
+<ul>
+<li>以下では、audi以外の車<strong>もしくは</strong>cylが6以上のデータに絞り込んでいる</li>
+</ul>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb492-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb492-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb492-2" tabindex="-1"></a>  <span class="fu">filter</span>(manufacturer <span class="sc">==</span> <span class="st">&quot;audi&quot;</span> <span class="sc">|</span> cyl <span class="sc">&gt;=</span> <span class="dv">6</span>)</span></code></pre></div>
+<ul>
+<li>以下の例では、どちらの条件にも当てはまらないデータを絞り込む</li>
+</ul>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb493-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb493-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb493-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>(manufacturer <span class="sc">==</span> <span class="st">&quot;audi&quot;</span> <span class="sc">|</span> cyl <span class="sc">&gt;=</span> <span class="dv">6</span>))</span></code></pre></div>
+</div>
+<div id="arrange関数" class="section level4 hasAnchor" number="12.4.4.2">
+<h4><span class="header-section-number">12.4.4.2</span> <code>arrange</code>関数<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#arrange関数" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p>行を並び替える関数</p></li>
+<li><p>昇順</p></li>
+</ul>
+<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb494-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb494-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb494-2" tabindex="-1"></a>  <span class="fu">arrange</span>(cty)</span></code></pre></div>
+<ul>
+<li>複数列での昇順</li>
+</ul>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb495-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb495-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb495-2" tabindex="-1"></a>  <span class="fu">arrange</span>(cty, hwy)</span></code></pre></div>
+<ul>
+<li><p>降順</p>
+<ul>
+<li><code>desc</code>関数を使用する。<code>arrange(-列名)</code>でも並び変えられるが、これは数値型にしか使用できない</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb496-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb496-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb496-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(cty))</span></code></pre></div>
+</div>
+<div id="select関数" class="section level4 hasAnchor" number="12.4.4.3">
+<h4><span class="header-section-number">12.4.4.3</span> <code>select</code>関数<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#select関数" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p>列の絞り込みを行う</p>
+<ul>
+<li>複数の列を絞り込める</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb497-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb497-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb497-2" tabindex="-1"></a>  <span class="fu">select</span>(model, trans)</span></code></pre></div>
+<ul>
+<li>指定した列以外を絞り込む</li>
+</ul>
+<div class="sourceCode" id="cb498"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb498-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb498-1" tabindex="-1"></a>mpg %&gt;%</span>
+<span id="cb498-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb498-2" tabindex="-1"></a>  select(-year)</span>
+<span id="cb498-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb498-3" tabindex="-1"></a></span>
+<span id="cb498-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb498-4" tabindex="-1"></a>mpg %&gt;%</span>
+<span id="cb498-5"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb498-5" tabindex="-1"></a>  select(!year)</span></code></pre></div>
+<ul>
+<li>列名を変えながら絞り込む</li>
+</ul>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb499-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb499-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb499-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">Changed_model =</span> model, <span class="at">Changed_trans =</span> trans)</span></code></pre></div>
+<ul>
+<li>データの絞り込みを行わず、列名だけを変更したい場合、<code>rename</code>関数を使用する</li>
+</ul>
+<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb500-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb500-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb500-2" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Changed_model =</span> model, <span class="at">Changed_trans =</span> trans)</span></code></pre></div>
+<div class="infobox">
+<p>データの絞り込みなどの加工を行った場合、それを保存したい場合、（新しい）変数に保存する必要がある。一般的に以下の二つの保存の方法があります。</p>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb501-1" tabindex="-1"></a>mpg_renamed <span class="ot">&lt;-</span> mpg <span class="sc">%&gt;%</span></span>
+<span id="cb501-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb501-2" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Changed_model =</span> model, <span class="at">Changed_trans =</span> trans)</span>
+<span id="cb501-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb501-3" tabindex="-1"></a></span>
+<span id="cb501-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb501-4" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb501-5"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb501-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Changed_model =</span> model, <span class="at">Changed_trans =</span> trans) <span class="ot">-&gt;</span> mpg_renamed </span></code></pre></div>
+</div>
+</div>
+<div id="mutate関数" class="section level4 hasAnchor" number="12.4.4.4">
+<h4><span class="header-section-number">12.4.4.4</span> <code>mutate</code>関数<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#mutate関数" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p>列を新しく追加する。同じ列名を指定すれば、既存のデータを上書きすることもできる。</p>
+<ul>
+<li>既存のcylのデータを100で割った新しいデータをcyl_percentという新しい列を作成。</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb502-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb502-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb502-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cyl_percent =</span> cyl <span class="sc">/</span> <span class="dv">100</span>)</span></code></pre></div>
+<ul>
+<li><code>if_else</code>関数を用いて条件指定を行い、cylが6以上なら「6以上」, それ以外なら「6未満」を含む新たな列を作成。さらに、<code>.after =</code>オプションを用い、列の位置を指定。標準地では、新しく作成された列は、一番最後に追加される。</li>
+</ul>
+<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb503-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb503-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb503-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cyl_6 =</span> <span class="fu">if_else</span>(cyl <span class="sc">&gt;=</span> <span class="dv">6</span>, <span class="st">&quot;6以上&quot;</span>, <span class="st">&quot;6未満&quot;</span>), <span class="at">.after =</span> cyl)</span></code></pre></div>
+</div>
+<div id="summarize-group_by関数" class="section level4 hasAnchor" number="12.4.4.5">
+<h4><span class="header-section-number">12.4.4.5</span> <code>summarize</code> + <code>group_by</code>関数<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#summarize-group_by関数" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p><code>summarise</code>関数は平均値や分散を計算したりなどデータを集計する関数</p>
+<ul>
+<li><code>mutate</code>関数のように、計算したデータを新しい列に格納する</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb504-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb504-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb504-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">M =</span> <span class="fu">mean</span>(displ))</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 1
+##       M
+##   &lt;dbl&gt;
+## 1  3.47</code></pre>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb506-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb506-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb506-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">max =</span> <span class="fu">max</span>(displ))</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 1
+##     max
+##   &lt;dbl&gt;
+## 1     7</code></pre>
+<ul>
+<li><p><code>group_by</code>関数というグループ化させる関数と組み合わせることがほとんど</p>
+<ul>
+<li>manufacturerごとの平均値を算出</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb508-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb508-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb508-2" tabindex="-1"></a>  <span class="fu">group_by</span>(manufacturer) <span class="sc">%&gt;%</span></span>
+<span id="cb508-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb508-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">M =</span> <span class="fu">mean</span>(displ), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb508-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb508-4" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 2
+##   manufacturer     M
+##   &lt;chr&gt;        &lt;dbl&gt;
+## 1 audi          2.54
+## 2 chevrolet     5.06
+## 3 dodge         4.38
+## 4 ford          4.54
+## 5 honda         1.71</code></pre>
+<div class="infobox">
+<p><code>group_by</code>関数を使用したら、必ず<code>summarise</code>関数の中で<code>.groups = "drop"</code>を指定してグループ化を解除すること。そうしないと予期せぬエラーにつながったりもする。</p>
+</div>
+</div>
+</div>
+<div id="dplyrによるデータ結合" class="section level3 hasAnchor" number="12.4.5">
+<h3><span class="header-section-number">12.4.5</span> <code>dplyr</code>によるデータ結合<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#dplyrによるデータ結合" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>二つのデータセットをそれぞれの共通のデータを基に結合する</p>
+<ul>
+<li>英単語の反応速度の実験などで、後から頻度などの情報を付け加えたいなどかなり重宝します</li>
+</ul></li>
+<li><p>疑似データの作成</p></li>
+</ul>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb510-1" tabindex="-1"></a>students <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb510-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb510-2" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb510-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb510-3" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Alice&quot;</span>, <span class="st">&quot;Bob&quot;</span>, <span class="st">&quot;Charlie&quot;</span>, <span class="st">&quot;David&quot;</span>)</span>
+<span id="cb510-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb510-4" tabindex="-1"></a>)</span>
+<span id="cb510-5"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb510-5" tabindex="-1"></a></span>
+<span id="cb510-6"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb510-6" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb510-7"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb510-7" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb510-8"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb510-8" tabindex="-1"></a>  <span class="at">score =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">85</span>, <span class="dv">70</span>)</span>
+<span id="cb510-9"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb510-9" tabindex="-1"></a>)</span></code></pre></div>
+<div id="inner_join関数" class="section level4 hasAnchor" number="12.4.5.1">
+<h4><span class="header-section-number">12.4.5.1</span> <code>inner_join</code>関数<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#inner_join関数" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>二つのデータセットは同じ<code>id</code>というデータを持っている。このキーをもとにデータを結合します。そして<code>joined_data</code>という新しい変数に保存します。</li>
+</ul>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb511-1" tabindex="-1"></a>students</span></code></pre></div>
+<pre><code>##   id    name
+## 1  1   Alice
+## 2  2     Bob
+## 3  3 Charlie
+## 4  4   David</code></pre>
+<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb513-1" tabindex="-1"></a>scores</span></code></pre></div>
+<pre><code>##   id score
+## 1  1    80
+## 2  2    90
+## 3  3    85
+## 4  4    70</code></pre>
+<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb515-1" tabindex="-1"></a>joined_data <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span></span>
+<span id="cb515-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb515-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">inner_join</span>(scores, <span class="at">by =</span> <span class="st">&quot;id&quot;</span>)</span>
+<span id="cb515-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb515-3" tabindex="-1"></a></span>
+<span id="cb515-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb515-4" tabindex="-1"></a>joined_data</span></code></pre></div>
+<pre><code>##   id    name score
+## 1  1   Alice    80
+## 2  2     Bob    90
+## 3  3 Charlie    85
+## 4  4   David    70</code></pre>
+<ul>
+<li>列名がそろっていない場合は、以下のように指定すればOK</li>
+</ul>
+<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb517-1" tabindex="-1"></a>students <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb517-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb517-2" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb517-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb517-3" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Alice&quot;</span>, <span class="st">&quot;Bob&quot;</span>, <span class="st">&quot;Charlie&quot;</span>, <span class="st">&quot;David&quot;</span>)</span>
+<span id="cb517-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb517-4" tabindex="-1"></a>)</span>
+<span id="cb517-5"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb517-5" tabindex="-1"></a></span>
+<span id="cb517-6"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb517-6" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb517-7"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb517-7" tabindex="-1"></a>  学籍番号 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb517-8"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb517-8" tabindex="-1"></a>  <span class="at">score =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">85</span>, <span class="dv">70</span>)</span>
+<span id="cb517-9"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb517-9" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb518-1" tabindex="-1"></a>students</span></code></pre></div>
+<pre><code>##   id    name
+## 1  1   Alice
+## 2  2     Bob
+## 3  3 Charlie
+## 4  4   David</code></pre>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb520-1" tabindex="-1"></a>scores</span></code></pre></div>
+<pre><code>##   学籍番号 score
+## 1        1    80
+## 2        2    90
+## 3        3    85
+## 4        4    70</code></pre>
+<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb522-1" tabindex="-1"></a>joined_data <span class="ot">&lt;-</span> students <span class="sc">%&gt;%</span></span>
+<span id="cb522-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb522-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">inner_join</span>(scores, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span> <span class="ot">=</span> <span class="st">&quot;学籍番号&quot;</span>))</span>
+<span id="cb522-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb522-3" tabindex="-1"></a></span>
+<span id="cb522-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb522-4" tabindex="-1"></a>joined_data</span></code></pre></div>
+<pre><code>##   id    name score
+## 1  1   Alice    80
+## 2  2     Bob    90
+## 3  3 Charlie    85
+## 4  4   David    70</code></pre>
+<ul>
+<li><code>inner_join</code>では共通していない変数は削除される</li>
+</ul>
+<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb524-1" tabindex="-1"></a><span class="co"># データフレームの作成</span></span>
+<span id="cb524-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb524-2" tabindex="-1"></a>students <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb524-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb524-3" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb524-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb524-4" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Alice&quot;</span>, <span class="st">&quot;Bob&quot;</span>, <span class="st">&quot;Charlie&quot;</span>, <span class="st">&quot;David&quot;</span>)</span>
+<span id="cb524-5"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb524-5" tabindex="-1"></a>)</span>
+<span id="cb524-6"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb524-6" tabindex="-1"></a></span>
+<span id="cb524-7"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb524-7" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb524-8"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb524-8" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),</span>
+<span id="cb524-9"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb524-9" tabindex="-1"></a>  <span class="at">score =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">85</span>, <span class="dv">70</span>)</span>
+<span id="cb524-10"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb524-10" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb525-1" tabindex="-1"></a>students</span></code></pre></div>
+<pre><code>##   id    name
+## 1  1   Alice
+## 2  2     Bob
+## 3  3 Charlie
+## 4  4   David</code></pre>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb527-1" tabindex="-1"></a>scores</span></code></pre></div>
+<pre><code>##   id score
+## 1  2    80
+## 2  3    90
+## 3  4    85
+## 4  5    70</code></pre>
+<ul>
+<li>二つのデータセットに共通している<code>id</code>の2, 3, 4だけがデータとして残っている</li>
+</ul>
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb529-1" tabindex="-1"></a>students <span class="sc">%&gt;%</span></span>
+<span id="cb529-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb529-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">inner_join</span>(scores, <span class="at">by =</span> <span class="st">&quot;id&quot;</span>)</span></code></pre></div>
+<pre><code>##   id    name score
+## 1  2     Bob    80
+## 2  3 Charlie    90
+## 3  4   David    85</code></pre>
+</div>
+<div id="そのほかのjoin" class="section level4 hasAnchor" number="12.4.5.2">
+<h4><span class="header-section-number">12.4.5.2</span> そのほかの<code>join</code><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#そのほかのjoin" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p><code>left_join</code>、<code>right_join</code>関数はそれぞれ左側にあるデータ、右側にあるデータが残る</p>
+<ul>
+<li>残ったデータには<code>NA</code>（欠損値）になる</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb531-1" tabindex="-1"></a>students <span class="sc">%&gt;%</span></span>
+<span id="cb531-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb531-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">left_join</span>(scores, <span class="at">by =</span> <span class="st">&quot;id&quot;</span>)</span></code></pre></div>
+<pre><code>##   id    name score
+## 1  1   Alice    NA
+## 2  2     Bob    80
+## 3  3 Charlie    90
+## 4  4   David    85</code></pre>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb533-1" tabindex="-1"></a>students <span class="sc">%&gt;%</span></span>
+<span id="cb533-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb533-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">right_join</span>(scores, <span class="at">by =</span> <span class="st">&quot;id&quot;</span>)</span></code></pre></div>
+<pre><code>##   id    name score
+## 1  2     Bob    80
+## 2  3 Charlie    90
+## 3  4   David    85
+## 4  5    &lt;NA&gt;    70</code></pre>
+<ul>
+<li><code>full_join</code>だと全部が残る</li>
+</ul>
+<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb535-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb535-1" tabindex="-1"></a>students <span class="sc">%&gt;%</span></span>
+<span id="cb535-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb535-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">full_join</span>(scores, <span class="at">by =</span> <span class="st">&quot;id&quot;</span>)</span></code></pre></div>
+<pre><code>##   id    name score
+## 1  1   Alice    NA
+## 2  2     Bob    80
+## 3  3 Charlie    90
+## 4  4   David    85
+## 5  5    &lt;NA&gt;    70</code></pre>
+<div class="infobox">
+<p>データの加工や結合を行い（新しい）変数に保存した後は必ずその中身を確認する必要があります。</p>
+</div>
+</div>
+</div>
+</div>
+<div id="ggplot2によるデータの可視化" class="section level2 hasAnchor" number="12.5">
+<h2><span class="header-section-number">12.5</span> <code>ggplot2</code>によるデータの可視化<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#ggplot2によるデータの可視化" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>このパッケージも<code>tidyverse</code>パッケージに含まれる。従って、<code>library(tidyverse)</code>で<code>ggplot2</code>パッケージも使用できる。</p></li>
+<li><p><strong>Grammar of Graphics</strong>の思想に基づいている</p>
+<ul>
+<li><p>可視化という作業を複数の工程に分けて考える</p>
+<ul>
+<li><p>データセットの選別、グラフの選択、データをグラフに割り当てる</p></li>
+<li><p>ステップ・バイ・ステップでパズルのようにグラフを作り上げていく</p></li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="infobox">
+<p>慣れるととても使いやすいですが、その分覚える関数が多いので慣れるまでが少し大変です。使用する際にその都度調べたりすればよく、コードを暗記する必要はありません。</p>
+</div>
+<ul>
+<li><p>例（ヒストグラム）</p></li>
+<li><p>パイプ演算子（<code>%&gt;%</code>）でデータを渡したら後は<code>+</code>でグラフを少しずつ作り上げていきます</p></li>
+</ul>
+<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb537-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb537-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb537-2" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb537-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb537-3" tabindex="-1"></a>  <span class="co">#aesの中でx軸やy軸を指定。ヒストグラムはx軸の指定だけでよい</span></span>
+<span id="cb537-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb537-4" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> displ)) </span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-340-1.png" width="672" /></p>
+<div id="散布図-直線" class="section level4 hasAnchor" number="12.5.0.1">
+<h4><span class="header-section-number">12.5.0.1</span> 散布図 + 直線<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#散布図-直線" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>第一段階：散布図</li>
+</ul>
+<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb539-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> cty)) <span class="sc">+</span></span>
+<span id="cb539-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb539-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-341-1.png" width="672" /></p>
+<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb540-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb540-1" tabindex="-1"></a><span class="co"># どちらでもOK</span></span>
+<span id="cb540-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb540-2" tabindex="-1"></a><span class="co">#mpg %&gt;%</span></span>
+<span id="cb540-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb540-3" tabindex="-1"></a><span class="co">#  ggplot(mapping = aes(x = displ, y = cty)) +</span></span>
+<span id="cb540-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb540-4" tabindex="-1"></a><span class="co">#  geom_point()</span></span></code></pre></div>
+<ul>
+<li><p>第二段階：直線を重ねる</p>
+<ul>
+<li><code>method = "lm"</code>で線形モデルで直線を推定</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb541-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> cty)) <span class="sc">+</span></span>
+<span id="cb541-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb541-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb541-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb541-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-342-1.png" width="672" /></p>
+<ul>
+<li><p>第三段階：グループごとに色分け</p>
+<ul>
+<li><code>group =</code>と<code>color =</code>で指定を行う。数値のデータはFactor型にすることが必要な場合もある</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb543-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> cty,</span>
+<span id="cb543-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb543-2" tabindex="-1"></a>                                 <span class="at">group =</span> <span class="fu">factor</span>(cyl), <span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb543-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb543-3" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb543-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb543-4" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-343-1.png" width="672" /></p>
+<ul>
+<li><p>第四段階：ファセット</p>
+<ul>
+<li>水準ごとに図を分ける</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb545-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> cty)) <span class="sc">+</span></span>
+<span id="cb545-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb545-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb545-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb545-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="sc">+</span></span>
+<span id="cb545-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb545-4" tabindex="-1"></a>  <span class="fu">facet_wrap</span>( <span class="sc">~</span> cyl)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-344-1.png" width="672" /></p>
+<div class="infobox">
+<p><code>ggplot2</code>パッケージに限りませんが、いろいろな関数を試して、失敗してという遊びが必要になります。色々なでーたで様々な関数で作図をして遊んでください。</p>
+</div>
+</div>
+<div id="統計的処理" class="section level4 hasAnchor" number="12.5.0.2">
+<h4><span class="header-section-number">12.5.0.2</span> 統計的処理<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#統計的処理" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>車のサイズごとに燃費の平均を計算する</li>
+</ul>
+<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb547-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb547-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb547-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb547-2" tabindex="-1"></a>  <span class="fu">group_by</span>(class) <span class="sc">%&gt;%</span></span>
+<span id="cb547-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb547-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">M =</span> <span class="fu">mean</span>(cty)) <span class="sc">%&gt;%</span></span>
+<span id="cb547-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb547-4" tabindex="-1"></a>  <span class="fu">arrange</span>(M)</span></code></pre></div>
+<pre><code>## # A tibble: 7 × 2
+##   class          M
+##   &lt;chr&gt;      &lt;dbl&gt;
+## 1 pickup      13  
+## 2 suv         13.5
+## 3 2seater     15.4
+## 4 minivan     15.8
+## 5 midsize     18.8
+## 6 compact     20.1
+## 7 subcompact  20.4</code></pre>
+<ul>
+<li>平均値を計算せず棒グラフを書くと平均値を描画できていない</li>
+</ul>
+<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb549-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb549-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb549-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">y =</span> cty)) <span class="sc">+</span></span>
+<span id="cb549-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb549-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-346-1.png" width="672" /></p>
+<ul>
+<li><code>stat_summary</code>関数で平均値を計算する</li>
+</ul>
+<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb550-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb550-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb550-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb550-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">y =</span> cty)) <span class="sc">+</span></span>
+<span id="cb550-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb550-3" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">&quot;bar&quot;</span>, <span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>) </span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-347-1.png" width="672" /></p>
+<ul>
+<li>事前に平均値を計算しておくのも一つのやり方</li>
+</ul>
+<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb551-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb551-1" tabindex="-1"></a>mean_mpg <span class="ot">&lt;-</span> mpg <span class="sc">%&gt;%</span></span>
+<span id="cb551-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb551-2" tabindex="-1"></a>  <span class="fu">group_by</span>(class) <span class="sc">%&gt;%</span></span>
+<span id="cb551-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb551-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_cty =</span> <span class="fu">mean</span>(cty))</span>
+<span id="cb551-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb551-4" tabindex="-1"></a></span>
+<span id="cb551-5"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb551-5" tabindex="-1"></a>mean_mpg <span class="sc">%&gt;%</span></span>
+<span id="cb551-6"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb551-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">y =</span> mean_cty)) <span class="sc">+</span></span>
+<span id="cb551-7"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb551-7" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-348-1.png" width="672" /></p>
+</div>
+<div id="箱ひげ図-1" class="section level4 hasAnchor" number="12.5.0.3">
+<h4><span class="header-section-number">12.5.0.3</span> 箱ひげ図<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#箱ひげ図-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb552-1" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span></span>
+<span id="cb552-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb552-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">y =</span> cty)) <span class="sc">+</span></span>
+<span id="cb552-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb552-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-349-1.png" width="672" /></p>
+</div>
+<div id="フォントサイズや向き" class="section level4 hasAnchor" number="12.5.0.4">
+<h4><span class="header-section-number">12.5.0.4</span> フォントサイズや向き<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#フォントサイズや向き" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p>図の文字サイズなどは<code>theme</code></p></li>
+<li><p><code>size = 数値</code>で指定。単位は<code>pt</code></p></li>
+<li><p>x軸の変数名が重なってよく見えない</p></li>
+</ul>
+<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb553-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">y =</span> cty, <span class="at">group =</span> class)) <span class="sc">+</span></span>
+<span id="cb553-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb553-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb553-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb553-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> drv) <span class="sc">+</span>  <span class="co"># 駆動方式でfacet（例: f, r, 4）</span></span>
+<span id="cb553-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb553-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;City Mileage by Class&quot;</span>,</span>
+<span id="cb553-5"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb553-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Car Class&quot;</span>,</span>
+<span id="cb553-6"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb553-6" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;City MPG&quot;</span>) <span class="sc">+</span></span>
+<span id="cb553-7"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb553-7" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb553-8"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb553-8" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>),        <span class="co"># タイトルのフォントサイズ</span></span>
+<span id="cb553-9"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb553-9" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),      <span class="co"># x軸ラベル</span></span>
+<span id="cb553-10"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb553-10" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),      <span class="co"># y軸ラベル</span></span>
+<span id="cb553-11"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb553-11" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),       <span class="co"># x軸目盛</span></span>
+<span id="cb553-12"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb553-12" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">6</span>),       <span class="co"># y軸目盛</span></span>
+<span id="cb553-13"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb553-13" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">22</span>)         <span class="co"># facetのラベル（ストリップ）</span></span>
+<span id="cb553-14"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb553-14" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-350-1.png" width="672" /></p>
+<ul>
+<li>文字の角度を変更し、重複するのを防ぐ</li>
+</ul>
+<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb554-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb554-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">y =</span> cty, <span class="at">group =</span> class)) <span class="sc">+</span></span>
+<span id="cb554-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb554-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb554-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb554-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> drv) <span class="sc">+</span>  <span class="co"># 駆動方式でfacet（例: f, r, 4）</span></span>
+<span id="cb554-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb554-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;City Mileage by Class&quot;</span>,</span>
+<span id="cb554-5"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb554-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Car Class&quot;</span>,</span>
+<span id="cb554-6"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb554-6" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;City MPG&quot;</span>) <span class="sc">+</span></span>
+<span id="cb554-7"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb554-7" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb554-8"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb554-8" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>),        </span>
+<span id="cb554-9"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb554-9" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),      </span>
+<span id="cb554-10"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb554-10" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),      </span>
+<span id="cb554-11"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb554-11" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),  <span class="co"># ★ ここで傾ける</span></span>
+<span id="cb554-12"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb554-12" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">6</span>),       </span>
+<span id="cb554-13"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb554-13" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">22</span>)         </span>
+<span id="cb554-14"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb554-14" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-351-1.png" width="672" /></p>
+<ul>
+<li><p>表示させない場合は<code>element_blank()</code></p>
+<ul>
+<li>x軸のメモリを非表示</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb555-1" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">y =</span> cty)) <span class="sc">+</span></span>
+<span id="cb555-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb555-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb555-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb555-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> drv) <span class="sc">+</span></span>
+<span id="cb555-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb555-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;City Mileage by Class&quot;</span>,</span>
+<span id="cb555-5"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb555-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Car Class&quot;</span>,</span>
+<span id="cb555-6"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb555-6" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;City MPG&quot;</span>) <span class="sc">+</span></span>
+<span id="cb555-7"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb555-7" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb555-8"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb555-8" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>),</span>
+<span id="cb555-9"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb555-9" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb555-10"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb555-10" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb555-11"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb555-11" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),            <span class="co"># ★ x軸のメモリを非表示に</span></span>
+<span id="cb555-12"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb555-12" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb555-13"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb555-13" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>)</span>
+<span id="cb555-14"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb555-14" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-352-1.png" width="672" /></p>
+</div>
+<div id="ggplotlyでインタラクティブな図を作成" class="section level4 hasAnchor" number="12.5.0.5">
+<h4><span class="header-section-number">12.5.0.5</span> <code>ggplotly</code>でインタラクティブな図を作成<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#ggplotlyでインタラクティブな図を作成" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p><code>ggplot2</code>の図を作成し変数に保存し、<code>ggplotly</code>関数で描画する</p></li>
+<li><p>図の上にカーソルを置いてみてください</p></li>
+</ul>
+<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb556-1"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb556-1" tabindex="-1"></a><span class="co">#install.packages(&quot;plotly&quot;)</span></span>
+<span id="cb556-2"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb556-2" tabindex="-1"></a>gg_mpg <span class="ot">&lt;-</span> mpg <span class="sc">%&gt;%</span></span>
+<span id="cb556-3"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb556-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">y =</span> cty)) <span class="sc">+</span></span>
+<span id="cb556-4"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb556-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() </span>
+<span id="cb556-5"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb556-5" tabindex="-1"></a></span>
+<span id="cb556-6"><a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#cb556-6" tabindex="-1"></a>plotly<span class="sc">::</span><span class="fu">ggplotly</span>(gg_mpg)</span></code></pre></div>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-edfe9f869aa904450f17" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-edfe9f869aa904450f17">{"x":{"data":[{"x":[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,1,1,1,1,1,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6],"y":[18,21,20,21,16,18,18,18,16,20,19,15,17,17,15,22,21,21,21,16,17,21,19,28,26,19,21,21,21,22,18,18,18,24,24,26,20,20,22,20,21,19,21,21,19,33,17,15,17,21,21,19,16,23,18,18,18,21,21,19,21,21,21,23,16,19,19,19,21,19,19,18,16,22,18,18,18,18,18,18,19,17,18,17,18,17,16,18,18,13,14,13,14,9,15,13,18,11,20,15,15,14,13,17,14,11,13,11,11,20,18,11,13,14,13,14,11,11,12,12,15,16,12,13,11,14,14,13,12,11,12,19,15,11,16,9,13,11,13,14,15,14,13,11,14,13,14,12,11,15,15,16,15,15,16,16,16,17,15,17,18,11,15,16,17,16,12,16,9,15,14,13,14,14,9,13,14,13,13,14,15,11,14,13,11,11,11,13,16,13,17,15,15,11,13,15,9,11,12,23,26,25,24,19,24,20,20,17,16,17,18,25,19,19,15,18,17,16,21,19,19,35,29,21,19,20,20,21,15,15,15,14,28,24],"hoverinfo":"y","type":"box","fillcolor":"rgba(255,255,255,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)"},"size":5.6692913385826778},"line":{"color":"rgba(51,51,51,1)","width":1.8897637795275593},"showlegend":false,"xaxis":"x","yaxis":"y","frame":null}],"layout":{"margin":{"t":26.228310502283104,"r":7.3059360730593621,"b":40.182648401826491,"l":37.260273972602747},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,7.5999999999999996],"tickmode":"array","ticktext":["2seater","compact","midsize","minivan","pickup","subcompact","suv"],"tickvals":[1,2,3,4.0000000000000009,5,6,7],"categoryorder":"array","categoryarray":["2seater","compact","midsize","minivan","pickup","subcompact","suv"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"class","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[7.7000000000000002,36.299999999999997],"tickmode":"array","ticktext":["10","15","20","25","30","35"],"tickvals":[10,15,20,25,30,35],"categoryorder":"array","categoryarray":["10","15","20","25","30","35"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"cty","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"5cf07c3d738d":{"x":{},"y":{},"type":"box"}},"cur_data":"5cf07c3d738d","visdat":{"5cf07c3d738d":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div id="次週までの課題-10" class="section level2 hasAnchor" number="12.6">
+<h2><span class="header-section-number">12.6</span> 次週までの課題<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#次週までの課題-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><strong>なし</strong></li>
+</ul>
+</div>
+<div id="参考文献-10" class="section level2 hasAnchor" number="12.7">
+<h2><span class="header-section-number">12.7</span> 参考文献<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html#参考文献-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>📚松村・湯谷・紀ノ定・前田（2021）『改訂2版 RユーザのためのRStudio[実践]入門―tidyverseによるモダンな分析フローの世界』技術評論社</p></li>
+<li><p>💻<a href="https://epirhandbook.com/jp/new_pages/interactive_plots.jp.html">疫学のための R ハンドブック　39 動的な図の作成</a></p></li>
+</ul>
+<style>
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #f5f5f5 5px center/3em no-repeat;
+}
+
+.beg {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHtu3kBX8P39WYBBAjar9c8c1ladK2SYL6_gEMXFweQfauWVhSvCQP5KELsPX5KNL1uOddLLQ-aeMxv904OW_NFFfANhBYObfBV09KO2EXehrb9kMdCLZY1afsChib-7zIkBJbG6OrbJpM/s400/aisatsu_kodomo_boy.png");}
+
+.caution {
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
+  
+</style>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="week10-一般化線形モデルロジスティック回帰分析.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="week11-階層モデル.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/11-Week11_tidyverse.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-# Week 14: Tidyverseパッケージによるデータの加工と可視化
+# Week 11: Tidyverseパッケージによるデータの加工と可視化
 
 ```{r, include=FALSE}
 library(gt)
@@ -6,7 +6,7 @@ library(tidyverse)
 ```
 
 ## メモ
-- 補講の関係で、11回目の講義でこの内容を扱った。
+- 補講（2025/7/5）
 
 ## 事前の確認
 

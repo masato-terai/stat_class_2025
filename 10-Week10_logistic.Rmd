@@ -338,7 +338,7 @@ res <- glm(
 
 - Pr(>|z|): 平均が z値の絶対値で、標準偏差が1の正規分布において、マイナス無限大からゼロまでの値をとる確率。この確率が大きいほどZ値がゼロに近くなり、Estimateがゼロに近い。
 
-- *p* 値（アスタリスク）：95%CIに0を含む場合有意とされる
+- *p* 値（アスタリスク）：95%信頼区間（CI）に0を含まない場合、有意とされる
 
 ```{r}
 summary(res)
@@ -564,6 +564,7 @@ pred_probs <- predict(res, type = "response", newdata = data.frame(Starting_age 
 pred_class <- ifelse(pred_probs > 0.6, 1, 0)
 
 # 元のデータに予測確率と予測クラスを追加
+library(tidyverse)
 new_data <- dat %>%
   mutate(pred_probs = pred_probs,
          pred_class = pred_class)
@@ -589,7 +590,6 @@ ggplot(new_data, aes(x = Starting_age, y = 1, fill = factor(pred_class))) +
 ### 提出方法
 - TACT上で提出。
 - 締め切りは今週の木曜日まで
-
 
 ## 参考文献
 
