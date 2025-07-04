@@ -13,11 +13,7 @@ rstan_options(auto_write = T)
 options(mc.cores = parallel::detectCores())
 ```
 
-## 🚧🚧🚧🚧
-
-- 縮約のことも述べる
-
-  馬場の説明や、ベイズ論文から説明を拝借
+## 🚧🚧🚧🚧（宿題を考える）
 
 ## 事前の確認
 
@@ -219,8 +215,6 @@ head(dat.demo, 5)
 
 ## ハンズオンセッション
 
-(SOP for using mixed effects modelsに従う)
-
 ### データの読み込み
 
 ### パッケージのインストール
@@ -392,6 +386,55 @@ check_residuals(res.3)
 check_autocorrelation(res.3)
 ```
 
+
+::: infobox
+ランダム効果を組み込んだ回帰分析を行う主な理由の一つに、**縮約（shrinkage）**という効果があります。縮約とは、各グループの極端な推定値が、全体の平均値（プーリングされた平均）に引き寄せられる現象を指します。この効果により、サンプル数が少ないグループや外れ値の影響が軽減され、より頑健で一般化可能な推定が可能になります。しかし、極端な推定値が実際に意味のあるものであった場合、縮約によってその効果が過小評価されてしまうという問題があります。たとえば、複数の種類の薬の効果を検証したい場合に、薬の種類をランダム効果に含めてモデルを構築すると、ある薬が他と明らかに異なる効果を示していたとしても、縮約によってその差が「なかったこと」になってしまう可能性があります。このようなケースでは、薬の種類ごとの効果を明確に比較したいという研究目的があるため、薬の種類をランダム効果としてではなく独立変数（固定効果）としてモデルに含める必要があります。**つまり、何をランダム効果として設定するのかを研究課題・仮説の段階で決めておく必要があります。**
+
+```{r, include=FALSE, message=FALSE, warning=FALSE}
+dat <- read.csv("sample_data/4-3-1-fish-num-4.csv")
+glm <- brm(fish_num ~ temperature * human, family = poisson(), data = dat, seed = 1,
+           prior = c(set_prior("", class = "Intercept")))
+```
+
+- 以下の図は、気温と参加者の交互作用のモデルです。10番の参加者のデータのみ、右肩下がりとなっています。
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+conditions <- data.frame(
+  human = c("A","B","C","D","E","F","G","H","I","J"))
+
+eff_1 <- marginal_effects(glm,
+                          effects = "temperature",
+                          conditions = conditions)
+plot(eff_1, points = TRUE)
+```
+
+```{r, include=FALSE, message=FALSE, warning=FALSE}
+glmm <- brm(
+  formula = fish_num ~ temperature + (temperature||human),
+  family = poisson(),
+  data = dat,
+  seed = 1,
+  iter = 6000,
+  warmup = 5000,
+  control = list(adapt_delta = 0.97, max_treedepth = 15)
+)
+
+```
+
+- 以下の図は気温と参加者の交互作用ではなく、独立変数に気温、ランダム効果に参加者を含めたモデルです。10番の参加者が他の参加者と同じ右肩上がりの傾向に変わっていることが分かります。
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+conditions <- data.frame(
+  human = c("A","B","C","D","E","F","G","H","I","J"))
+
+# 図示
+eff_2 <- marginal_effects(glmm,
+                          re_formula = NULL,
+                          effects = "temperature",
+                          conditions = conditions)
+plot(eff_2, points = TRUE)
+```
+
+:::
+
 ## 次週までの課題
 ### 課題内容
 
@@ -403,21 +446,34 @@ check_autocorrelation(res.3)
 - **Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。**
 
 ### 提出方法
-- メールにファイルを添付して送信。
+- TACT上で提出。
 - 締め切りは今週の木曜日まで
 
 ## 参考文献
-- 久保　データ解析のための統計モデリング入門
-- 清水　個人と集団のマルチレベル分析
-- 馬場　RとStanではじめるベイズ統計モデリングによるデータ分析入門
-- 外国語教育ハンドブック
-- Brysbaert, M. (2025). Applying Mixed-Effects Models in Research on Second Language Acquisition: A Tutorial for Beginners. Languages, 10(2), 20.
-- 山口剛. (2018). [心理学系] 混合効果モデルの利用: 刺激の変量効果への対処. バイオフィードバック研究, 45(2), 93-98.
-- https://qiita.com/ocean_f/items/9de4c6bc60616e5a3cf2
-- https://stats.oarc.ucla.edu/r/dae/mixed-effects-logistic-regression/
-- Terai, M., Fukuta, J., & Tamura, Y. (2024). Learnability of L2 collocations and L1 influence on L2 collocational representations of Japanese learners of English. International Review of Applied Linguistics in Language Teaching, 62(4), 1959-1983.
-- ref: https://stats.stackexchange.com/questions/228800/crossed-vs-nested-random-effects-how-do-they-differ-and-how-are-they-specified
-- 村山航. (2018). 刺激の効果を侮るなかれ―ランダム刺激効果を含んだ線形混合モデルの重要性と落とし穴―. 基礎心理学研究, 36(2), 236-242.
+- 📚久保（2012）『データ解析のための統計モデリング入門』岩波書店
+
+- 📚清水（2014）『個人と集団のマルチレベル分析』ナカニシヤ出版
+
+- 📚竹内・水本（編著）（2023）『外国語教育研究ハンドブック【増補版】―研究手法のより良い理解のために』松柏社
+
+- 📚馬場（2019）『RとStanではじめる　ベイズ統計モデリングによるデータ分析入門』講談社
+
+- 📄[村山. (2018). 刺激の効果を侮るなかれ―ランダム刺激効果を含んだ線形混合モデルの重要性と落とし穴―. 基礎心理学研究, 36(2), 236-242.](https://www.jstage.jst.go.jp/article/psychono/36/2/36_36.40/_article/-char/ja/)
+
+- 📄[山口. (2018). 【心理学系】混合効果モデルの利用: 刺激の変量効果への対処. バイオフィードバック研究, 45(2), 93-98.](https://www.jstage.jst.go.jp/article/jjbf/45/2/45_93/_article/-char/ja/)
+
+- 📄[Brysbaert, M. (2025). Applying Mixed-Effects Models in Research on Second Language Acquisition: A Tutorial for Beginners. *Languages, 10*(2), 20.](https://www.mdpi.com/2226-471X/10/2/20)
+
+- 📄[Garcia, G. D. (2024). Bayesian estimation in multiple comparisons. *Studies in Second Language Acquisition*, 1-27.](https://www.cambridge.org/core/journals/studies-in-second-language-acquisition/article/bayesian-estimation-in-multiple-comparisons/ECFBBB9DC96176DB3EDEA45A327759CF)
+
+- 📄[Terai, M., Fukuta, J., & Tamura, Y. (2024). Learnability of L2 collocations and L1 influence on L2 collocational representations of Japanese learners of English. *International Review of Applied Linguistics in Language Teaching, 62*(4), 1959-1983.](https://www.degruyterbrill.com/document/doi/10.1515/iral-2022-0234/html)
+
+- 💻[glmやglmerによるパラメータ推定値と信頼区間をggplot2で描画する (easystats)](https://qiita.com/ocean_f/items/9de4c6bc60616e5a3cf2)
+
+- 💻[Mixed Effects Logistic Regression | R Data Analysis Examples](https://stats.oarc.ucla.edu/r/dae/mixed-effects-logistic-regression/)
+
+- 💻[Crossed vs nested random effects: how do they differ and how are they specified correctly in lme4?](https://stats.stackexchange.com/questions/228800/crossed-vs-nested-random-effects-how-do-they-differ-and-how-are-they-specified)
+
 
 ```{=html}
 <style>

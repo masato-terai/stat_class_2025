@@ -661,6 +661,8 @@ esquisser(viewer = "browser")
 
 - 💻[疫学のための R ハンドブック　39  動的な図の作成](https://epirhandbook.com/jp/new_pages/interactive_plots.jp.html)
 
+- 💻[Rで解析：GUI操作でggplot2！！「esquisse」パッケージ](https://www.karada-good.net/analyticsr/r-808/)
+
 ```{=html}
 <style>
 .infobox {
