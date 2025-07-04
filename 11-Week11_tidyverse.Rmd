@@ -639,6 +639,18 @@ gg_mpg <- mpg %>%
 plotly::ggplotly(gg_mpg)
 ```
 
+## GUIでggplotでの作図
+
+- ```esquisse```パッケージを使用
+
+- ```esquisser(viewer = "browser")```を実行すると、ウィンドウが開き、GUIで作図ができる。また、作成した図をRで作成するためのコードも出力することができる。
+
+```{markdown}
+#install.packages("esquisse")
+library(esquisse)
+esquisser(viewer = "browser")
+```
+
 
 ## 次週までの課題
 - **なし**

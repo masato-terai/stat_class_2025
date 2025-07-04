@@ -15,6 +15,9 @@ options(mc.cores = parallel::detectCores())
 
 ## 🚧🚧🚧🚧
 
+- 縮約のことも述べる
+
+  馬場の説明や、ベイズ論文から説明を拝借
 
 ## 事前の確認
 
