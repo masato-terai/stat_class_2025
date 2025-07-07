@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Week5: 相関分析 | 言語統計処理（春学期）</title>
-  <meta name="description" content="Chapter 6 Week5: 相関分析 | 言語統計処理（春学期）" />
+  <title>Chapter 13 Week12: 階層モデル | 言語統計処理（春学期）</title>
+  <meta name="description" content="Chapter 13 Week12: 階層モデル | 言語統計処理（春学期）" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 Week5: 相関分析 | 言語統計処理（春学期）" />
+  <meta property="og:title" content="Chapter 13 Week12: 階層モデル | 言語統計処理（春学期）" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Week5: 相関分析 | 言語統計処理（春学期）" />
+  <meta name="twitter:title" content="Chapter 13 Week12: 階層モデル | 言語統計処理（春学期）" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="week-4-統計的検定.html"/>
-<link rel="next" href="week6-単回帰分析連続型の説明変数.html"/>
+<link rel="prev" href="week-11-tidyverseパッケージによるデータの加工と可視化.html"/>
+<link rel="next" href="week-12-効果量と検定力分析.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -377,10 +377,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="week5-相関分析" class="section level1 hasAnchor" number="6">
-<h1><span class="header-section-number">Chapter 6</span> Week5: 相関分析<a href="week5-相関分析.html#week5-相関分析" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="事前の確認-3" class="section level2 hasAnchor" number="6.1">
-<h2><span class="header-section-number">6.1</span> 事前の確認<a href="week5-相関分析.html#事前の確認-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="week12-階層モデル" class="section level1 hasAnchor" number="13">
+<h1><span class="header-section-number">Chapter 13</span> Week12: 階層モデル<a href="week12-階層モデル.html#week12-階層モデル" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="事前の確認-10" class="section level2 hasAnchor" number="13.1">
+<h2><span class="header-section-number">13.1</span> 事前の確認<a href="week12-階層モデル.html#事前の確認-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><p>この講義のRプロジェクトを開いていますか？</p></li>
 <li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
@@ -389,330 +389,642 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </div>
-<div id="今日の目標-3" class="section level2 hasAnchor" number="6.2">
-<h2><span class="header-section-number">6.2</span> 今日の目標<a href="week5-相関分析.html#今日の目標-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="今日の目標-10" class="section level2 hasAnchor" number="13.2">
+<h2><span class="header-section-number">13.2</span> 今日の目標<a href="week12-階層モデル.html#今日の目標-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
-<li>相関分析に関する統計理論を数学的・概念的に理解できる。</li>
-<li>相関分析をRで行い、その結果を解釈し報告することができる。</li>
+<li>階層モデルについて理論的背景やその仮定について理解する</li>
+<li>階層モデルをRで実装し、分析の結果を報告することができる</li>
 </ol>
 </div>
-<div id="相関分析correlation-analysisとは" class="section level2 hasAnchor" number="6.3">
-<h2><span class="header-section-number">6.3</span> 相関分析（Correlation analysis）とは<a href="week5-相関分析.html#相関分析correlation-analysisとは" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="一般化線形モデルからの発展" class="section level2 hasAnchor" number="13.3">
+<h2><span class="header-section-number">13.3</span> 一般化線形モデルからの発展<a href="week12-階層モデル.html#一般化線形モデルからの発展" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li><p><strong>相関</strong>：2つのデータの間にある<strong>線形</strong>の関係の強さを示す。これを分析することを<strong>相関分析</strong>という</p>
+<li><p>一般線形モデル：従属変数が正規分布に従う（e.g., <em>t</em> 検定、分散分析、回帰分析）</p>
 <ul>
-<li><p>相関関係を確認する際、散布図で視覚的に確認、数値的に<strong>相関係数</strong>（Correlation coefficienct）が用いられる。</p>
-<ul>
-<li>通常、<strong>ピアソンの（積率）相関係数（Pearson’s correlation coefficient, <em>r</em>）</strong>を指す。値は <span class="math inline">\(-1\leq r \leq1\)</span> をとる。</li>
+<li>Week 4 - Week 9</li>
 </ul></li>
-<li><p>相関係数は2変数の関係が線形になっている場合のみ使用できる。</p></li>
+<li><p>一般<strong>化</strong>線形モデル：正規分布以外の分布を扱う</p>
+<ul>
+<li>Week 10</li>
 </ul></li>
-<li><p>相関係数の重要なパーツ</p>
+<li><p>一般化線形混合効果モデル（Genealized Linewr <strong>Mixed</strong> Model: GLMM）：一般化線形モデルを拡張。実験計画などではコントロールできない要因（ランダム効果）をモデルに組み込む =&gt; 本日</p>
 <ul>
-<li><strong>共分散（covariance）</strong>：各変数の平均からの偏差の積を平均したもの</li>
+<li><p>マルチレベルモデル（multilevel model）、階層線形モデル（hierarchical linear model）、混合効果モデル（mixed-effects model）などとも呼ばれる</p></li>
+<li><p>混合効果：これまでの講義で扱ってきた独立変数（固定効果）とランダム効果を1つのモデルで表す</p></li>
+<li><p>得られたデータには、研究目的とは関係のないノイズが含まれる</p></li>
+<li><p>例.</p>
+<ul>
+<li><p>項目を提示する順番の影響</p></li>
+<li><p>項目や参加者が持つ特性</p></li>
 </ul></li>
-</ul>
-<p><span class="math display">\[
-s_{xy} = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})
-\]</span></p>
-<ul>
-<li><strong>不偏共分散</strong>は以下の通り。相関係数を算出するRパッケージの<code>cor</code>は計算する際に、不偏分散を使用している。</li>
-</ul>
-<p><span class="math display">\[
-s_{xy} = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})
-\]</span></p>
-<pre><code>The denominator *n* − 1 is used which gives an unbiased estimator of the (co)variance for i.i.d. observations. </code></pre>
-<ul>
-<li>相関係数を求める式</li>
-</ul>
-<p><span class="math display">\[
-r_{xy} = \frac{S_{xy}}{S_xS_y}
-\]</span></p>
-<ul>
-<li><p>共分散（<span class="math inline">\(S_{xy}\)</span>）を2変数それぞれの標準偏差の積で割ったもの（共分散を基準化している）</p>
-<ul>
-<li>基準化の理由として、定数倍などすると、値の大きさが変わってしまうため</li>
+<li><p>基本的に最尤推定法を用いるモデルを指すが、推定法がマルコフ連鎖モンテカルロ法（MCMC）の場合は、階層ベイズモデルと呼ばれる。階層ベイズモデルは、最尤推定法によるGLMMに比べ、よりデータに合わせた柔軟なモデリングが可能である。</p></li>
 </ul></li>
 </ul>
-<div id="相関関係の種類" class="section level3 hasAnchor" number="6.3.1">
-<h3><span class="header-section-number">6.3.1</span> 相関関係の種類<a href="week5-相関分析.html#相関関係の種類" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p><strong>正の相関</strong>（positive correlation）：右上がり。1つの変数が増加すると、もう片方も増加する</p>
-<ul>
-<li>相関係数が正の値をとる</li>
-</ul></li>
-<li><p><strong>負の相関</strong>（negative correlation）：右下がり。1つの変数が増加すると、yが減少する。</p>
-<ul>
-<li>相関係数が負の値をとる</li>
-</ul></li>
-</ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
-<ul>
-<li><p>ピアソンの相関係数は<strong>外れ値</strong>に影響されやすい。あらかじめ散布図で外れ値がないかを確認する</p></li>
-<li><p>以下の図では、左側の図のデータの一部（<em>n</em> = 2）を外れ値に変更した
-<img src="_main_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p></li>
-<li><p>右側の図の相関係数がわずか2つの外れ値によって大きくなっていることが分かる</p></li>
-</ul>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="week5-相関分析.html#cb161-1" tabindex="-1"></a><span class="fu">cor</span>(data2<span class="sc">$</span>x, data2<span class="sc">$</span>y, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] 0.7351905</code></pre>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="week5-相関分析.html#cb163-1" tabindex="-1"></a><span class="fu">cor</span>(data4<span class="sc">$</span>x, data4<span class="sc">$</span>y, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] 0.9108736</code></pre>
+<p class="comment">
+どのように高度な手法を使う場合でも、分析の前に平均や分散などの記述統計・図示をもとに、立てた仮説や予測と一致しているかなどの確認が必要です。また、分析に入れる変数も、理論や仮説などから妥当なものを原則入れるべきです。
+</p>
 </div>
-<div id="相関係数の検定" class="section level3 hasAnchor" number="6.3.2">
-<h3><span class="header-section-number">6.3.2</span> 相関係数の検定<a href="week5-相関分析.html#相関係数の検定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="ランダム効果とは" class="section level2 hasAnchor" number="13.4">
+<h2><span class="header-section-number">13.4</span> ランダム効果とは<a href="week12-階層モデル.html#ランダム効果とは" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>ほとんどの場合、母相関係数 <em>ρ</em> が0という帰無仮説を立てて行われる。</li>
+<li>データにばらつきをもたらす、人間が測定できない・測定しなかった（または原因不明の）個体差の効果</li>
 </ul>
-<p><span class="math display">\[
-H_0 : ρ = 0
-\]</span></p>
+<!-- - GLMMでは個体差を表すパラメータが何かしらの確率分布に従うと仮定する。 -->
+<!--   - この個体差を表すパラメータは平均ゼロの正規分布に従うと仮定される。これには明確な根拠がある訳ではなく、観測できない個体差はどのような確率分布に従うか分からないため、とりあえず便利だから正規分布を仮定している。 -->
 <ul>
-<li>検定統計量は <em>t</em> 分布に従うことを利用して検定が行われる。</li>
-</ul>
-<p><span class="math display">\[
-t = \frac{r}{\sqrt{1-r^2}}\sqrt{n-2}
-\]</span></p>
+<li><p>ランダム効果を設定するべきか否かの判断は、<strong>「同じ個体（参加者）や場所から何度もサンプリングしているか」</strong></p>
 <ul>
-<li><p>統計的に有意である場合、「母相関係数は0である」という帰無仮説を棄却し、「母相関係数は0ではない」という対立仮説を採択する。<strong>無相関検定</strong>とも呼ぶ。</p>
+<li><p>例</p>
 <ul>
-<li>母相関が0以外である帰無仮説を立てることもできるが、この場合検定統計量 <em>t</em> は <strong>非心 <em>t</em> 分布</strong>に従い、 <em>t</em> 分布には従わない。</li>
+<li><p>各参加者に対し、複数の問題を解かせる</p></li>
+<li><p>4つの学校の複数の学生からデータを取得する</p></li>
+</ul></li>
 </ul></li>
 </ul>
-<div class="alert alert-info">
-<p><strong>重要</strong> 無相関検定で有意差が得られても、母相関係数が0ではないということを示すだけであり、相関の強弱を示していないことに注意が必要。</p>
-</div>
-</div>
-</div>
-<div id="ハンズオンセッション-3" class="section level2 hasAnchor" number="6.4">
-<h2><span class="header-section-number">6.4</span> ハンズオンセッション<a href="week5-相関分析.html#ハンズオンセッション-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="データの読み込み-1" class="section level3 hasAnchor" number="6.4.1">
-<h3><span class="header-section-number">6.4.1</span> データの読み込み<a href="week5-相関分析.html#データの読み込み-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="week5-相関分析.html#cb165-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/cor.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="week5-相関分析.html#cb166-1" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
-<pre><code>##   ID English Math Japanese
-## 1  1      56   63       53
-## 2  2      55   54       50
-## 3  3      24   43       24
-## 4  4      57   29       59
-## 5  5      49   38       57
-## 6  6      27   38       20</code></pre>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="week5-相関分析.html#cb168-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb168-2"><a href="week5-相関分析.html#cb168-2" tabindex="-1"></a><span class="fu">describe</span>(dat<span class="sc">$</span>English)</span></code></pre></div>
-<pre><code>##    vars  n  mean    sd median trimmed   mad min max range skew kurtosis   se
-## X1    1 40 49.45 13.19     49   49.31 11.86  24  87    63 0.31     0.27 2.09</code></pre>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="week5-相関分析.html#cb170-1" tabindex="-1"></a><span class="fu">describe</span>(dat<span class="sc">$</span>Math)</span></code></pre></div>
-<pre><code>##    vars  n mean    sd median trimmed   mad min max range  skew kurtosis   se
-## X1    1 40 49.5 14.09   51.5   50.34 14.83  15  72    57 -0.49    -0.31 2.23</code></pre>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="week5-相関分析.html#cb172-1" tabindex="-1"></a><span class="fu">describe</span>(dat<span class="sc">$</span>Japanese)</span></code></pre></div>
-<pre><code>##    vars  n  mean    sd median trimmed   mad min max range  skew kurtosis   se
-## X1    1 40 49.35 13.41   49.5   49.62 14.08  20  74    54 -0.19    -0.61 2.12</code></pre>
-</div>
-<div id="散布図の作成" class="section level3 hasAnchor" number="6.4.2">
-<h3><span class="header-section-number">6.4.2</span> 散布図の作成<a href="week5-相関分析.html#散布図の作成" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="week5-相関分析.html#cb174-1" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>English, dat<span class="sc">$</span>Math)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="week5-相関分析.html#cb175-1" tabindex="-1"></a><span class="fu">plot</span>(dat<span class="sc">$</span>English, dat<span class="sc">$</span>Japanese)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-92-2.png" width="672" /></p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="week5-相関分析.html#cb176-1" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">pairs.panels</span>(dat[,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
-</div>
-<div id="相関係数の算出" class="section level3 hasAnchor" number="6.4.3">
-<h3><span class="header-section-number">6.4.3</span> 相関係数の算出<a href="week5-相関分析.html#相関係数の算出" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class=".infobox">
 <ul>
-<li><code>corr.test</code>関数は、上述の<code>cor</code>関数を使用している。</li>
+<li><p>「個体から複数のデータを取る」という実験操作を疑似反復という</p>
+<ul>
+<li>「疑似」がつく理由：個体差を消すほどの反復にはなっていないため。個体差などを打ち消すような実験操作ができている場合「反復」とみなせる（個体差や場所差を打ち消すために反復を行う）。</li>
+</ul></li>
 </ul>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="week5-相関分析.html#cb177-1" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">corr.test</span>(dat[,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span></code></pre></div>
-<pre><code>## Call:psych::corr.test(x = dat[, 2:4], method = &quot;pearson&quot;)
-## Correlation matrix 
-##          English Math Japanese
-## English     1.00 0.64     0.69
-## Math        0.64 1.00     0.43
-## Japanese    0.69 0.43     1.00
-## Sample Size 
-## [1] 40
-## Probability values (Entries above the diagonal are adjusted for multiple tests.) 
-##          English Math Japanese
-## English        0 0.00     0.00
-## Math           0 0.00     0.01
-## Japanese       0 0.01     0.00
+</div>
+<!-- ### 階層の種類：Nested vs. Crossed -->
+<!-- （ややこしいから入れるか検討） -->
+<!-- - 階層のパターンは大別して以下の二種類ある。分析をする際にはこの二つを書き分けなければならないため、データの構造をきちんと把握しておく必要がある。言語系の研究では、入れ子構造が多いため、この講義では入れ子構造のランダム効果の分析法を行う。 -->
+<!-- - 入れ子構造（Nested Random Effects） -->
+<!--   - レベル1の階層のあるデータは、レベル2の階層のあるデータのみに属し、別のレベル2のデータには属していない。 -->
+<!--     - e.g., 参加者がそれぞれ複数の項目を提示される、学校単位の学力調査 -->
+<!-- （図を挿入） -->
+<!-- - 交差構造（Crossed Random Effects） -->
+<!--   - レベル1の階層のあるデータは、レベル2の階層のあるデータのみに属し、別のレベル2のデータにも属す。 -->
+<!--     - e.g., 3人の生徒が3人の教師それぞれに教わる -->
+<!-- （図を挿入） -->
+</div>
+<div id="ランダム切片モデル" class="section level2 hasAnchor" number="13.5">
+<h2><span class="header-section-number">13.5</span> ランダム切片モデル<a href="week12-階層モデル.html#ランダム切片モデル" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>切片の値が個体差（e.g., 参加者）によって異なることを仮定したモデル</p>
+<ul>
+<li>例. 指導法Aと指導法Bの効果を比較検証したい（事後テストの得点を目的変数として分析）。この場合、テスト得点は指導法の効果による影響だけでなく、生徒の個人差によって異なると仮定</li>
+</ul></li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-357-1.png" width="672" /></p>
+</div>
+<div id="ランダム係数モデル" class="section level2 hasAnchor" number="13.6">
+<h2><span class="header-section-number">13.6</span> ランダム係数モデル<a href="week12-階層モデル.html#ランダム係数モデル" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>モデル内の独立変数の係数が個体差によって異なることを仮定したモデル</p>
+<ul>
+<li>例. 指導法Aと指導法Bの効果を比較検証したい（事後テストの得点を目的変数として分析）。この場合、指導法の効果は生徒の個人差によって異なる仮定</li>
+</ul></li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-358-1.png" width="672" /></p>
+</div>
+<div id="ランダム切片-係数モデル" class="section level2 hasAnchor" number="13.7">
+<h2><span class="header-section-number">13.7</span> ランダム切片 &amp; 係数モデル<a href="week12-階層モデル.html#ランダム切片-係数モデル" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><img src="_main_files/figure-html/unnamed-chunk-359-1.png" width="672" /></p>
+</div>
+<div id="glmmを行うときの留意点" class="section level2 hasAnchor" number="13.8">
+<h2><span class="header-section-number">13.8</span> GLMMを行うときの留意点<a href="week12-階層モデル.html#glmmを行うときの留意点" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="推定方法" class="section level3 hasAnchor" number="13.8.1">
+<h3><span class="header-section-number">13.8.1</span> 推定方法<a href="week12-階層モデル.html#推定方法" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>頻度統計の場合のマルチモデルの推定には最尤法が使われる（Maximum Likelihood）。目安として50人程度のサンプルサイズが最低限必要（変量効果の分散成分が過小推定される）。しかし、サンプルサイズがどうしても少なくなる場合もある。そこで、制限つき最尤法が開発され、ソフトウェアではこちらが採用されている場合が多い。サンプルサイズが十分に多い場合、最尤法の方が制限つき最尤法よりも推定精度がいい（標準誤差が小さい）。また制限つき最尤法では固定効果について尤度を計算しないため、情報量基準を用いたモデル比較を行うことができない。</p></li>
+<li><p>最尤法、制限つき最尤法も従属変数の正規性と分散均一性の仮定がある。サンプルサイズが十分に大きい場合、切片や回帰係数の推定値は分布が歪んでいることによるバイアスを受けにくい。しかし、標準誤差は正しく推定されなくなるため、標準誤差を使って算出される有意性検定や信頼区間の推定にバイアスが発生することに注意が必要。</p></li>
+</ul>
+</div>
+<div id="データセットの構造に注意" class="section level3 hasAnchor" number="13.8.2">
+<h3><span class="header-section-number">13.8.2</span> データセットの構造に注意<a href="week12-階層モデル.html#データセットの構造に注意" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>(「<strong>Week 11: Tidyverseパッケージによるデータの加工と可視化</strong>」を参照してください)</p></li>
+<li><p>これまでに使用してきたデータセットが必ずしもGLMMの分析に合うものではない</p></li>
+<li><p>各行には、一人の参加者の各項目が含まれているべきである</p>
+<ul>
+<li>この形式にしておけば、どのような分析にも対応できる（Tidy dataとも呼ばれる）</li>
+</ul></li>
+<li><p>Tidy dataの例</p></li>
+</ul>
+<pre><code>##   subject itemID res
+## 1       2      1   1
+## 2       2      2   1
+## 3       2      3   1
+## 4       2      4   1
+## 5       2      5   1</code></pre>
+</div>
+<div id="計算の負荷が大きい" class="section level3 hasAnchor" number="13.8.3">
+<h3><span class="header-section-number">13.8.3</span> 計算の負荷が大きい<a href="week12-階層モデル.html#計算の負荷が大きい" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>これまでに紹介した分析とは異なり、結果が出力されるまでに時間がかかります。モデルの変数が多く、ランダム効果にも複数の変数を含む場合、数日かかることもあります。</li>
+</ul>
+</div>
+</div>
+<div id="ハンズオンセッション-9" class="section level2 hasAnchor" number="13.9">
+<h2><span class="header-section-number">13.9</span> ハンズオンセッション<a href="week12-階層モデル.html#ハンズオンセッション-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="データの読み込み-4" class="section level3 hasAnchor" number="13.9.1">
+<h3><span class="header-section-number">13.9.1</span> データの読み込み<a href="week12-階層モデル.html#データの読み込み-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="パッケージのインストール" class="section level3 hasAnchor" number="13.9.2">
+<h3><span class="header-section-number">13.9.2</span> パッケージのインストール<a href="week12-階層モデル.html#パッケージのインストール" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><code>lme4</code>パッケージを使用します</li>
+</ul>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="week12-階層モデル.html#cb559-1" tabindex="-1"></a><span class="fu">library</span>(lme4)</span></code></pre></div>
+<ul>
+<li>処理にかかる時間を計測するため、<code>tictoc</code>パッケージを使います。</li>
+</ul>
+<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb560-1"><a href="week12-階層モデル.html#cb560-1" tabindex="-1"></a><span class="co">#install.packages(&quot;tictoc&quot;)</span></span>
+<span id="cb560-2"><a href="week12-階層モデル.html#cb560-2" tabindex="-1"></a><span class="fu">library</span>(tictoc)</span></code></pre></div>
+<ul>
+<li>コンピュータのスペックはこんな感じです</li>
+</ul>
+<pre><code>## $vendor_id
+## [1] &quot;GenuineIntel&quot;
 ## 
-##  To see confidence intervals of the correlations, print with the short=FALSE option</code></pre>
-<ul>
-<li><code>cor.test</code>を使用するとより詳細な結果が返ってくる</li>
-</ul>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="week5-相関分析.html#cb179-1" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
-<span id="cb179-2"><a href="week5-相関分析.html#cb179-2" tabindex="-1"></a><span class="fu">cor.test</span>(dat<span class="sc">$</span>English, dat<span class="sc">$</span>Math, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span></code></pre></div>
-<pre><code>## 
-##  Pearson&#39;s product-moment correlation
+## $model_name
+## [1] &quot;13th Gen Intel(R) Core(TM) i9-13900K&quot;
 ## 
-## data:  dat$English and dat$Math
-## t = 5.1734, df = 38, p-value = 0.000007715
-## alternative hypothesis: true correlation is not equal to 0
-## 95 percent confidence interval:
-##  0.4143074 0.7951314
-## sample estimates:
-##       cor 
-## 0.6428501</code></pre>
-</div>
-<div id="相関係数の解釈" class="section level3 hasAnchor" number="6.4.4">
-<h3><span class="header-section-number">6.4.4</span> 相関係数の解釈<a href="week5-相関分析.html#相関係数の解釈" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="相関係数の大きさ" class="section level4 hasAnchor" number="6.4.4.1">
-<h4><span class="header-section-number">6.4.4.1</span> 相関係数の大きさ<a href="week5-相関分析.html#相関係数の大きさ" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+## $no_of_cores
+## [1] 32</code></pre>
+<pre><code>## 137 GB</code></pre>
 <ul>
-<li><p>Cohenの基準と呼ばれるベンチマークがある。しかし、これはもともとすべての分野に適応することを意図したものではなく、行動科学分野の研究に基づき作成されたものであった。</p>
+<li>Terai et al. (2024)のデータを使用します。</li>
+</ul>
+<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb563-1"><a href="week12-階層モデル.html#cb563-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/AJ.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="week12-階層モデル.html#cb564-1" tabindex="-1"></a>dat<span class="sc">$</span>Itemtype <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>Itemtype, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Baseline&quot;</span>, <span class="st">&quot;JE&quot;</span>, <span class="st">&quot;Eonly&quot;</span>))</span>
+<span id="cb564-2"><a href="week12-階層モデル.html#cb564-2" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Itemtype) <span class="ot">&lt;-</span> <span class="fu">contr.treatment</span>(<span class="dv">3</span>)</span>
+<span id="cb564-3"><a href="week12-階層モデル.html#cb564-3" tabindex="-1"></a></span>
+<span id="cb564-4"><a href="week12-階層モデル.html#cb564-4" tabindex="-1"></a><span class="fu">contrasts</span>(dat<span class="sc">$</span>Itemtype)</span></code></pre></div>
+<pre><code>##          2 3
+## Baseline 0 0
+## JE       1 0
+## Eonly    0 1</code></pre>
 <ul>
-<li>小（small）： .10、中（Medium）：.30、大（Large）：.50</li>
+<li>連続値の場合中心化します</li>
+</ul>
+<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="week12-階層モデル.html#cb566-1" tabindex="-1"></a><span class="co">#install.packages(&quot;tidyverse&quot;)</span></span>
+<span id="cb566-2"><a href="week12-階層モデル.html#cb566-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb566-3"><a href="week12-階層モデル.html#cb566-3" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb566-4"><a href="week12-階層モデル.html#cb566-4" tabindex="-1"></a>  <span class="fu">group_by</span>(subject) <span class="sc">%&gt;%</span></span>
+<span id="cb566-5"><a href="week12-階層モデル.html#cb566-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(<span class="st">&quot;pres.order&quot;</span>, <span class="st">&quot;Length&quot;</span>), <span class="sc">~</span><span class="fu">scale</span>(.x)[,<span class="dv">1</span>],<span class="at">.names =</span> <span class="st">&quot;z.{col}&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb566-6"><a href="week12-階層モデル.html#cb566-6" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div>
+<ul>
+<li><p>切片のみ（実験項目、参加者）のモデル</p>
+<ul>
+<li><p>従属変数：反応速度</p></li>
+<li><p>独立変数：コロケーションの種類</p></li>
 </ul></li>
-<li><p>相関係数の値の大きさは文脈（e.g., 研究分野や研究対象）において解釈する必要がある。</p>
+</ul>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="week12-階層モデル.html#cb567-1" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb567-2"><a href="week12-階層モデル.html#cb567-2" tabindex="-1"></a>res<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">glmer</span>(</span>
+<span id="cb567-3"><a href="week12-階層モデル.html#cb567-3" tabindex="-1"></a>  res <span class="sc">~</span> Itemtype <span class="sc">+</span></span>
+<span id="cb567-4"><a href="week12-階層モデル.html#cb567-4" tabindex="-1"></a>  (<span class="dv">1</span><span class="sc">|</span>subject) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>itemID),</span>
+<span id="cb567-5"><a href="week12-階層モデル.html#cb567-5" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
+<span id="cb567-6"><a href="week12-階層モデル.html#cb567-6" tabindex="-1"></a>  <span class="at">data =</span> dat2,</span>
+<span id="cb567-7"><a href="week12-階層モデル.html#cb567-7" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">glmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>)</span>
+<span id="cb567-8"><a href="week12-階層モデル.html#cb567-8" tabindex="-1"></a>               )</span>
+<span id="cb567-9"><a href="week12-階層モデル.html#cb567-9" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
+<pre><code>## 0.85 sec elapsed</code></pre>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="week12-階層モデル.html#cb569-1" tabindex="-1"></a><span class="fu">summary</span>(res<span class="fl">.1</span>)</span></code></pre></div>
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: binomial  ( logit )
+## Formula: res ~ Itemtype + (1 | subject) + (1 | itemID)
+##    Data: dat2
+## Control: glmerControl(optimizer = &quot;bobyqa&quot;)
+## 
+##       AIC       BIC    logLik -2*log(L)  df.resid 
+##    3601.5    3632.6   -1795.7    3591.5      3707 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -5.1739 -0.4177  0.3423  0.5275  2.9380 
+## 
+## Random effects:
+##  Groups  Name        Variance Std.Dev.
+##  itemID  (Intercept) 1.0063   1.0032  
+##  subject (Intercept) 0.1647   0.4059  
+## Number of obs: 3712, groups:  itemID, 116; subject, 32
+## 
+## Fixed effects:
+##             Estimate Std. Error z value             Pr(&gt;|z|)    
+## (Intercept)   1.4468     0.1517   9.536 &lt; 0.0000000000000002 ***
+## Itemtype2     1.0938     0.2879   3.799             0.000145 ***
+## Itemtype3    -1.3669     0.2618  -5.222          0.000000177 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##           (Intr) Itmty2
+## Itemtype2 -0.397       
+## Itemtype3 -0.450  0.230</code></pre>
 <ul>
-<li>例）リーディングのテスト得点とリスニングのテスト得点が <em>r</em> = .50の場合と、聞いた音を書きだすテストの得点と聴解のテスト得点が <em>r</em> = .50</li>
-</ul></li>
-<li><p>第二言語習得研究における相関係数の目安として提示された例</p></li>
+<li><p>切片と係数のモデル</p></li>
+<li><p>モデルが上手く収束しなかった</p></li>
+</ul>
+<div class="sourceCode" id="cb571"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb571-1"><a href="week12-階層モデル.html#cb571-1" tabindex="-1"></a>tic()</span>
+<span id="cb571-2"><a href="week12-階層モデル.html#cb571-2" tabindex="-1"></a>res.2 &lt;- glmer(</span>
+<span id="cb571-3"><a href="week12-階層モデル.html#cb571-3" tabindex="-1"></a>  res ~ Itemtype +</span>
+<span id="cb571-4"><a href="week12-階層モデル.html#cb571-4" tabindex="-1"></a>  (1 + pres.order|subject) + (1|itemID),</span>
+<span id="cb571-5"><a href="week12-階層モデル.html#cb571-5" tabindex="-1"></a>  family = binomial(link = &quot;logit&quot;),</span>
+<span id="cb571-6"><a href="week12-階層モデル.html#cb571-6" tabindex="-1"></a>  data = dat2,</span>
+<span id="cb571-7"><a href="week12-階層モデル.html#cb571-7" tabindex="-1"></a>  control = glmerControl(optimizer = &quot;bobyqa&quot;)</span>
+<span id="cb571-8"><a href="week12-階層モデル.html#cb571-8" tabindex="-1"></a>               )</span>
+<span id="cb571-9"><a href="week12-階層モデル.html#cb571-9" tabindex="-1"></a>toc()</span></code></pre></div>
+<ul>
+<li><strong>出力結果：</strong></li>
 </ul>
 <blockquote>
-<p>“For correlation coefficients, we suggest that rs close to .25 be considered small, .40 medium, and .60 large. These values correspond roughly to the 25th, 50th, and 75th percentiles in our primary and meta-analytic samples.” (Plonsky &amp; Oswald, 2014)</p>
+<p>警告: Model failed to converge with max|grad| = 0.00228081 (tol = 0.002, component 1) 警告: Model is nearly unidentifiable: very large eigenvalue
+- Rescale variables?</p>
 </blockquote>
 <ul>
-<li>相関係数が小さい研究は査読の段階で削除されていたり、そもそも出版されずお蔵入りになっている場合もあるので注意。</li>
+<li>中心化した変数だとうまくいった</li>
+</ul>
+<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="week12-階層モデル.html#cb572-1" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb572-2"><a href="week12-階層モデル.html#cb572-2" tabindex="-1"></a>res<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">glmer</span>(</span>
+<span id="cb572-3"><a href="week12-階層モデル.html#cb572-3" tabindex="-1"></a>  res <span class="sc">~</span> Itemtype <span class="sc">+</span></span>
+<span id="cb572-4"><a href="week12-階層モデル.html#cb572-4" tabindex="-1"></a>  (<span class="dv">1</span> <span class="sc">+</span> z.pres.order<span class="sc">|</span>subject) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>itemID),</span>
+<span id="cb572-5"><a href="week12-階層モデル.html#cb572-5" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
+<span id="cb572-6"><a href="week12-階層モデル.html#cb572-6" tabindex="-1"></a>  <span class="at">data =</span> dat2,</span>
+<span id="cb572-7"><a href="week12-階層モデル.html#cb572-7" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">glmerControl</span>(<span class="at">optimizer =</span> <span class="st">&quot;bobyqa&quot;</span>) <span class="co">#スムーズに推定を行うためにこれを設定します</span></span>
+<span id="cb572-8"><a href="week12-階層モデル.html#cb572-8" tabindex="-1"></a>               )</span>
+<span id="cb572-9"><a href="week12-階層モデル.html#cb572-9" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
+<pre><code>## 1.66 sec elapsed</code></pre>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="week12-階層モデル.html#cb574-1" tabindex="-1"></a><span class="fu">summary</span>(res<span class="fl">.3</span>)</span></code></pre></div>
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: binomial  ( logit )
+## Formula: res ~ Itemtype + (1 + z.pres.order | subject) + (1 | itemID)
+##    Data: dat2
+## Control: glmerControl(optimizer = &quot;bobyqa&quot;)
+## 
+##       AIC       BIC    logLik -2*log(L)  df.resid 
+##    3595.6    3639.1   -1790.8    3581.6      3705 
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -5.2004 -0.4170  0.3360  0.5232  3.6998 
+## 
+## Random effects:
+##  Groups  Name         Variance Std.Dev. Corr 
+##  itemID  (Intercept)  1.02492  1.0124        
+##  subject (Intercept)  0.16874  0.4108        
+##          z.pres.order 0.06019  0.2453   -0.17
+## Number of obs: 3712, groups:  itemID, 116; subject, 32
+## 
+## Fixed effects:
+##             Estimate Std. Error z value             Pr(&gt;|z|)    
+## (Intercept)   1.4707     0.1535   9.580 &lt; 0.0000000000000002 ***
+## Itemtype2     1.1154     0.2900   3.846              0.00012 ***
+## Itemtype3    -1.3865     0.2642  -5.247          0.000000154 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##           (Intr) Itmty2
+## Itemtype2 -0.395       
+## Itemtype3 -0.449  0.230</code></pre>
+<ul>
+<li>95% 信頼区間の算出（CI）</li>
+</ul>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="week12-階層モデル.html#cb576-1" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(res<span class="fl">.3</span>)))</span>
+<span id="cb576-2"><a href="week12-階層モデル.html#cb576-2" tabindex="-1"></a></span>
+<span id="cb576-3"><a href="week12-階層モデル.html#cb576-3" tabindex="-1"></a><span class="co"># table of estimates with 95% CI</span></span>
+<span id="cb576-4"><a href="week12-階層モデル.html#cb576-4" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
+<span id="cb576-5"><a href="week12-階層モデル.html#cb576-5" tabindex="-1"></a>  <span class="at">Est =</span> <span class="fu">fixef</span>(res<span class="fl">.3</span>),</span>
+<span id="cb576-6"><a href="week12-階層モデル.html#cb576-6" tabindex="-1"></a>  <span class="at">LL =</span> <span class="fu">fixef</span>(res<span class="fl">.3</span>) <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se,</span>
+<span id="cb576-7"><a href="week12-階層モデル.html#cb576-7" tabindex="-1"></a>  <span class="at">UL =</span> <span class="fu">fixef</span>(res<span class="fl">.3</span>) <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
+<span id="cb576-8"><a href="week12-階層モデル.html#cb576-8" tabindex="-1"></a>  )</span>
+<span id="cb576-9"><a href="week12-階層モデル.html#cb576-9" tabindex="-1"></a></span>
+<span id="cb576-10"><a href="week12-階層モデル.html#cb576-10" tabindex="-1"></a>tab</span></code></pre></div>
+<pre><code>##                   Est         LL         UL
+## (Intercept)  1.470673  1.1697749  1.7715711
+## Itemtype2    1.115433  0.5469471  1.6839180
+## Itemtype3   -1.386501 -1.9043996 -0.8686026</code></pre>
+<ul>
+<li><p><code>confint()</code>でも算出可能</p>
+<ul>
+<li>こちらは推定法の関係で時間がかかる</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="week12-階層モデル.html#cb578-1" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb578-2"><a href="week12-階層モデル.html#cb578-2" tabindex="-1"></a><span class="fu">confint</span>(res<span class="fl">.3</span>)</span></code></pre></div>
+<pre><code>## Computing profile confidence intervals ...</code></pre>
+<pre><code>## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): unexpected decrease in
+## profile: using minstep</code></pre>
+<pre><code>## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep
+## Warning in nextpar(mat, cc, i, delta, lowcut, upcut): Last two rows have
+## identical or NA .zeta values: using minstep</code></pre>
+<pre><code>## Warning in FUN(X[[i]], ...): non-monotonic profile for .sig03</code></pre>
+<pre><code>## Warning in confint.thpr(pp, level = level, zeta = zeta): bad spline fit for
+## .sig03: falling back to linear interpolation</code></pre>
+<pre><code>## Warning in regularize.values(x, y, ties, missing(ties), na.rm = na.rm):
+## collapsing to unique &#39;x&#39; values</code></pre>
+<pre><code>##                  2.5 %     97.5 %
+## .sig01       0.8557632  1.2053915
+## .sig02       0.2900371  0.5782624
+## .sig03      -0.6848813  0.4003421
+## .sig04       0.1247613  0.3850705
+## (Intercept)  1.1705532  1.7810441
+## Itemtype2    0.5478508  1.7132777
+## Itemtype3   -1.9150308 -0.8660749</code></pre>
+<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb586-1"><a href="week12-階層モデル.html#cb586-1" tabindex="-1"></a><span class="fu">toc</span>()</span></code></pre></div>
+<pre><code>## 239.25 sec elapsed</code></pre>
+<ul>
+<li>オッズ比</li>
+</ul>
+<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="week12-階層モデル.html#cb588-1" tabindex="-1"></a><span class="fu">exp</span>(tab)</span></code></pre></div>
+<pre><code>##                   Est       LL        UL
+## (Intercept) 4.3521632 3.221267 5.8800845
+## Itemtype2   3.0508876 1.727970 5.3866193
+## Itemtype3   0.2499483 0.148912 0.4195374</code></pre>
+<ul>
+<li><p>モデル比較</p>
+<ul>
+<li>尤度比検定の結果、係数を考慮したモデルの方がよりAICが有意に低かった</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="week12-階層モデル.html#cb590-1" tabindex="-1"></a><span class="fu">anova</span>(res<span class="fl">.1</span>, res<span class="fl">.3</span>)</span></code></pre></div>
+<pre><code>## Data: dat2
+## Models:
+## res.1: res ~ Itemtype + (1 | subject) + (1 | itemID)
+## res.3: res ~ Itemtype + (1 + z.pres.order | subject) + (1 | itemID)
+##       npar    AIC    BIC  logLik -2*log(L)  Chisq Df Pr(&gt;Chisq)   
+## res.1    5 3601.5 3632.6 -1795.7    3591.5                        
+## res.3    7 3595.6 3639.1 -1790.8    3581.6 9.9044  2   0.007068 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<!-- - ```performance```パッケージでモデルの当てはまり度合いを確認 -->
+<!-- ```{r, warning=FALSE, message=FALSE} -->
+<!-- #install.packages("performance") -->
+<!-- library(performance) -->
+<!-- compare_performance(res.1, res.3, rank = TRUE, verbose = FALSE) -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- plot(compare_performance(res.1, res.3, rank = TRUE, verbose = FALSE)) -->
+<!-- ``` -->
+<ul>
+<li>図示</li>
+</ul>
+<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="week12-階層モデル.html#cb592-1" tabindex="-1"></a><span class="co">#install.packages(&quot;ggeffects&quot;)</span></span>
+<span id="cb592-2"><a href="week12-階層モデル.html#cb592-2" tabindex="-1"></a><span class="fu">library</span>(ggeffects)</span>
+<span id="cb592-3"><a href="week12-階層モデル.html#cb592-3" tabindex="-1"></a>eff <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(res<span class="fl">.3</span>, <span class="at">terms =</span> <span class="st">&quot;Itemtype&quot;</span>)</span>
+<span id="cb592-4"><a href="week12-階層モデル.html#cb592-4" tabindex="-1"></a><span class="fu">plot</span>(eff)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-377-1.png" width="672" /></p>
+<ul>
+<li><p>モデル診断</p>
+<ul>
+<li><p><code>performance</code>パッケージが便利</p></li>
+<li><p>VIF（多重共線性についての指標）</p>
+<ul>
+<li>今回は1変数しかないので確認の必要はない</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb593"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb593-1"><a href="week12-階層モデル.html#cb593-1" tabindex="-1"></a>#install.packages(&quot;performance&quot;)</span>
+<span id="cb593-2"><a href="week12-階層モデル.html#cb593-2" tabindex="-1"></a>library(performance)</span>
+<span id="cb593-3"><a href="week12-階層モデル.html#cb593-3" tabindex="-1"></a>check_collinearity(モデルの結果を格納した変数名)</span></code></pre></div>
+<ul>
+<li><p>外れ値</p></li>
+<li><p><em>p</em> ≥ .05: 残差はモデル期待通り（≒一様分布）</p></li>
+<li><p><em>p</em> &lt; .05: 残差がモデル期待とズレている（≒モデルのミスフィット）</p></li>
+</ul>
+<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="week12-階層モデル.html#cb594-1" tabindex="-1"></a><span class="fu">library</span>(performance)</span></code></pre></div>
+<pre><code>## Warning: package &#39;performance&#39; was built under R version 4.3.3</code></pre>
+<pre><code>## 
+## Attaching package: &#39;performance&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:arm&#39;:
+## 
+##     display</code></pre>
+<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="week12-階層モデル.html#cb598-1" tabindex="-1"></a><span class="fu">check_residuals</span>(res<span class="fl">.3</span>)</span></code></pre></div>
+<pre><code>## OK: Simulated residuals appear as uniformly distributed (p = 0.149).</code></pre>
+<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="week12-階層モデル.html#cb600-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">check_residuals</span>(res<span class="fl">.3</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-380-1.png" width="672" /></p>
+<!--   - 自己相関（Auto-correlation） -->
+<!-- - 帰無仮説：残差に自己相関はない（＝独立している） -->
+<!-- - 対立仮説：残差に自己相関がある -->
+<!-- ```{r} -->
+<!-- check_autocorrelation(res.3) -->
+<!-- ``` -->
+<div class="infobox">
+<p>ランダム効果を組み込んだ回帰分析を行う主な理由の一つに、<strong>縮約（shrinkage）</strong>という効果があります。縮約とは、各グループの極端な推定値が、全体の平均値（プーリングされた平均）に引き寄せられる現象を指します。この効果により、サンプル数が少ないグループや外れ値の影響が軽減され、より頑健で一般化可能な推定が可能になります。しかし、極端な推定値が実際に意味のあるものであった場合、縮約によってその効果が過小評価されてしまうという問題があります。たとえば、複数の種類の薬の効果を検証したい場合に、薬の種類をランダム効果に含めてモデルを構築すると、ある薬が他と明らかに異なる効果を示していたとしても、縮約によってその差が「なかったこと」になってしまう可能性があります。このようなケースでは、薬の種類ごとの効果を明確に比較したいという研究目的があるため、薬の種類をランダム効果としてではなく独立変数（固定効果）としてモデルに含める必要があります。<strong>つまり、何をランダム効果として設定するのかを研究課題・仮説の段階で決めておく必要があります。</strong></p>
+<ul>
+<li><p>以下の図は、気温と参加者の交互作用のモデルです。10番の参加者のデータのみ、右肩下がりとなっています。
+<img src="_main_files/figure-html/unnamed-chunk-382-1.png" width="672" /></p></li>
+<li><p>以下の図は気温と参加者の交互作用ではなく、独立変数に気温、ランダム効果に参加者を含めたモデルです。10番の参加者が他の参加者と同じ右肩上がりの傾向に変わっていることが分かります。
+<img src="_main_files/figure-html/unnamed-chunk-384-1.png" width="672" /></p></li>
 </ul>
 </div>
-<div id="因果関係の主張" class="section level4 hasAnchor" number="6.4.4.2">
-<h4><span class="header-section-number">6.4.4.2</span> 因果関係の主張<a href="week5-相関分析.html#因果関係の主張" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<ul>
-<li><p>相関分析では関係の強さの程度しか分からない。相関があることは必ずしも因果関係があることを示しているわけではない。</p>
-<ul>
-<li><p>e.g., <a href="https://www.biostat.jhsph.edu/courses/bio621/misc/Chocolate%20consumption%20cognitive%20function%20and%20nobel%20laurates%20(NEJM).pdf">チョコレートの消費量とノーベル賞受賞者の数に相関がみられた</a></p>
-<ul>
-<li>チョコレートを沢山食べると優秀な人材が育つんだね（✖ チョコレート→ ノーベル賞）</li>
-</ul></li>
-</ul></li>
-<li><p>第三の変数（共変量）による<strong>疑似相関</strong>の可能性もある</p>
-<ul>
-<li><p>チョコの例も、「豊かさ」による疑似相関かもしれない</p>
-<ul>
-<li>疑似相関の例：アイスクリームとビールの売り上げにおける「気温」、年収の高さと血圧における「年齢」</li>
-</ul></li>
-<li><p>第三の変数を考慮した相関係数の計算は回帰分析の回で扱います</p></li>
-</ul></li>
-<li><p>因果関係を調べるための条件</p>
-<ul>
-<li>ジョン・スチュアート・ミルは、以下の3つの条件を提示した</li>
-</ul>
+</div>
+</div>
+<div id="次週までの課題-11" class="section level2 hasAnchor" number="13.10">
+<h2><span class="header-section-number">13.10</span> 次週までの課題<a href="week12-階層モデル.html#次週までの課題-11" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="課題内容-10" class="section level3 hasAnchor" number="13.10.1">
+<h3><span class="header-section-number">13.10.1</span> 課題内容<a href="week12-階層モデル.html#課題内容-10" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
-<li><p>原因 <em>X</em> が結果 <em>Y</em> よりも時間的に先行している</p></li>
-<li><p>原因 <em>X</em> と結果 <em>Y</em> に共変関係がある</p></li>
-<li><p>他の因果的説明が排除されている</p></li>
+<li><p>小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。</p></li>
+<li><p>今回の講義のハンズオンセッションの内容を再度自分のRプログラム上で実行する。<strong>分析の最後に、結果の報告を行うこと。</strong></p></li>
 </ol>
-<ul>
-<li>つまり、時間的に先行する変数 <em>X</em> が他の変数からの影響を除外したうえで、変数 <em>Y</em> に関連があることを示す必要がある。</li>
-</ul></li>
-</ul>
 </div>
-</div>
-<div id="論文への記載" class="section level3 hasAnchor" number="6.4.5">
-<h3><span class="header-section-number">6.4.5</span> 論文への記載<a href="week5-相関分析.html#論文への記載" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li>検証する変数が多い場合、表として提示すると分かりやすい。</li>
-<li>特に焦点を当てたい個所を本文で言及する。</li>
-</ul>
-<p><strong>表 1 </strong></p>
-<p>英語、数学、日本語のテスト得点の記述統計と相関係数、95%信頼区間</p>
-<table>
-<thead>
-<tr class="header">
-<th>Variable</th>
-<th><em>M</em></th>
-<th><em>SD</em></th>
-<th>1</th>
-<th>2</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1. English</td>
-<td>49.45</td>
-<td>13.19</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>2. Math</td>
-<td>49.50</td>
-<td>14.09</td>
-<td>.64** [.41, .80]</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>3. Japanese</td>
-<td>49.35</td>
-<td>13.41</td>
-<td>.69** [.48, .82]</td>
-<td>.43** [.14, .65]</td>
-</tr>
-</tbody>
-</table>
-<p><strong>注.</strong> * <em>p</em> &lt; .05. ** <em>p</em> &lt; .01.</p>
-<ul>
-<li>3つのテスト得点の間には、統計的有意な相関関係がみられた（表1）。英語と日本語の相関係数が最も高く（<em>r</em> = .69, 95% CI [.48-.82], <em>t</em>(38) = 5.90, <em>p</em> &lt; .001）、数学と日本語の相関係数が最も低かった（<em>r</em> = .43, 95% CI [.14-.65], <em>t</em>(38) = 2.93, <em>p</em> = .006）。</li>
-</ul>
-</div>
-</div>
-<div id="次週までの課題-4" class="section level2 hasAnchor" number="6.5">
-<h2><span class="header-section-number">6.5</span> 次週までの課題<a href="week5-相関分析.html#次週までの課題-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="課題内容-4" class="section level3 hasAnchor" number="6.5.1">
-<h3><span class="header-section-number">6.5.1</span> 課題内容<a href="week5-相関分析.html#課題内容-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ol style="list-style-type: decimal">
-<li><p>小テストに向けて今回の内容を復習する。</p></li>
-<li><p>配布されたデータセット（<code>pokemon_data.csv</code>）をもとに、任意のデータに対して相関分析を行い、その解釈を本講義内で確認した書き方報告する。データの中身の確認や記述統計、データの可視化なども含めること。相関分析の結果をまとめた表は、必ずしも記載しなくてもよい。</p></li>
-<li><p>（再来週までに提出でOK）現時点での研究計画をまとめる。自分の研究に重要な先行研究でもOK。<strong>2の宿題とは別のR Markdownファイルにまとめて提出。</strong></p></li>
-</ol>
-<ul>
-<li><p>研究のキーワード3つ</p></li>
-<li><p>研究の背景（簡単な先行研究のまとめなど）</p>
-<ul>
-<li>日本語200字-400字程度でまとめる</li>
-</ul></li>
-<li><p>研究課題</p>
-<ul>
-<li>最大でも2つまで</li>
-</ul></li>
-<li><p>研究の方法</p>
-<ul>
-<li><p>どのようなデータをとるか（変数の説明、参加者の属性）</p>
-<ul>
-<li><p>e.g., Group：Aはビデオを見ながら単語を学んだグループ、Bは単語リストで学んだグループ</p></li>
-<li><p>e.g., 参加者：日本人大学生</p></li>
-</ul></li>
-<li><p>何を検証したいか</p>
-<ul>
-<li>e.g., Group Bの方がAに比べ、統計的有意にテストの点数が高い</li>
-</ul></li>
-</ul></li>
-<li><p>関連する研究の書誌情報を最低3つ挙げる</p>
-<ul>
-<li>e.g., Plonsky, L., &amp; Oswald, F. L. (2014). How big is “big”? Interpreting effect sizes in L2 research. <em>Language Learning, 64</em>(4), 878-912.</li>
-</ul></li>
-</ul>
-</div>
-<div id="提出方法-3" class="section level3 hasAnchor" number="6.5.2">
-<h3><span class="header-section-number">6.5.2</span> 提出方法<a href="week5-相関分析.html#提出方法-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="提出方法-9" class="section level3 hasAnchor" number="13.10.2">
+<h3><span class="header-section-number">13.10.2</span> 提出方法<a href="week12-階層モデル.html#提出方法-9" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>TACT上で提出。</li>
 <li>締め切りは今週の木曜日まで</li>
 </ul>
 </div>
 </div>
-<div id="参考文献-4" class="section level2 hasAnchor" number="6.6">
-<h2><span class="header-section-number">6.6</span> 参考文献<a href="week5-相関分析.html#参考文献-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="参考文献-11" class="section level2 hasAnchor" number="13.11">
+<h2><span class="header-section-number">13.11</span> 参考文献<a href="week12-階層モデル.html#参考文献-11" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>📚清水（編著）（2021）『心理学統計法 (放送大学教材 1638)』放送大学教育振興会</li>
-<li>📚竹内・水本（編著）（2023）『外国語教育研究ハンドブック【増補版】―研究手法のより良い理解のために』松柏社</li>
-<li>📚中村（2025）『心理学・教育学研究のための効果量入門―Rを用いた実践的理解』北大路書房</li>
-<li>📚南風原（2002）『心理統計学の基礎―統合的理解のために』有斐閣アルマ</li>
-<li>📚平井・岡・草薙（編著）（2022） 『教育・心理系研究のためのＲによるデータ分析―論文作成への理論と実践集』東京図書</li>
-<li>📄Messerli, F. H. (2012). Chocolate consumption, cognitive function, and Nobel laureates. <em>N Engl J Med, 367</em>(16), 1562-1564.</li>
-<li>📄Plonsky, L., &amp; Oswald, F. L. (2014). How big is “big”? Interpreting effect sizes in L2 research. <em>Language Learning, 64</em>(4), 878-912.</li>
-<li>💻<a href="https://www.pref.yamaguchi.lg.jp/soshiki/22/101008.html">おもしろ統計・120　疑似相関って知っていますか?</a></li>
+<li><p>📚久保（2012）『データ解析のための統計モデリング入門』岩波書店</p></li>
+<li><p>📚清水（2014）『個人と集団のマルチレベル分析』ナカニシヤ出版</p></li>
+<li><p>📚竹内・水本（編著）（2023）『外国語教育研究ハンドブック【増補版】―研究手法のより良い理解のために』松柏社</p></li>
+<li><p>📚馬場（2019）『RとStanではじめる　ベイズ統計モデリングによるデータ分析入門』講談社</p></li>
+<li><p>📄<a href="https://www.jstage.jst.go.jp/article/psychono/36/2/36_36.40/_article/-char/ja/">村山. (2018). 刺激の効果を侮るなかれ―ランダム刺激効果を含んだ線形混合モデルの重要性と落とし穴―. 基礎心理学研究, 36(2), 236-242.</a></p></li>
+<li><p>📄<a href="https://www.jstage.jst.go.jp/article/jjbf/45/2/45_93/_article/-char/ja/">山口. (2018). 【心理学系】混合効果モデルの利用: 刺激の変量効果への対処. バイオフィードバック研究, 45(2), 93-98.</a></p></li>
+<li><p>📄<a href="https://www.mdpi.com/2226-471X/10/2/20">Brysbaert, M. (2025). Applying Mixed-Effects Models in Research on Second Language Acquisition: A Tutorial for Beginners. <em>Languages, 10</em>(2), 20.</a></p></li>
+<li><p>📄<a href="https://www.cambridge.org/core/journals/studies-in-second-language-acquisition/article/bayesian-estimation-in-multiple-comparisons/ECFBBB9DC96176DB3EDEA45A327759CF">Garcia, G. D. (2024). Bayesian estimation in multiple comparisons. <em>Studies in Second Language Acquisition</em>, 1-27.</a></p></li>
+<li><p>📄<a href="https://www.degruyterbrill.com/document/doi/10.1515/iral-2022-0234/html">Terai, M., Fukuta, J., &amp; Tamura, Y. (2024). Learnability of L2 collocations and L1 influence on L2 collocational representations of Japanese learners of English. <em>International Review of Applied Linguistics in Language Teaching, 62</em>(4), 1959-1983.</a></p></li>
+<li><p>💻<a href="https://qiita.com/ocean_f/items/9de4c6bc60616e5a3cf2">glmやglmerによるパラメータ推定値と信頼区間をggplot2で描画する (easystats)</a></p></li>
+<li><p>💻<a href="https://stats.oarc.ucla.edu/r/dae/mixed-effects-logistic-regression/">Mixed Effects Logistic Regression | R Data Analysis Examples</a></p></li>
+<li><p>💻<a href="https://stats.stackexchange.com/questions/228800/crossed-vs-nested-random-effects-how-do-they-differ-and-how-are-they-specified">Crossed vs nested random effects: how do they differ and how are they specified correctly in lme4?</a></p></li>
 </ul>
 <style>
 .infobox {
@@ -728,7 +1040,16 @@ t = \frac{r}{\sqrt{1-r^2}}\sqrt{n-2}
 
 .caution {
   background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzMqkpQ7vLUKvumbm6AFwTLQiCe7tlDb2Q0MAiISLsesZHnhj0kbRjB4U3se3UrDIHfIy0hlahyphenhyphenQu-V2tOR2LcV_lX7U8P5a8jtqPYv3Ah4L-JoYi8PhoaoehumGIdp2vrsX0rRyhXqwA/s800/mark_chuui.png");}
-  
+
+p.comment {
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+font-style: italic;
+}
+
 </style>
 
 </div>
@@ -738,8 +1059,8 @@ t = \frac{r}{\sqrt{1-r^2}}\sqrt{n-2}
           </div>
         </div>
       </div>
-<a href="week-4-統計的検定.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="week6-単回帰分析連続型の説明変数.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="week-11-tidyverseパッケージによるデータの加工と可視化.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="week-12-効果量と検定力分析.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -770,7 +1091,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/05-week5.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/12-Week12_GLMM.Rmd",
 "text": "Edit"
 },
 "history": {

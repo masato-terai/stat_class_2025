@@ -1,4 +1,4 @@
-# Week11: 階層モデル
+# Week12: 階層モデル
 
 ```{r, include=FALSE}
 library(rstan)
@@ -13,7 +13,6 @@ rstan_options(auto_write = T)
 options(mc.cores = parallel::detectCores())
 ```
 
-## 🚧🚧🚧🚧（宿題を考える）
 
 ## 事前の確認
 
@@ -183,8 +182,12 @@ p1 + plot_layout(guides = "collect") & theme(legend.position = "bottom")
 
 
 ## ランダム切片 & 係数モデル
-```{r, echo=FALSE, fig.dim=c(8,10)}
-(p1 | p2 | p3) + plot_layout(guides = "collect") & theme(legend.position = "bottom")
+
+```{r, echo=FALSE}
+p3 +
+  plot_layout(guides = "collect") &
+  theme(legend.position = "bottom")
+
 ```
 
 
@@ -196,7 +199,9 @@ p1 + plot_layout(guides = "collect") & theme(legend.position = "bottom")
 - 最尤法、制限つき最尤法も従属変数の正規性と分散均一性の仮定がある。サンプルサイズが十分に大きい場合、切片や回帰係数の推定値は分布が歪んでいることによるバイアスを受けにくい。しかし、標準誤差は正しく推定されなくなるため、標準誤差を使って算出される有意性検定や信頼区間の推定にバイアスが発生することに注意が必要。
 
 ### データセットの構造に注意
-- これまでに使用してきたデータセットが必ずしもGLMMの分析に合うものではない。
+- (「**Week 11: Tidyverseパッケージによるデータの加工と可視化**」を参照してください)
+
+- これまでに使用してきたデータセットが必ずしもGLMMの分析に合うものではない
 
 - 各行には、一人の参加者の各項目が含まれているべきである
 
@@ -232,6 +237,17 @@ library(lme4)
 library(tictoc)
 ```
 
+- コンピュータのスペックはこんな感じです
+
+```{r, echo=FALSE}
+benchmarkme::get_cpu()
+```
+
+```{r, echo=FALSE}
+benchmarkme::get_ram()
+```
+
+
 - Terai et al. (2024)のデータを使用します。
 
 ```{r}
@@ -255,7 +271,11 @@ dat2 <- dat %>%
   ungroup()
 ```
 
-- 切片のみのモデル
+- 切片のみ（実験項目、参加者）のモデル
+
+  - 従属変数：反応速度
+  
+  - 独立変数：コロケーションの種類
 
 ```{r}
 tic()
@@ -275,7 +295,8 @@ summary(res.1)
 
 - 切片と係数のモデル
 
-- モデルが上手く収束していない
+- モデルが上手く収束しなかった
+
 ```{markdown}
 tic()
 res.2 <- glmer(
@@ -287,6 +308,12 @@ res.2 <- glmer(
                )
 toc()
 ```
+
+- **出力結果：**
+
+> 警告:  Model failed to converge with max|grad| = 0.00228081 (tol = 0.002, component 1) 警告:  Model is nearly unidentifiable: very large eigenvalue
+> - Rescale variables?
+
 
 - 中心化した変数だとうまくいった
 ```{r}
@@ -305,7 +332,7 @@ toc()
 summary(res.3)
 ```
 
-- 95% CI
+- 95% 信頼区間の算出（CI）
 ```{r}
 se <- sqrt(diag(vcov(res.3)))
 
@@ -323,8 +350,10 @@ tab
 
   - こちらは推定法の関係で時間がかかる
 
-```{markdown}
+```{r}
+tic()
 confint(res.3)
+toc()
 ```
 
 - オッズ比
@@ -341,18 +370,19 @@ exp(tab)
 anova(res.1, res.3)
 ```
 
-- ```performance```パッケージでモデルの当てはまり度合いを確認
 
-```{r, warning=FALSE, message=FALSE}
-#install.packages("performance")
-library(performance)
-compare_performance(res.1, res.3, rank = TRUE, verbose = FALSE)
-```
+<!-- - ```performance```パッケージでモデルの当てはまり度合いを確認 -->
+
+<!-- ```{r, warning=FALSE, message=FALSE} -->
+<!-- #install.packages("performance") -->
+<!-- library(performance) -->
+<!-- compare_performance(res.1, res.3, rank = TRUE, verbose = FALSE) -->
+<!-- ``` -->
 
 
-```{r}
-plot(compare_performance(res.1, res.3, rank = TRUE, verbose = FALSE))
-```
+<!-- ```{r} -->
+<!-- plot(compare_performance(res.1, res.3, rank = TRUE, verbose = FALSE)) -->
+<!-- ``` -->
 
 - 図示
 ```{r, warning=FALSE, message=FALSE}
@@ -366,25 +396,41 @@ plot(eff)
 
   - ```performance```パッケージが便利
 
-  - VIF
+  - VIF（多重共線性についての指標）
 
     - 今回は1変数しかないので確認の必要はない
 
 ```{markdown}
+#install.packages("performance")
+library(performance)
 check_collinearity(モデルの結果を格納した変数名)
 ```
 
-  - Outliers
+  - 外れ値
+
+  - *p* ≥ .05: 残差はモデル期待通り（≒一様分布）
+  
+  - *p* < .05: 残差がモデル期待とズレている（≒モデルのミスフィット）
 
 ```{r}
+library(performance)
 check_residuals(res.3)
 ```
 
-  - 自己相関（Auto-correlation）
-
 ```{r}
-check_autocorrelation(res.3)
+plot(check_residuals(res.3))
 ```
+
+
+<!--   - 自己相関（Auto-correlation） -->
+
+<!-- - 帰無仮説：残差に自己相関はない（＝独立している） -->
+
+<!-- - 対立仮説：残差に自己相関がある -->
+
+<!-- ```{r} -->
+<!-- check_autocorrelation(res.3) -->
+<!-- ``` -->
 
 
 ::: infobox
@@ -440,10 +486,7 @@ plot(eff_2, points = TRUE)
 
 1. 小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。
 
-2. （宿題を考える）
-- ハンズオンセッションで使用したデータを基にサムコントラストで分析をしてみましょう
-
-- **Rで数値を出力するだけでなく、それぞれの質問への回答を高校生にもわかりやすく文字で記載してください。**
+2. 今回の講義のハンズオンセッションの内容を再度自分のRプログラム上で実行する。**分析の最後に、結果の報告を行うこと。**
 
 ### 提出方法
 - TACT上で提出。
