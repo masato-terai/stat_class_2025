@@ -1,4 +1,4 @@
-# Week 13: ノンパラメトリック検定
+# Week 14: ノンパラメトリック検定
 
 ```{r, include=FALSE}
 library(gt)

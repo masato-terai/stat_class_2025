@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Week 4: 統計的検定 | 言語統計処理（春学期）</title>
-  <meta name="description" content="Chapter 5 Week 4: 統計的検定 | 言語統計処理（春学期）" />
+  <title>Chapter 14 Week 13: 効果量と検定力分析 | 言語統計処理（春学期）</title>
+  <meta name="description" content="Chapter 14 Week 13: 効果量と検定力分析 | 言語統計処理（春学期）" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Week 4: 統計的検定 | 言語統計処理（春学期）" />
+  <meta property="og:title" content="Chapter 14 Week 13: 効果量と検定力分析 | 言語統計処理（春学期）" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Week 4: 統計的検定 | 言語統計処理（春学期）" />
+  <meta name="twitter:title" content="Chapter 14 Week 13: 効果量と検定力分析 | 言語統計処理（春学期）" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="week-3推測統計学.html"/>
-<link rel="next" href="week5-相関分析.html"/>
+<link rel="prev" href="week12-階層モデル.html"/>
+<link rel="next" href="week-14-ノンパラメトリック検定.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -377,10 +377,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="week-4-統計的検定" class="section level1 hasAnchor" number="5">
-<h1><span class="header-section-number">Chapter 5</span> Week 4: 統計的検定<a href="week-4-統計的検定.html#week-4-統計的検定" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="事前の確認-2" class="section level2 hasAnchor" number="5.1">
-<h2><span class="header-section-number">5.1</span> 事前の確認<a href="week-4-統計的検定.html#事前の確認-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="week-13-効果量と検定力分析" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">Chapter 14</span> Week 13: 効果量と検定力分析<a href="week-13-効果量と検定力分析.html#week-13-効果量と検定力分析" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="事前の確認-11" class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">14.1</span> 事前の確認<a href="week-13-効果量と検定力分析.html#事前の確認-11" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><p>この講義のRプロジェクトを開いていますか？</p></li>
 <li><p>英数字で名前を付けた本日の講義のファイルを作成しましたか？</p>
@@ -389,540 +389,400 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 </div>
-<div id="今日の目標-2" class="section level2 hasAnchor" number="5.2">
-<h2><span class="header-section-number">5.2</span> 今日の目標<a href="week-4-統計的検定.html#今日の目標-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="今日の目標-11" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">14.2</span> 今日の目標<a href="week-13-効果量と検定力分析.html#今日の目標-11" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
-<li>統計的検定の論理や手順を理解できる</li>
-<li><em>t</em> 検定をRで実装し、分析結果を報告することができる</li>
+<li>効果量と検定力分析について理解できる</li>
+<li>検定力分析をRを用いて行うことができる</li>
 </ol>
 </div>
-<div id="統計的検定statistical-test" class="section level2 hasAnchor" number="5.3">
-<h2><span class="header-section-number">5.3</span> 統計的検定（statistical test）<a href="week-4-統計的検定.html#統計的検定statistical-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="効果量" class="section level2 hasAnchor" number="14.3">
+<h2><span class="header-section-number">14.3</span> 効果量<a href="week-13-効果量と検定力分析.html#効果量" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="効果量の重要性" class="section level3 hasAnchor" number="14.3.1">
+<h3><span class="header-section-number">14.3.1</span> 効果量の重要性<a href="week-13-効果量と検定力分析.html#効果量の重要性" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li><p>母数についての推定（例「日本人の男子の平均身長は170 cmだ」）が合っているかを、統計学的に検定する</p>
+<li><p>統計的検定の問題点：サンプルサイズが大きくなればなるほど、実質的に差がなくても統計的有意であるという結果になりやすい。</p>
 <ul>
-<li>使用する標本は、母集団から無作為抽出していることを前提にしている = 標本は母集団を代表している</li>
+<li><p><em>p</em> 値のみに注目するのは危険</p></li>
+<li><p><em>p</em> 値は実質的な差の大小は教えてくれない</p></li>
 </ul></li>
-<li><p>大別して2種類ある</p>
-<ul>
-<li><strong>パラメトリック検定</strong>： 母数（パラメータ）に特定の確率分布の仮定を設ける検定（例 <em>t</em> 検定、分散分析）
-<ul>
-<li>注：確率分布の形状を決める値（正規分布の平均と標準偏差など）もパラメータと呼ぶ。本講義ではパラメータは母数ではなく、確率分布を規定する値を指す。</li>
-</ul></li>
-<li><strong>ノンパラメトリック検定</strong>：母集団に特定の確率分布を仮定しない検定（例 カイ二乗検定）</li>
-</ul></li>
+<li><p><em>p</em> 値のみではなく、効果量の両方を報告する</p></li>
 </ul>
-<div id="統計的検定の論理" class="section level3 hasAnchor" number="5.3.1">
-<h3><span class="header-section-number">5.3.1</span> 統計的検定の論理<a href="week-4-統計的検定.html#統計的検定の論理" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="効果量とは" class="section level3 hasAnchor" number="14.3.2">
+<h3><span class="header-section-number">14.3.2</span> 効果量とは<a href="week-13-効果量と検定力分析.html#効果量とは" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li><p>母集団からサンプリングした標本から、母数についての推定が合っているかを議論できない。しかし、確率的な範囲であれば、推定が間違っているかを確かめることができる。</p>
+<li><p>広義の効果量：統計的帰無仮説検定に依存していない</p>
 <ul>
-<li>標本から計算した95%信頼区間が160 cmから167cmだった場合、母数は170cmよりも小さい（推定は誤り）</li>
-<li>標本から計算した95%信頼区間が167 cmから175cmだった場合、推定が合っているか誤りなのか分からない（信頼区間が170 cmを含んでいるから）</li>
+<li>「研究者が関心を持つ事柄の大きさ」</li>
 </ul></li>
-<li><p>推測統計学における統計的検定の論理では、「母数についての等号（ = ）の仮説」が偽であることは言えるが、正しいとは言えない。</p></li>
-<li><p>「母数の等号についての仮説」を<strong>帰無仮説（null hypothesis）</strong>と呼ぶ</p>
+<li><p>狭義の効果量：統計的帰無仮説検定に深く根差している（Cohenの定義）</p>
 <ul>
-<li><p>帰無仮説は以下のように表す（<em>H</em>はhypothesisの頭文字）<span class="math display">\[H_0: u = 170\]</span></p></li>
-<li><p>統計的検定では、帰無仮説が偽であるかを検定する。</p>
+<li><p>「現象が母集団に存在する程度、あるいは帰無仮説が偽である程度」</p>
 <ul>
-<li><p><strong>背理法</strong>に似た方法であり、証明したい主張の否定の仮説を立て、得られた結果から主張できる結論が「矛盾」であることを示すことで、主張が正しいことを証明する。</p>
-<ul>
-<li>例：「世界には白いカラスがいる」と主張したい</li>
-<li>「全てのカラスは黒い」という仮説を立てる（<strong>帰無仮説</strong>）</li>
-<li>1羽でも白いカラスが見つかれば、帰無仮説は偽であり、「世界には白いカラスがいる」と主張できる。
-<ul>
-<li>仮説が偽と主張する（否定する）方が簡単</li>
+<li>標準化効果量が使用される。測定単位に依存しないため、様々な研究間で比較しやすい。</li>
 </ul></li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li><p><strong>対立仮説</strong>：帰無仮説の否定</p></li>
-</ul>
-<p><span class="math display">\[H_1: u ≠ 170\]</span></p>
-<ul>
-<li><p>帰無仮説が否定されれば、対立仮説が真となる</p></li>
-<li><p>帰無仮説が偽であると判断できない場合、帰無仮説は保留になる（= 分からない）。</p>
-<ul>
-<li>帰無仮説は真であるということはできない。</li>
 </ul></li>
 </ul>
 </div>
-<div id="統計検定の具体的な考え方" class="section level3 hasAnchor" number="5.3.2">
-<h3><span class="header-section-number">5.3.2</span> 統計検定の具体的な考え方<a href="week-4-統計的検定.html#統計検定の具体的な考え方" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="標準化効果量の概念的理解" class="section level3 hasAnchor" number="14.3.3">
+<h3><span class="header-section-number">14.3.3</span> 標準化効果量の概念的理解<a href="week-13-効果量と検定力分析.html#標準化効果量の概念的理解" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li><p>帰無仮説が正しいと仮定する。標本から計算された統計量の実現値が、標本分布から考えて<strong>十分低い</strong>確率でしか生じないような値であれば、帰無仮説が偽であると判断する</p>
+<li><p>標準化とは、単位に依存しない値にする</p>
 <ul>
-<li>注意点として、選んだ確率モデル（確率分布）が妥当でない場合、検定の結果も妥当ではなくなる。以下の例では、母集団からの標本抽出が正規分布で近似できるという仮定のもと行う。</li>
-</ul></li>
-<li><p>例：
-2025年度にT先生のクラス（40人）で実施された英語テストの平均点は60点であった。昨年度の平均点は55点であり、2025年度の平均点は、昨年度の平均点に比べ十分に高い得点であるかを検定する。</p>
-<ul>
-<li>帰無仮説 <em>u</em> = 55の下で、得点が平均パラメータ <em>u</em> = 50の正規分布に従うと仮定。</li>
-<li>クラス平均は60点、標準偏差は3であると分かった。</li>
-<li>母分散が分からない場合、<em>t</em> 統計量を用いる。</li>
+<li>例えば、 Cohenの <em>d</em> は以下のように、二群の平均値さを標準偏差（ <em>σ</em> ）で割ることで標準化している</li>
 </ul></li>
 </ul>
-<p><span class="math display">\[t = \frac{\overline{x} - \mu_0}{\frac{u}{\sqrt{n}}}\]</span></p>
-<ul>
-<li>上記の値を代入し、</li>
-</ul>
-<p><span class="math display">\[t = \frac{\overline{60} - 55}{\frac{3}{\sqrt{40}}}\]</span></p>
-<ul>
-<li>計算すると、 <em>t</em> = 10.54となる。このような検定のための統計量を<strong>検定統計量</strong>という。</li>
-</ul>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="week-4-統計的検定.html#cb124-1" tabindex="-1"></a>(<span class="dv">60-55</span>)<span class="sc">/</span>(<span class="dv">3</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">40</span>))</span></code></pre></div>
-<pre><code>## [1] 10.54093</code></pre>
-<ul>
-<li>自由度が39（40-1）で95%の範囲は0±2.02であるため、得られた<em>t</em>値がこの絶対値より大きいと棄却域に（青く塗られた箇所）に入ることになる。帰無仮説が真であると仮定したときの検定統計量の標本分布のことを<strong>帰無分布（null distribution）</strong>という。</li>
-<li>棄却域が占める割合を<strong>有意水準（significance level）</strong>と言い、<em>α</em>と表記する。慣例的に、両側合わせて0.05が用いられる。</li>
-</ul>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="week-4-統計的検定.html#cb126-1" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> (<span class="dv">40-1</span>))</span></code></pre></div>
-<pre><code>## [1] 2.022691</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
-<ul>
-<li><p>得られた<em>t</em>値は2.02よりも大きく、棄却域に入る。従って、帰無仮説が真であると考えると、非常に小さい確率でしか起きない結果が得られたという帰無仮説が真であるという仮定と矛盾した結果となっている。この場合、<strong>統計的に有意</strong>であると表現する。</p>
-<ul>
-<li>つまり、「2025年度の平均点60点は、昨年度よりも統計的有意に高い得点である。」と主張できる。</li>
-</ul></li>
-</ul>
-<div class="infobox">
-<p>2025年度の得点が昨年度よりも統計的有意に高いことは、<strong>全員の得点が昨年度よりも高いことを必ずしも意味しない</strong>ということに注意。比較しているのはあくまでも<strong>平均点</strong>。以下のどちらのデータでも統計的有意差が得られる。</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="week-4-統計的検定.html#cb128-1" tabindex="-1"></a><span class="fu">summary</span>(data1)</span></code></pre></div>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   55.00   58.33   60.27   60.16   62.08   65.36</code></pre>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="week-4-統計的検定.html#cb130-1" tabindex="-1"></a><span class="fu">summary</span>(data2)</span></code></pre></div>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   52.88   54.14   57.34   58.11   61.45   66.51</code></pre>
-<ul>
-<li>黒い点線は平均値55点
-<img src="_main_files/figure-html/unnamed-chunk-70-1.png" width="672" /></li>
-</ul>
-</div>
-</div>
-</div>
-<div id="統計的検定の手順" class="section level2 hasAnchor" number="5.4">
-<h2><span class="header-section-number">5.4</span> 統計的検定の手順<a href="week-4-統計的検定.html#統計的検定の手順" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ol style="list-style-type: decimal">
-<li>確率モデルの設定</li>
-</ol>
-<ul>
-<li><p>母数について仮説を立てる。この母数は確率モデル（確率分布）のパラメータと対応しているという仮定が必要。</p>
-<ul>
-<li>先行研究の結果、得られたデータの分布などから適切な確率モデルを選ぶ必要がある</li>
-</ul></li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li>帰無仮説の設定</li>
-</ol>
-<ul>
-<li><p>例えば、映画を見ると英単語の学習に効果的だということを調べる場合、映画を見る群と、映画を見ない群を用意する。二つの群の平均値の差が0でなければ、映画を見ることに何らかな効果があると主張できる。この場合、以下のような帰無仮説を立てる。</p>
-<ul>
-<li>帰無仮説：二つの群の平均値差は0</li>
-</ul></li>
-</ul>
-<ol start="3" style="list-style-type: decimal">
-<li>検定統計量の設定</li>
-</ol>
-<ul>
-<li>母分散が分からないため、<em>t</em> 統計量を用いるなど</li>
-</ul>
-<ol start="4" style="list-style-type: decimal">
-<li>有意水準（ <em>α</em> ）の設定</li>
-</ol>
-<ul>
-<li><p>慣例的に言語研究の分野では5%が用いられる。</p></li>
-<li><p>帰無仮説を偽とする場合でも、最大5%程度はそれが間違えている可能性を表す。</p>
-<ul>
-<li>結果を見て有意水準を大きくするのは、研究倫理に反するとみられる可能性が大いにある。
-<ul>
-<li>分析の前に0.05よりも大きくすることはよい。</li>
-</ul></li>
-</ul></li>
-</ul>
-<ol start="5" style="list-style-type: decimal">
-<li>検定統計量の実現値の計算</li>
-</ol>
-</div>
-<div id="統計的検定で必要な知識" class="section level2 hasAnchor" number="5.5">
-<h2><span class="header-section-number">5.5</span> 統計的検定で必要な知識<a href="week-4-統計的検定.html#統計的検定で必要な知識" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="p-値" class="section level3 hasAnchor" number="5.5.1">
-<h3><span class="header-section-number">5.5.1</span> <em>p</em> 値<a href="week-4-統計的検定.html#p-値" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p>帰無仮説が正しいと仮定したときに、現在観察されたデータと同じか、より稀にしか起こらないようなデータが観察される確率</p>
-<ul>
-<li><em>P</em> 値はデータが観測されて初めて計算される値であり、検定を行う前に設定される有意水準とは明確に異なる概念。ただし、<em>p</em> 値の計算に用いられる分布は、有意水準に基づく<strong>棄却域（臨界値）</strong>の設定にも使われるため、<em>p</em> 値が有意水準を下回れば、「帰無仮説は棄却される」と判断される。</li>
-</ul></li>
-<li><p>検定統計量を変換し、有意水準と比較しやすくしたもの</p>
-<ul>
-<li>検定統計量の実現値が大きいほど <em>p</em> 値は小さくなる</li>
-</ul></li>
-<li><p>上記の手順では、検定統計量の実現値と棄却域の範囲を確認して、帰無仮説が棄却されるかを判断していた。しかし、コンピュータソフトウェアでは、<em>p</em> 値が表示され、この値が事前に設定した有意水準よりも大きいかもしくは小さいかを確認して棄却の有無を判断する。</p></li>
-</ul>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="week-4-統計的検定.html#cb132-1" tabindex="-1"></a><span class="fu">t.test</span>(df<span class="sc">$</span>Data1, <span class="at">mu =</span> <span class="dv">55</span>)</span></code></pre></div>
-<pre><code>## 
-##  One Sample t-test
-## 
-## data:  df$Data1
-## t = 12.351, df = 39, p-value = 4.691e-15
-## alternative hypothesis: true mean is not equal to 55
-## 95 percent confidence interval:
-##  59.31461 61.00448
-## sample estimates:
-## mean of x 
-##  60.15955</code></pre>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="week-4-統計的検定.html#cb134-1" tabindex="-1"></a><span class="fu">t.test</span>(df<span class="sc">$</span>Data2, <span class="at">mu =</span> <span class="dv">55</span>)</span></code></pre></div>
-<pre><code>## 
-##  One Sample t-test
-## 
-## data:  df$Data2
-## t = 4.4932, df = 39, p-value = 6.106e-05
-## alternative hypothesis: true mean is not equal to 55
-## 95 percent confidence interval:
-##  56.70752 59.50353
-## sample estimates:
-## mean of x 
-##  58.10553</code></pre>
-<div class="infobox">
-<p>e-やe+は指数的記法。6.106e-05であれば、6.106 × 10^(-5)なので、0.を合わせて0が5つ6の前につく。6.106e+05であれば6.106 × 10^5。Rでは<code>options</code>関数で通常の値に戻して表示可能。</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="week-4-統計的検定.html#cb136-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
-<span id="cb136-2"><a href="week-4-統計的検定.html#cb136-2" tabindex="-1"></a><span class="fu">t.test</span>(df<span class="sc">$</span>Data2, <span class="at">mu =</span> <span class="dv">55</span>)</span></code></pre></div>
-<pre><code>## 
-##  One Sample t-test
-## 
-## data:  df$Data2
-## t = 4.4932, df = 39, p-value = 0.00006106
-## alternative hypothesis: true mean is not equal to 55
-## 95 percent confidence interval:
-##  56.70752 59.50353
-## sample estimates:
-## mean of x 
-##  58.10553</code></pre>
-</div>
-</div>
-<div id="統計的検定の誤りと検出力" class="section level3 hasAnchor" number="5.5.2">
-<h3><span class="header-section-number">5.5.2</span> 統計的検定の誤りと検出力<a href="week-4-統計的検定.html#統計的検定の誤りと検出力" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p>第一種の誤り（type Ⅰ error）</p>
-<ul>
-<li><p>帰無仮説が真なのに、誤って偽だと主張すること（本当は差がないのに差があると判断する）</p></li>
-<li><p>有意水準 <em>α</em> の値と一致</p>
-<ul>
-<li>統計的検定では、限界点として、100%正しいことは保証されない。有意水準が5%であれば、5%の誤った主張を許すことになる。</li>
-</ul></li>
-</ul></li>
-<li><p>第二種の誤り（type Ⅱ error）</p>
-<ul>
-<li><p>帰無仮説が偽なのに、それを偽であると言えない（保留）すること（本当は差があるのに差がないと判断する）</p></li>
-<li><p><em>β</em> で表す</p></li>
-</ul></li>
-</ul>
-<div class="float">
-<img src="https://www.statisticssolutions.com/wp-content/uploads/2017/12/rachnovblog-1024x413.jpg" alt="image source: https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/" />
-<div class="figcaption">image source: <a href="https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/" class="uri">https://www.statisticssolutions.com/to-err-is-human-what-are-type-i-and-ii-errors/</a></div>
-</div>
-<ul>
-<li><p>検出力（power）</p>
-<ul>
-<li><p>帰無仮説が偽であるとき、正しく帰無仮説を棄却できる確率</p></li>
-<li><p>1 - <em>β</em> で表す</p></li>
-<li><p><strong>統計的検定では、<em>α</em> を維持しながら検出力を高くするのが望ましい</strong></p></li>
-<li><p>大きい効果ほど、大きい標本サイズほど、統計的有意を検出しやすくなる</p>
-<ul>
-<li><p>有意水準を小さくすると、第二種の誤りが大きくなる = <em>α</em> を小さくすると、<em>β</em> は大きくなる</p></li>
-<li><p>帰無分布と真の母数の標本分布が離れるため、検出力は、帰無仮説と母平均の差が大きいほど、標本サイズが大きいほど大きくなる。</p></li>
-</ul></li>
-</ul></li>
-</ul>
-<div class="infobox">
-<p>サンプルサイズ・検定力・有意水準に加え、<strong>効果量（effect size）</strong>も連動している。効果量は後の講義で詳しく扱うが、簡単に説明すると、関心を持つ事柄の大きさである。4つのうち、3つが分かれば、自動的に残りの1つの値を特定できる。これを利用したのが<strong>検定力分析（power analysis）</strong>である。これを<strong>実験前に</strong>使うことで、どれくらいの標本を収集すべきかを検討できる。近年の研究では、参加者の数を検定力分析で決めているかを重視する（査読で！）動きがある。</p>
-</div>
-</div>
-<div id="有意性検定-統計的検定の問題点" class="section level3 hasAnchor" number="5.5.3">
-<h3><span class="header-section-number">5.5.3</span> 有意性検定（≒ 統計的検定）の問題点<a href="week-4-統計的検定.html#有意性検定-統計的検定の問題点" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p>有意確率（ <em>p</em> &lt; 0.05）だけに結果の解釈を頼るのはよくない</p>
-<ul>
-<li><p>無作為抽出を前提としていても、必ず得られた結果に<strong>誤差</strong>が含まれている</p></li>
-<li><p>標本サイズに大きく左右される</p></li>
-</ul></li>
-<li><p>統計的検定における誤差と問題点の対処法</p></li>
-</ul>
-<ol style="list-style-type: decimal">
-<li>できるだけ母集団を代表するサンプルを得る</li>
-<li>信頼区間を報告する</li>
-<li>検定力分析で標本サイズを事前に決める</li>
-<li>効果量を報告する</li>
-</ol>
-<!-- ::: infobox -->
-<!-- 言語研究における効果量は、Neyman-Pearson流の理論に基づくことがほとんど。 -->
-<!-- ::: -->
-</div>
-<div id="頻度論的統計学とベイズ統計学" class="section level3 hasAnchor" number="5.5.4">
-<h3><span class="header-section-number">5.5.4</span> 頻度論的統計学とベイズ統計学<a href="week-4-統計的検定.html#頻度論的統計学とベイズ統計学" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p>ここまで説明してきた話 + この講義のほとんどの説明における統計学は、頻度論的統計学（frequentist statistics）と呼ばれる枠組み。</p>
-<ul>
-<li><p>検定において用いる数学的手法が異なる。頻度 vs. ベイズのような「主義の違いによる対立構造」は避けた方がよい</p>
-<ul>
-<li><a href="https://statmodeling.stat.columbia.edu/2024/01/08/bayesians-are-frequentists-2/">参考: Bayesians are frequentists.</a></li>
-</ul></li>
-<li><p>母集団からサンプリングする（標本を抽出する）のは繰り返すことができる試行において起こる事象の相対頻度（frequency）をもとに行われる。例えば、サイコロを14回降って、1の目が3回出た場合、1が出る確率は <span class="math inline">\(\frac{3}{14}\)</span> になる。これを<strong>頻度論的確率</strong>と呼び、人間の主観や信念に依存しない客観的な確率である。</p>
-<ul>
-<li><p>確率とは無限回試行を行ったときの割合</p></li>
-<li><p>仮説の評価を <em>p</em> 値を用いて行う</p>
-<ul>
-<li>「帰無仮説のもとでデータが得られる確率」を計算する</li>
-</ul></li>
-<li><p>データを追加して再度分析する際、、適切な方法を用いないと、計算された<em>p</em> 値と有意水準が当初の値から変わってしまう（検定力分析が重要な理由）</p></li>
-</ul></li>
-</ul></li>
-<li><p><strong>ベイズ統計学</strong>では、<strong>主観確率</strong>（「明日は30%で晴れるだろう」）と客観確率（「10日3日晴れたから明日は晴れるだろう」）の両方を検定に使用する。</p>
-<ul>
-<li><p>ベイズ統計学では <em>p</em> 値は使わない</p></li>
-<li><p>ベイズ統計では、データを追加して再度分析することはOK（データの二度漬けをしない限り）</p></li>
-</ul></li>
-<li><p>頻度論的統計学、ベイズ統計学どちらにおいても、「無作為抽出により標本が母集団を代表している」「母集団からのサンプリングを近似していること」という前提が重要</p>
-<ul>
-<li>ベイズ統計学の方が道具的に使いやすいと考えることもできる</li>
-</ul></li>
-</ul>
-<!-- ::: infobox -->
-<!-- フローチャート的な統計分析は推奨されません。分析の前に、分析するデータの母集団がどのような形状なのか、この分析方が正しいのかなど十分検討することが重要です。 -->
-<!-- ::: -->
-</div>
-</div>
-<div id="ハンズオンセッション-2" class="section level2 hasAnchor" number="5.6">
-<h2><span class="header-section-number">5.6</span> ハンズオンセッション<a href="week-4-統計的検定.html#ハンズオンセッション-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="t-検定" class="section level3 hasAnchor" number="5.6.1">
-<h3><span class="header-section-number">5.6.1</span> <em>t</em> 検定<a href="week-4-統計的検定.html#t-検定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p><em>t</em> 分布に照らし合わせて、2群の平均値の差を検証する場合に用いる。</p>
-<ul>
-<li>平均値だけでなく、分散（データのばらつき）も考慮される</li>
-</ul></li>
-</ul>
-</div>
-<div id="基本用語" class="section level3 hasAnchor" number="5.6.2">
-<h3><span class="header-section-number">5.6.2</span> 基本用語<a href="week-4-統計的検定.html#基本用語" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="対応のありなし" class="section level4 hasAnchor" number="5.6.2.1">
-<h4><span class="header-section-number">5.6.2.1</span> 対応のあり・なし<a href="week-4-統計的検定.html#対応のありなし" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<ul>
-<li><p>対応あり（repeated measures）：同じ参加者からの2種類のデータ（例 同じ参加者の国語と英語の点数）</p></li>
-<li><p>対応なし（independent measures）：異なる参加者からなる2種類のデータ（例 1年生と2年生の英語の点数）</p>
-<ul>
-<li>実験群（experimental group）と統制群（control group）</li>
-</ul></li>
-</ul>
-</div>
-</div>
-<div id="t-検定を使用する前提" class="section level3 hasAnchor" number="5.6.3">
-<h3><span class="header-section-number">5.6.3</span> <em>t</em> 検定を使用する前提<a href="week-4-統計的検定.html#t-検定を使用する前提" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ol style="list-style-type: decimal">
-<li>データの種類：間隔尺度または比例尺度</li>
-<li>サンプリング：母集団から無作為抽出され、母集団を十分代表していること</li>
-<li>正規性：標本平均の分布が正規分布に従うこと。少々外れている場合は正規性に対して頑健であるためOK。大きく外れている場合はノンパラメトリック版の <em>t</em> 検定を検討することも考えれるが、ウェルチの <em>t</em> 検定を用いることをできるだけ優先する方がいい場合が多い。ノンパラメトリック検定にも使用する前提がある。</li>
-<li>（対応なしの場合のみ）等分散性：比較する2群のデータの分散が等しいこと（= 母分散が等しい集団からデータがサンプリングされていること）。 <em>t</em> 検定は母分散の等質性に関しても頑健であるため、グループのサンプルサイズが等しい場合、分析結果が歪むことはほとんどない。</li>
-</ol>
-<ul>
-<li>ウェルチの <em>t</em> 検定を使うのがよい = <em>t</em> 検定の場合、基本ウェルチの<em>t</em> 検定を使う</li>
-</ul>
-<ol start="5" style="list-style-type: decimal">
-<li>（対応なしの場合のみ）観測値の独立性：データがお互いに影響し合い相関が高い場合、第一種の過誤が起こりやすくなる</li>
-</ol>
-<div class="alert alert-info">
-<p><strong>重要</strong> <br>
-正規性の検定や等分散性の検定を行うことを推奨されることがあるが、このような事前テストは第一種&amp;第二種の過誤の確率を高めることが報告されている（e.g., Rasch et al. [2011]）。そのため、そのような検定を行わず、ウェルチの<em>t</em> 検定を行う方がよい。</p>
-</div>
-</div>
-<div id="t-値の算出" class="section level3 hasAnchor" number="5.6.4">
-<h3><span class="header-section-number">5.6.4</span> <em>t</em> 値の算出<a href="week-4-統計的検定.html#t-値の算出" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><p><em>t</em> 検定は、その誤差が偶然にしてはどの程度大きいかを調べる検定</p></li>
-<li><p>標本平均の標本誤差：差がどれだけ偶然の誤差によって起きるかを推定</p></li>
-<li><p><em>t</em> 値を求めて、設定した有意水準と自由度（ <em>df</em> : Degree of Freedom）から、 <em>t</em> 値の棄却域を求める。求めた値より <em>t</em> 値が大きければ、帰無仮説を棄却する。</p></li>
-</ul>
-<p><span class="math display">\[t\ =\ \frac{観測された標本平均の差}{標本平均の差の標準誤差}\]</span></p>
-<div id="対応なし-t-検定サンプルサイズが等しい" class="section level4 hasAnchor" number="5.6.4.1">
-<h4><span class="header-section-number">5.6.4.1</span> 対応なし <em>t</em> 検定（サンプルサイズが等しい）<a href="week-4-統計的検定.html#対応なし-t-検定サンプルサイズが等しい" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><span class="math display">\[
-t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}} \hspace{3pc} (df = n_1 + n_2 - 2)
+d = \frac{u_1 - u_2}{σ}
+\]</span></p>
+</div>
+<div id="様々な検定の標準化効果量" class="section level3 hasAnchor" number="14.3.4">
+<h3><span class="header-section-number">14.3.4</span> 様々な検定の標準化効果量<a href="week-13-効果量と検定力分析.html#様々な検定の標準化効果量" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>水本・竹内（2010）より引用</li>
+</ul>
+<p><img src="stat_class_2025/docs/picture/eff_size.png" width="80%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="効果量の解釈" class="section level3 hasAnchor" number="14.3.5">
+<h3><span class="header-section-number">14.3.5</span> 効果量の解釈<a href="week-13-効果量と検定力分析.html#効果量の解釈" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>（Week 5: 相関分析、相関係数の大きさより修正しつつ再掲）</p></li>
+<li><p>Cohenの効果量のベンチマークは広く使用されている指標である。しかし、これはもともとすべての分野に適応することを意図したものではなく、行動科学分野の研究に基づき作成されたものであった。</p>
+<ul>
+<li>小（small）： .10、中（Medium）：.30、大（Large）：.50</li>
+</ul></li>
+<li><p>効果量の大きさは文脈（e.g., 研究分野や研究対象）において解釈する必要がある。</p>
+<ul>
+<li>例）リーディングのテスト得点とリスニングのテスト得点が <em>r</em> = .50の場合と、聞いた音を書きだすテストの得点と聴解のテスト得点が <em>r</em> = .50</li>
+</ul></li>
+<li><p>第二言語習得研究における相関係数の目安として提示された例</p></li>
+</ul>
+<blockquote>
+<p>“For correlation coefficients, we suggest that rs close to .25 be considered small, .40 medium, and .60 large. These values correspond roughly to the 25th, 50th, and 75th percentiles in our primary and meta-analytic samples.” (Plonsky &amp; Oswald, 2014)</p>
+</blockquote>
+</div>
+<div id="研究開始前における効果量の活用" class="section level3 hasAnchor" number="14.3.6">
+<h3><span class="header-section-number">14.3.6</span> 研究開始前における効果量の活用<a href="week-13-効果量と検定力分析.html#研究開始前における効果量の活用" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>統計的帰無仮説検定を行う場合、事前に必要なサンプルサイズを見積もる必要がある（次セクションの検定力）</p>
+<ul>
+<li><p>検定力分析には効果量が必要となり、その場合、最小関心効果量を決定する。最小である理由は、効果量を大きく設定するほど、必要サンプル数が減るため、謙虚な値で推定するため。</p>
+<ul>
+<li>先行研究などで最小関心効果量を設定する必要がある</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="検定力分析" class="section level2 hasAnchor" number="14.4">
+<h2><span class="header-section-number">14.4</span> 検定力分析<a href="week-13-効果量と検定力分析.html#検定力分析" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div style="border: 2px solid skyblue; padding: 10px;">
+<p>手元のRでコードを動かしながらやってみましょう。データの読み込みなどはいりません。</p>
+</div>
+<ul>
+<li><p>統計的帰無仮説検定では、第一種の過誤、第二種の過誤、サンプルサイズ、そして効果量によってその結果が決まる。つまり、4つのうち3つが決まれば、残りの一つは自動的に決まる。この関係性を利用し、サンプルサイズを推定する。</p></li>
+<li><p>検定力とは、1 - 第二種の過誤で求められ、慣習的に0.8に設定されることが多い</p></li>
+</ul>
+<div id="独立した2群の-t-検定の例" class="section level3 hasAnchor" number="14.4.1">
+<h3><span class="header-section-number">14.4.1</span> 独立した2群の <em>t</em> 検定の例<a href="week-13-効果量と検定力分析.html#独立した2群の-t-検定の例" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>危険率（有意水準）： 0.05</p></li>
+<li><p>検定力： 0.8</p></li>
+<li><p>効果量: 0.4</p></li>
+</ul>
+<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="week-13-効果量と検定力分析.html#cb600-1" tabindex="-1"></a><span class="co">#install.packages(&quot;pwr&quot;)</span></span>
+<span id="cb600-2"><a href="week-13-効果量と検定力分析.html#cb600-2" tabindex="-1"></a>res <span class="ot">&lt;-</span> pwr<span class="sc">::</span><span class="fu">pwr.t.test</span>(</span>
+<span id="cb600-3"><a href="week-13-効果量と検定力分析.html#cb600-3" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>,         <span class="co">#危険率</span></span>
+<span id="cb600-4"><a href="week-13-効果量と検定力分析.html#cb600-4" tabindex="-1"></a>  <span class="at">power =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.2</span>,　        <span class="co">#検定力</span></span>
+<span id="cb600-5"><a href="week-13-効果量と検定力分析.html#cb600-5" tabindex="-1"></a>  <span class="at">d =</span> <span class="fl">0.4</span>,                  <span class="co">#効果量</span></span>
+<span id="cb600-6"><a href="week-13-効果量と検定力分析.html#cb600-6" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;two.sample&quot;</span>,      <span class="co">#独立した2標本のt検定</span></span>
+<span id="cb600-7"><a href="week-13-効果量と検定力分析.html#cb600-7" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span> <span class="co">#両側検定</span></span>
+<span id="cb600-8"><a href="week-13-効果量と検定力分析.html#cb600-8" tabindex="-1"></a>)</span></code></pre></div>
+<ul>
+<li>推定サンプルサイズは n = 99.08であるため、切り上げた値である200名（100名 × 2 ）が必要サンプルとなる</li>
+</ul>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="week-13-効果量と検定力分析.html#cb601-1" tabindex="-1"></a>res</span></code></pre></div>
+<pre><code>## 
+##      Two-sample t test power calculation 
+## 
+##               n = 99.08032
+##               d = 0.4
+##       sig.level = 0.05
+##           power = 0.8
+##     alternative = two.sided
+## 
+## NOTE: n is number in *each* group</code></pre>
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="week-13-効果量と検定力分析.html#cb603-1" tabindex="-1"></a><span class="fu">plot</span>(res)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-389-1.png" width="672" /></p>
+<div class="infobox">
+<p>帰無仮説検定では事前のサンプルサイズ設計が必要と述べましたが、ベイズ統計でも事前のサンプルサイズの目安は必要です（事前登録などや研究費獲得など）。しかしベイズでは新たなデータを追加して分析することは可能ですが、帰無仮説検定ではできません（第一種の過誤の割合が増える）。従って、帰無仮説検定では検定力分析が必須となります。また、分析の前にはデータの削除などを行うことが多いため、ある程度余裕のあるサンプルサイズを確保する必要があります。</p>
+</div>
+</div>
+<div id="対応のある2群の-t-検定" class="section level3 hasAnchor" number="14.4.2">
+<h3><span class="header-section-number">14.4.2</span> 対応のある2群の <em>t</em> 検定<a href="week-13-効果量と検定力分析.html#対応のある2群の-t-検定" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb604-1"><a href="week-13-効果量と検定力分析.html#cb604-1" tabindex="-1"></a>pwr<span class="sc">::</span><span class="fu">pwr.t.test</span>(</span>
+<span id="cb604-2"><a href="week-13-効果量と検定力分析.html#cb604-2" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>,</span>
+<span id="cb604-3"><a href="week-13-効果量と検定力分析.html#cb604-3" tabindex="-1"></a>  <span class="at">power =</span> <span class="fl">0.9</span>,</span>
+<span id="cb604-4"><a href="week-13-効果量と検定力分析.html#cb604-4" tabindex="-1"></a>  <span class="at">d =</span> <span class="fl">0.2</span>,</span>
+<span id="cb604-5"><a href="week-13-効果量と検定力分析.html#cb604-5" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;paired&quot;</span>,</span>
+<span id="cb604-6"><a href="week-13-効果量と検定力分析.html#cb604-6" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span></span>
+<span id="cb604-7"><a href="week-13-効果量と検定力分析.html#cb604-7" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## 
+##      Paired t test power calculation 
+## 
+##               n = 264.6137
+##               d = 0.2
+##       sig.level = 0.05
+##           power = 0.9
+##     alternative = two.sided
+## 
+## NOTE: n is number of *pairs*</code></pre>
+</div>
+<div id="相関係数" class="section level3 hasAnchor" number="14.4.3">
+<h3><span class="header-section-number">14.4.3</span> 相関係数<a href="week-13-効果量と検定力分析.html#相関係数" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb606-1"><a href="week-13-効果量と検定力分析.html#cb606-1" tabindex="-1"></a>pwr<span class="sc">::</span><span class="fu">pwr.r.test</span>(</span>
+<span id="cb606-2"><a href="week-13-効果量と検定力分析.html#cb606-2" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>,</span>
+<span id="cb606-3"><a href="week-13-効果量と検定力分析.html#cb606-3" tabindex="-1"></a>  <span class="at">power =</span> <span class="fl">0.9</span>,</span>
+<span id="cb606-4"><a href="week-13-効果量と検定力分析.html#cb606-4" tabindex="-1"></a>  <span class="at">r =</span> <span class="fl">0.2</span></span>
+<span id="cb606-5"><a href="week-13-効果量と検定力分析.html#cb606-5" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## 
+##      approximate correlation power calculation (arctangh transformation) 
+## 
+##               n = 257.756
+##               r = 0.2
+##       sig.level = 0.05
+##           power = 0.9
+##     alternative = two.sided</code></pre>
+</div>
+<div id="一般線形モデル" class="section level3 hasAnchor" number="14.4.4">
+<h3><span class="header-section-number">14.4.4</span> 一般線形モデル<a href="week-13-効果量と検定力分析.html#一般線形モデル" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><em>F</em> 検定の検出力を推定するための関数（帰無仮説 = どの独立変数も従属変数の分散を説明していない）</li>
+</ul>
+<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb608-1"><a href="week-13-効果量と検定力分析.html#cb608-1" tabindex="-1"></a>res_g <span class="ot">&lt;-</span> pwr<span class="sc">::</span><span class="fu">pwr.f2.test</span>(</span>
+<span id="cb608-2"><a href="week-13-効果量と検定力分析.html#cb608-2" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>, </span>
+<span id="cb608-3"><a href="week-13-効果量と検定力分析.html#cb608-3" tabindex="-1"></a>  <span class="at">power =</span> <span class="fl">0.8</span>,</span>
+<span id="cb608-4"><a href="week-13-効果量と検定力分析.html#cb608-4" tabindex="-1"></a>  <span class="at">u =</span> <span class="dv">2</span>,                     <span class="co">#独立変数の数（切片を除く）</span></span>
+<span id="cb608-5"><a href="week-13-効果量と検定力分析.html#cb608-5" tabindex="-1"></a>  <span class="at">f2 =</span> <span class="fl">0.3</span><span class="sc">/</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.3</span>)         <span class="co">#効果量。30%の分散を説明すると仮定した場合の対応するf2の値</span></span>
+<span id="cb608-6"><a href="week-13-効果量と検定力分析.html#cb608-6" tabindex="-1"></a>  )</span></code></pre></div>
+<ul>
+<li>この関数の出力では、サンプルサイズ n ではなく、残差の自由度 v が返される。</li>
+</ul>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="week-13-効果量と検定力分析.html#cb609-1" tabindex="-1"></a>res_g</span></code></pre></div>
+<pre><code>## 
+##      Multiple regression power calculation 
+## 
+##               u = 2
+##               v = 22.72687
+##              f2 = 0.4285714
+##       sig.level = 0.05
+##           power = 0.8</code></pre>
+<ul>
+<li>サンプルサイズ <em>n</em> は以下のように求める</li>
+</ul>
+<p><span class="math display">\[
+n = v + u + 1
 \]</span></p>
 <ul>
-<li><span class="math inline">\(\bar{x}_1, \bar{x}_2\)</span>：グループ1および2の標本平均<br />
-</li>
-<li><span class="math inline">\(S_1^2, S_2^2\)</span>：グループ1および2の標本分散<br />
-</li>
-<li><span class="math inline">\(n_1, n_2\)</span>：グループ1および2のサンプルサイズ</li>
-</ul>
-</div>
-<div id="対応なし-t-検定サンプルサイズが異なる" class="section level4 hasAnchor" number="5.6.4.2">
-<h4><span class="header-section-number">5.6.4.2</span> 対応なし <em>t</em> 検定（サンプルサイズが異なる）<a href="week-4-統計的検定.html#対応なし-t-検定サンプルサイズが異なる" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p><span class="math display">\[
-s_p^2 = \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2}
-\]</span></p>
-<p><span class="math display">\[
-t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{s_p^2}{n_1} + \frac{s_p^2}{n_2}}}
-\]</span></p>
+<li><p>よって、23（22.72） + 2 + 1で26名の参加者が最低でも必要である</p></li>
+<li><p>上記の人数をもとに検定力を求めることができる</p>
 <ul>
-<li><span class="math inline">\(s_p^2\)</span>：プールされた（まとめた）分散の推定値<br />
-</li>
-<li><span class="math inline">\(s_1^2, s_2^2\)</span>：グループ1および2の標本分散<br />
-</li>
-<li><span class="math inline">\(n_1, n_2\)</span>：グループ1および2のサンプルサイズ<br />
-</li>
-<li><span class="math inline">\(\bar{x}_1, \bar{x}_2\)</span>：グループ1および2の標本平均</li>
-</ul>
-</div>
-<div id="対応あり-t-検定" class="section level4 hasAnchor" number="5.6.4.3">
-<h4><span class="header-section-number">5.6.4.3</span> 対応あり <em>t</em> 検定<a href="week-4-統計的検定.html#対応あり-t-検定" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p><span class="math display">\[
-t = \frac{\bar{x}_1 - \bar{x}_2}{S_D / \sqrt{n}} \hspace{3pc} (df = n - 1)
-\]</span></p>
-<ul>
-<li><span class="math inline">\(\bar{x}_1 - \bar{x}_2\)</span>：ペアごとの差の平均<br />
-</li>
-<li><span class="math inline">\(S_D\)</span>：差分の標準偏差（差のばらつき）<br />
-</li>
-<li><span class="math inline">\(n\)</span>：ペアの数（例：被験者数）</li>
-</ul>
-</div>
-</div>
-<div id="rでの実装" class="section level3 hasAnchor" number="5.6.5">
-<h3><span class="header-section-number">5.6.5</span> Rでの実装<a href="week-4-統計的検定.html#rでの実装" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="対応なし-t-検定" class="section level4 hasAnchor" number="5.6.5.1">
-<h4><span class="header-section-number">5.6.5.1</span> 対応なし <em>t</em> 検定<a href="week-4-統計的検定.html#対応なし-t-検定" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<ul>
-<li>データの読み込み</li>
-</ul>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="week-4-統計的検定.html#cb138-1" tabindex="-1"></a>dat_t_ind <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/ttest_inde.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="week-4-統計的検定.html#cb139-1" tabindex="-1"></a><span class="fu">head</span>(dat_t_ind)</span></code></pre></div>
-<pre><code>##   ID Class English
-## 1  1     A      85
-## 2  2     A      78
-## 3  3     A      90
-## 4  4     A      82
-## 5  5     A      88
-## 6  6     A      84</code></pre>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="week-4-統計的検定.html#cb141-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">table</span>(dat_t_ind<span class="sc">$</span>ID))</span></code></pre></div>
-<pre><code>## [1] 80</code></pre>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="week-4-統計的検定.html#cb143-1" tabindex="-1"></a><span class="fu">boxplot</span>(English <span class="sc">~</span> Class, <span class="at">data =</span> dat_t_ind)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="week-4-統計的検定.html#cb144-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb144-2"><a href="week-4-統計的検定.html#cb144-2" tabindex="-1"></a><span class="fu">describeBy</span>(dat_t_ind<span class="sc">$</span>English, <span class="at">group =</span> dat_t_ind<span class="sc">$</span>Class)</span></code></pre></div>
-<pre><code>## 
-##  Descriptive statistics by group 
-## group: A
-##    vars  n  mean  sd median trimmed  mad min max range skew kurtosis   se
-## X1    1 40 83.03 4.3     83      83 5.93  76  90    14 0.01    -1.25 0.68
-## ------------------------------------------------------------ 
-## group: B
-##    vars  n  mean   sd median trimmed  mad min max range skew kurtosis   se
-## X1    1 40 60.48 5.73     60   60.44 7.41  50  70    20 0.05    -1.25 0.91</code></pre>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="week-4-統計的検定.html#cb146-1" tabindex="-1"></a><span class="fu">t.test</span>(English <span class="sc">~</span> Class, <span class="at">data =</span> dat_t_ind)</span></code></pre></div>
-<pre><code>## 
-##  Welch Two Sample t-test
-## 
-## data:  English by Class
-## t = 19.911, df = 72.353, p-value &lt; 0.00000000000000022
-## alternative hypothesis: true difference in means between group A and group B is not equal to 0
-## 95 percent confidence interval:
-##  20.2925 24.8075
-## sample estimates:
-## mean in group A mean in group B 
-##          83.025          60.475</code></pre>
-<ul>
-<li><p><strong>論文記載例</strong></p></li>
-<li><p>* 本来であれば、効果量も報告する必要があるが、今回は省略している。</p>
-<ul>
-<li>異なる指導法を実施したクラス A とクラス B の英語テストの平均点は、83.03 (<em>SD</em> = 4.3)と 60.48 (<em>SD</em> = 5.73 でクラス A の平均の方が高かった。 <em>t</em> 検定を使って比較した結果、<em>t</em>(72.353) = 19.911, <em>p</em> &lt; .001、 <em>d</em> = xxx [95%CI = xxx, xxx] で、クラスAのほうが統計的有意に英語テストの成績が高いことがわかった。</li>
+<li>26名だと検定力が80%を超えている</li>
 </ul></li>
 </ul>
-<div class="infobox">
-<p><em>p</em> 値は原則実数値報告である（ <em>p</em> = .046）。しかし、値が0.01よりも小さい場合は、<em>p</em> &lt; .001のように報告する。</p>
-</div>
-</div>
-<div id="対応あり" class="section level4 hasAnchor" number="5.6.5.2">
-<h4><span class="header-section-number">5.6.5.2</span> 対応あり<a href="week-4-統計的検定.html#対応あり" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<ul>
-<li>データの読み込み</li>
-</ul>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="week-4-統計的検定.html#cb148-1" tabindex="-1"></a>dat_t_rep <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../stat_class_2025/sample_data/ttest_rep.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="week-4-統計的検定.html#cb149-1" tabindex="-1"></a><span class="fu">head</span>(dat_t_rep)</span></code></pre></div>
-<pre><code>##   ID English Math
-## 1  1      85   78
-## 2  2      88   82
-## 3  3      90   85
-## 4  4      92   89
-## 5  5      87   83
-## 6  6      91   86</code></pre>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="week-4-統計的検定.html#cb151-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">table</span>(dat_t_rep<span class="sc">$</span>ID))</span></code></pre></div>
-<pre><code>## [1] 40</code></pre>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="week-4-統計的検定.html#cb153-1" tabindex="-1"></a><span class="fu">boxplot</span>(dat_t_rep<span class="sc">$</span>English, dat_t_rep<span class="sc">$</span>Math, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">&quot;English&quot;</span>, <span class="st">&quot;Math&quot;</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="week-4-統計的検定.html#cb154-1" tabindex="-1"></a><span class="fu">describe</span>(dat_t_rep<span class="sc">$</span>English)</span></code></pre></div>
-<pre><code>##    vars  n  mean   sd median trimmed   mad min max range skew kurtosis   se
-## X1    1 40 82.22 8.65     82   82.16 11.86  70  96    26 0.04    -1.67 1.37</code></pre>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="week-4-統計的検定.html#cb156-1" tabindex="-1"></a><span class="fu">describe</span>(dat_t_rep<span class="sc">$</span>Math)</span></code></pre></div>
-<pre><code>##    vars  n  mean    sd median trimmed   mad min max range skew kurtosis   se
-## X1    1 40 75.85 10.02   75.5   75.56 13.34  61  94    33 0.15    -1.47 1.59</code></pre>
-<ul>
-<li><code>paired = T</code>を設定する</li>
-</ul>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="week-4-統計的検定.html#cb158-1" tabindex="-1"></a><span class="fu">t.test</span>(dat_t_rep<span class="sc">$</span>English, dat_t_rep<span class="sc">$</span>Math,</span>
-<span id="cb158-2"><a href="week-4-統計的検定.html#cb158-2" tabindex="-1"></a>      <span class="at">paired =</span> T</span>
-<span id="cb158-3"><a href="week-4-統計的検定.html#cb158-3" tabindex="-1"></a>       )</span></code></pre></div>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="week-13-効果量と検定力分析.html#cb611-1" tabindex="-1"></a>pwr<span class="sc">::</span><span class="fu">pwr.f2.test</span>(</span>
+<span id="cb611-2"><a href="week-13-効果量と検定力分析.html#cb611-2" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>, </span>
+<span id="cb611-3"><a href="week-13-効果量と検定力分析.html#cb611-3" tabindex="-1"></a>  <span class="at">power =</span> <span class="cn">NULL</span>,              <span class="co">#検定力を推定</span></span>
+<span id="cb611-4"><a href="week-13-効果量と検定力分析.html#cb611-4" tabindex="-1"></a>  <span class="at">u =</span> <span class="dv">2</span>,                     <span class="co">#独立変数の数（切片を除く）</span></span>
+<span id="cb611-5"><a href="week-13-効果量と検定力分析.html#cb611-5" tabindex="-1"></a>  <span class="at">f2 =</span> <span class="fl">0.3</span><span class="sc">/</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.3</span>),        <span class="co">#効果量。45%の分散を説明すると仮定する</span></span>
+<span id="cb611-6"><a href="week-13-効果量と検定力分析.html#cb611-6" tabindex="-1"></a>  <span class="at">v =</span> <span class="dv">26</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">-</span> <span class="dv">1</span>             <span class="co">#残差の自由度</span></span>
+<span id="cb611-7"><a href="week-13-効果量と検定力分析.html#cb611-7" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## 
-##  Paired t-test
+##      Multiple regression power calculation 
 ## 
-## data:  dat_t_rep$English and dat_t_rep$Math
-## t = 21.641, df = 39, p-value &lt; 0.00000000000000022
-## alternative hypothesis: true mean difference is not equal to 0
-## 95 percent confidence interval:
-##  5.779151 6.970849
-## sample estimates:
-## mean difference 
-##           6.375</code></pre>
+##               u = 2
+##               v = 23
+##              f2 = 0.4285714
+##       sig.level = 0.05
+##           power = 0.8050867</code></pre>
+</div>
+<div id="線形混合モデル階層モデル" class="section level3 hasAnchor" number="14.4.5">
+<h3><span class="header-section-number">14.4.5</span> 線形混合モデル（階層モデル）<a href="week-13-効果量と検定力分析.html#線形混合モデル階層モデル" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li><p><strong>論文記載例</strong></p></li>
-<li><p>* 本来であれば、効果量も報告する必要があるが、今回は省略している。</p>
+<li><p>シミュレーションベースのものなど複数存在するが、比較的簡易にできるものを紹介する。</p></li>
+<li><p>級内相関係数やクラスターの数などを指定する必要がある</p>
 <ul>
-<li>Aクラスの40名の学生を対象に、英語と数学のテストの得点を比較した。英語の平均点は、82.22 (<em>SD</em> = 8.65)と 75.85 (<em>SD</em> = 10.02)で英語の平均の方が高かった。対応ありの <em>t</em> 検定を使って比較した結果、<em>t</em>(39) = 21.641, <em>p</em> &lt; .001、 <em>d</em> = xxx [95%CI = xxx, xxx] で、英語のほうが統計的有意に得点が高いことがわかった。</li>
+<li>級内相関係数：同じクラスタ（集団、グループ、クラスなど）内の観測値がどの程度似ているかを示す指標。集団間の分散 ÷ （集団間の分散 + 集団内の分散）。</li>
 </ul></li>
 </ul>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="week-13-効果量と検定力分析.html#cb613-1" tabindex="-1"></a><span class="co">#install.packages(&quot;sjstats&quot;)</span></span>
+<span id="cb613-2"><a href="week-13-効果量と検定力分析.html#cb613-2" tabindex="-1"></a><span class="fu">library</span>(sjstats)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;sjstats&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:performance&#39;:
+## 
+##     icc, r2</code></pre>
+<pre><code>## The following object is masked from &#39;package:rstanarm&#39;:
+## 
+##     se</code></pre>
+<pre><code>## The following object is masked from &#39;package:gmodels&#39;:
+## 
+##     ci</code></pre>
+<pre><code>## The following object is masked from &#39;package:psych&#39;:
+## 
+##     phi</code></pre>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="week-13-効果量と検定力分析.html#cb619-1" tabindex="-1"></a>nofitem <span class="ot">&lt;-</span> <span class="dv">10</span>         <span class="co">#項目数</span></span>
+<span id="cb619-2"><a href="week-13-効果量と検定力分析.html#cb619-2" tabindex="-1"></a></span>
+<span id="cb619-3"><a href="week-13-効果量と検定力分析.html#cb619-3" tabindex="-1"></a>power.sjstats <span class="ot">&lt;-</span> <span class="fu">samplesize_mixed</span>(</span>
+<span id="cb619-4"><a href="week-13-効果量と検定力分析.html#cb619-4" tabindex="-1"></a>  <span class="at">eff.size =</span> <span class="fl">0.02</span>,    <span class="co">#効果量 (f2)</span></span>
+<span id="cb619-5"><a href="week-13-効果量と検定力分析.html#cb619-5" tabindex="-1"></a>  <span class="at">df.n =</span> <span class="dv">2</span>,           <span class="co">#独立変数の数（切片は除く）</span></span>
+<span id="cb619-6"><a href="week-13-効果量と検定力分析.html#cb619-6" tabindex="-1"></a>  <span class="at">icc =</span> <span class="fl">0.1</span>,          <span class="co">#クラスタ内相関 (ICC)</span></span>
+<span id="cb619-7"><a href="week-13-効果量と検定力分析.html#cb619-7" tabindex="-1"></a>  <span class="at">power =</span> <span class="fl">0.8</span>,        <span class="co">#検定力</span></span>
+<span id="cb619-8"><a href="week-13-効果量と検定力分析.html#cb619-8" tabindex="-1"></a>  <span class="at">sig.level =</span> <span class="fl">0.05</span>,   <span class="co">#有意水準</span></span>
+<span id="cb619-9"><a href="week-13-効果量と検定力分析.html#cb619-9" tabindex="-1"></a>  <span class="at">k =</span> <span class="cn">NULL</span>,           <span class="co">#参加者の数を推定するためこちらは指定しない</span></span>
+<span id="cb619-10"><a href="week-13-効果量と検定力分析.html#cb619-10" tabindex="-1"></a>  <span class="at">n =</span> nofitem         <span class="co">#クラスターごとにいくつのデータがあるか（項目数など）</span></span>
+<span id="cb619-11"><a href="week-13-効果量と検定力分析.html#cb619-11" tabindex="-1"></a>)</span>
+<span id="cb619-12"><a href="week-13-効果量と検定力分析.html#cb619-12" tabindex="-1"></a></span>
+<span id="cb619-13"><a href="week-13-効果量と検定力分析.html#cb619-13" tabindex="-1"></a>power.sjstats</span></code></pre></div>
+<pre><code>## $`Subjects per Cluster`
+## numeric(0)
+## 
+## $`Total Sample Size`
+## [1] 921</code></pre>
+<ul>
+<li>総サンプルサイズが計算されるため、項目数で割る</li>
+</ul>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="week-13-効果量と検定力分析.html#cb621-1" tabindex="-1"></a>power.sjstats<span class="sc">$</span><span class="st">`</span><span class="at">Total Sample Size</span><span class="st">`</span> <span class="sc">/</span> nofitem</span></code></pre></div>
+<pre><code>## [1] 92.1</code></pre>
+<ul>
+<li><p>級内相関係数の値で推定されるサンプル数は変わる</p></li>
+<li><p>一般的にICCの値が大きいほど、必要サンプル数は減るが、このパッケージでは逆になっている</p>
+<ul>
+<li>恐らくこのパッケージでは、ICCが低い＝クラスタ内のばらつきが大きい → クラスタ（例：参加者）間の差異が小さいため、効果を検出しづらいとされ、よりサンプルが必要であるように設計されているから？</li>
+</ul></li>
+<li><p>従って、あまり高すぎるICCを指定しない方が良い</p></li>
+</ul>
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Effect Size
+</th>
+<th style="text-align:center;">
+ICC
+</th>
+<th style="text-align:center;">
+Required Sample Size
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+0.02
+</td>
+<td style="text-align:center;">
+0.500
+</td>
+<td style="text-align:center;">
+267
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+0.02
+</td>
+<td style="text-align:center;">
+0.275
+</td>
+<td style="text-align:center;">
+169
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+0.02
+</td>
+<td style="text-align:center;">
+0.050
+</td>
+<td style="text-align:center;">
+71
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+0.15
+</td>
+<td style="text-align:center;">
+0.500
+</td>
+<td style="text-align:center;">
+37
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+0.15
+</td>
+<td style="text-align:center;">
+0.275
+</td>
+<td style="text-align:center;">
+24
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+0.15
+</td>
+<td style="text-align:center;">
+0.050
+</td>
+<td style="text-align:center;">
+10
+</td>
+</tr>
+</tbody>
+</table>
+<p><img src="_main_files/figure-html/unnamed-chunk-399-1.png" width="672" /></p>
 </div>
 </div>
-</div>
-<div id="次週までの課題-3" class="section level2 hasAnchor" number="5.7">
-<h2><span class="header-section-number">5.7</span> 次週までの課題<a href="week-4-統計的検定.html#次週までの課題-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="課題内容-3" class="section level3 hasAnchor" number="5.7.1">
-<h3><span class="header-section-number">5.7.1</span> 課題内容<a href="week-4-統計的検定.html#課題内容-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="次週までの課題-12" class="section level2 hasAnchor" number="14.5">
+<h2><span class="header-section-number">14.5</span> 次週までの課題<a href="week-13-効果量と検定力分析.html#次週までの課題-12" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="課題内容-11" class="section level3 hasAnchor" number="14.5.1">
+<h3><span class="header-section-number">14.5.1</span> 課題内容<a href="week-13-効果量と検定力分析.html#課題内容-11" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
 <li><p>小テストに向けて今回の内容を復習する。必ず手でコードを入力してRを実行する。</p></li>
-<li><p>配布されたデータセット（<code>pokemon_data_ttest.csv</code>）をもとに、任意のデータに対して<em>t</em> 検定を行い、その解釈を本講義内で確認した書き方報告する。また、データの中身の確認や記述統計、データの可視化なども含めること。</p></li>
+<li><p>以下の研究を行いたいと考えています。この研究の検定力分析を行い、必要サンプル数を算出してください。得られた結果をRのコードなど併記してHTMLファイルにまとめてください。</p></li>
 </ol>
-</div>
-<div id="提出方法-2" class="section level3 hasAnchor" number="5.7.2">
-<h3><span class="header-section-number">5.7.2</span> 提出方法<a href="week-4-統計的検定.html#提出方法-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div style="border: 2px solid skyblue; padding: 10px;">
+<p>100名の高校生から出生時の体重と現在の摂取カロリーのデータを集め、出生時の体重で18歳時点での摂取カロリーの量を推定できるのか検証したい。以下の効果量と検定力、そして危険率を満たすにはどれくらいの学校からデータを取ればいいのだろう。</p>
 <ul>
-<li>TACT上で提出。</li>
-<li>締め切りは今週の木曜日まで</li>
+<li><p>効果量: 0.03</p></li>
+<li><p>検定力：90%</p></li>
+<li><p>危険率：5%</p></li>
 </ul>
 </div>
 </div>
-<div id="参考文献-3" class="section level2 hasAnchor" number="5.8">
-<h2><span class="header-section-number">5.8</span> 参考文献<a href="week-4-統計的検定.html#参考文献-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="提出方法-10" class="section level3 hasAnchor" number="14.5.2">
+<h3><span class="header-section-number">14.5.2</span> 提出方法<a href="week-13-効果量と検定力分析.html#提出方法-10" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>📚清水（編著）（2021）『心理学統計法 (放送大学教材 1638)』放送大学教育振興会</li>
-<li>📚中村（2025）『心理学・教育学研究のための効果量入門―Rを用いた実践的理解』北大路書房</li>
-<li>📚南風原（2002）『心理統計学の基礎―統合的理解のために』有斐閣アルマ</li>
-<li>📚日本統計学会（2020）『日本統計学会公式認定　統計検定準１級対応　統計学実践ワークブック』学術図書出版社</li>
-<li>📚平井・岡・草薙（編著）（2022） 『教育・心理系研究のためのＲによるデータ分析―論文作成への理論と実践集』東京図書</li>
-<li>📄Rasch, D., Kubinger, K. D., &amp; Moder, K. (2011). The two-sample t test: pre-testing its assumptions does not pay off. <em>Statistical papers, 52</em>, 219-231.</li>
-<li>💻<a href="https://norimune.net/3339">「研究仮説が正しい確率」について</a></li>
-<li>💻<a href="https://www.isc.meiji.ac.jp/~hirukawa/randomevent/test1.htm">統計的仮説検定の考えかた</a></li>
-<li>💻<a href="https://www.note.kanekoshobo.co.jp/n/nf836d37b7f10#61a8e679-85a4-411c-96dd-5a1a37335572">ベイズ統計学と再現性の危機（テンプル大学統計科学部助教授：マクリン謙一郎）</a></li>
-<li>💻<a href="https://statmodeling.stat.columbia.edu/2024/01/08/bayesians-are-frequentists-2/">Bayesians are frequentists.</a></li>
+<li>R Markdownファイルで作成し、HTMLファイルに変換しTACTへ提出</li>
+<li>締め切りは今週の木曜日23:59まで</li>
+</ul>
+</div>
+</div>
+<div id="参考文献-12" class="section level2 hasAnchor" number="14.6">
+<h2><span class="header-section-number">14.6</span> 参考文献<a href="week-13-効果量と検定力分析.html#参考文献-12" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>📚清水（2014）『個人と集団のマルチレベル分析』株式会社ナカニシヤ出版</p></li>
+<li><p>📚竹内・水本（編著）（2023）『外国語教育研究ハンドブック【増補版】―研究手法のより良い理解のために』松柏社</p></li>
+<li><p>📚中村（2025）『心理学・教育学研究のための効果量入門―Rを用いた実践的理解』北大路書房</p></li>
+<li><p>📚南風原（2002）『心理統計学の基礎―統合的理解のために』有斐閣アルマ</p></li>
+<li><p>📄<a href="https://www.mizumot.com/method/mizumoto-takeuchi.pdf">水本・ 竹内 (2010). 「効果量と検定力分析入門―統計的検定を正しく使うために―」 『メソドロジー研究部会報告論集』 47-73.</a></p></li>
+<li><p>📄<a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/lang.12079">Plonsky, L., &amp; Oswald, F. L. (2014). How big is “big”? Interpreting effect sizes in L2 research. <em>Language Learning, 64</em>(4), 878-912.</a></p></li>
 </ul>
 <style>
 .infobox {
@@ -948,8 +808,8 @@ t = \frac{\bar{x}_1 - \bar{x}_2}{S_D / \sqrt{n}} \hspace{3pc} (df = n - 1)
           </div>
         </div>
       </div>
-<a href="week-3推測統計学.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="week5-相関分析.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="week12-階層モデル.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="week-14-ノンパラメトリック検定.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -980,7 +840,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/04-week4.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/13-Week13_Eff_pow.Rmd",
 "text": "Edit"
 },
 "history": {
