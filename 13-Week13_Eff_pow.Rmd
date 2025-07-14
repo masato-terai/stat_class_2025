@@ -25,7 +25,7 @@ library(tidyverse)
   
   - *p* 値は実質的な差の大小は教えてくれない
   
-- *p* 値のみではなく、効果量の両方を報告する
+- *p* 値のみではなく、効果量も報告する
 
 ### 効果量とは
 
@@ -43,7 +43,7 @@ library(tidyverse)
 
 - 標準化とは、単位に依存しない値にする
 
-  - 例えば、 Cohenの *d* は以下のように、二群の平均値さを標準偏差（ *σ* ）で割ることで標準化している
+  - 例えば、 Cohenの *d* は以下のように、二群の平均値差を標準偏差（ *σ* ）で割ることで標準化している
   
 $$
 d = \frac{u_1 - u_2}{σ}
@@ -78,7 +78,7 @@ knitr::include_graphics("stat_class_2025/docs/picture/eff_size.png")
 
   - 検定力分析には効果量が必要となり、その場合、最小関心効果量を決定する。最小である理由は、効果量を大きく設定するほど、必要サンプル数が減るため、謙虚な値で推定するため。
   
-    - 先行研究などで最小関心効果量を設定する必要がある
+    - 先行研究などこれまでの知見などをもとに最小関心効果量を設定する必要がある
 
 ## 検定力分析
 <div style="border: 2px solid skyblue; padding: 10px;">
@@ -87,7 +87,7 @@ knitr::include_graphics("stat_class_2025/docs/picture/eff_size.png")
 
 - 統計的帰無仮説検定では、第一種の過誤、第二種の過誤、サンプルサイズ、そして効果量によってその結果が決まる。つまり、4つのうち3つが決まれば、残りの一つは自動的に決まる。この関係性を利用し、サンプルサイズを推定する。
 
-- 検定力とは、1 - 第二種の過誤で求められ、慣習的に0.8に設定されることが多い
+- 検定力とは、1 - 第二種の過誤（ *β* ）で求められ、慣習的に0.8に設定されることが多い
 
 ### 独立した2群の *t* 検定の例
 
@@ -124,23 +124,36 @@ plot(res)
 ### 対応のある2群の *t* 検定
 
 ```{r}
-pwr::pwr.t.test(
+res.paired <- pwr::pwr.t.test(
   sig.level = 0.05,
-  power = 0.9,
-  d = 0.2,
+  power = 1 - 0.2,
+  d = 0.4,
   type = "paired",
   alternative = "two.sided"
 )
+
+res.paired
 ```
+
+```{r}
+plot(res.paired)
+```
+
 
 ### 相関係数
 
 ```{r}
-pwr::pwr.r.test(
+res.cor <- pwr::pwr.r.test(
   sig.level = 0.05,
-  power = 0.9,
+  power = 1 - 0.2,
   r = 0.2
 )
+
+res.cor
+```
+
+```{r}
+plot(res.cor)
 ```
 
 
@@ -193,10 +206,13 @@ pwr::pwr.f2.test(
 
   - 級内相関係数：同じクラスタ（集団、グループ、クラスなど）内の観測値がどの程度似ているかを示す指標。集団間の分散 ÷ （集団間の分散 + 集団内の分散）。
 
-```{r}
+```{r, message=FALSE}
 #install.packages("sjstats")
 library(sjstats)
+```
 
+
+```{r}
 nofitem <- 10         #項目数
 
 power.sjstats <- samplesize_mixed(
@@ -272,6 +288,18 @@ results %>%
   ylab("Required Minimum Sample Size") +
   ggtitle("Target Power is 80 %")
 ```
+
+
+## 検定力分析の報告の例
+
+- 言語研究では、基本的に、本研究の参加者セクションに記載する
+
+
+<div style="border: 2px solid skyblue; padding: 10px;">
+**階層モデルの例**
+
+- 参加者数は、*sjstats* パッケージ（バージョン 0.18.1）の *samplesize_mixed* 関数（Lüdecke, 2021）を用いた検定力分析に基づいて決定した。効果量（ *f²* ）は 0.2、有意水準は 0.05、級内相関係数は 0.1、検出力（power）は 80％に設定した。分子の自由度は 2 であった。推定の結果、921 サンプルが必要であり、1 参加者あたりの項目数が 10 のため、93 人以上の参加者が必要と推定された。
+</div>
 
 
 ## 次週までの課題
