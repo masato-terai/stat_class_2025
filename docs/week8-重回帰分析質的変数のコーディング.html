@@ -350,12 +350,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.16" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#r-markdownでまとめた結果を共有することができる"><i class="fa fa-check"></i><b>16.16</b> 2. R Markdownでまとめた結果を共有することができる</a></li>
 <li class="chapter" data-level="16.17" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#html形式だと簡単にウェブサイトにできます"><i class="fa fa-check"></i><b>16.17</b> HTML形式だと、簡単にウェブサイトにできます</a></li>
 <li class="chapter" data-level="16.18" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#様々なパソコンで同じ分析環境を再現することができる"><i class="fa fa-check"></i><b>16.18</b> 3. 様々なパソコンで同じ分析環境を再現することができる</a></li>
-<li class="chapter" data-level="16.19" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#r自体のバージョン管理も可能です"><i class="fa fa-check"></i><b>16.19</b> R自体のバージョン管理も可能です</a></li>
+<li class="chapter" data-level="16.19" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#rのバージョン管理"><i class="fa fa-check"></i><b>16.19</b> Rのバージョン管理</a></li>
 <li class="chapter" data-level="16.20" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#再現性をさらに高める工夫"><i class="fa fa-check"></i><b>16.20</b> 再現性をさらに高める工夫</a></li>
 <li class="chapter" data-level="16.21" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#関数の呼び出し方"><i class="fa fa-check"></i><b>16.21</b> 関数の呼び出し方</a></li>
 <li class="chapter" data-level="16.22" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#まとめ-1"><i class="fa fa-check"></i><b>16.22</b> まとめ</a></li>
 <li class="chapter" data-level="16.23" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#次週までの課題-14"><i class="fa fa-check"></i><b>16.23</b> 次週までの課題</a></li>
-<li class="chapter" data-level="16.24" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#期末課題レポート"><i class="fa fa-check"></i><b>16.24</b> 期末課題レポート</a></li>
+<li class="chapter" data-level="16.24" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#期末課題レポートについて"><i class="fa fa-check"></i><b>16.24</b> 期末課題レポートについて</a></li>
 <li class="chapter" data-level="16.25" data-path="week-15言語研究とオープンサイエンス.html"><a href="week-15言語研究とオープンサイエンス.html#参考文献-資料"><i class="fa fa-check"></i><b>16.25</b> 参考文献 &amp; 資料</a></li>
 </ul></li>
 <li class="divider"></li>
@@ -929,13 +929,11 @@ R<sup>2</sup> / R<sup>2</sup> adjusted
 <pre><code>## New names:
 ## Rows: 46 Columns: 17
 ## ── Column specification
-## ───────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot; chr (3): 名前, タイプ1, 画像URL dbl (14): ...1, id, 高さ, 重さ,
-## 世代, ステータス, HP, こうげき, ぼうぎょ, とくこう, とくぼう, すばやさ,
-## 捕まえ...
-## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
-## Specify the column types or set `show_col_types = FALSE` to quiet this
-## message.
+## ──────────────────────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot; chr (3): 名前, タイプ1, 画像URL dbl (14): ...1, id, 高さ, 重さ, 世代, ステータス,
+## HP, こうげき, ぼうぎょ, とくこう, とくぼう, すばやさ, 捕まえ...
+## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ Specify the column
+## types or set `show_col_types = FALSE` to quiet this message.
 ## • `` -&gt; `...1`</code></pre>
 <div id="データの概要" class="section level3 hasAnchor" number="9.7.1">
 <h3><span class="header-section-number">9.7.1</span> データの概要<a href="week8-重回帰分析質的変数のコーディング.html#データの概要" class="anchor-section" aria-label="Anchor link to header"></a></h3>
